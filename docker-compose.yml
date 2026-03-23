@@ -1,0 +1,31 @@
+services:
+  ui-dev:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+      target: dev
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - WATCHPACK_POLLING=true
+    volumes:
+      - ./ui/src:/app/src
+      - ./ui/public:/app/public
+      - /app/node_modules
+      - /app/.next
+    profiles:
+      - dev
+
+  ui-prod:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+      target: runner
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    profiles:
+      - prod
