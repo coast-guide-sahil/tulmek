@@ -14,7 +14,7 @@
 
 ## Stack
 - Next.js 16.2.1 + Tailwind CSS v4 + TypeScript
-- Better Auth 1.5.5 (email/password, rate limited)
+- Better Auth 1.5.6 (email/password, rate limited)
 - Drizzle ORM 0.45.1 + Turso (SQLite cloud)
 - Vercel (production deploy, auto-deploy from GitHub main)
 

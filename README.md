@@ -83,7 +83,7 @@ npm run db:studio    # open Drizzle Studio GUI
 ## Security
 
 - Rate limiting on auth endpoints (brute force protection)
-- Security headers: HSTS, X-Frame-Options, CSP, etc.
+- Security headers: HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy
 - Non-root Docker user in production
 - Secrets never committed (`.env*` gitignored)
 

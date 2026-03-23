@@ -3,7 +3,7 @@
 ## Project-Specific Context
 
 ### Stack
-- Better Auth 1.5.5+ with Drizzle adapter (SQLite/Turso)
+- Better Auth 1.5.6+ with Drizzle adapter (SQLite/Turso)
 - Rate limiting enabled on auth endpoints
 - Standalone output for Docker production builds
 
