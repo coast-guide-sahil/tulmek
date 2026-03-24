@@ -70,6 +70,11 @@ export default function SignUpPage() {
     });
 
     if (signUpError) {
+      // 403 = email verification required (user created, OTP sent)
+      if (signUpError.status === 403) {
+        router.push(`/verify-email?email=${encodeURIComponent(email)}`);
+        return;
+      }
       setError(signUpError.message ?? ERROR_MESSAGES.SIGN_UP_FAILED);
       setLoading(false);
       setTimeout(() => errorRef.current?.focus(), 100);
