@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/coast-guide-sahil/interview-prep/compare/web-v0.1.2...web-v0.2.0) (2026-03-24)
+
+
+### Features
+
+* add db:promote-admin CLI for bootstrapping admin users ([#20](https://github.com/coast-guide-sahil/interview-prep/issues/20)) ([f4931e4](https://github.com/coast-guide-sahil/interview-prep/commit/f4931e49badac8e09aba683c98340cbfefe4cc18))
+
 ## [0.1.2](https://github.com/coast-guide-sahil/interview-prep/compare/web-v0.1.1...web-v0.1.2) (2026-03-24)
 
 
