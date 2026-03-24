@@ -8,7 +8,8 @@ export function proxy(request: NextRequest) {
     if (
       pathname.startsWith("/admin") ||
       pathname === "/sign-in" ||
-      pathname === "/sign-up"
+      pathname === "/sign-up" ||
+      pathname === "/verify-email"
     ) {
       return NextResponse.redirect(new URL("/", request.url));
     }
@@ -28,5 +29,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/sign-in", "/sign-up"],
+  matcher: ["/admin/:path*", "/sign-in", "/sign-up", "/verify-email"],
 };

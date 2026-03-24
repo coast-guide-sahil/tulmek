@@ -1,13 +1,14 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
-import { admin as adminPlugin } from "better-auth/plugins";
+import { admin as adminPlugin, emailOTP } from "better-auth/plugins";
 import { APIError } from "better-auth/api";
 import { count } from "drizzle-orm";
 import MailChecker from "mailchecker";
 import { ROLES, RATE_LIMIT, ERROR_MESSAGES } from "@interview-prep/config/constants";
 import { db } from "../database/drizzle/client";
 import * as schema from "../database/drizzle/schema";
+import { sendOTPEmail } from "../email/resend";
 
 const parsedMaxUsers = parseInt(process.env.MAX_USERS ?? "100", 10);
 const MAX_USERS =
@@ -15,9 +16,15 @@ const MAX_USERS =
     ? parsedMaxUsers
     : 100;
 
+const requireEmailVerification =
+  process.env.REQUIRE_EMAIL_VERIFICATION === "true";
+
 export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "sqlite", schema }),
-  emailAndPassword: { enabled: true },
+  emailAndPassword: {
+    enabled: true,
+    requireEmailVerification,
+  },
   rateLimit: {
     enabled: true,
     window: RATE_LIMIT.GLOBAL_WINDOW,
@@ -64,6 +71,21 @@ export const auth = betterAuth({
     adminPlugin({
       defaultRole: ROLES.USER,
     }),
+    ...(requireEmailVerification
+      ? [
+          emailOTP({
+            otpLength: 6,
+            expiresIn: 300,
+            sendVerificationOnSignUp: true,
+            overrideDefaultEmailVerification: true,
+            async sendVerificationOTP({ email, otp, type }) {
+              if (type === "email-verification") {
+                await sendOTPEmail(email, otp);
+              }
+            },
+          }),
+        ]
+      : []),
     nextCookies(), // MUST be last
   ],
 });

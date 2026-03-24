@@ -30,6 +30,11 @@ export default function SignInPage() {
     });
 
     if (signInError) {
+      // 403 = email not verified — redirect to verify page
+      if (signInError.status === 403) {
+        router.push(`/verify-email?email=${encodeURIComponent(email)}`);
+        return;
+      }
       setError(signInError.message ?? ERROR_MESSAGES.SIGN_IN_FAILED);
       setLoading(false);
       setTimeout(() => errorRef.current?.focus(), 100);
