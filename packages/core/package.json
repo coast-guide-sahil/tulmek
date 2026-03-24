@@ -1,0 +1,16 @@
+{
+  "name": "@interview-prep/core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./domain": "./src/domain/index.ts",
+    "./ports": "./src/ports/index.ts",
+    "./use-cases": "./src/use-cases/index.ts",
+    "./result": "./src/result.ts"
+  },
+  "devDependencies": {
+    "@interview-prep/typescript-config": "workspace:*",
+    "typescript": "^5"
+  }
+}

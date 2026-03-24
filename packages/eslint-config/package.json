@@ -1,0 +1,16 @@
+{
+  "name": "@interview-prep/eslint-config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./base": "./base.js",
+    "./nextjs": "./nextjs.js"
+  },
+  "dependencies": {
+    "eslint-config-next": "16.2.1"
+  },
+  "peerDependencies": {
+    "eslint": "^9"
+  }
+}
