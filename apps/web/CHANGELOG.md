@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/coast-guide-sahil/interview-prep/compare/web-v0.1.1...web-v0.1.2) (2026-03-24)
+
+
+### Bug Fixes
+
+* downgrade eslint to v9 for eslint-config-next 16.2.1 compatibility ([#18](https://github.com/coast-guide-sahil/interview-prep/issues/18)) ([8976539](https://github.com/coast-guide-sahil/interview-prep/commit/89765390e03a8773df553e86916ca10841dadacc))
+
 ## [0.1.1](https://github.com/coast-guide-sahil/interview-prep/compare/web-v0.1.0...web-v0.1.1) (2026-03-24)
 
 
