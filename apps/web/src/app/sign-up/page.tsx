@@ -63,14 +63,14 @@ export default function SignUpPage() {
     setError("");
     setLoading(true);
 
-    const { error: signUpError } = await authClient.signUp.email({
+    const { data, error: signUpError } = await authClient.signUp.email({
       name,
       email,
       password,
     });
 
     if (signUpError) {
-      // 403 = email verification required (user created, OTP sent)
+      // 403 = email not verified on sign-in attempt
       if (signUpError.status === 403) {
         router.push(`/verify-email?email=${encodeURIComponent(email)}`);
         return;
@@ -78,6 +78,12 @@ export default function SignUpPage() {
       setError(signUpError.message ?? ERROR_MESSAGES.SIGN_UP_FAILED);
       setLoading(false);
       setTimeout(() => errorRef.current?.focus(), 100);
+      return;
+    }
+
+    // No session token = email verification required (user created, OTP sent)
+    if (!data?.token) {
+      router.push(`/verify-email?email=${encodeURIComponent(email)}`);
       return;
     }
 
