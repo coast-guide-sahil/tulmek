@@ -11,6 +11,6 @@
   },
   "devDependencies": {
     "@interview-prep/typescript-config": "workspace:*",
-    "typescript": "^5"
+    "typescript": "^6"
   }
 }
