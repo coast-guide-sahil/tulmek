@@ -1,15 +1,29 @@
 # interview-prep
 
-Full-stack Next.js 16 application with authentication, database, and Docker support.
+Full-stack Next.js 16 application with authentication, user management, and admin panel.
 
 ## Stack
 
 - **Framework**: Next.js 16.2.1 (App Router, Turbopack)
-- **Styling**: Tailwind CSS v4
-- **Auth**: Better Auth 1.5.6 (email/password, rate limited)
+- **Styling**: Tailwind CSS v4 (dark/light/system theme via next-themes)
+- **Auth**: Better Auth 1.5.6 (email/password, admin plugin, rate limited)
 - **Database**: Turso (SQLite cloud) + Drizzle ORM
-- **Deployment**: Vercel (auto-deploy from GitHub)
+- **Email validation**: mailchecker (55,734+ disposable domain blocklist)
+- **CI**: GitHub Actions (lint, typecheck, build on every PR)
+- **Deployment**: Vercel (auto-deploy from GitHub main)
 - **Containerization**: Docker (dev with hot reload + production)
+
+## Features
+
+- **Sign up / Sign in** — email/password with password strength meter, show/hide toggle
+- **Disposable email blocking** — client-side instant warning + server-side enforcement
+- **Admin panel** — user list, search, role management, ban/unban, remove
+- **Max user limit** — configurable cap enforced at API level
+- **Guest mode** — skip login option, or `NEXT_PUBLIC_SKIP_AUTH=true` for preview deploys
+- **Dark/light/system theme** — three-way toggle, persisted
+- **Responsive** — 320px to ultrawide, card layout on mobile, table on desktop
+- **Accessible** — WCAG 2.2 AA (44px touch targets, aria attributes, focus management)
+- **Security hardened** — CSP, HSTS, rate limiting, no X-Powered-By
 
 ## Getting Started
 
@@ -52,6 +66,9 @@ docker compose --profile prod up --build
 | `BETTER_AUTH_SECRET` | Auth secret (min 32 chars, `openssl rand -base64 32`) | Yes |
 | `BETTER_AUTH_URL` | App URL for auth cookies | Yes |
 | `NEXT_PUBLIC_APP_URL` | Public app URL for client-side auth | Yes |
+| `MAX_USERS` | Maximum allowed users (default: 100) | No |
+| `ADMIN_EMAIL` | Email auto-promoted to admin on signup | No |
+| `NEXT_PUBLIC_SKIP_AUTH` | Set to `true` to hide auth UI (guest-only) | No |
 
 ## Database Commands
 
@@ -69,73 +86,72 @@ npm run db:studio    # open Drizzle Studio GUI
 ├── AGENTS.md              # AI agent docs (single source of truth)
 ├── CLAUDE.md → AGENTS.md  # symlink (Claude Code reads this)
 ├── README.md              # human docs (you are here)
+├── DEPLOYMENT.md          # deployment & infrastructure guide
 ├── docker-compose.yml     # dev + prod Docker profiles
+├── .github/workflows/
+│   └── ci.yml             # CI pipeline (lint, typecheck, build)
 ├── .env.example           # env var template
 └── ui/                    # Next.js application
-    ├── AGENTS.md          # agent docs (Next.js + project commands)
-    ├── CLAUDE.md → AGENTS.md  # symlink
+    ├── AGENTS.md          # agent docs (architecture + commands)
+    ├── CLAUDE.md → AGENTS.md
     ├── Dockerfile         # multi-stage (dev + prod)
-    ├── drizzle.config.ts
     ├── next.config.ts     # standalone output + security headers
     └── src/
         ├── app/           # App Router pages + API routes
+        │   ├── sign-up/   # Sign up page
+        │   ├── sign-in/   # Sign in page
+        │   ├── admin/     # Admin panel (server-gated)
+        │   └── api/       # Auth handler, email check, health
+        ├── components/    # Shared UI (header, password, theme)
         ├── db/            # Drizzle client + schema
         │   └── AGENTS.md  # DB-specific agent context
-        └── lib/           # Auth config + client
+        └── lib/           # Auth, session, constants, flags
             └── AGENTS.md  # Auth-specific agent context
 ```
 
+## Deployment
+
+See **[DEPLOYMENT.md](DEPLOYMENT.md)** for the complete deployment guide covering:
+- Local, preview, and production environments
+- Vercel and Turso dashboard links
+- Environment variable management (per environment)
+- CI pipeline and GitHub Actions secrets
+- Troubleshooting
+
 ## Security
 
-- Rate limiting on auth endpoints (brute force protection)
-- Security headers: HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy
+- Rate limiting: 10 sign-ins/min, 5 sign-ups/min, 100 global/min
+- Content Security Policy (no unsafe-eval)
+- HSTS, X-Frame-Options: DENY, X-Content-Type-Options: nosniff
+- Disposable email blocking (55,734+ domains)
 - Non-root Docker user in production
+- Read-only filesystem + no-new-privileges in Docker
 - Secrets never committed (`.env*` gitignored)
+- `poweredByHeader: false`
 
 ## Documentation
 
 This repo uses a **single source of truth** pattern for all documentation.
 
-### How it works
-
 ```
-AGENTS.md  ← edit here (the only source of truth)
+AGENTS.md  ← edit here (the only source of truth for agent context)
 CLAUDE.md  → symlink to AGENTS.md (never edit directly)
+README.md  ← human onboarding + setup (you are here)
+DEPLOYMENT.md ← deployment & infrastructure guide
 ```
 
 | File | Purpose | Who reads it | Edit? |
 |------|---------|-------------|-------|
-| `AGENTS.md` (root) | Project overview, stack, conventions | All AI agents | **Yes — this is the source** |
-| `CLAUDE.md` (root) | Same content | Claude Code | No — it's a symlink |
-| `ui/AGENTS.md` | Next.js rules + project commands | All AI agents | **Yes** |
-| `ui/CLAUDE.md` | Same content | Claude Code | No — it's a symlink |
-| `ui/src/db/AGENTS.md` | DB-specific context only | Agents working in db/ | **Yes** |
-| `ui/src/lib/AGENTS.md` | Auth-specific context only | Agents working in lib/ | **Yes** |
-| `README.md` | Human onboarding + setup | Humans | **Yes** |
+| `AGENTS.md` (root) | Stack, conventions, env vars | All AI agents | **Yes — source of truth** |
+| `CLAUDE.md` (root) | Same content | Claude Code | No — symlink |
+| `ui/AGENTS.md` | Architecture + commands | All AI agents | **Yes** |
+| `ui/CLAUDE.md` | Same content | Claude Code | No — symlink |
+| `ui/src/db/AGENTS.md` | DB schema context | Agents in db/ | **Yes** |
+| `ui/src/lib/AGENTS.md` | Auth library context | Agents in lib/ | **Yes** |
+| `README.md` | Human onboarding | Humans | **Yes** |
+| `DEPLOYMENT.md` | Deployment guide | Humans | **Yes** |
 
-### Rules
-
-1. **Never edit CLAUDE.md** — it's a symlink to AGENTS.md
-2. **Global info goes in root AGENTS.md** — stack, conventions, commands
-3. **Folder AGENTS.md files contain only folder-specific context** — don't repeat global info
-4. **README.md is for humans only** — setup instructions, env var tables, project structure
-5. **One change, one place** — if you update a convention, update it in root AGENTS.md and it's done
-
-### Adding a new convention
-
-```bash
-# Edit the single source of truth
-vim AGENTS.md           # for global conventions
-vim ui/AGENTS.md        # for Next.js/project-specific
-vim ui/src/db/AGENTS.md # for DB-specific only
-# CLAUDE.md updates automatically (it's a symlink)
-```
-
-## AI Agent Contribution
-
-This repo is AI agent-native. Any AI coding agent (Claude Code, Cursor, Copilot, etc.) can contribute without friction:
-
-- `AGENTS.md` files at every directory level provide scoped context
-- `CLAUDE.md` symlinks ensure Claude Code compatibility
-- Bundled Next.js docs at `node_modules/next/dist/docs/`
-- Agents walk up the directory tree and use the nearest `AGENTS.md`
+**Rules:**
+1. **Never edit CLAUDE.md** — it's a symlink
+2. **Global info in root AGENTS.md only** — don't repeat in folder docs
+3. **One change, one place** — update a convention once, it reflects everywhere

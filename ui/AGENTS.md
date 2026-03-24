@@ -12,8 +12,21 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - `npm run db:studio` — Drizzle Studio GUI
 
 ## Architecture
+- `src/app/` — App Router pages + API routes
+  - `page.tsx` — Home (shows user info or guest view)
+  - `sign-up/page.tsx` — Sign up with disposable email check
+  - `sign-in/page.tsx` — Sign in
+  - `admin/page.tsx` — Server-side admin gate → `admin-panel.tsx` (user management)
+  - `api/auth/[...all]/route.ts` — Better Auth handler
+  - `api/check-email/route.ts` — Disposable email validation endpoint
+  - `api/health/route.ts` — Health check (used by Docker + monitoring)
+- `src/components/` — Shared UI components
+  - `auth-header.tsx` — Auth-aware header with theme toggle
+  - `password-input.tsx` — Show/hide password toggle
+  - `password-strength.tsx` — Real-time strength meter with ARIA
+  - `theme-provider.tsx` — next-themes wrapper
+  - `theme-toggle.tsx` — Light/dark/system toggle
 - `src/db/` — Drizzle client + schema
-- `src/lib/auth.ts` — Server-side auth (rate limited)
-- `src/lib/auth-client.ts` — Client auth hooks
-- `src/app/api/auth/[...all]/route.ts` — Auth API handler
+- `src/lib/` — Auth config, client, session helper, constants
+- `src/proxy.ts` — Route protection (redirects unauthenticated users from /admin)
 - Standalone output enabled for Docker production builds
