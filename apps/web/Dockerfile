@@ -22,6 +22,8 @@ CMD ["pnpm", "dev"]
 # ---- Pruned monorepo ----
 FROM base AS pruner
 WORKDIR /app
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 RUN pnpm add -g turbo
 COPY . .
 RUN turbo prune @interview-prep/web --docker

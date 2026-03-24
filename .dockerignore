@@ -1,0 +1,14 @@
+node_modules
+.next
+.turbo
+.env*
+!.env.example
+.git
+.gitignore
+*.md
+.vscode
+.vercel
+coverage
+.DS_Store
+*.tsbuildinfo
+test-results
