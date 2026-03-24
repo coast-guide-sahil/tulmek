@@ -38,7 +38,7 @@ jobs:
         run: pnpm turbo typecheck
 
       - name: Restore Next.js build cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: apps/web/.next/cache
           key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('apps/web/src/**/*.ts', 'apps/web/src/**/*.tsx') }}
