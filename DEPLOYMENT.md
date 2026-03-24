@@ -43,6 +43,22 @@ NEXT_PUBLIC_SKIP_AUTH=false
 
 ---
 
+## First Admin User
+
+**Option A — Fresh deploy (recommended):**
+1. Set `ADMIN_EMAIL=your@email.com` in env vars before deploying
+2. Sign up with that email — auto-promoted to admin
+
+**Option B — User already registered as regular user:**
+```bash
+cd apps/web
+pnpm db:promote-admin your@email.com
+```
+
+The script requires `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN` (reads from `.env.local` automatically).
+
+---
+
 ## Docker
 
 ### Development (hot reload)
