@@ -5,8 +5,11 @@ export async function POST(req: Request) {
   const headersList = await headers();
   const origin = headersList.get("origin");
   const appUrl = process.env.BETTER_AUTH_URL ?? process.env.NEXT_PUBLIC_APP_URL;
-  if (appUrl && origin && !appUrl.startsWith(origin)) {
-    return Response.json({ error: "Forbidden" }, { status: 403 });
+  if (appUrl && origin) {
+    const expected = new URL(appUrl).origin;
+    if (origin !== expected) {
+      return Response.json({ error: "Forbidden" }, { status: 403 });
+    }
   }
 
   let body: unknown;

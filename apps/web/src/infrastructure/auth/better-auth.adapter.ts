@@ -22,5 +22,3 @@ export class BetterAuthAdapter implements AuthPort {
     return session;
   }
 }
-
-export { auth } from "./better-auth.config";
