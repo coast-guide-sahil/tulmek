@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/coast-guide-sahil/interview-prep/compare/web-v0.2.0...web-v0.3.0) (2026-03-24)
+
+
+### Features
+
+* add email OTP verification for new signups ([#22](https://github.com/coast-guide-sahil/interview-prep/issues/22)) ([f5a2b7c](https://github.com/coast-guide-sahil/interview-prep/commit/f5a2b7ca4b5d6e383710266b64429db75e6f8b01))
+
 ## [0.2.0](https://github.com/coast-guide-sahil/interview-prep/compare/web-v0.1.2...web-v0.2.0) (2026-03-24)
 
 
