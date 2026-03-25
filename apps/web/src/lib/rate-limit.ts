@@ -1,3 +1,14 @@
+/**
+ * In-memory sliding-window rate limiter.
+ *
+ * Limitation: On serverless platforms (Vercel, AWS Lambda) each cold-start
+ * gets a fresh Map, so this only limits bursts within a single warm instance.
+ * It is NOT a substitute for a distributed rate limiter (e.g. Upstash Redis).
+ *
+ * Critical routes are additionally protected by DB-backed limits:
+ *   - verify-otp: max 5 attempts per OTP (tracked in verification table)
+ *   - send-otp: 60 s cooldown per email (tracked in verification table)
+ */
 import { CUSTOM_ROUTE_RATE_LIMIT } from "@interview-prep/config/constants";
 
 const { WINDOW_MS, MAX_REQUESTS } = CUSTOM_ROUTE_RATE_LIMIT;
