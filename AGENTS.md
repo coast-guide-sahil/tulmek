@@ -14,6 +14,8 @@ Monorepo: Turborepo + pnpm workspaces. Clean architecture (ports/adapters).
 - `pnpm build` — Build all packages + apps
 - `pnpm lint` — Lint all packages
 - `pnpm typecheck` — Typecheck all packages
+- `pnpm test` — Run unit tests across all packages (Vitest)
+- `pnpm e2e` — Run E2E tests (Playwright)
 - `cd apps/web && pnpm db:push` — Push schema to Turso
 
 ## NEVER
@@ -45,6 +47,7 @@ Monorepo: Turborepo + pnpm workspaces. Clean architecture (ports/adapters).
 - mailchecker 6.0.20 (disposable email blocking)
 - next-themes 0.4.6 (class-based dark mode)
 - Turborepo + pnpm workspaces
+- Vitest 4 (unit tests) + Playwright (E2E tests)
 
 ## Environment Variables
 | Variable | Description |
