@@ -9,7 +9,7 @@ const STORAGE_KEY = "tulmek:progress";
  * LocalStorage adapter for progress persistence.
  *
  * Stores a JSON map of slug → ProgressEntry in localStorage.
- * Swap this out for a Turso/Supabase/API adapter when you need cloud sync.
+ * Swap this by creating another adapter implementing the ProgressStore port.
  */
 export class LocalStorageProgressStore implements ProgressStore {
   private cache: ProgressMap | null = null;

@@ -3,7 +3,7 @@ import type { ProgressEntry, ProgressMap } from "../domain/progress";
 /**
  * Port for persisting progress state.
  *
- * Adapters: LocalStorageProgressStore, TursoProgressStore, etc.
+ * Adapters implement this interface — swap the storage backend without touching consumers.
  * The consumer doesn't care where progress is stored — localStorage,
  * IndexedDB, SQLite, cloud API — this interface is the contract.
  */

@@ -13,7 +13,7 @@ import type {
  * Orama runs entirely in the browser (WASM), indexes 690 items in <10ms,
  * and provides faceted search with typo tolerance.
  *
- * Swap this for Algolia, MeiliSearch, Typesense, or a custom server-side search.
+ * Swap this by creating another adapter implementing the SearchEngine port.
  */
 export class OramaSearchEngine implements SearchEngine {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

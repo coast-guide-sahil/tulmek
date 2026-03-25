@@ -2,7 +2,7 @@
   {
     "slug": "parking-lot-system",
     "title": "Parking Lot System",
-    "url": "https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/parking-lot.md",
+    "url": "",
     "difficulty": "medium",
     "companies": [
       {
@@ -31,7 +31,7 @@
   {
     "slug": "library-management-system",
     "title": "Library Management System",
-    "url": "https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/library-management-system.md",
+    "url": "",
     "difficulty": "medium",
     "companies": [
       {
@@ -54,7 +54,7 @@
   {
     "slug": "movie-ticket-booking-bookmyshow",
     "title": "Movie Ticket Booking (BookMyShow)",
-    "url": "https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/movie-ticket-booking-system.md",
+    "url": "",
     "difficulty": "hard",
     "companies": [
       {
@@ -83,7 +83,7 @@
   {
     "slug": "atm-system",
     "title": "ATM System",
-    "url": "https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/atm.md",
+    "url": "",
     "difficulty": "medium",
     "companies": [
       {
@@ -107,7 +107,7 @@
   {
     "slug": "vending-machine",
     "title": "Vending Machine",
-    "url": "https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/vending-machine.md",
+    "url": "",
     "difficulty": "medium",
     "companies": [
       {
@@ -130,7 +130,7 @@
   {
     "slug": "snake-and-ladder-game",
     "title": "Snake and Ladder Game",
-    "url": "https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/snake-and-ladder.md",
+    "url": "",
     "difficulty": "easy",
     "companies": [
       {
@@ -152,7 +152,7 @@
   {
     "slug": "chess-game",
     "title": "Chess Game",
-    "url": "https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/chess-game.md",
+    "url": "",
     "difficulty": "hard",
     "companies": [
       {
@@ -176,7 +176,7 @@
   {
     "slug": "elevator-system",
     "title": "Elevator System",
-    "url": "https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/elevator-system.md",
+    "url": "",
     "difficulty": "medium",
     "companies": [
       {
@@ -201,7 +201,7 @@
   {
     "slug": "hotel-management-system",
     "title": "Hotel Management System",
-    "url": "https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/hotel-management-system.md",
+    "url": "",
     "difficulty": "medium",
     "companies": [
       {
@@ -221,7 +221,7 @@
   {
     "slug": "restaurant-ordering-system",
     "title": "Restaurant Ordering System",
-    "url": "https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/restaurant-management-system.md",
+    "url": "",
     "difficulty": "medium",
     "companies": [
       {
@@ -242,7 +242,7 @@
   {
     "slug": "ride-booking-system-uberola",
     "title": "Ride Booking System (Uber/Ola)",
-    "url": "https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/ride-sharing-service.md",
+    "url": "",
     "difficulty": "hard",
     "companies": [
       {
@@ -267,7 +267,7 @@
   {
     "slug": "food-delivery-app-swiggyzomato",
     "title": "Food Delivery App (Swiggy/Zomato)",
-    "url": "https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/food-delivery-service.md",
+    "url": "",
     "difficulty": "hard",
     "companies": [
       {
@@ -291,7 +291,7 @@
   {
     "slug": "e-commerce-cart-order-system",
     "title": "E-Commerce Cart + Order System",
-    "url": "https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/online-shopping-service.md",
+    "url": "",
     "difficulty": "medium",
     "companies": [
       {
@@ -362,7 +362,7 @@
   {
     "slug": "linkedin-job-portal",
     "title": "LinkedIn / Job Portal",
-    "url": "https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/linkedin.md",
+    "url": "",
     "difficulty": "medium",
     "companies": [
       {
@@ -381,7 +381,7 @@
   {
     "slug": "splitwise-expense-sharing",
     "title": "Splitwise (Expense Sharing)",
-    "url": "https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/splitwise.md",
+    "url": "",
     "difficulty": "medium",
     "companies": [
       {

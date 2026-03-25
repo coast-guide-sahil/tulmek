@@ -6,7 +6,7 @@ import type {
 /**
  * Port for searching and filtering content items.
  *
- * Adapters: OramaSearchEngine, AlgoliaSearchEngine, MeiliSearchEngine, etc.
+ * Adapters implement this interface — swap the search backend without touching consumers.
  * The consumer provides a query and filters, gets back faceted results.
  * How the search is implemented (client-side WASM, server API, etc.) is irrelevant.
  */

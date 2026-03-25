@@ -3,7 +3,7 @@ import type { Note } from "../domain/progress";
 /**
  * Port for persisting per-item markdown notes.
  *
- * Adapters: IndexedDBNoteStore, OPFSNoteStore, TursoNoteStore, etc.
+ * Adapters implement this interface — swap the storage backend without touching consumers.
  * Notes can be large (markdown with code blocks), so this is separate
  * from progress state which is tiny (booleans).
  */
