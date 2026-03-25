@@ -2,36 +2,29 @@
 
 Monorepo: Turborepo + pnpm workspaces. Clean architecture (ports/adapters).
 
-## Structure
-- `apps/web/` — Next.js 16 application (App Router, Turbopack)
-- `packages/core/` — Zero-dependency domain logic (entities, ports, use cases)
-- `packages/config/` — Shared constants + type-safe env validation (t3-env + Zod)
-- `packages/typescript-config/` — Shared tsconfig bases
-- `packages/eslint-config/` — Shared ESLint configs
-
 ## Commands
-- `pnpm dev` — Run all apps in dev mode
+- `pnpm dev` — Start dev server (Turbopack)
 - `pnpm build` — Build all packages + apps
 - `pnpm lint` — Lint all packages
 - `pnpm typecheck` — Typecheck all packages
-- `pnpm test` — Run unit tests across all packages (Vitest)
-- `pnpm e2e` — Run E2E tests (Playwright)
-- `cd apps/web && pnpm db:push` — Push schema to Turso
-- `cd apps/web && pnpm validate-content` — Validate all content JSON against Zod schemas
+- `pnpm test` — Unit tests (Vitest)
+- `pnpm e2e` — E2E tests (Playwright, from `apps/web`)
+- `cd apps/web && pnpm db:push` — Push schema changes to Turso
+- `cd apps/web && pnpm validate-content` — Validate content JSON against Zod schemas
 
 ## NEVER
-- Edit `CLAUDE.md` directly (it's a symlink to `AGENTS.md`)
+- Edit `CLAUDE.md` directly — it symlinks to `AGENTS.md`
 - Put secrets in `NEXT_PUBLIC_*` env vars
 - Trust `getSessionCookie()` alone — always validate server-side
 - Use `middleware.ts` — use `proxy.ts` instead (Next.js 16)
 - Use magic strings — constants live in `@tulmek/config/constants`
 - Hardcode colors — use semantic tokens from `globals.css`
-- Import directly from infrastructure in pages — use composition root or lib/
-- Import Orama/idb-keyval/Tiptap outside `infrastructure/` — they're adapters behind ports
+- Import from `infrastructure/` in pages/components — go through `composition-root.ts` (server) or `lib/progress/provider.tsx` (client)
+- Import adapter libraries (Orama, idb-keyval, Tiptap, Drizzle, Better Auth) outside `infrastructure/` — they are behind port interfaces
 
 ## ASK
-- Before changing port interfaces in `packages/core/` (they're contracts)
-- Before modifying `composition-root.ts` wiring
+- Before changing port interfaces in `packages/core/` — they're contracts
+- Before modifying adapter wiring (`composition-root.ts`, `ProgressProvider` deps)
 - Before changing database schema
 
 ## ALWAYS
@@ -39,20 +32,9 @@ Monorepo: Turborepo + pnpm workspaces. Clean architecture (ports/adapters).
 - Pass schema to drizzle adapter: `drizzleAdapter(db, { provider: "sqlite", schema })`
 - `BETTER_AUTH_URL` must be set in ALL environments
 - 44px minimum touch targets (WCAG 2.2 AA)
-- Run `cd apps/web && pnpm db:push` after schema changes
+- Sanitize any `dangerouslySetInnerHTML` with DOMPurify
+- Run `pnpm db:push` after schema changes, `pnpm validate-content` after content changes
 - Use `workspace:*` protocol for internal package dependencies
-
-## Stack
-- Next.js 16.2.1 + Tailwind CSS v4 + TypeScript (strict)
-- Better Auth 1.5.6 (email/password, admin plugin, pre-signup OTP, rate limited)
-- Drizzle ORM 0.45.1 + Turso (SQLite cloud)
-- mailchecker 6.0.20 (disposable email blocking)
-- next-themes 0.4.6 (class-based dark mode)
-- Tiptap 3.20.5 (rich text editor for progress notes)
-- Orama 3.1.18 (client-side full-text search)
-- Zustand 5 (client state) + idb-keyval (IndexedDB notes) + DOMPurify (XSS)
-- Turborepo + pnpm workspaces
-- Vitest 4 (unit tests) + Playwright (E2E tests)
 
 ## Environment Variables
 | Variable | Description |
@@ -70,10 +52,10 @@ Monorepo: Turborepo + pnpm workspaces. Clean architecture (ports/adapters).
 | `EMAIL_FROM` | Email sender (default: `TULMEK <onboarding@resend.dev>`) |
 
 ## Documentation
-- Single source of truth — each fact lives in ONE file, others reference it
-- `AGENTS.md` (root) is the canonical config/conventions doc (`CLAUDE.md` symlinks here)
-- Subdirectory `AGENTS.md` files scope context to that directory only
-- Update docs when adding features, env vars, or changing architecture
-- Never duplicate info across docs — add it once, link to it elsewhere
-- Env vars: add to `AGENTS.md` table + `.env.example` + DEPLOYMENT.md matrix
-- Keep each doc under 200 lines — split into subdirectory files if growing
+- Single source of truth — each fact in ONE file, others reference it
+- `AGENTS.md` is canonical — `CLAUDE.md` symlinks here
+- Subdirectory `AGENTS.md` inherits parent rules implicitly — only override what differs
+- Never duplicate info — add once, reference elsewhere
+- Env vars: `AGENTS.md` table + `.env.example` + `DEPLOYMENT.md` matrix
+- Architecture decisions: `docs/decisions/`
+- Adapter swap guide: `docs/guides/swapping-providers.md`

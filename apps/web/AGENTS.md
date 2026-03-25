@@ -5,38 +5,29 @@ This version has breaking changes — APIs, conventions, and file structure may 
 <!-- END:nextjs-agent-rules -->
 
 ## Commands
-- `pnpm dev` — Turbopack dev server
-- `pnpm build` — Production build
-- `pnpm lint` — ESLint
-- `pnpm typecheck` — TypeScript check
-- `pnpm test` — Unit tests (Vitest)
-- `pnpm e2e` — E2E tests (Playwright)
 - `pnpm validate-content` — Validate content JSON against Zod schemas
 - `pnpm db:push` — Push schema to Turso
 - `pnpm db:studio` — Drizzle Studio GUI
+- `pnpm e2e` / `pnpm e2e:ui` — E2E tests (Playwright)
 
-## Architecture
-- `src/app/` — Pages, layouts, API routes (THIN — delegates to use cases)
-- `src/components/` — React UI components
-- `src/infrastructure/` — Adapters implementing core ports
-  - `auth/` — Better Auth config + adapter (implements AuthPort)
-  - `database/drizzle/` — DB client, schema, user repository (implements UserRepository)
-  - `email/` — Mailchecker adapter (EmailValidatorPort) + Resend OTP sender
-  - `storage/` — LocalStorage (ProgressStore) + IndexedDB (NoteStore) adapters
-  - `search/` — Orama adapter (SearchEngine port)
-  - `composition-root.ts` — Server-side adapter wiring (auth, DB, email)
-- `src/lib/` — Auth re-export, client, session helper, OTP hashing, rate limiter
-  - `progress/` — Client-side wiring: Zustand store, ProgressProvider (adapters injected via deps prop), content adapter, DOMPurify sanitizer
-- `src/content/` — 690 JSON items (28 DSA patterns + HLD + LLD + behavioral) + Zod schemas
-- `src/proxy.ts` — Route protection (NOT middleware.ts)
-- `e2e/` — Playwright E2E tests (health, navigation, progress tracker)
-- `scripts/validate-content.ts` — CI content validation against Zod schemas
+## Adapter Wiring
+- **Server-side** (auth, DB, email): `src/infrastructure/composition-root.ts`
+- **Client-side** (progress, notes, search): `src/lib/progress/provider.tsx` via `deps` prop
+- Swap any adapter by changing one line in the corresponding wiring file
+- See `docs/guides/swapping-providers.md` for swap examples
+
+## Ports (in `packages/core/src/ports/`)
+Server: AuthPort, UserRepository, EmailValidatorPort, EmailPort
+Client: ProgressStore, NoteStore, SearchEngine, ContentSource
+
+## Content
+- `src/content/` — 690 JSON items validated by Zod schemas (`src/content/schema.ts`)
+- `src/lib/progress/content.ts` — sole importer of content, implements ContentSource port
+- `scripts/validate-content.ts` — CI validation script
+
+## Non-Obvious Conventions
+- `proxy.ts` not `middleware.ts` for route protection (Next.js 16)
+- `nextCookies()` MUST be the last Better Auth plugin
+- All `dangerouslySetInnerHTML` MUST be sanitized via `src/lib/progress/sanitize.ts`
 - Unit tests live alongside source files (`*.test.ts`)
 - Standalone output enabled for Docker production builds
-
-## Progress Tracker Ports (in `packages/core/src/ports/`)
-- `ProgressStore` — read/write completion state (adapter: localStorage)
-- `NoteStore` — read/write markdown notes (adapter: IndexedDB via idb-keyval)
-- `SearchEngine` — index + search items (adapter: Orama client-side)
-- `ContentSource` — load content data (adapter: static JSON files)
-- All injected via `ProgressProvider` deps prop — swap by changing one line
