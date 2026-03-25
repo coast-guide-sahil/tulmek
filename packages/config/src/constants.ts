@@ -15,6 +15,14 @@ export const PASSWORD_MIN_LENGTH = 8;
 /** Debounce delay (ms) for email disposable check */
 export const EMAIL_CHECK_DEBOUNCE_MS = 500;
 
+/** Pre-signup email verification */
+export const PRE_SIGNUP = {
+  OTP_LENGTH: 6,
+  OTP_EXPIRY_SECONDS: 300,
+  VERIFIED_EXPIRY_SECONDS: 900,
+  OTP_COOLDOWN_SECONDS: 60,
+} as const;
+
 /** Rate limit configuration */
 export const RATE_LIMIT = {
   GLOBAL_WINDOW: 60,
@@ -30,6 +38,12 @@ export const ERROR_MESSAGES = {
   DISPOSABLE_EMAIL:
     "Disposable email addresses are not allowed. Please use a permanent email address.",
   MAX_USERS: "Maximum user limit reached. Registration is closed.",
+  EMAIL_ALREADY_EXISTS:
+    "An account with this email already exists. Please sign in instead.",
+  OTP_COOLDOWN: "Please wait before requesting another code.",
+  OTP_EXPIRED: "Code expired or not found. Please request a new one.",
+  OTP_INVALID: "Invalid code. Please try again.",
+  EMAIL_NOT_VERIFIED: "Email must be verified before signing up.",
   SIGN_UP_FAILED: "Sign up failed. Please try again.",
   SIGN_IN_FAILED: "Sign in failed. Please try again.",
   SET_ROLE_FAILED: "Failed to update role.",
