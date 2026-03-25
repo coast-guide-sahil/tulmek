@@ -1,0 +1,172 @@
+[
+  {
+    "slug": "subsets",
+    "title": "Subsets",
+    "url": "https://leetcode.com/problems/subsets/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-bitmask",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "beautiful-arrangement",
+    "title": "Beautiful Arrangement",
+    "url": "https://leetcode.com/problems/beautiful-arrangement/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-bitmask",
+      "medium",
+      "tier-1",
+      "dp",
+      "bit-manipulation"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "smallest-sufficient-team",
+    "title": "Smallest Sufficient Team",
+    "url": "https://leetcode.com/problems/smallest-sufficient-team/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-bitmask",
+      "hard",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "maximum-students-taking-exam",
+    "title": "Maximum Students Taking Exam",
+    "url": "https://leetcode.com/problems/maximum-students-taking-exam/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-bitmask",
+      "hard",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "parallel-courses-ii",
+    "title": "Parallel Courses II",
+    "url": "https://leetcode.com/problems/parallel-courses-ii/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-bitmask",
+      "hard",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "number-of-ways-to-wear-different-hats",
+    "title": "Number of Ways to Wear Different Hats",
+    "url": "https://leetcode.com/problems/number-of-ways-to-wear-different-hats-to-each-other/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-bitmask",
+      "hard",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "find-minimum-time-to-finish-all-jobs",
+    "title": "Find Minimum Time to Finish All Jobs",
+    "url": "https://leetcode.com/problems/find-minimum-time-to-finish-all-jobs/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-bitmask",
+      "hard",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "maximum-score-words-formed-by-letters",
+    "title": "Maximum Score Words Formed by Letters",
+    "url": "https://leetcode.com/problems/maximum-score-words-formed-by-letters/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-bitmask",
+      "hard",
+      "tier-1"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "shortest-path-visiting-all-nodes",
+    "title": "Shortest Path Visiting All Nodes",
+    "url": "https://leetcode.com/problems/shortest-path-visiting-all-nodes/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-bitmask",
+      "hard",
+      "tier-1",
+      "bfs",
+      "bit-manipulation"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "travelling-salesman-problem-tsp",
+    "title": "Travelling Salesman Problem (TSP)",
+    "url": "",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-bitmask",
+      "hard",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "cat-and-mouse-ii",
+    "title": "Cat and Mouse II",
+    "url": "https://leetcode.com/problems/cat-and-mouse-ii/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-bitmask",
+      "hard",
+      "tier-2",
+      "bit-manipulation",
+      "game-theory"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "count-ways-to-build-rooms",
+    "title": "Count Ways to Build Rooms",
+    "url": "https://leetcode.com/problems/count-ways-to-build-rooms-in-an-ant-colony/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-bitmask",
+      "hard",
+      "tier-2",
+      "math",
+      "tree"
+    ],
+    "displayOrder": 12
+  }
+]

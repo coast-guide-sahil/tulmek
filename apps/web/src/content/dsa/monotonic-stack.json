@@ -1,0 +1,285 @@
+[
+  {
+    "slug": "daily-temperatures",
+    "title": "Daily Temperatures",
+    "url": "https://leetcode.com/problems/daily-temperatures/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "monotonic-stack",
+      "medium",
+      "tier-1",
+      "stack"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "next-greater-element-i",
+    "title": "Next Greater Element I",
+    "url": "https://leetcode.com/problems/next-greater-element-i/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "monotonic-stack",
+      "easy",
+      "tier-1",
+      "stack"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "next-greater-element-ii",
+    "title": "Next Greater Element II",
+    "url": "https://leetcode.com/problems/next-greater-element-ii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "monotonic-stack",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "online-stock-span",
+    "title": "Online Stock Span",
+    "url": "https://leetcode.com/problems/online-stock-span/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "monotonic-stack",
+      "medium",
+      "tier-1",
+      "stack"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "sum-of-subarray-minimums",
+    "title": "Sum of Subarray Minimums",
+    "url": "https://leetcode.com/problems/sum-of-subarray-minimums/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "monotonic-stack",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "remove-k-digits",
+    "title": "Remove K Digits",
+    "url": "https://leetcode.com/problems/remove-k-digits/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "monotonic-stack",
+      "medium",
+      "tier-1",
+      "stack"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "132-pattern",
+    "title": "132 Pattern",
+    "url": "https://leetcode.com/problems/132-pattern/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "monotonic-stack",
+      "medium",
+      "tier-1",
+      "stack"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "decode-string",
+    "title": "Decode String",
+    "url": "https://leetcode.com/problems/decode-string/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Stripe",
+        "frequency": 2
+      }
+    ],
+    "tags": [
+      "monotonic-stack",
+      "medium",
+      "tier-1",
+      "stack",
+      "string"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "asteroid-collision",
+    "title": "Asteroid Collision",
+    "url": "https://leetcode.com/problems/asteroid-collision/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "monotonic-stack",
+      "medium",
+      "tier-1",
+      "stack"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "largest-rectangle-in-histogram",
+    "title": "Largest Rectangle in Histogram",
+    "url": "https://leetcode.com/problems/largest-rectangle-in-histogram/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "monotonic-stack",
+      "hard",
+      "tier-1",
+      "stack"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "maximal-rectangle",
+    "title": "Maximal Rectangle",
+    "url": "https://leetcode.com/problems/maximal-rectangle/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "monotonic-stack",
+      "hard",
+      "tier-2"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "trapping-rain-water",
+    "title": "Trapping Rain Water",
+    "url": "https://leetcode.com/problems/trapping-rain-water/",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Tower",
+        "frequency": 3
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 3
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "monotonic-stack",
+      "hard",
+      "tier-2",
+      "stack",
+      "two-pointers",
+      "linked-list"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "maximum-width-ramp",
+    "title": "Maximum Width Ramp",
+    "url": "https://leetcode.com/problems/maximum-width-ramp/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "monotonic-stack",
+      "medium",
+      "tier-2",
+      "stack"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "buildings-with-an-ocean-view",
+    "title": "Buildings With an Ocean View",
+    "url": "https://leetcode.com/problems/buildings-with-an-ocean-view/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "monotonic-stack",
+      "medium",
+      "tier-2"
+    ],
+    "displayOrder": 14
+  },
+  {
+    "slug": "sum-of-subarray-ranges",
+    "title": "Sum of Subarray Ranges",
+    "url": "https://leetcode.com/problems/sum-of-subarray-ranges/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "monotonic-stack",
+      "medium",
+      "tier-2",
+      "stack"
+    ],
+    "displayOrder": 15
+  },
+  {
+    "slug": "number-of-visible-people-in-a-queue",
+    "title": "Number of Visible People in a Queue",
+    "url": "https://leetcode.com/problems/number-of-visible-people-in-a-queue/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "monotonic-stack",
+      "hard",
+      "tier-2",
+      "stack"
+    ],
+    "displayOrder": 16
+  },
+  {
+    "slug": "minimum-cost-tree-from-leaf-values",
+    "title": "Minimum Cost Tree From Leaf Values",
+    "url": "https://leetcode.com/problems/minimum-cost-tree-from-leaf-values/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "monotonic-stack",
+      "medium",
+      "tier-2",
+      "greedy"
+    ],
+    "displayOrder": 17
+  },
+  {
+    "slug": "final-prices-with-a-special-discount",
+    "title": "Final Prices With a Special Discount",
+    "url": "https://leetcode.com/problems/final-prices-with-a-special-discount-in-a-shop/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "monotonic-stack",
+      "easy",
+      "tier-2"
+    ],
+    "displayOrder": 18
+  },
+  {
+    "slug": "maximum-score-good-subarray",
+    "title": "Maximum Score Good Subarray",
+    "url": "https://leetcode.com/problems/maximum-score-of-a-good-subarray/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "monotonic-stack",
+      "hard",
+      "tier-2",
+      "two-pointers",
+      "linked-list"
+    ],
+    "displayOrder": 19
+  }
+]

@@ -1,0 +1,402 @@
+[
+  {
+    "slug": "best-time-to-buy-and-sell-stock",
+    "title": "Best Time to Buy and Sell Stock",
+    "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+    "difficulty": "easy",
+    "companies": [
+      {
+        "name": "Goldman Sachs",
+        "frequency": 4
+      },
+      {
+        "name": "Coinbase",
+        "frequency": 4
+      },
+      {
+        "name": "Tower",
+        "frequency": 4
+      }
+    ],
+    "tags": [
+      "greedy",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "best-time-to-buy-and-sell-stock-ii",
+    "title": "Best Time to Buy and Sell Stock II",
+    "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "jump-game",
+    "title": "Jump Game",
+    "url": "https://leetcode.com/problems/jump-game/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "majority-element",
+    "title": "Majority Element",
+    "url": "https://leetcode.com/problems/majority-element/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "assign-cookies",
+    "title": "Assign Cookies",
+    "url": "https://leetcode.com/problems/assign-cookies/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "easy",
+      "tier-1",
+      "sorting"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "lemonade-change",
+    "title": "Lemonade Change",
+    "url": "https://leetcode.com/problems/lemonade-change/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "jump-game-ii",
+    "title": "Jump Game II",
+    "url": "https://leetcode.com/problems/jump-game-ii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "gas-station",
+    "title": "Gas Station",
+    "url": "https://leetcode.com/problems/gas-station/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "partition-labels",
+    "title": "Partition Labels",
+    "url": "https://leetcode.com/problems/partition-labels/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "non-overlapping-intervals",
+    "title": "Non-overlapping Intervals",
+    "url": "https://leetcode.com/problems/non-overlapping-intervals/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "medium",
+      "tier-1",
+      "sorting",
+      "interval"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "minimum-number-of-arrows-to-burst-balloons",
+    "title": "Minimum Number of Arrows to Burst Balloons",
+    "url": "https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "medium",
+      "tier-2",
+      "sorting"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "meeting-rooms-ii",
+    "title": "Meeting Rooms II",
+    "url": "https://leetcode.com/problems/meeting-rooms-ii/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Stripe",
+        "frequency": 4
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 4
+      },
+      {
+        "name": "Bloomberg",
+        "frequency": 4
+      },
+      {
+        "name": "Rippling",
+        "frequency": 4
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 4
+      }
+    ],
+    "tags": [
+      "greedy",
+      "medium",
+      "tier-2",
+      "sorting",
+      "heap"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "task-scheduler",
+    "title": "Task Scheduler",
+    "url": "https://leetcode.com/problems/task-scheduler/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Stripe",
+        "frequency": 3
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 3
+      },
+      {
+        "name": "Sprinklr",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "greedy",
+      "medium",
+      "tier-2",
+      "hash-map"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "reorganize-string",
+    "title": "Reorganize String",
+    "url": "https://leetcode.com/problems/reorganize-string/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "medium",
+      "tier-2",
+      "hash-map"
+    ],
+    "displayOrder": 14
+  },
+  {
+    "slug": "maximum-subarray",
+    "title": "Maximum Subarray",
+    "url": "https://leetcode.com/problems/maximum-subarray/",
+    "difficulty": "easy",
+    "companies": [
+      {
+        "name": "Bloomberg",
+        "frequency": 5
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 5
+      },
+      {
+        "name": "Microsoft",
+        "frequency": 5
+      },
+      {
+        "name": "Tower",
+        "frequency": 5
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 5
+      },
+      {
+        "name": "Sprinklr",
+        "frequency": 5
+      }
+    ],
+    "tags": [
+      "greedy",
+      "easy",
+      "tier-2",
+      "kadanes"
+    ],
+    "displayOrder": 15
+  },
+  {
+    "slug": "candy",
+    "title": "Candy",
+    "url": "https://leetcode.com/problems/candy/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "hard",
+      "tier-2"
+    ],
+    "displayOrder": 16
+  },
+  {
+    "slug": "buy-and-sell-stock-with-cooldown",
+    "title": "Buy and Sell Stock with Cooldown",
+    "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "medium",
+      "tier-2"
+    ],
+    "displayOrder": 17
+  },
+  {
+    "slug": "queue-reconstruction-by-height",
+    "title": "Queue Reconstruction by Height",
+    "url": "https://leetcode.com/problems/queue-reconstruction-by-height/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "medium",
+      "tier-2",
+      "sorting"
+    ],
+    "displayOrder": 18
+  },
+  {
+    "slug": "minimum-cost-to-connect-all-points",
+    "title": "Minimum Cost to Connect All Points",
+    "url": "https://leetcode.com/problems/minimum-cost-to-connect-all-points/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "medium",
+      "tier-2",
+      "mst"
+    ],
+    "displayOrder": 19
+  },
+  {
+    "slug": "two-city-scheduling",
+    "title": "Two City Scheduling",
+    "url": "https://leetcode.com/problems/two-city-scheduling/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "medium",
+      "tier-2",
+      "sorting"
+    ],
+    "displayOrder": 20
+  },
+  {
+    "slug": "jump-game-vii",
+    "title": "Jump Game VII",
+    "url": "https://leetcode.com/problems/jump-game-vii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "medium",
+      "tier-3",
+      "bfs",
+      "sliding-window"
+    ],
+    "displayOrder": 21
+  },
+  {
+    "slug": "minimum-number-of-refueling-stops",
+    "title": "Minimum Number of Refueling Stops",
+    "url": "https://leetcode.com/problems/minimum-number-of-refueling-stops/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "hard",
+      "tier-3",
+      "heap"
+    ],
+    "displayOrder": 22
+  },
+  {
+    "slug": "create-maximum-number",
+    "title": "Create Maximum Number",
+    "url": "https://leetcode.com/problems/create-maximum-number/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "hard",
+      "tier-3"
+    ],
+    "displayOrder": 23
+  },
+  {
+    "slug": "ipo",
+    "title": "IPO",
+    "url": "https://leetcode.com/problems/ipo/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "greedy",
+      "hard",
+      "tier-3",
+      "heap"
+    ],
+    "displayOrder": 24
+  }
+]

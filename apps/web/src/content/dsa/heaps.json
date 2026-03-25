@@ -1,0 +1,391 @@
+[
+  {
+    "slug": "kth-largest-element-in-a-stream",
+    "title": "Kth Largest Element in a Stream",
+    "url": "https://leetcode.com/problems/kth-largest-element-in-a-stream/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "heaps",
+      "easy",
+      "tier-1",
+      "heap"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "last-stone-weight",
+    "title": "Last Stone Weight",
+    "url": "https://leetcode.com/problems/last-stone-weight/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "heaps",
+      "easy",
+      "tier-1",
+      "heap"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "k-closest-points-to-origin",
+    "title": "K Closest Points to Origin",
+    "url": "https://leetcode.com/problems/k-closest-points-to-origin/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Glean",
+        "frequency": 3
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "heaps",
+      "medium",
+      "tier-1",
+      "sorting",
+      "heap",
+      "divide-and-conquer"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "kth-largest-element-in-an-array",
+    "title": "Kth Largest Element in an Array",
+    "url": "https://leetcode.com/problems/kth-largest-element-in-an-array/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Microsoft",
+        "frequency": 3
+      },
+      {
+        "name": "Uber",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "heaps",
+      "medium",
+      "tier-1",
+      "heap"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "top-k-frequent-elements",
+    "title": "Top K Frequent Elements",
+    "url": "https://leetcode.com/problems/top-k-frequent-elements/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Uber",
+        "frequency": 3
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 3
+      },
+      {
+        "name": "Coinbase",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "heaps",
+      "medium",
+      "tier-1",
+      "hash-map",
+      "sorting",
+      "heap"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "top-k-frequent-words",
+    "title": "Top K Frequent Words",
+    "url": "https://leetcode.com/problems/top-k-frequent-words/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "heaps",
+      "medium",
+      "tier-1",
+      "graph"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "task-scheduler",
+    "title": "Task Scheduler",
+    "url": "https://leetcode.com/problems/task-scheduler/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Stripe",
+        "frequency": 3
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 3
+      },
+      {
+        "name": "Sprinklr",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "heaps",
+      "medium",
+      "tier-1",
+      "hash-map",
+      "heap",
+      "simulation"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "reorganize-string",
+    "title": "Reorganize String",
+    "url": "https://leetcode.com/problems/reorganize-string/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "heaps",
+      "medium",
+      "tier-1",
+      "hash-map",
+      "heap"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "merge-k-sorted-lists",
+    "title": "Merge K Sorted Lists",
+    "url": "https://leetcode.com/problems/merge-k-sorted-lists/",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Meta",
+        "frequency": 3
+      },
+      {
+        "name": "Bloomberg",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "heaps",
+      "hard",
+      "tier-1",
+      "heap"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "sort-characters-by-frequency",
+    "title": "Sort Characters By Frequency",
+    "url": "https://leetcode.com/problems/sort-characters-by-frequency/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "heaps",
+      "medium",
+      "tier-1",
+      "hash-map",
+      "heap",
+      "string"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "ugly-number-ii",
+    "title": "Ugly Number II",
+    "url": "https://leetcode.com/problems/ugly-number-ii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "heaps",
+      "medium",
+      "tier-2",
+      "heap"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "meeting-rooms-ii",
+    "title": "Meeting Rooms II",
+    "url": "https://leetcode.com/problems/meeting-rooms-ii/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Stripe",
+        "frequency": 4
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 4
+      },
+      {
+        "name": "Bloomberg",
+        "frequency": 4
+      },
+      {
+        "name": "Rippling",
+        "frequency": 4
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 4
+      }
+    ],
+    "tags": [
+      "heaps",
+      "medium",
+      "tier-2",
+      "greedy",
+      "sorting",
+      "heap"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "find-k-pairs-with-smallest-sums",
+    "title": "Find K Pairs with Smallest Sums",
+    "url": "https://leetcode.com/problems/find-k-pairs-with-smallest-sums/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "heaps",
+      "medium",
+      "tier-2",
+      "heap"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "kth-smallest-element-in-a-sorted-matrix",
+    "title": "Kth Smallest Element in a Sorted Matrix",
+    "url": "https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "heaps",
+      "medium",
+      "tier-2",
+      "heap"
+    ],
+    "displayOrder": 14
+  },
+  {
+    "slug": "find-median-from-data-stream",
+    "title": "Find Median from Data Stream",
+    "url": "https://leetcode.com/problems/find-median-from-data-stream/",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Bloomberg",
+        "frequency": 4
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 4
+      },
+      {
+        "name": "Tower",
+        "frequency": 4
+      },
+      {
+        "name": "Uber",
+        "frequency": 4
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 4
+      }
+    ],
+    "tags": [
+      "heaps",
+      "hard",
+      "tier-2",
+      "heap"
+    ],
+    "displayOrder": 15
+  },
+  {
+    "slug": "sliding-window-median",
+    "title": "Sliding Window Median",
+    "url": "https://leetcode.com/problems/sliding-window-median/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "heaps",
+      "hard",
+      "tier-2",
+      "sliding-window",
+      "heap"
+    ],
+    "displayOrder": 16
+  },
+  {
+    "slug": "ipo",
+    "title": "IPO",
+    "url": "https://leetcode.com/problems/ipo/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "heaps",
+      "hard",
+      "tier-2",
+      "greedy",
+      "heap"
+    ],
+    "displayOrder": 17
+  },
+  {
+    "slug": "maximum-frequency-stack",
+    "title": "Maximum Frequency Stack",
+    "url": "https://leetcode.com/problems/maximum-frequency-stack/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "heaps",
+      "hard",
+      "tier-2",
+      "hash-map",
+      "stack"
+    ],
+    "displayOrder": 18
+  },
+  {
+    "slug": "smallest-range-covering-elements-from-k-lists",
+    "title": "Smallest Range Covering Elements from K Lists",
+    "url": "https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "heaps",
+      "hard",
+      "tier-2",
+      "heap"
+    ],
+    "displayOrder": 19
+  },
+  {
+    "slug": "minimum-cost-to-connect-sticks",
+    "title": "Minimum Cost to Connect Sticks",
+    "url": "https://leetcode.com/problems/minimum-cost-to-connect-sticks/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "heaps",
+      "medium",
+      "tier-2",
+      "heap"
+    ],
+    "displayOrder": 20
+  }
+]

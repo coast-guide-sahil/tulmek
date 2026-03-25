@@ -16,20 +16,39 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "e2e": "playwright test",
-    "e2e:ui": "playwright test --ui"
+    "e2e:ui": "playwright test --ui",
+    "validate-content": "tsx scripts/validate-content.ts"
   },
   "dependencies": {
     "@libsql/client": "^0.17.2",
+    "@orama/orama": "^3.1.18",
+    "@tiptap/extension-code-block-lowlight": "^3.20.5",
+    "@tiptap/extension-highlight": "^3.20.5",
+    "@tiptap/extension-image": "^3.20.5",
+    "@tiptap/extension-link": "^3.20.5",
+    "@tiptap/extension-placeholder": "^3.20.5",
+    "@tiptap/extension-task-item": "^3.20.5",
+    "@tiptap/extension-task-list": "^3.20.5",
+    "@tiptap/extension-typography": "^3.20.5",
+    "@tiptap/extension-underline": "^3.20.5",
+    "@tiptap/markdown": "^3.20.5",
+    "@tiptap/pm": "^3.20.5",
+    "@tiptap/react": "^3.20.5",
+    "@tiptap/starter-kit": "^3.20.5",
     "@tulmek/config": "workspace:*",
     "@tulmek/core": "workspace:*",
     "better-auth": "^1.5.6",
     "drizzle-orm": "^0.45.1",
+    "idb-keyval": "^6.2.2",
+    "lowlight": "^3.3.0",
     "mailchecker": "^6.0.20",
     "next": "16.2.1",
     "next-themes": "^0.4.6",
+    "nuqs": "^2.8.9",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "resend": "^6.9.4"
+    "resend": "^6.9.4",
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
@@ -43,7 +62,9 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^6",
-    "vitest": "^4.1.1"
+    "vitest": "^4.1.1",
+    "zod": "^4.3.6"
   }
 }

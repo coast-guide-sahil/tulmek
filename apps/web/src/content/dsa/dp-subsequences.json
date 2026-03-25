@@ -1,0 +1,281 @@
+[
+  {
+    "slug": "longest-common-subsequence",
+    "title": "Longest Common Subsequence",
+    "url": "https://leetcode.com/problems/longest-common-subsequence/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "medium",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "longest-increasing-subsequence",
+    "title": "Longest Increasing Subsequence",
+    "url": "https://leetcode.com/problems/longest-increasing-subsequence/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "medium",
+      "tier-1",
+      "binary-search",
+      "dp"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "number-of-longest-increasing-subsequences",
+    "title": "Number of Longest Increasing Subsequences",
+    "url": "https://leetcode.com/problems/number-of-longest-increasing-subsequences/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "increasing-triplet-subsequence",
+    "title": "Increasing Triplet Subsequence",
+    "url": "https://leetcode.com/problems/increasing-triplet-subsequence/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "medium",
+      "tier-1",
+      "greedy"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "longest-bitonic-subsequence",
+    "title": "Longest Bitonic Subsequence",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "delete-operation-for-two-strings",
+    "title": "Delete Operation for Two Strings",
+    "url": "https://leetcode.com/problems/delete-operation-for-two-strings/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "minimum-ascii-delete-sum-for-two-strings",
+    "title": "Minimum ASCII Delete Sum for Two Strings",
+    "url": "https://leetcode.com/problems/minimum-ascii-delete-sum-for-two-strings/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "uncrossed-lines",
+    "title": "Uncrossed Lines",
+    "url": "https://leetcode.com/problems/uncrossed-lines/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "is-subsequence",
+    "title": "Is Subsequence",
+    "url": "https://leetcode.com/problems/is-subsequence/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "easy",
+      "tier-1",
+      "two-pointers",
+      "linked-list"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "longest-palindromic-subsequence",
+    "title": "Longest Palindromic Subsequence",
+    "url": "https://leetcode.com/problems/longest-palindromic-subsequence/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "medium",
+      "tier-1",
+      "interval"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "maximum-length-of-pair-chain",
+    "title": "Maximum Length of Pair Chain",
+    "url": "https://leetcode.com/problems/maximum-length-of-pair-chain/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "medium",
+      "tier-2",
+      "greedy",
+      "sorting"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "russian-doll-envelopes",
+    "title": "Russian Doll Envelopes",
+    "url": "https://leetcode.com/problems/russian-doll-envelopes/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "hard",
+      "tier-2",
+      "sorting"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "edit-distance",
+    "title": "Edit Distance",
+    "url": "https://leetcode.com/problems/edit-distance/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "hard",
+      "tier-2",
+      "dp"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "distinct-subsequences",
+    "title": "Distinct Subsequences",
+    "url": "https://leetcode.com/problems/distinct-subsequences/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "hard",
+      "tier-2",
+      "dp"
+    ],
+    "displayOrder": 14
+  },
+  {
+    "slug": "longest-increasing-subsequence-n-log-n",
+    "title": "Longest Increasing Subsequence (n log n)",
+    "url": "https://leetcode.com/problems/longest-increasing-subsequence/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "medium",
+      "tier-2",
+      "binary-search"
+    ],
+    "displayOrder": 15
+  },
+  {
+    "slug": "count-different-palindromic-subsequences",
+    "title": "Count Different Palindromic Subsequences",
+    "url": "https://leetcode.com/problems/count-different-palindromic-subsequences/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "hard",
+      "tier-2",
+      "dp"
+    ],
+    "displayOrder": 16
+  },
+  {
+    "slug": "minimum-operations-to-make-subsequence",
+    "title": "Minimum Operations to Make Subsequence",
+    "url": "https://leetcode.com/problems/minimum-operations-to-make-a-subsequence/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "hard",
+      "tier-2"
+    ],
+    "displayOrder": 17
+  },
+  {
+    "slug": "longest-arithmetic-subsequence",
+    "title": "Longest Arithmetic Subsequence",
+    "url": "https://leetcode.com/problems/longest-arithmetic-subsequence/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "medium",
+      "tier-2",
+      "dp"
+    ],
+    "displayOrder": 18
+  },
+  {
+    "slug": "longest-arithmetic-subsequence-of-given-difference",
+    "title": "Longest Arithmetic Subsequence of Given Difference",
+    "url": "https://leetcode.com/problems/longest-arithmetic-subsequence-of-given-difference/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "medium",
+      "tier-2",
+      "hash-map",
+      "dp"
+    ],
+    "displayOrder": 19
+  },
+  {
+    "slug": "longest-common-subsequence-print-it",
+    "title": "Longest Common Subsequence (Print it)",
+    "url": "",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-subsequences",
+      "hard",
+      "tier-2",
+      "dfs",
+      "backtracking"
+    ],
+    "displayOrder": 20
+  }
+]

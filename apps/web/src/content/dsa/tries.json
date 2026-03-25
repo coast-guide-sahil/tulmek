@@ -1,0 +1,208 @@
+[
+  {
+    "slug": "implement-trie-prefix-tree",
+    "title": "Implement Trie (Prefix Tree)",
+    "url": "https://leetcode.com/problems/implement-trie-prefix-tree/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Glean",
+        "frequency": 4
+      },
+      {
+        "name": "Stripe",
+        "frequency": 4
+      },
+      {
+        "name": "LinkedIn",
+        "frequency": 4
+      },
+      {
+        "name": "Atlassian",
+        "frequency": 4
+      }
+    ],
+    "tags": [
+      "tries",
+      "medium",
+      "tier-1",
+      "trie"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "design-add-and-search-words-data-structure",
+    "title": "Design Add and Search Words Data Structure",
+    "url": "https://leetcode.com/problems/design-add-and-search-words-data-structure/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "tries",
+      "medium",
+      "tier-1",
+      "dfs",
+      "trie"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "word-break",
+    "title": "Word Break",
+    "url": "https://leetcode.com/problems/word-break/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Microsoft",
+        "frequency": 4
+      },
+      {
+        "name": "Bloomberg",
+        "frequency": 4
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 4
+      },
+      {
+        "name": "Atlassian",
+        "frequency": 4
+      },
+      {
+        "name": "Rippling",
+        "frequency": 4
+      },
+      {
+        "name": "Sprinklr",
+        "frequency": 4
+      }
+    ],
+    "tags": [
+      "tries",
+      "medium",
+      "tier-1",
+      "hash-map",
+      "trie"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "replace-words",
+    "title": "Replace Words",
+    "url": "https://leetcode.com/problems/replace-words/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "tries",
+      "medium",
+      "tier-1",
+      "trie",
+      "tree"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "map-sum-pairs",
+    "title": "Map Sum Pairs",
+    "url": "https://leetcode.com/problems/map-sum-pairs/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "tries",
+      "medium",
+      "tier-1",
+      "trie"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "maximum-xor-of-two-numbers-in-an-array",
+    "title": "Maximum XOR of Two Numbers in an Array",
+    "url": "https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "tries",
+      "medium",
+      "tier-1",
+      "greedy",
+      "trie",
+      "bit-manipulation"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "concatenated-words",
+    "title": "Concatenated Words",
+    "url": "https://leetcode.com/problems/concatenated-words/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "tries",
+      "hard",
+      "tier-1",
+      "dfs",
+      "trie"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "short-encoding-of-words",
+    "title": "Short Encoding of Words",
+    "url": "https://leetcode.com/problems/short-encoding-of-words/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "tries",
+      "medium",
+      "tier-1",
+      "trie",
+      "tree"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "word-search-ii",
+    "title": "Word Search II",
+    "url": "https://leetcode.com/problems/word-search-ii/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "tries",
+      "hard",
+      "tier-1",
+      "dfs",
+      "trie"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "stream-of-characters",
+    "title": "Stream of Characters",
+    "url": "https://leetcode.com/problems/stream-of-characters/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "tries",
+      "hard",
+      "tier-1",
+      "trie"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "palindrome-pairs",
+    "title": "Palindrome Pairs",
+    "url": "https://leetcode.com/problems/palindrome-pairs/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "tries",
+      "hard",
+      "tier-2",
+      "hash-map",
+      "trie",
+      "string"
+    ],
+    "displayOrder": 11
+  }
+]

@@ -1,0 +1,304 @@
+[
+  {
+    "slug": "meeting-rooms",
+    "title": "Meeting Rooms",
+    "url": "https://leetcode.com/problems/meeting-rooms/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "intervals",
+      "easy",
+      "tier-1",
+      "sorting",
+      "interval"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "summary-ranges",
+    "title": "Summary Ranges",
+    "url": "https://leetcode.com/problems/summary-ranges/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "intervals",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "merge-intervals",
+    "title": "Merge Intervals",
+    "url": "https://leetcode.com/problems/merge-intervals/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Google",
+        "frequency": 5
+      },
+      {
+        "name": "Meta",
+        "frequency": 5
+      },
+      {
+        "name": "Stripe",
+        "frequency": 5
+      },
+      {
+        "name": "Databricks",
+        "frequency": 5
+      },
+      {
+        "name": "Uber",
+        "frequency": 5
+      },
+      {
+        "name": "Rubrik",
+        "frequency": 5
+      },
+      {
+        "name": "LinkedIn",
+        "frequency": 5
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 5
+      },
+      {
+        "name": "Microsoft",
+        "frequency": 5
+      },
+      {
+        "name": "Atlassian",
+        "frequency": 5
+      },
+      {
+        "name": "Rippling",
+        "frequency": 5
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 5
+      }
+    ],
+    "tags": [
+      "intervals",
+      "medium",
+      "tier-1",
+      "sorting"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "insert-interval",
+    "title": "Insert Interval",
+    "url": "https://leetcode.com/problems/insert-interval/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "intervals",
+      "medium",
+      "tier-1",
+      "interval"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "non-overlapping-intervals",
+    "title": "Non-overlapping Intervals",
+    "url": "https://leetcode.com/problems/non-overlapping-intervals/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "intervals",
+      "medium",
+      "tier-1",
+      "greedy",
+      "sorting",
+      "interval"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "meeting-rooms-ii",
+    "title": "Meeting Rooms II",
+    "url": "https://leetcode.com/problems/meeting-rooms-ii/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Stripe",
+        "frequency": 4
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 4
+      },
+      {
+        "name": "Bloomberg",
+        "frequency": 4
+      },
+      {
+        "name": "Rippling",
+        "frequency": 4
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 4
+      }
+    ],
+    "tags": [
+      "intervals",
+      "medium",
+      "tier-1",
+      "heap"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "minimum-number-of-arrows-to-burst-balloons",
+    "title": "Minimum Number of Arrows to Burst Balloons",
+    "url": "https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "intervals",
+      "medium",
+      "tier-1",
+      "greedy",
+      "sorting",
+      "interval"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "interval-list-intersections",
+    "title": "Interval List Intersections",
+    "url": "https://leetcode.com/problems/interval-list-intersections/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "intervals",
+      "medium",
+      "tier-1",
+      "two-pointers",
+      "linked-list"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "task-scheduler",
+    "title": "Task Scheduler",
+    "url": "https://leetcode.com/problems/task-scheduler/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Stripe",
+        "frequency": 3
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 3
+      },
+      {
+        "name": "Sprinklr",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "intervals",
+      "medium",
+      "tier-1",
+      "hash-map",
+      "greedy"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "car-pooling",
+    "title": "Car Pooling",
+    "url": "https://leetcode.com/problems/car-pooling/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "intervals",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "my-calendar-i",
+    "title": "My Calendar I",
+    "url": "https://leetcode.com/problems/my-calendar-i/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "intervals",
+      "medium",
+      "tier-2",
+      "sorting",
+      "interval"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "my-calendar-ii",
+    "title": "My Calendar II",
+    "url": "https://leetcode.com/problems/my-calendar-ii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "intervals",
+      "medium",
+      "tier-2",
+      "interval"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "my-calendar-iii",
+    "title": "My Calendar III",
+    "url": "https://leetcode.com/problems/my-calendar-iii/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "intervals",
+      "hard",
+      "tier-2",
+      "concurrency"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "employee-free-time",
+    "title": "Employee Free Time",
+    "url": "https://leetcode.com/problems/employee-free-time/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "intervals",
+      "hard",
+      "tier-2",
+      "sorting",
+      "interval"
+    ],
+    "displayOrder": 14
+  },
+  {
+    "slug": "minimum-interval-to-include-each-query",
+    "title": "Minimum Interval to Include Each Query",
+    "url": "https://leetcode.com/problems/minimum-interval-to-include-each-query/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "intervals",
+      "hard",
+      "tier-2",
+      "sorting",
+      "heap",
+      "interval"
+    ],
+    "displayOrder": 15
+  }
+]
