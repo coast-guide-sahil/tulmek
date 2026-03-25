@@ -11,7 +11,6 @@ export default function DsaPage() {
   return (
     <TrackerPage
       title="DSA Problems"
-      category="dsa"
       items={items}
       groups={groups}
       groupLabels={groupLabels}

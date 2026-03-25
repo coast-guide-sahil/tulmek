@@ -65,7 +65,9 @@ export class LocalStorageProgressStore implements ProgressStore {
 
   async remove(slug: string): Promise<void> {
     const all = await this.getAll();
-    const { [slug]: _removed, ...rest } = all;
+    const rest = Object.fromEntries(
+      Object.entries(all).filter(([key]) => key !== slug),
+    );
     this.cache = rest;
     this.persist(rest);
     this.notifyListeners(rest);

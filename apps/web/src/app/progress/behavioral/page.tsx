@@ -11,7 +11,6 @@ export default function BehavioralPage() {
   return (
     <TrackerPage
       title="Behavioral Questions"
-      category="behavioral"
       items={items}
       groups={groups}
       groupLabels={groupLabels}

@@ -11,7 +11,6 @@ export default function LldPage() {
   return (
     <TrackerPage
       title="Low-Level Design"
-      category="lld"
       items={items}
       groups={groups}
       groupLabels={groupLabels}

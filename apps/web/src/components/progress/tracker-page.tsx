@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
-import type { CategorizedItem, ContentCategory } from "@tulmek/core/domain";
+import type { CategorizedItem } from "@tulmek/core/domain";
 import { useProgress, useSearchEngine } from "@/lib/progress/provider";
 import { SearchBar } from "./search-bar";
 import { FilterChips, StatusFilter } from "./filter-chips";
@@ -11,7 +11,6 @@ import { BulkActions } from "./bulk-actions";
 
 interface TrackerPageProps {
   readonly title: string;
-  readonly category: ContentCategory;
   readonly items: readonly CategorizedItem[];
   /** Ordered list of group names to display */
   readonly groups: readonly string[];
@@ -23,7 +22,6 @@ interface TrackerPageProps {
 
 export function TrackerPage({
   title,
-  category: _category,
   items,
   groups,
   groupLabels,
