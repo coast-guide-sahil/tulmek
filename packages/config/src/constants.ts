@@ -66,4 +66,4 @@ export const ERROR_MESSAGES = {
 } as const;
 
 /** App metadata */
-export const APP_NAME = "Interview Prep";
+export const APP_NAME = "TULMEK";

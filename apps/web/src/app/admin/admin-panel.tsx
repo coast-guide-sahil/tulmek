@@ -10,7 +10,7 @@ import {
   ERROR_MESSAGES,
   APP_NAME,
   type Role,
-} from "@interview-prep/config/constants";
+} from "@tulmek/config/constants";
 
 const SEARCH_DEBOUNCE_MS = 300;
 

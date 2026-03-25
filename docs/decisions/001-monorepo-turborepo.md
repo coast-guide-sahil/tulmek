@@ -4,7 +4,7 @@
 Accepted
 
 ## Context
-The interview-prep app needs to share business logic with a planned mobile app. A monorepo structure allows code sharing without publishing packages. We evaluated Turborepo vs Nx.
+The tulmek app needs to share business logic with a planned mobile app. A monorepo structure allows code sharing without publishing packages. We evaluated Turborepo vs Nx.
 
 ## Decision
 Use **Turborepo** with **pnpm workspaces**:

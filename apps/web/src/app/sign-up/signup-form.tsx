@@ -11,7 +11,7 @@ import {
   PASSWORD_MIN_LENGTH,
   EMAIL_CHECK_DEBOUNCE_MS,
   ERROR_MESSAGES,
-} from "@interview-prep/config/constants";
+} from "@tulmek/config/constants";
 
 type Step = "email" | "otp" | "details";
 
@@ -452,7 +452,7 @@ export function SignUpForm({
                   </button>
                 </span>
               ) : (
-                "Sign up to get started with Interview Prep"
+                "Sign up to get started with TULMEK"
               )}
             </p>
 

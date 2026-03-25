@@ -1,6 +1,6 @@
 "use client";
 
-import { PASSWORD_MIN_LENGTH } from "@interview-prep/config/constants";
+import { PASSWORD_MIN_LENGTH } from "@tulmek/config/constants";
 
 function getStrength(password: string): {
   score: number;

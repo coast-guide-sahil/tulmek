@@ -9,7 +9,7 @@ import {
   ERROR_MESSAGES,
   PRE_SIGNUP,
   isTruthy,
-} from "@interview-prep/config/constants";
+} from "@tulmek/config/constants";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { hashOtp } from "@/lib/otp";
 

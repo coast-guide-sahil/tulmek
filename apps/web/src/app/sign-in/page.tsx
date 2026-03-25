@@ -6,7 +6,7 @@ import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { PasswordInput } from "@/components/password-input";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { ERROR_MESSAGES } from "@interview-prep/config/constants";
+import { ERROR_MESSAGES } from "@tulmek/config/constants";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -55,7 +55,7 @@ export default function SignInPage() {
           Welcome back
         </h1>
         <p className="mb-6 text-sm text-muted-foreground">
-          Sign in to your Interview Prep account
+          Sign in to your TULMEK account
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>

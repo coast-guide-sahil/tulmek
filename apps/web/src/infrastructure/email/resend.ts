@@ -5,7 +5,7 @@ const resend = process.env.RESEND_API_KEY
   : null;
 
 const emailFrom =
-  process.env.EMAIL_FROM ?? "Interview Prep <onboarding@resend.dev>";
+  process.env.EMAIL_FROM ?? "TULMEK <onboarding@resend.dev>";
 
 export async function sendOTPEmail(to: string, otp: string) {
   if (!resend) {

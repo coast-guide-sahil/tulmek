@@ -3,7 +3,7 @@
 ## Architecture
 
 ```
-GitHub (<your-org>/interview-prep)
+GitHub (<your-org>/tulmek)
   │
   ├── push to main ──────► Vercel auto-deploy (production)
   ├── push to PR branch ──► Vercel preview deploy (guest-only)
@@ -17,8 +17,8 @@ GitHub (<your-org>/interview-prep)
 ## Local Development
 
 ```bash
-git clone git@github.com:<github-org>/interview-prep.git
-cd interview-prep
+git clone git@github.com:<github-org>/tulmek.git
+cd tulmek
 corepack enable
 pnpm install
 cd apps/web

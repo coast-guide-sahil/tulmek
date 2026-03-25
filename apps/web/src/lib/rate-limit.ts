@@ -9,7 +9,7 @@
  *   - verify-otp: max 5 attempts per OTP (tracked in verification table)
  *   - send-otp: 60 s cooldown per email (tracked in verification table)
  */
-import { CUSTOM_ROUTE_RATE_LIMIT } from "@interview-prep/config/constants";
+import { CUSTOM_ROUTE_RATE_LIMIT } from "@tulmek/config/constants";
 
 const { WINDOW_MS, MAX_REQUESTS } = CUSTOM_ROUTE_RATE_LIMIT;
 

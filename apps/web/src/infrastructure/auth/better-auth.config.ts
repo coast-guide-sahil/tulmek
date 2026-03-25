@@ -11,7 +11,7 @@ import {
   ERROR_MESSAGES,
   PRE_SIGNUP,
   isTruthy,
-} from "@interview-prep/config/constants";
+} from "@tulmek/config/constants";
 import { db } from "../database/drizzle/client";
 import * as schema from "../database/drizzle/schema";
 import { sendOTPEmail } from "../email/resend";

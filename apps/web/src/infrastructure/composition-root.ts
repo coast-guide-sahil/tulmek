@@ -1,7 +1,7 @@
 import { BetterAuthAdapter } from "./auth/better-auth.adapter";
 import { DrizzleUserRepository } from "./database/drizzle/user.repository";
 import { MailcheckerAdapter } from "./email/mailchecker.adapter";
-import { createValidateSignup } from "@interview-prep/core/use-cases";
+import { createValidateSignup } from "@tulmek/core/use-cases";
 
 export { auth } from "./auth/better-auth.config";
 

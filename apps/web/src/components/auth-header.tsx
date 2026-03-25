@@ -4,7 +4,7 @@ import { useSession, signOut } from "@/lib/auth-client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { ROLES, APP_NAME } from "@interview-prep/config/constants";
+import { ROLES, APP_NAME } from "@tulmek/config/constants";
 
 export function AuthHeader() {
   const { data: session, isPending } = useSession();

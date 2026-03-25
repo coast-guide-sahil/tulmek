@@ -1,12 +1,12 @@
-# @interview-prep/core
+# @tulmek/core
 
 Zero-dependency pure TypeScript package. Shared by web + future mobile.
 
 ## Exports
-- `@interview-prep/core/domain` — User, Session, branded types (UserId, Email), DomainErrors
-- `@interview-prep/core/ports` — AuthPort, UserRepository, EmailValidatorPort, EmailPort
-- `@interview-prep/core/use-cases` — createValidateSignup
-- `@interview-prep/core/result` — Result<T, E>, Ok(), Err()
+- `@tulmek/core/domain` — User, Session, branded types (UserId, Email), DomainErrors
+- `@tulmek/core/ports` — AuthPort, UserRepository, EmailValidatorPort, EmailPort
+- `@tulmek/core/use-cases` — createValidateSignup
+- `@tulmek/core/result` — Result<T, E>, Ok(), Err()
 
 ## NEVER
 - Add runtime dependencies (must stay zero-dep)
