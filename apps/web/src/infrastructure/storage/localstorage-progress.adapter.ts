@@ -13,6 +13,31 @@ const STORAGE_KEY = "tulmek:progress";
  */
 export class LocalStorageProgressStore implements ProgressStore {
   private cache: ProgressMap | null = null;
+  private storageHandler: ((e: StorageEvent) => void) | null = null;
+
+  constructor() {
+    if (typeof window !== "undefined") {
+      this.storageHandler = (e: StorageEvent) => {
+        if (e.key === STORAGE_KEY) {
+          // Another tab changed progress — invalidate cache and notify
+          const updated: ProgressMap = e.newValue
+            ? (JSON.parse(e.newValue) as ProgressMap)
+            : {};
+          this.cache = updated;
+          this.notifyListeners(updated);
+        }
+      };
+      window.addEventListener("storage", this.storageHandler);
+    }
+  }
+
+  /** Removes the cross-tab sync listener. Call when the adapter is no longer needed. */
+  dispose(): void {
+    if (this.storageHandler && typeof window !== "undefined") {
+      window.removeEventListener("storage", this.storageHandler);
+      this.storageHandler = null;
+    }
+  }
 
   async getAll(): Promise<ProgressMap> {
     if (this.cache) return this.cache;

@@ -126,13 +126,20 @@ function ActiveEditor({
     },
   });
 
-  // Cleanup: destroy editor and clear pending saves on unmount
+  // Cleanup: flush pending save and destroy editor on unmount
   useEffect(() => {
     return () => {
-      if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current);
+        // Flush the pending save so content isn't lost on unmount (e.g. group collapse)
+        const html = editor?.getHTML();
+        if (html !== undefined) {
+          saveNote(slug, html).catch(console.error);
+        }
+      }
       editor?.destroy();
     };
-  }, [editor]);
+  }, [editor, slug, saveNote]);
 
   const handleClose = useCallback(() => {
     if (!editor) return;

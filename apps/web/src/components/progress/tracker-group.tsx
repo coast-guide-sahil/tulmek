@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState, useRef, type ReactNode } from "react";
 import { useProgress } from "@/lib/progress/provider";
 
 interface TrackerGroupProps {
@@ -17,6 +17,7 @@ export function TrackerGroup({
   children,
 }: TrackerGroupProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
+  const headerRef = useRef<HTMLButtonElement>(null);
   const completedCount = useProgress((s) => s.countCompleted([...slugs]));
   const totalCount = slugs.length;
   const percentage =
@@ -25,7 +26,15 @@ export function TrackerGroup({
   return (
     <div className="rounded-xl border border-border bg-card">
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        ref={headerRef}
+        onClick={() => {
+          const wasOpen = isOpen;
+          setIsOpen(!isOpen);
+          // Return focus to the header button when collapsing
+          if (wasOpen) {
+            requestAnimationFrame(() => headerRef.current?.focus());
+          }
+        }}
         className="flex min-h-[52px] w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-muted/50 sm:px-5"
         aria-expanded={isOpen}
       >

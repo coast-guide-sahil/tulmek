@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useSyncExternalStore } from "react";
 
 interface SearchBarProps {
   readonly value: string;
@@ -18,6 +18,11 @@ export function SearchBar({
   totalCount,
 }: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const isMac = useSyncExternalStore(
+    () => () => {},
+    () => navigator.platform?.toUpperCase().includes("MAC") ?? false,
+    () => false,
+  );
 
   // Ctrl+K / Cmd+K to focus search
   useEffect(() => {
@@ -65,13 +70,13 @@ export function SearchBar({
       {/* Keyboard shortcut hint + count */}
       <div className="pointer-events-none absolute right-3 top-1/2 flex -translate-y-1/2 items-center gap-2">
         {resultCount !== undefined && totalCount !== undefined && (
-          <span className="text-[11px] text-muted-foreground">
+          <span className="text-xs text-muted-foreground">
             {resultCount}/{totalCount}
           </span>
         )}
         {!value && (
           <kbd className="hidden rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground sm:inline">
-            ⌘K
+            {isMac ? "⌘K" : "Ctrl+K"}
           </kbd>
         )}
       </div>

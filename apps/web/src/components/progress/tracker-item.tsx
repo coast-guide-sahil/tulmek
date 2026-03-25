@@ -66,20 +66,24 @@ export function TrackerItem({ item, isSelecting, isSelected, onToggleSelect }: T
               e.stopPropagation();
               onToggleSelect?.(item.slug);
             }}
-            className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-colors ${
-              isSelected
-                ? "border-primary bg-primary"
-                : "border-border hover:border-primary"
-            }`}
+            className="flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center"
             role="checkbox"
             aria-checked={isSelected}
             aria-label={`Select ${item.title}`}
           >
-            {isSelected && (
-              <svg className="h-3 w-3 text-primary-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
-            )}
+            <span
+              className={`flex h-5 w-5 items-center justify-center rounded border-2 transition-colors ${
+                isSelected
+                  ? "border-primary bg-primary"
+                  : "border-border hover:border-primary"
+              }`}
+            >
+              {isSelected && (
+                <svg className="h-3 w-3 text-primary-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              )}
+            </span>
           </button>
         )}
 
@@ -92,34 +96,38 @@ export function TrackerItem({ item, isSelecting, isSelected, onToggleSelect }: T
               handleToggle(e);
             }
           }}
-          className="flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-          style={{
-            borderColor: completed
-              ? "var(--success)"
-              : "var(--border)",
-            backgroundColor: completed
-              ? "var(--success)"
-              : "transparent",
-          }}
+          className="flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           role="checkbox"
           aria-checked={completed}
           aria-label={`Mark ${item.title} as ${completed ? "not completed" : "completed"}`}
         >
-          {completed && (
-            <svg
-              className="h-3 w-3 text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={3}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-          )}
+          <span
+            className="flex h-5 w-5 items-center justify-center rounded border-2 transition-colors"
+            style={{
+              borderColor: completed
+                ? "var(--success)"
+                : "var(--border)",
+              backgroundColor: completed
+                ? "var(--success)"
+                : "transparent",
+            }}
+          >
+            {completed && (
+              <svg
+                className="h-3 w-3 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={3}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            )}
+          </span>
         </button>
 
         {/* Title */}
@@ -149,7 +157,7 @@ export function TrackerItem({ item, isSelecting, isSelected, onToggleSelect }: T
         {/* Difficulty pill */}
         {item.difficulty && (
           <span
-            className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-medium ${DIFFICULTY_STYLES[item.difficulty] ?? "bg-muted text-muted-foreground"}`}
+            className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${DIFFICULTY_STYLES[item.difficulty] ?? "bg-muted text-muted-foreground"}`}
           >
             {item.difficulty}
           </span>
@@ -160,13 +168,13 @@ export function TrackerItem({ item, isSelecting, isSelected, onToggleSelect }: T
           {topCompanies.map((c) => (
             <span
               key={c.name}
-              className="rounded bg-muted px-1.5 py-0.5 text-[11px] font-medium text-muted-foreground"
+              className="rounded bg-muted px-1.5 py-0.5 text-xs font-medium text-muted-foreground"
             >
               {c.name}
             </span>
           ))}
           {moreCount > 0 && (
-            <span className="text-[11px] text-muted-foreground">
+            <span className="text-xs text-muted-foreground">
               +{moreCount}
             </span>
           )}
@@ -196,7 +204,7 @@ export function TrackerItem({ item, isSelecting, isSelected, onToggleSelect }: T
             {item.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-md bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground"
+                className="rounded-md bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground"
               >
                 {tag}
               </span>

@@ -9,35 +9,46 @@ import {
 } from "react";
 import { useStore } from "zustand";
 import { useShallow } from "zustand/shallow";
-import type { ProgressStore, NoteStore } from "@tulmek/core/ports";
+import type { ProgressStore, NoteStore, SearchEngine } from "@tulmek/core/ports";
 import { createProgressStore, type UseProgressStore } from "./store";
 import { LocalStorageProgressStore } from "@/infrastructure/storage/localstorage-progress.adapter";
 import { IDBNoteStore } from "@/infrastructure/storage/idb-note.adapter";
+import { OramaSearchEngine } from "@/infrastructure/search/orama-search.adapter";
 
 type ProgressStoreApi = ReturnType<typeof createProgressStore>;
 
 const ProgressContext = createContext<ProgressStoreApi | null>(null);
+const SearchContext = createContext<SearchEngine | null>(null);
 
 /**
  * Default adapters — the ONLY place concrete implementations are chosen.
- * Swap these to change storage backends.
+ * Swap these to change storage/search backends.
  */
-const defaultDeps: { progressStore: ProgressStore; noteStore: NoteStore } = {
+const defaultDeps: {
+  progressStore: ProgressStore;
+  noteStore: NoteStore;
+  searchEngine: SearchEngine;
+} = {
   progressStore: new LocalStorageProgressStore(),
   noteStore: new IDBNoteStore(),
+  searchEngine: new OramaSearchEngine(),
 };
 
 interface ProgressProviderProps {
   children: ReactNode;
   /** Override adapters for testing or alternative backends */
-  deps?: { progressStore: ProgressStore; noteStore: NoteStore };
+  deps?: {
+    progressStore: ProgressStore;
+    noteStore: NoteStore;
+    searchEngine: SearchEngine;
+  };
 }
 
 /**
  * Provider that creates and hydrates the progress store.
  *
  * Adapters are configurable via `deps` prop for testability.
- * Default adapters: LocalStorage (progress) + IndexedDB (notes).
+ * Default adapters: LocalStorage (progress) + IndexedDB (notes) + Orama (search).
  */
 export function ProgressProvider({
   children,
@@ -59,7 +70,9 @@ export function ProgressProvider({
 
   return (
     <ProgressContext.Provider value={store}>
-      {children}
+      <SearchContext.Provider value={deps.searchEngine}>
+        {children}
+      </SearchContext.Provider>
     </ProgressContext.Provider>
   );
 }
@@ -75,6 +88,17 @@ export function useProgress<T>(
     throw new Error("useProgress must be used within <ProgressProvider>");
   }
   return useStore(store, selector);
+}
+
+/**
+ * Hook to access the injected SearchEngine adapter.
+ */
+export function useSearchEngine(): SearchEngine {
+  const engine = useContext(SearchContext);
+  if (!engine) {
+    throw new Error("useSearchEngine must be used within <ProgressProvider>");
+  }
+  return engine;
 }
 
 /**

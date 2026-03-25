@@ -48,7 +48,7 @@ export function ProgressShell({ children }: { children: ReactNode }) {
                   <Link
                     key={href}
                     href={href}
-                    className={`flex min-h-[36px] items-center whitespace-nowrap rounded-lg px-3 text-sm font-medium transition-colors sm:min-h-[40px] sm:px-4 ${
+                    className={`flex min-h-[44px] items-center whitespace-nowrap rounded-lg px-3 text-sm font-medium transition-colors sm:px-4 ${
                       isActive
                         ? "bg-primary text-primary-foreground"
                         : "text-muted-foreground hover:bg-muted hover:text-foreground"

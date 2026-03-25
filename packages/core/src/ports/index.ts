@@ -9,3 +9,8 @@ export type {
   SearchParams,
   SearchFilters,
 } from "./search-engine.port";
+export type {
+  ContentSource,
+  ContentSection,
+  DashboardSection,
+} from "./content-source.port";

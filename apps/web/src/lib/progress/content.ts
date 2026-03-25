@@ -2,11 +2,13 @@
  * Content adapter — transforms raw JSON content into CategorizedItems
  * used by the tracker UI components.
  *
+ * Implements the ContentSource port from @tulmek/core/ports.
  * This is the ONLY file that imports from src/content/.
  * Swap the content source (JSON files → CMS → API) here.
  */
 
 import type { CategorizedItem } from "@tulmek/core/domain";
+import type { ContentSource, ContentSection, DashboardSection } from "@tulmek/core/ports";
 import {
   dsa,
   dsaPatterns,
@@ -40,7 +42,7 @@ const DSA_ITEMS: CategorizedItem[] = dsaPatterns.flatMap((pattern) => {
   return toCategorized(items, "dsa", pattern.key);
 });
 
-export function getDsaContent() {
+export async function getDsaContent(): Promise<ContentSection> {
   return {
     items: DSA_ITEMS,
     groups: DSA_GROUP_ORDER,
@@ -63,7 +65,7 @@ const HLD_ITEMS: CategorizedItem[] = (hld as ContentItem[]).map((item) => ({
   group: item.tags.includes("fundamentals") ? "fundamentals" : "classic-systems",
 }));
 
-export function getHldContent() {
+export async function getHldContent(): Promise<ContentSection> {
   return {
     items: HLD_ITEMS,
     groups: [...HLD_GROUPS],
@@ -90,7 +92,7 @@ const LLD_ITEMS: CategorizedItem[] = (lld as ContentItem[]).map((item) => {
   };
 });
 
-export function getLldContent() {
+export async function getLldContent(): Promise<ContentSection> {
   return {
     items: LLD_ITEMS,
     groups: [...LLD_GROUPS],
@@ -132,7 +134,7 @@ const BEHAVIORAL_ITEMS: CategorizedItem[] = (
   };
 });
 
-export function getBehavioralContent() {
+export async function getBehavioralContent(): Promise<ContentSection> {
   return {
     items: BEHAVIORAL_ITEMS,
     groups: [...BEHAVIORAL_GROUPS],
@@ -143,11 +145,11 @@ export function getBehavioralContent() {
 
 // --- All content ---
 
-export function getAllContent() {
+export async function getAllContent(): Promise<CategorizedItem[]> {
   return [...DSA_ITEMS, ...HLD_ITEMS, ...LLD_ITEMS, ...BEHAVIORAL_ITEMS];
 }
 
-export function getDashboardSections() {
+export async function getDashboardSections(): Promise<DashboardSection[]> {
   return [
     {
       category: "dsa" as const,
@@ -178,4 +180,17 @@ export function getDashboardSections() {
       description: `${BEHAVIORAL_ITEMS.length} STAR questions across 6 competencies`,
     },
   ];
+}
+
+/**
+ * Static content source adapter — reads from bundled JSON files.
+ * Implements the ContentSource port for swapability.
+ */
+export class StaticContentSource implements ContentSource {
+  getDsaContent = getDsaContent;
+  getHldContent = getHldContent;
+  getLldContent = getLldContent;
+  getBehavioralContent = getBehavioralContent;
+  getAllContent = getAllContent;
+  getDashboardSections = getDashboardSections;
 }

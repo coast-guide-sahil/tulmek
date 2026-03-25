@@ -80,6 +80,7 @@ export function Dashboard({ sections }: DashboardProps) {
               aria-valuenow={totalCompleted}
               aria-valuemin={0}
               aria-valuemax={totalItems}
+              aria-label={`Overall progress: ${totalCompleted} of ${totalItems} completed`}
             />
           </div>
         </div>
@@ -125,6 +126,11 @@ export function Dashboard({ sections }: DashboardProps) {
                   <div
                     className="h-full rounded-full bg-success transition-all duration-700 ease-out"
                     style={{ width: `${pct}%` }}
+                    role="progressbar"
+                    aria-valuenow={completed}
+                    aria-valuemin={0}
+                    aria-valuemax={total}
+                    aria-label={`${section.label} progress: ${completed} of ${total} completed`}
                   />
                 </div>
               </div>

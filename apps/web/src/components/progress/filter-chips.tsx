@@ -86,7 +86,7 @@ export function StatusFilter({
   ];
 
   return (
-    <div className="flex rounded-lg bg-muted p-0.5">
+    <div className="flex rounded-lg bg-muted p-0.5" role="radiogroup" aria-label="Filter by status">
       {options.map(({ key, label, count }) => (
         <button
           key={key}
@@ -96,7 +96,8 @@ export function StatusFilter({
               ? "bg-background text-foreground shadow-sm"
               : "text-muted-foreground hover:text-foreground"
           }`}
-          aria-pressed={value === key}
+          role="radio"
+          aria-checked={value === key}
         >
           {label}
           <span className="opacity-50">{count}</span>

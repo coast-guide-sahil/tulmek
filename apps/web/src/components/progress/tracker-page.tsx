@@ -2,8 +2,7 @@
 
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import type { CategorizedItem, ContentCategory } from "@tulmek/core/domain";
-import { useProgress } from "@/lib/progress/provider";
-import { initSearchIndex, searchItems } from "@/lib/progress/search";
+import { useProgress, useSearchEngine } from "@/lib/progress/provider";
 import { SearchBar } from "./search-bar";
 import { FilterChips, StatusFilter } from "./filter-chips";
 import { TrackerGroup } from "./tracker-group";
@@ -39,8 +38,13 @@ export function TrackerPage({
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectedSlugs, setSelectedSlugs] = useState<Set<string>>(new Set());
 
+  const searchEngine = useSearchEngine();
+  const [matchingSlugs, setMatchingSlugs] = useState<Set<string> | null>(null);
+
   const progress = useProgress((s) => s.progress);
   const hydrated = useProgress((s) => s.hydrated);
+
+  const filteredItemsRef = useRef<readonly CategorizedItem[]>(items);
 
   const toggleSelect = useCallback((slug: string) => {
     setSelectedSlugs((prev) => {
@@ -52,8 +56,8 @@ export function TrackerPage({
   }, []);
 
   const selectAll = useCallback(() => {
-    setSelectedSlugs(new Set(items.map((i) => i.slug)));
-  }, [items]);
+    setSelectedSlugs(new Set(filteredItemsRef.current.map((i) => i.slug)));
+  }, []);
 
   const clearSelection = useCallback(() => {
     setSelectedSlugs(new Set());
@@ -85,22 +89,38 @@ export function TrackerPage({
       .filter((f) => f.count > 0);
   }, [items, difficulties]);
 
-  // Initialize Orama search index
+  // Initialize search engine index
   const indexInitialized = useRef(false);
   useEffect(() => {
     if (!indexInitialized.current && items.length > 0) {
-      initSearchIndex(items);
+      searchEngine.index(items);
       indexInitialized.current = true;
     }
-  }, [items]);
+  }, [items, searchEngine]);
+
+  // Run search query through SearchEngine port
+  const prevQueryRef = useRef("");
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      prevQueryRef.current = "";
+      return;
+    }
+    let cancelled = false;
+    prevQueryRef.current = searchQuery;
+    searchEngine.search({ query: searchQuery }).then((result) => {
+      if (!cancelled) {
+        setMatchingSlugs(new Set(result.hits.map((h) => h.item.slug)));
+      }
+    });
+    return () => { cancelled = true; };
+  }, [searchQuery, searchEngine]);
 
   // Filter items
   const filteredItems = useMemo(() => {
     let result = [...items];
 
-    // Full-text search via Orama (typo-tolerant, multi-field)
-    if (searchQuery.trim()) {
-      const matchingSlugs = searchItems(searchQuery);
+    // Full-text search via SearchEngine port (typo-tolerant, multi-field)
+    if (searchQuery.trim() && matchingSlugs) {
       result = result.filter((item) => matchingSlugs.has(item.slug));
     }
 
@@ -124,7 +144,12 @@ export function TrackerPage({
     }
 
     return result;
-  }, [items, searchQuery, difficultyFilter, companyFilter, statusFilter, progress]);
+  }, [items, searchQuery, matchingSlugs, difficultyFilter, companyFilter, statusFilter, progress]);
+
+  // Keep ref in sync so selectAll uses current filtered list
+  useEffect(() => {
+    filteredItemsRef.current = filteredItems;
+  }, [filteredItems]);
 
   // Group filtered items
   const groupedItems = useMemo(() => {
@@ -177,6 +202,13 @@ export function TrackerPage({
 
   return (
     <div className="space-y-4 sm:space-y-5">
+      {/* Screen reader announcement for filter result counts */}
+      <div className="sr-only" aria-live="polite" role="status">
+        {hasActiveFilters
+          ? `Showing ${filteredCount} of ${totalCount} problems`
+          : `${totalCount} problems`}
+      </div>
+
       {/* Header */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -198,6 +230,7 @@ export function TrackerPage({
               aria-valuenow={completedCount}
               aria-valuemin={0}
               aria-valuemax={totalCount}
+              aria-label={`Overall progress: ${completedCount} of ${totalCount} completed`}
             />
           </div>
         </div>
@@ -205,7 +238,7 @@ export function TrackerPage({
 
       {/* Bulk actions */}
       <BulkActions
-        items={[...items]}
+        items={items}
         selectedSlugs={selectedSlugs}
         onToggleSelect={toggleSelect}
         onSelectAll={selectAll}
