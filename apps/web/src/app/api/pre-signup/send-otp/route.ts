@@ -106,7 +106,17 @@ export async function POST(req: Request) {
     expiresAt,
   });
 
-  await sendOTPEmail(email, otp);
+  try {
+    await sendOTPEmail(email, otp);
+  } catch {
+    await db
+      .delete(schema.verification)
+      .where(eq(schema.verification.identifier, identifier));
+    return Response.json(
+      { error: "Failed to send verification email. Please try again later." },
+      { status: 502 },
+    );
+  }
 
   return Response.json({ success: true });
 }
