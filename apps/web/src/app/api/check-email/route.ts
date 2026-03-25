@@ -7,12 +7,16 @@ export async function POST(req: Request) {
   const origin = headersList.get("origin");
   const appUrl = process.env.BETTER_AUTH_URL ?? process.env.NEXT_PUBLIC_APP_URL;
 
-  if (!origin || !appUrl || origin !== new URL(appUrl).origin) {
+  try {
+    if (!origin || !appUrl || origin !== new URL(appUrl).origin) {
+      return Response.json({ error: "Forbidden" }, { status: 403 });
+    }
+  } catch {
     return Response.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const ip = getClientIp(headersList);
-  const { allowed, retryAfterMs } = checkRateLimit(ip);
+  const { allowed, retryAfterMs } = checkRateLimit(`check-email:${ip}`);
   if (!allowed) {
     return Response.json(
       { error: "Too many requests" },

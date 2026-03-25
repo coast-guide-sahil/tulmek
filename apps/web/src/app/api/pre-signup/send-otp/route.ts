@@ -1,4 +1,4 @@
-import { createHash, randomInt, randomUUID } from "crypto";
+import { randomInt, randomUUID } from "crypto";
 import { headers } from "next/headers";
 import { eq, and, gt } from "drizzle-orm";
 import { emailValidator } from "@/infrastructure/composition-root";
@@ -11,14 +11,11 @@ import {
   isTruthy,
 } from "@interview-prep/config/constants";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+import { hashOtp } from "@/lib/otp";
 
 const requireEmailVerification = isTruthy(
   process.env.REQUIRE_EMAIL_VERIFICATION,
 );
-
-function hashOtp(otp: string): string {
-  return createHash("sha256").update(otp).digest("hex");
-}
 
 export async function POST(req: Request) {
   if (!requireEmailVerification) {
@@ -29,12 +26,16 @@ export async function POST(req: Request) {
   const origin = headersList.get("origin");
   const appUrl = process.env.BETTER_AUTH_URL ?? process.env.NEXT_PUBLIC_APP_URL;
 
-  if (!origin || !appUrl || origin !== new URL(appUrl).origin) {
+  try {
+    if (!origin || !appUrl || origin !== new URL(appUrl).origin) {
+      return Response.json({ error: "Forbidden" }, { status: 403 });
+    }
+  } catch {
     return Response.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const ip = getClientIp(headersList);
-  const { allowed, retryAfterMs } = checkRateLimit(ip);
+  const { allowed, retryAfterMs } = checkRateLimit(`send-otp:${ip}`);
   if (!allowed) {
     return Response.json(
       { error: "Too many requests" },
