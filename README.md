@@ -89,6 +89,9 @@ docker compose --profile prod up --build
 | `MAX_USERS` | Maximum allowed users (default: 100) | No |
 | `ADMIN_EMAIL` | Email auto-promoted to admin on signup | No |
 | `NEXT_PUBLIC_SKIP_AUTH` | Set to `true` for guest-only (preview deploys) | No |
+| `REQUIRE_EMAIL_VERIFICATION` | `true` to require OTP email verification before signup | No |
+| `RESEND_API_KEY` | Resend API key for sending OTP emails | No |
+| `EMAIL_FROM` | Email sender (default: `TULMEK <onboarding@resend.dev>`) | No |
 
 ## Swapping Providers
 

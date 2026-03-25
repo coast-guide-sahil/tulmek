@@ -19,6 +19,10 @@ The clean architecture makes swapping third-party dependencies straightforward. 
 1. Create a new adapter implementing `EmailValidatorPort`
 2. Update composition-root import
 
+### Resend → other email service
+1. Create `apps/web/src/infrastructure/email/your-provider.ts` exporting `sendOTPEmail(to, otp)`
+2. Update imports in `better-auth.config.ts` and `send-otp/route.ts`
+
 ### Add mobile app
 1. Create `apps/mobile/`
 2. Import `@tulmek/core` and `@tulmek/config`

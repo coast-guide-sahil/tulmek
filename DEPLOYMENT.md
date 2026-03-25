@@ -39,6 +39,9 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 MAX_USERS=100
 ADMIN_EMAIL=your-email@example.com
 NEXT_PUBLIC_SKIP_AUTH=false
+REQUIRE_EMAIL_VERIFICATION=false
+RESEND_API_KEY=
+EMAIL_FROM=TULMEK <onboarding@resend.dev>
 ```
 
 ---
@@ -103,7 +106,7 @@ Automatic — merging to `main` triggers a Vercel production deploy.
 
 ### Health check
 ```
-GET /api/health → {"status":"ok","version":"0.1.0"}
+GET /api/health → {"status":"ok","version":"<current>"}
 ```
 
 ---
@@ -120,6 +123,9 @@ GET /api/health → {"status":"ok","version":"0.1.0"}
 | `MAX_USERS` | `100` | `100` | `100` | `100` |
 | `ADMIN_EMAIL` | Your email | Not needed | Admin email | Empty |
 | `NEXT_PUBLIC_SKIP_AUTH` | `false` | **`true`** | `false` | Not set |
+| `REQUIRE_EMAIL_VERIFICATION` | `false` | Not needed | `true`/`false` | Not set |
+| `RESEND_API_KEY` | Optional | Not needed | Resend key | Not needed |
+| `EMAIL_FROM` | Optional | Not needed | Sender address | Not needed |
 
 ---
 
