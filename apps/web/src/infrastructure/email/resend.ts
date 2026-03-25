@@ -9,14 +9,17 @@ const emailFrom =
 
 export async function sendOTPEmail(to: string, otp: string) {
   if (!resend) {
-    console.log(`[DEV] Email OTP for ${to}: ${otp}`);
-    return;
+    if (process.env.NODE_ENV === "development") {
+      console.log(`[DEV] Email OTP for ${to}: ${otp}`);
+      return;
+    }
+    throw new Error("RESEND_API_KEY is not configured");
   }
 
   const { error } = await resend.emails.send({
     from: emailFrom,
     to,
-    subject: `${otp} is your verification code`,
+    subject: "Your verification code",
     html: `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 400px; margin: 0 auto; padding: 24px;">
         <h2 style="margin-bottom: 8px;">Verify your email</h2>

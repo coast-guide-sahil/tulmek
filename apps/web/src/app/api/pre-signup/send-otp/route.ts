@@ -1,14 +1,24 @@
-import { randomInt, randomUUID } from "crypto";
+import { createHash, randomInt, randomUUID } from "crypto";
 import { headers } from "next/headers";
 import { eq, and, gt } from "drizzle-orm";
 import { emailValidator } from "@/infrastructure/composition-root";
 import { db } from "@/infrastructure/database/drizzle/client";
 import * as schema from "@/infrastructure/database/drizzle/schema";
 import { sendOTPEmail } from "@/infrastructure/email/resend";
-import { ERROR_MESSAGES, PRE_SIGNUP } from "@interview-prep/config/constants";
+import {
+  ERROR_MESSAGES,
+  PRE_SIGNUP,
+  isTruthy,
+} from "@interview-prep/config/constants";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
-const requireEmailVerification =
-  process.env.REQUIRE_EMAIL_VERIFICATION === "true";
+const requireEmailVerification = isTruthy(
+  process.env.REQUIRE_EMAIL_VERIFICATION,
+);
+
+function hashOtp(otp: string): string {
+  return createHash("sha256").update(otp).digest("hex");
+}
 
 export async function POST(req: Request) {
   if (!requireEmailVerification) {
@@ -18,11 +28,21 @@ export async function POST(req: Request) {
   const headersList = await headers();
   const origin = headersList.get("origin");
   const appUrl = process.env.BETTER_AUTH_URL ?? process.env.NEXT_PUBLIC_APP_URL;
-  if (appUrl && origin) {
-    const expected = new URL(appUrl).origin;
-    if (origin !== expected) {
-      return Response.json({ error: "Forbidden" }, { status: 403 });
-    }
+
+  if (!origin || !appUrl || origin !== new URL(appUrl).origin) {
+    return Response.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  const ip = getClientIp(headersList);
+  const { allowed, retryAfterMs } = checkRateLimit(ip);
+  if (!allowed) {
+    return Response.json(
+      { error: "Too many requests" },
+      {
+        status: 429,
+        headers: { "Retry-After": String(Math.ceil(retryAfterMs / 1000)) },
+      },
+    );
   }
 
   let body: unknown;
@@ -51,6 +71,7 @@ export async function POST(req: Request) {
     );
   }
 
+  // Return same success response for existing users — no email enumeration
   const existingUser = await db
     .select({ id: schema.user.id })
     .from(schema.user)
@@ -58,10 +79,7 @@ export async function POST(req: Request) {
     .limit(1);
 
   if (existingUser.length > 0) {
-    return Response.json(
-      { error: ERROR_MESSAGES.EMAIL_ALREADY_EXISTS },
-      { status: 409 },
-    );
+    return Response.json({ success: true });
   }
 
   const identifier = `pre-signup-otp:${email}`;
@@ -88,9 +106,14 @@ export async function POST(req: Request) {
     );
   }
 
+  // Delete old OTP and attempt records
+  const attemptsIdentifier = `pre-signup-attempts:${email}`;
   await db
     .delete(schema.verification)
     .where(eq(schema.verification.identifier, identifier));
+  await db
+    .delete(schema.verification)
+    .where(eq(schema.verification.identifier, attemptsIdentifier));
 
   const otp = randomInt(0, 10 ** PRE_SIGNUP.OTP_LENGTH)
     .toString()
@@ -102,7 +125,7 @@ export async function POST(req: Request) {
   await db.insert(schema.verification).values({
     id: randomUUID(),
     identifier,
-    value: otp,
+    value: hashOtp(otp),
     expiresAt,
   });
 

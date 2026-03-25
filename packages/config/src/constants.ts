@@ -1,3 +1,8 @@
+/** Case-insensitive truthy check for env vars ("true", "1", "yes") */
+export function isTruthy(value: string | undefined | null): boolean {
+  return ["true", "1", "yes"].includes((value ?? "").trim().toLowerCase());
+}
+
 /** User roles — matches Better Auth admin plugin role values */
 export const ROLES = {
   ADMIN: "admin",
@@ -19,8 +24,15 @@ export const EMAIL_CHECK_DEBOUNCE_MS = 500;
 export const PRE_SIGNUP = {
   OTP_LENGTH: 6,
   OTP_EXPIRY_SECONDS: 300,
-  VERIFIED_EXPIRY_SECONDS: 900,
+  VERIFIED_EXPIRY_SECONDS: 180,
   OTP_COOLDOWN_SECONDS: 60,
+  MAX_OTP_ATTEMPTS: 5,
+} as const;
+
+/** Rate limit for custom API routes (pre-signup, check-email) */
+export const CUSTOM_ROUTE_RATE_LIMIT = {
+  WINDOW_MS: 60_000,
+  MAX_REQUESTS: 20,
 } as const;
 
 /** Rate limit configuration */

@@ -10,6 +10,7 @@ import {
   RATE_LIMIT,
   ERROR_MESSAGES,
   PRE_SIGNUP,
+  isTruthy,
 } from "@interview-prep/config/constants";
 import { db } from "../database/drizzle/client";
 import * as schema from "../database/drizzle/schema";
@@ -21,8 +22,9 @@ const MAX_USERS =
     ? parsedMaxUsers
     : 100;
 
-const requireEmailVerification =
-  process.env.REQUIRE_EMAIL_VERIFICATION === "true";
+const requireEmailVerification = isTruthy(
+  process.env.REQUIRE_EMAIL_VERIFICATION,
+);
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "sqlite", schema }),
@@ -67,28 +69,21 @@ export const auth = betterAuth({
           let emailVerified = false;
           if (requireEmailVerification) {
             const verifiedIdentifier = `pre-signup-verified:${email}`;
-            const [marker] = await db
-              .select()
-              .from(schema.verification)
+            const deleted = await db
+              .delete(schema.verification)
               .where(
                 and(
                   eq(schema.verification.identifier, verifiedIdentifier),
                   gt(schema.verification.expiresAt, new Date()),
                 ),
               )
-              .limit(1);
+              .returning({ id: schema.verification.id });
 
-            if (!marker) {
+            if (deleted.length === 0) {
               throw new APIError("FORBIDDEN", {
                 message: ERROR_MESSAGES.EMAIL_NOT_VERIFIED,
               });
             }
-
-            await db
-              .delete(schema.verification)
-              .where(
-                eq(schema.verification.identifier, verifiedIdentifier),
-              );
 
             emailVerified = true;
           }
