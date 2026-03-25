@@ -3,9 +3,14 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { admin as adminPlugin, emailOTP } from "better-auth/plugins";
 import { APIError } from "better-auth/api";
-import { count } from "drizzle-orm";
+import { count, eq, and, gt } from "drizzle-orm";
 import MailChecker from "mailchecker";
-import { ROLES, RATE_LIMIT, ERROR_MESSAGES } from "@interview-prep/config/constants";
+import {
+  ROLES,
+  RATE_LIMIT,
+  ERROR_MESSAGES,
+  PRE_SIGNUP,
+} from "@interview-prep/config/constants";
 import { db } from "../database/drizzle/client";
 import * as schema from "../database/drizzle/schema";
 import { sendOTPEmail } from "../email/resend";
@@ -23,7 +28,7 @@ export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "sqlite", schema }),
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification,
+    requireEmailVerification: false, // Handled via pre-signup OTP flow
   },
   rateLimit: {
     enabled: true,
@@ -58,11 +63,43 @@ export const auth = betterAuth({
               message: ERROR_MESSAGES.MAX_USERS,
             });
           }
+
+          let emailVerified = false;
+          if (requireEmailVerification) {
+            const verifiedIdentifier = `pre-signup-verified:${email}`;
+            const [marker] = await db
+              .select()
+              .from(schema.verification)
+              .where(
+                and(
+                  eq(schema.verification.identifier, verifiedIdentifier),
+                  gt(schema.verification.expiresAt, new Date()),
+                ),
+              )
+              .limit(1);
+
+            if (!marker) {
+              throw new APIError("FORBIDDEN", {
+                message: ERROR_MESSAGES.EMAIL_NOT_VERIFIED,
+              });
+            }
+
+            await db
+              .delete(schema.verification)
+              .where(
+                eq(schema.verification.identifier, verifiedIdentifier),
+              );
+
+            emailVerified = true;
+          }
+
           const adminEmail = process.env.ADMIN_EMAIL?.toLowerCase();
           if (adminEmail && email === adminEmail) {
-            return { data: { ...user, email, role: ROLES.ADMIN } };
+            return {
+              data: { ...user, email, emailVerified, role: ROLES.ADMIN },
+            };
           }
-          return { data: { ...user, email } };
+          return { data: { ...user, email, emailVerified } };
         },
       },
     },
@@ -74,9 +111,9 @@ export const auth = betterAuth({
     ...(requireEmailVerification
       ? [
           emailOTP({
-            otpLength: 6,
-            expiresIn: 300,
-            sendVerificationOnSignUp: true,
+            otpLength: PRE_SIGNUP.OTP_LENGTH,
+            expiresIn: PRE_SIGNUP.OTP_EXPIRY_SECONDS,
+            sendVerificationOnSignUp: false,
             overrideDefaultEmailVerification: true,
             async sendVerificationOTP({ email, otp, type }) {
               if (type === "email-verification") {
