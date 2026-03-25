@@ -1,5 +1,5 @@
 {
-  "extends": "@interview-prep/typescript-config/nextjs.json",
+  "extends": "@tulmek/typescript-config/nextjs.json",
   "compilerOptions": {
     "incremental": true,
     "paths": {

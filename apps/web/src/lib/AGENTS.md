@@ -6,6 +6,6 @@
 - `session.ts` — Server-side session validation helper (`getServerSession()`)
 
 ## Notes
-- Constants moved to `@interview-prep/config/constants`
+- Constants moved to `@tulmek/config/constants`
 - Auth config moved to `src/infrastructure/auth/better-auth.config.ts`
 - Composition root at `src/infrastructure/composition-root.ts`

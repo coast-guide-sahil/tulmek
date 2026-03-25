@@ -1,5 +1,5 @@
 {
-  "name": "@interview-prep/config",
+  "name": "@tulmek/config",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -12,7 +12,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@interview-prep/typescript-config": "workspace:*",
+    "@tulmek/typescript-config": "workspace:*",
     "typescript": "^6"
   }
 }

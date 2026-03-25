@@ -1,6 +1,6 @@
 import { count, eq } from "drizzle-orm";
-import type { UserRepository } from "@interview-prep/core/ports";
-import type { UserId, Email, User } from "@interview-prep/core/domain";
+import type { UserRepository } from "@tulmek/core/ports";
+import type { UserId, Email, User } from "@tulmek/core/domain";
 import { db } from "./client";
 import * as schema from "./schema";
 

@@ -1,4 +1,4 @@
-# interview-prep
+# tulmek
 
 Monorepo: Turborepo + pnpm workspaces. Clean architecture (ports/adapters).
 
@@ -21,7 +21,7 @@ Monorepo: Turborepo + pnpm workspaces. Clean architecture (ports/adapters).
 - Put secrets in `NEXT_PUBLIC_*` env vars
 - Trust `getSessionCookie()` alone — always validate server-side
 - Use `middleware.ts` — use `proxy.ts` instead (Next.js 16)
-- Use magic strings — constants live in `@interview-prep/config/constants`
+- Use magic strings — constants live in `@tulmek/config/constants`
 - Hardcode colors — use semantic tokens from `globals.css`
 - Import directly from infrastructure in pages — use composition root or lib/
 

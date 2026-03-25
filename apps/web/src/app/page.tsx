@@ -3,7 +3,7 @@
 import { useSession } from "@/lib/auth-client";
 import { AuthHeader } from "@/components/auth-header";
 import Link from "next/link";
-import { ROLES } from "@interview-prep/config/constants";
+import { ROLES } from "@tulmek/config/constants";
 
 const skipAuth = process.env.NEXT_PUBLIC_SKIP_AUTH === "true";
 

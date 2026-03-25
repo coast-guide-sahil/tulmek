@@ -1,6 +1,6 @@
-import type { AuthPort } from "@interview-prep/core/ports";
-import type { SessionWithUser } from "@interview-prep/core/domain";
-import { DomainErrors } from "@interview-prep/core/domain";
+import type { AuthPort } from "@tulmek/core/ports";
+import type { SessionWithUser } from "@tulmek/core/domain";
+import { DomainErrors } from "@tulmek/core/domain";
 import { auth } from "./better-auth.config";
 
 export class BetterAuthAdapter implements AuthPort {

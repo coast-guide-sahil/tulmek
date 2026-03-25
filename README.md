@@ -1,6 +1,6 @@
-# interview-prep
+# tulmek
 
-Full-stack interview preparation app with authentication, user management, and admin panel. Monorepo architecture for sharing business logic across web and future mobile apps.
+Full-stack app with authentication, user management, and admin panel. Monorepo architecture for sharing business logic across web and future mobile apps.
 
 ## Stack
 
@@ -98,7 +98,7 @@ The clean architecture makes provider swaps trivial — see [docs/guides/swappin
 |------|-------|
 | Drizzle → Prisma | Create new adapter implementing `UserRepository`. Change 1 line in composition-root. |
 | Better Auth → Clerk | Create new adapter implementing `AuthPort`. Change 1 line in composition-root. |
-| Add mobile app | Create `apps/mobile/`. Import `@interview-prep/core`. Create mobile-specific adapters. |
+| Add mobile app | Create `apps/mobile/`. Import `@tulmek/core`. Create mobile-specific adapters. |
 
 ## Deployment
 

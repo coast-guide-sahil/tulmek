@@ -25,7 +25,7 @@ CMD ["pnpm", "dev"]
 FROM base AS pruner
 WORKDIR /app
 COPY . .
-RUN pnpm dlx turbo prune @interview-prep/web --docker
+RUN pnpm dlx turbo prune @tulmek/web --docker
 
 # ---- Install dependencies ----
 FROM base AS installer
@@ -54,7 +54,7 @@ RUN TURSO_DATABASE_URL=$TURSO_DATABASE_URL \
     BETTER_AUTH_URL=$BETTER_AUTH_URL \
     NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL \
     SKIP_ENV_VALIDATION=1 \
-    pnpm turbo build --filter=@interview-prep/web
+    pnpm turbo build --filter=@tulmek/web
 
 # ---- Production runner ----
 FROM node:24-alpine AS runner

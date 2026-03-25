@@ -21,6 +21,6 @@ The clean architecture makes swapping third-party dependencies straightforward. 
 
 ### Add mobile app
 1. Create `apps/mobile/`
-2. Import `@interview-prep/core` and `@interview-prep/config`
+2. Import `@tulmek/core` and `@tulmek/config`
 3. Create mobile-specific adapters
 4. Same use cases, zero duplication

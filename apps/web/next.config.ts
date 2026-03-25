@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "standalone",
   poweredByHeader: false,
-  transpilePackages: ["@interview-prep/core", "@interview-prep/config"],
+  transpilePackages: ["@tulmek/core", "@tulmek/config"],
   async headers() {
     return [
       {

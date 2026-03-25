@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import { APP_NAME } from "@interview-prep/config/constants";
+import { APP_NAME } from "@tulmek/config/constants";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: APP_NAME,
-  description: "Full-stack interview preparation app",
+  description: "Full-stack app with authentication, user management, and admin panel",
 };
 
 export const viewport: Viewport = {

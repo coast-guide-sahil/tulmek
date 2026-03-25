@@ -1,5 +1,5 @@
 {
-  "extends": "@interview-prep/typescript-config/base.json",
+  "extends": "@tulmek/typescript-config/base.json",
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "dist"
