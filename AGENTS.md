@@ -17,6 +17,7 @@ Monorepo: Turborepo + pnpm workspaces. Clean architecture (ports/adapters).
 - `pnpm test` — Run unit tests across all packages (Vitest)
 - `pnpm e2e` — Run E2E tests (Playwright)
 - `cd apps/web && pnpm db:push` — Push schema to Turso
+- `cd apps/web && pnpm validate-content` — Validate all content JSON against Zod schemas
 
 ## NEVER
 - Edit `CLAUDE.md` directly (it's a symlink to `AGENTS.md`)
@@ -26,6 +27,7 @@ Monorepo: Turborepo + pnpm workspaces. Clean architecture (ports/adapters).
 - Use magic strings — constants live in `@tulmek/config/constants`
 - Hardcode colors — use semantic tokens from `globals.css`
 - Import directly from infrastructure in pages — use composition root or lib/
+- Import Orama/idb-keyval/Tiptap outside `infrastructure/` — they're adapters behind ports
 
 ## ASK
 - Before changing port interfaces in `packages/core/` (they're contracts)
@@ -46,6 +48,9 @@ Monorepo: Turborepo + pnpm workspaces. Clean architecture (ports/adapters).
 - Drizzle ORM 0.45.1 + Turso (SQLite cloud)
 - mailchecker 6.0.20 (disposable email blocking)
 - next-themes 0.4.6 (class-based dark mode)
+- Tiptap 3.20.5 (rich text editor for progress notes)
+- Orama 3.1.18 (client-side full-text search)
+- Zustand 5 (client state) + idb-keyval (IndexedDB notes) + DOMPurify (XSS)
 - Turborepo + pnpm workspaces
 - Vitest 4 (unit tests) + Playwright (E2E tests)
 

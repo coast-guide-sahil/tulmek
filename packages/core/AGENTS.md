@@ -3,8 +3,8 @@
 Zero-dependency pure TypeScript package. Shared by web + future mobile.
 
 ## Exports
-- `@tulmek/core/domain` — User, Session, branded types (UserId, Email), DomainErrors
-- `@tulmek/core/ports` — AuthPort, UserRepository, EmailValidatorPort, EmailPort
+- `@tulmek/core/domain` — User, Session, branded types, DomainErrors, ContentItem, ProgressEntry, Note
+- `@tulmek/core/ports` — AuthPort, UserRepository, EmailValidatorPort, EmailPort, ProgressStore, NoteStore, SearchEngine, ContentSource
 - `@tulmek/core/use-cases` — createValidateSignup
 - `@tulmek/core/result` — Result<T, E>, Ok(), Err()
 
