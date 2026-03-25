@@ -34,9 +34,8 @@ test.describe("Page navigation", () => {
 
   test("sign-up page loads", async ({ page }) => {
     await page.goto("/sign-up");
-    // Sign-up page should have some visible content
     await expect(page.locator("body")).toBeVisible();
-    await expect(page.getByText(/sign up/i).first()).toBeVisible();
+    await expect(page.getByText("Create an account")).toBeVisible();
   });
 
   test("can navigate from homepage to sign-in", async ({ page }) => {

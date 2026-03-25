@@ -9,6 +9,8 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - `pnpm build` — Production build
 - `pnpm lint` — ESLint
 - `pnpm typecheck` — TypeScript check
+- `pnpm test` — Unit tests (Vitest)
+- `pnpm e2e` — E2E tests (Playwright)
 - `pnpm db:push` — Push schema to Turso
 - `pnpm db:studio` — Drizzle Studio GUI
 
@@ -22,4 +24,6 @@ This version has breaking changes — APIs, conventions, and file structure may 
   - `composition-root.ts` — THE one file to change when swapping providers
 - `src/lib/` — Auth re-export, client, session helper, OTP hashing, rate limiter
 - `src/proxy.ts` — Route protection (NOT middleware.ts)
+- `e2e/` — Playwright E2E tests (health, navigation)
+- Unit tests live alongside source files (`*.test.ts`)
 - Standalone output enabled for Docker production builds
