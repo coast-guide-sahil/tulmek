@@ -52,13 +52,7 @@ jobs:
       - name: Build
         run: pnpm turbo build
         env:
-          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
-          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
-          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
-          BETTER_AUTH_URL: http://localhost:3000
           NEXT_PUBLIC_APP_URL: http://localhost:3000
-          MAX_USERS: "100"
-          ADMIN_EMAIL: ""
 
   e2e:
     name: E2E Tests
@@ -93,24 +87,12 @@ jobs:
       - name: Build
         run: pnpm turbo build
         env:
-          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
-          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
-          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
-          BETTER_AUTH_URL: http://localhost:3000
           NEXT_PUBLIC_APP_URL: http://localhost:3000
-          MAX_USERS: "100"
-          ADMIN_EMAIL: ""
 
       - name: Run E2E tests
         run: pnpm --filter @tulmek/web e2e
         env:
-          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
-          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
-          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
-          BETTER_AUTH_URL: http://localhost:3000
           NEXT_PUBLIC_APP_URL: http://localhost:3000
-          MAX_USERS: "100"
-          ADMIN_EMAIL: ""
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4

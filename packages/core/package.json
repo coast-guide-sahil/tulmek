@@ -10,7 +10,6 @@
   "exports": {
     "./domain": "./src/domain/index.ts",
     "./ports": "./src/ports/index.ts",
-    "./use-cases": "./src/use-cases/index.ts",
     "./result": "./src/result.ts"
   },
   "devDependencies": {

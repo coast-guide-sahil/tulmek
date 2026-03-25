@@ -42,17 +42,8 @@ WORKDIR /app
 COPY --from=installer /app/ .
 COPY --from=pruner /app/out/full/ .
 ENV NEXT_TELEMETRY_DISABLED=1
-# Placeholder build args — real values injected at runtime, not baked into image
-ARG TURSO_DATABASE_URL=libsql://placeholder.turso.io
-ARG TURSO_AUTH_TOKEN=placeholder
-ARG BETTER_AUTH_SECRET=placeholder-secret-at-least-32-chars-long
-ARG BETTER_AUTH_URL=http://localhost:3000
 ARG NEXT_PUBLIC_APP_URL=http://localhost:3000
-RUN TURSO_DATABASE_URL=$TURSO_DATABASE_URL \
-    TURSO_AUTH_TOKEN=$TURSO_AUTH_TOKEN \
-    BETTER_AUTH_SECRET=$BETTER_AUTH_SECRET \
-    BETTER_AUTH_URL=$BETTER_AUTH_URL \
-    NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL \
+RUN NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL \
     SKIP_ENV_VALIDATION=1 \
     pnpm turbo build --filter=@tulmek/web
 
