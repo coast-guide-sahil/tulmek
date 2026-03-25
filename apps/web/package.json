@@ -12,12 +12,16 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
-    "db:promote-admin": "node scripts/promote-admin.mjs"
+    "db:promote-admin": "node scripts/promote-admin.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui"
   },
   "dependencies": {
+    "@libsql/client": "^0.17.2",
     "@tulmek/config": "workspace:*",
     "@tulmek/core": "workspace:*",
-    "@libsql/client": "^0.17.2",
     "better-auth": "^1.5.6",
     "drizzle-orm": "^0.45.1",
     "mailchecker": "^6.0.20",
@@ -28,9 +32,10 @@
     "resend": "^6.9.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@tailwindcss/postcss": "^4",
     "@tulmek/eslint-config": "workspace:*",
     "@tulmek/typescript-config": "workspace:*",
-    "@tailwindcss/postcss": "^4",
     "@types/node": "^25",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -38,6 +43,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
     "tailwindcss": "^4",
-    "typescript": "^6"
+    "typescript": "^6",
+    "vitest": "^4.1.1"
   }
 }

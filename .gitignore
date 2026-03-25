@@ -39,5 +39,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# test documentation (local only)
+# test artifacts
 /test-results/
+playwright-report/
+blob-report/
+test-results/
