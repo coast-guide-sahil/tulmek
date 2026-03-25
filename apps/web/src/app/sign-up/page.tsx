@@ -1,9 +1,12 @@
+import { connection } from "next/server";
 import { SignUpForm } from "./signup-form";
 
-const requireEmailVerification =
-  process.env.REQUIRE_EMAIL_VERIFICATION === "true";
+export default async function SignUpPage() {
+  await connection();
 
-export default function SignUpPage() {
+  const requireEmailVerification =
+    process.env.REQUIRE_EMAIL_VERIFICATION === "true";
+
   return (
     <SignUpForm requireEmailVerification={requireEmailVerification} />
   );
