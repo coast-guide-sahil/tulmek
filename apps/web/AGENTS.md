@@ -18,8 +18,8 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - `src/infrastructure/` — Adapters implementing core ports
   - `auth/` — Better Auth config + adapter (implements AuthPort)
   - `database/drizzle/` — DB client, schema, user repository (implements UserRepository)
-  - `email/` — Mailchecker adapter (implements EmailValidatorPort)
+  - `email/` — Mailchecker adapter (EmailValidatorPort) + Resend OTP sender
   - `composition-root.ts` — THE one file to change when swapping providers
-- `src/lib/` — Auth re-export, client, session helper
+- `src/lib/` — Auth re-export, client, session helper, OTP hashing, rate limiter
 - `src/proxy.ts` — Route protection (NOT middleware.ts)
 - Standalone output enabled for Docker production builds

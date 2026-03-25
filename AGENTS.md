@@ -40,7 +40,7 @@ Monorepo: Turborepo + pnpm workspaces. Clean architecture (ports/adapters).
 
 ## Stack
 - Next.js 16.2.1 + Tailwind CSS v4 + TypeScript (strict)
-- Better Auth 1.5.6 (email/password, admin plugin, rate limited)
+- Better Auth 1.5.6 (email/password, admin plugin, pre-signup OTP, rate limited)
 - Drizzle ORM 0.45.1 + Turso (SQLite cloud)
 - mailchecker 6.0.20 (disposable email blocking)
 - next-themes 0.4.6 (class-based dark mode)
@@ -57,3 +57,15 @@ Monorepo: Turborepo + pnpm workspaces. Clean architecture (ports/adapters).
 | `MAX_USERS` | Maximum allowed users (default: 100) |
 | `ADMIN_EMAIL` | Email auto-promoted to admin on signup |
 | `NEXT_PUBLIC_SKIP_AUTH` | `true` to hide auth UI — used for preview deploys |
+| `REQUIRE_EMAIL_VERIFICATION` | `true` to require OTP email verification before signup |
+| `RESEND_API_KEY` | Resend API key for sending OTP emails |
+| `EMAIL_FROM` | Email sender (default: `TULMEK <onboarding@resend.dev>`) |
+
+## Documentation
+- Single source of truth — each fact lives in ONE file, others reference it
+- `AGENTS.md` (root) is the canonical config/conventions doc (`CLAUDE.md` symlinks here)
+- Subdirectory `AGENTS.md` files scope context to that directory only
+- Update docs when adding features, env vars, or changing architecture
+- Never duplicate info across docs — add it once, link to it elsewhere
+- Env vars: add to `AGENTS.md` table + `.env.example` + DEPLOYMENT.md matrix
+- Keep each doc under 200 lines — split into subdirectory files if growing
