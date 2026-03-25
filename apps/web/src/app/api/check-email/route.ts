@@ -1,15 +1,30 @@
 import { emailValidator } from "@/infrastructure/composition-root";
 import { headers } from "next/headers";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
 export async function POST(req: Request) {
   const headersList = await headers();
   const origin = headersList.get("origin");
   const appUrl = process.env.BETTER_AUTH_URL ?? process.env.NEXT_PUBLIC_APP_URL;
-  if (appUrl && origin) {
-    const expected = new URL(appUrl).origin;
-    if (origin !== expected) {
+
+  try {
+    if (!origin || !appUrl || origin !== new URL(appUrl).origin) {
       return Response.json({ error: "Forbidden" }, { status: 403 });
     }
+  } catch {
+    return Response.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  const ip = getClientIp(headersList);
+  const { allowed, retryAfterMs } = checkRateLimit(`check-email:${ip}`);
+  if (!allowed) {
+    return Response.json(
+      { error: "Too many requests" },
+      {
+        status: 429,
+        headers: { "Retry-After": String(Math.ceil(retryAfterMs / 1000)) },
+      },
+    );
   }
 
   let body: unknown;

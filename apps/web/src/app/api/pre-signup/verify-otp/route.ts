@@ -1,12 +1,26 @@
-import { randomUUID } from "crypto";
+import { randomUUID, timingSafeEqual } from "crypto";
 import { headers } from "next/headers";
 import { eq, and, gt } from "drizzle-orm";
 import { db } from "@/infrastructure/database/drizzle/client";
 import * as schema from "@/infrastructure/database/drizzle/schema";
-import { ERROR_MESSAGES, PRE_SIGNUP } from "@interview-prep/config/constants";
+import {
+  ERROR_MESSAGES,
+  PRE_SIGNUP,
+  isTruthy,
+} from "@interview-prep/config/constants";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+import { hashOtp } from "@/lib/otp";
 
-const requireEmailVerification =
-  process.env.REQUIRE_EMAIL_VERIFICATION === "true";
+const requireEmailVerification = isTruthy(
+  process.env.REQUIRE_EMAIL_VERIFICATION,
+);
+
+function safeEqual(a: string, b: string): boolean {
+  const bufA = Buffer.from(a, "hex");
+  const bufB = Buffer.from(b, "hex");
+  if (bufA.length !== bufB.length) return false;
+  return timingSafeEqual(bufA, bufB);
+}
 
 export async function POST(req: Request) {
   if (!requireEmailVerification) {
@@ -16,11 +30,25 @@ export async function POST(req: Request) {
   const headersList = await headers();
   const origin = headersList.get("origin");
   const appUrl = process.env.BETTER_AUTH_URL ?? process.env.NEXT_PUBLIC_APP_URL;
-  if (appUrl && origin) {
-    const expected = new URL(appUrl).origin;
-    if (origin !== expected) {
+
+  try {
+    if (!origin || !appUrl || origin !== new URL(appUrl).origin) {
       return Response.json({ error: "Forbidden" }, { status: 403 });
     }
+  } catch {
+    return Response.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  const ip = getClientIp(headersList);
+  const { allowed, retryAfterMs } = checkRateLimit(`verify-otp:${ip}`);
+  if (!allowed) {
+    return Response.json(
+      { error: "Too many requests" },
+      {
+        status: 429,
+        headers: { "Retry-After": String(Math.ceil(retryAfterMs / 1000)) },
+      },
+    );
   }
 
   let body: unknown;
@@ -43,6 +71,7 @@ export async function POST(req: Request) {
   }
 
   const identifier = `pre-signup-otp:${email}`;
+  const attemptsIdentifier = `pre-signup-attempts:${email}`;
   const now = new Date();
 
   const records = await db
@@ -63,16 +92,71 @@ export async function POST(req: Request) {
     );
   }
 
-  if (records[0]!.value !== otp) {
+  const storedHash = records[0]!.value;
+  const submittedHash = hashOtp(otp);
+
+  if (!safeEqual(storedHash, submittedHash)) {
+    // Track failed attempt — upsert to avoid race conditions
+    const [attemptRecord] = await db
+      .select({ id: schema.verification.id, value: schema.verification.value })
+      .from(schema.verification)
+      .where(eq(schema.verification.identifier, attemptsIdentifier))
+      .limit(1);
+
+    const parsed = parseInt(attemptRecord?.value ?? "0", 10);
+    const prevCount = Number.isFinite(parsed) ? parsed : 0;
+    const attemptCount = prevCount + 1;
+
+    if (attemptCount >= PRE_SIGNUP.MAX_OTP_ATTEMPTS) {
+      // Max attempts reached — invalidate the OTP
+      await db
+        .delete(schema.verification)
+        .where(eq(schema.verification.identifier, identifier));
+      await db
+        .delete(schema.verification)
+        .where(eq(schema.verification.identifier, attemptsIdentifier));
+      return Response.json(
+        { error: ERROR_MESSAGES.OTP_EXPIRED },
+        { status: 400 },
+      );
+    }
+
+    if (attemptRecord) {
+      await db
+        .update(schema.verification)
+        .set({ value: String(attemptCount) })
+        .where(
+          and(
+            eq(schema.verification.id, attemptRecord.id),
+            eq(schema.verification.value, attemptRecord.value),
+          ),
+        );
+    } else {
+      try {
+        await db.insert(schema.verification).values({
+          id: randomUUID(),
+          identifier: attemptsIdentifier,
+          value: "1",
+          expiresAt: records[0]!.expiresAt,
+        });
+      } catch {
+        // Concurrent insert — another request already created the record
+      }
+    }
+
     return Response.json(
       { error: ERROR_MESSAGES.OTP_INVALID },
       { status: 400 },
     );
   }
 
+  // Success — clean up OTP and attempt records
   await db
     .delete(schema.verification)
     .where(eq(schema.verification.identifier, identifier));
+  await db
+    .delete(schema.verification)
+    .where(eq(schema.verification.identifier, attemptsIdentifier));
 
   const verifiedIdentifier = `pre-signup-verified:${email}`;
 
