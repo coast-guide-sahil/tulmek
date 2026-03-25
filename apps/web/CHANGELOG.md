@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.4.0](https://github.com/coast-guide-sahil/interview-prep/compare/web-v0.3.0...web-v0.4.0) (2026-03-25)
+
+
+### Features
+
+* verify email via OTP before signup instead of after ([#27](https://github.com/coast-guide-sahil/interview-prep/issues/27)) ([3f3a980](https://github.com/coast-guide-sahil/interview-prep/commit/3f3a98076163a76047ca3dd3ca6ae02f49887592))
+
+
+### Bug Fixes
+
+* handle Resend API errors instead of silently swallowing them ([#29](https://github.com/coast-guide-sahil/interview-prep/issues/29)) ([c4e6691](https://github.com/coast-guide-sahil/interview-prep/commit/c4e6691708a7a5165f4e974573d109965b99fdf6))
+* harden pre-signup OTP flow against brute-force attacks ([#30](https://github.com/coast-guide-sahil/interview-prep/issues/30)) ([55f9c84](https://github.com/coast-guide-sahil/interview-prep/commit/55f9c845615065a60ae95bcfb5f400bfbeb76640))
+* redirect to verify-email when sign-up returns null token ([#24](https://github.com/coast-guide-sahil/interview-prep/issues/24)) ([9cadfc1](https://github.com/coast-guide-sahil/interview-prep/commit/9cadfc10cb55c83ae40bc73ab25ae35797dd27e2))
+* use connection() to ensure sign-up page reads env at runtime ([#28](https://github.com/coast-guide-sahil/interview-prep/issues/28)) ([fc322ce](https://github.com/coast-guide-sahil/interview-prep/commit/fc322ce29b00aaa011d7296335b1785af108f376))
+
 ## [0.3.0](https://github.com/coast-guide-sahil/interview-prep/compare/web-v0.2.0...web-v0.3.0) (2026-03-24)
 
 
