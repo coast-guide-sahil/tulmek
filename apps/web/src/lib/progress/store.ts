@@ -53,7 +53,8 @@ export function createProgressStore(deps: {
     },
 
     toggle: async (slug: string) => {
-      const current = get().progress[slug];
+      const previousProgress = get().progress;
+      const current = previousProgress[slug];
       const isCompleted = current?.completed ?? false;
 
       const entry: ProgressEntry = isCompleted
@@ -65,11 +66,17 @@ export function createProgressStore(deps: {
         progress: { ...state.progress, [slug]: entry },
       }));
 
-      // Persist
-      if (entry.completed) {
-        await deps.progressStore.set(slug, entry);
-      } else {
-        await deps.progressStore.remove(slug);
+      // Persist with rollback on failure
+      try {
+        if (entry.completed) {
+          await deps.progressStore.set(slug, entry);
+        } else {
+          await deps.progressStore.remove(slug);
+        }
+      } catch (err) {
+        // Rollback to previous state
+        set({ progress: previousProgress });
+        console.error("Failed to persist progress:", err);
       }
     },
 

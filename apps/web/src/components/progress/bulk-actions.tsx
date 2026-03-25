@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import type { CategorizedItem } from "@tulmek/core/domain";
 import { useProgress, useProgressActions } from "@/lib/progress/provider";
+import { htmlToMarkdown } from "@/lib/progress/sanitize";
 
 interface BulkActionsProps {
   readonly items: readonly CategorizedItem[];
@@ -54,7 +55,7 @@ export function BulkActions({
             ? `- **Tags:** ${item.tags.join(", ")}`
             : null,
           note?.trim()
-            ? `\n## Notes\n\n${htmlToPlainMarkdown(note)}`
+            ? `\n## Notes\n\n${htmlToMarkdown(note)}`
             : null,
           "",
           "---",
@@ -150,57 +151,4 @@ export function BulkActions({
       )}
     </div>
   );
-}
-
-/** Convert HTML content back to markdown for export */
-function htmlToPlainMarkdown(html: string): string {
-  if (!html || html === "<p></p>") return "";
-  const div = document.createElement("div");
-  div.innerHTML = html;
-
-  function processNode(node: Node): string {
-    if (node.nodeType === Node.TEXT_NODE) return node.textContent ?? "";
-    if (node.nodeType !== Node.ELEMENT_NODE) return "";
-
-    const el = node as HTMLElement;
-    const children = Array.from(el.childNodes).map(processNode).join("");
-
-    switch (el.tagName.toLowerCase()) {
-      case "p": return children + "\n\n";
-      case "h1": return `# ${children}\n\n`;
-      case "h2": return `## ${children}\n\n`;
-      case "h3": return `### ${children}\n\n`;
-      case "strong": case "b": return `**${children}**`;
-      case "em": case "i": return `*${children}*`;
-      case "u": return `<u>${children}</u>`;
-      case "s": case "del": return `~~${children}~~`;
-      case "code":
-        if (el.parentElement?.tagName.toLowerCase() === "pre") return children;
-        return `\`${children}\``;
-      case "pre": {
-        const codeEl = el.querySelector("code");
-        const lang = codeEl?.className.match(/language-(\w+)/)?.[1] ?? "";
-        return `\`\`\`${lang}\n${codeEl?.textContent ?? children}\n\`\`\`\n\n`;
-      }
-      case "blockquote":
-        return children.trim().split("\n").map((l) => `> ${l}`).join("\n") + "\n\n";
-      case "ul": case "ol": return children + "\n";
-      case "li": {
-        const parent = el.parentElement;
-        if (parent?.tagName.toLowerCase() === "ol") {
-          return `${Array.from(parent.children).indexOf(el) + 1}. ${children.trim()}\n`;
-        }
-        const cb = el.querySelector('input[type="checkbox"]');
-        if (cb) return `- [${(cb as HTMLInputElement).checked ? "x" : " "}] ${children.replace(/^\s+/, "").trim()}\n`;
-        return `- ${children.trim()}\n`;
-      }
-      case "a": return `[${children}](${el.getAttribute("href") ?? ""})`;
-      case "hr": return "---\n\n";
-      case "br": return "\n";
-      case "mark": return `==${children}==`;
-      default: return children;
-    }
-  }
-
-  return processNode(div).trim();
 }

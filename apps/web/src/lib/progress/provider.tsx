@@ -9,6 +9,7 @@ import {
 } from "react";
 import { useStore } from "zustand";
 import { useShallow } from "zustand/shallow";
+import type { ProgressStore, NoteStore } from "@tulmek/core/ports";
 import { createProgressStore, type UseProgressStore } from "./store";
 import { LocalStorageProgressStore } from "@/infrastructure/storage/localstorage-progress.adapter";
 import { IDBNoteStore } from "@/infrastructure/storage/idb-note.adapter";
@@ -18,23 +19,39 @@ type ProgressStoreApi = ReturnType<typeof createProgressStore>;
 const ProgressContext = createContext<ProgressStoreApi | null>(null);
 
 /**
+ * Default adapters — the ONLY place concrete implementations are chosen.
+ * Swap these to change storage backends.
+ */
+const defaultDeps: { progressStore: ProgressStore; noteStore: NoteStore } = {
+  progressStore: new LocalStorageProgressStore(),
+  noteStore: new IDBNoteStore(),
+};
+
+interface ProgressProviderProps {
+  children: ReactNode;
+  /** Override adapters for testing or alternative backends */
+  deps?: { progressStore: ProgressStore; noteStore: NoteStore };
+}
+
+/**
  * Provider that creates and hydrates the progress store.
  *
- * Adapters are instantiated here — swap implementations by changing
- * these two lines. The rest of the app doesn't care.
+ * Adapters are configurable via `deps` prop for testability.
+ * Default adapters: LocalStorage (progress) + IndexedDB (notes).
  */
-export function ProgressProvider({ children }: { children: ReactNode }) {
+export function ProgressProvider({
+  children,
+  deps = defaultDeps,
+}: ProgressProviderProps) {
   const [store] = useState<ProgressStoreApi>(() =>
-    createProgressStore({
-      progressStore: new LocalStorageProgressStore(),
-      noteStore: new IDBNoteStore(),
-    }),
+    createProgressStore(deps),
   );
 
   useEffect(() => {
-    store.getState().hydrate();
+    store.getState().hydrate().catch((err) => {
+      console.error("Failed to hydrate progress store:", err);
+    });
 
-    // Request persistent storage so browser doesn't evict our data
     if (navigator.storage?.persist) {
       navigator.storage.persist();
     }
@@ -48,8 +65,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
 }
 
 /**
- * Hook to access progress store state.
- * Uses Zustand's useStore with a selector for optimal re-renders.
+ * Hook to access progress store state with a selector.
  */
 export function useProgress<T>(
   selector: (state: ReturnType<UseProgressStore["getState"]>) => T,
@@ -62,7 +78,7 @@ export function useProgress<T>(
 }
 
 /**
- * Hook to access progress store actions (stable references, no re-renders).
+ * Hook to access progress store actions (stable references).
  */
 export function useProgressActions() {
   const store = useContext(ProgressContext);

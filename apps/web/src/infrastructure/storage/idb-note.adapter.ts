@@ -10,37 +10,59 @@ const PREFIX = "note:";
  * Each note is stored as a separate key-value entry:
  *   "note:two-sum" → { itemSlug, content, updatedAt }
  *
- * Swap this for OPFS, Turso, or a cloud API adapter.
- * idb-keyval is ~600 bytes — zero config IndexedDB wrapper.
+ * All operations are wrapped in try/catch to handle IndexedDB
+ * unavailability (private browsing, quota exceeded, corruption).
  */
 export class IDBNoteStore implements NoteStore {
   async get(slug: string): Promise<Note | null> {
-    const note = await get<Note>(PREFIX + slug);
-    return note ?? null;
+    try {
+      const note = await get<Note>(PREFIX + slug);
+      return note ?? null;
+    } catch (err) {
+      console.warn(`IDBNoteStore.get("${slug}") failed:`, err);
+      return null;
+    }
   }
 
   async set(slug: string, content: string): Promise<void> {
-    const note: Note = {
-      itemSlug: slug,
-      content,
-      updatedAt: new Date().toISOString(),
-    };
-    await set(PREFIX + slug, note);
+    try {
+      const note: Note = {
+        itemSlug: slug,
+        content,
+        updatedAt: new Date().toISOString(),
+      };
+      await set(PREFIX + slug, note);
+    } catch (err) {
+      console.warn(`IDBNoteStore.set("${slug}") failed:`, err);
+    }
   }
 
   async remove(slug: string): Promise<void> {
-    await del(PREFIX + slug);
+    try {
+      await del(PREFIX + slug);
+    } catch (err) {
+      console.warn(`IDBNoteStore.remove("${slug}") failed:`, err);
+    }
   }
 
   async getAll(): Promise<Note[]> {
-    const allEntries = await entries<string, Note>();
-    return allEntries
-      .filter(([key]) => key.startsWith(PREFIX))
-      .map(([, value]) => value);
+    try {
+      const allEntries = await entries<string, Note>();
+      return allEntries
+        .filter(([key]) => key.startsWith(PREFIX))
+        .map(([, value]) => value);
+    } catch (err) {
+      console.warn("IDBNoteStore.getAll() failed:", err);
+      return [];
+    }
   }
 
   async has(slug: string): Promise<boolean> {
-    const note = await get(PREFIX + slug);
-    return note !== undefined;
+    try {
+      const note = await get(PREFIX + slug);
+      return note !== undefined;
+    } catch {
+      return false;
+    }
   }
 }
