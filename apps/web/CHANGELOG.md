@@ -1,5 +1,33 @@
 # Changelog
 
+## [1.0.0](https://github.com/coast-guide-sahil/tulmek/compare/web-v0.4.0...web-v1.0.0) (2026-03-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove all authentication, database, and email infrastructure
+
+### Features
+
+* add progress tracker with 690 trackable items ([2b0b3b7](https://github.com/coast-guide-sahil/tulmek/commit/2b0b3b77e90de0a1cac19569b6885556bae5109f))
+* add progress tracker with 690 trackable items ([566066f](https://github.com/coast-guide-sahil/tulmek/commit/566066fc15444a372a77577daace35b9bd8ab71e))
+* redirect homepage to progress tracker ([29ebe49](https://github.com/coast-guide-sahil/tulmek/commit/29ebe497d3b61ec4ba42a32797a96b0b406f13a8))
+
+
+### Bug Fixes
+
+* add html reporter in CI so playwright-report artifact uploads ([8e848a4](https://github.com/coast-guide-sahil/tulmek/commit/8e848a4fbc22e78cc6f5a82080303ee15f65c51a))
+* address all remaining review findings (17/17 issues) ([6660c60](https://github.com/coast-guide-sahil/tulmek/commit/6660c6017fccef2dcc5214ac7b4f26c8317c9326))
+* address critical review findings across security, architecture, QA, a11y ([0fcd20f](https://github.com/coast-guide-sahil/tulmek/commit/0fcd20fcb62c8988fe4298ff876886081b337b55))
+* remove all third-party product references from code ([8b48d71](https://github.com/coast-guide-sahil/tulmek/commit/8b48d71e9b719f414e330d51e4311307c8da699d))
+* resolve all CI lint warnings ([e36891a](https://github.com/coast-guide-sahil/tulmek/commit/e36891af4440000c53f94c644abc4347c7e22339))
+* update docs with testing commands and fix sign-up E2E selector ([#35](https://github.com/coast-guide-sahil/tulmek/issues/35)) ([774547f](https://github.com/coast-guide-sahil/tulmek/commit/774547f7e0c55514d2f5bac3a44cb0c0d423d871))
+
+
+### Code Refactoring
+
+* remove all authentication, database, and email infrastructure ([2910ef6](https://github.com/coast-guide-sahil/tulmek/commit/2910ef696ee507626afa100ee84866503f41ecda))
+
 ## [0.4.0](https://github.com/coast-guide-sahil/tulmek/compare/web-v0.3.0...web-v0.4.0) (2026-03-25)
 
 
