@@ -1,11 +1,12 @@
 "use client";
 
+import { memo } from "react";
 import type { FeedArticle } from "@tulmek/core/domain";
-import { useHub } from "@/lib/hub/provider";
 import { formatRelativeTime, getCategoryConfig } from "./hub-utils";
 
 interface ContentCardProps {
   readonly article: FeedArticle;
+  readonly isBookmarked: boolean;
   readonly onToggleBookmark: (id: string) => void;
   readonly onArticleClick?: (id: string) => void;
   readonly layout: "grid" | "list";
@@ -16,15 +17,15 @@ interface ContentCardProps {
 const TRENDING_THRESHOLD = 500;
 const HOT_DISCUSSION_THRESHOLD = 100;
 
-export function ContentCard({
+export const ContentCard = memo(function ContentCard({
   article,
+  isBookmarked,
   onToggleBookmark,
   onArticleClick,
   layout,
   isNew = false,
   isRead = false,
 }: ContentCardProps) {
-  const isBookmarked = useHub((s) => article.id in s.bookmarks);
   const categoryConfig = getCategoryConfig(article.category);
   const relativeTime = formatRelativeTime(article.publishedAt);
   const isTrending = article.score >= TRENDING_THRESHOLD;
@@ -186,7 +187,7 @@ export function ContentCard({
       )}
     </article>
   );
-}
+});
 
 // ── Helpers ──
 

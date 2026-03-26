@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import type { FeedArticle, HubCategory } from "@tulmek/core/domain";
 import { useHub, useHubActions } from "@/lib/hub/provider";
 import { ContentCard } from "./content-card";
@@ -24,13 +24,22 @@ export function FeedLayout({ articles, initialCategory }: FeedLayoutProps) {
     initialCategory ?? null
   );
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
   const [sourceFilter, setSourceFilter] = useState<string | null>(null);
   const [sortMode, setSortMode] = useState<SortMode>("trending");
   const [layout, setLayout] = useState<"grid" | "list">("grid");
 
   const hydrated = useHub((s) => s.hydrated);
   const readIds = useHub((s) => s.readIds);
+  const bookmarks = useHub((s) => s.bookmarks);
   const { toggleBookmark, markAsRead } = useHubActions();
+
+  // Debounce search query (250ms)
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>(null);
+  useEffect(() => {
+    debounceRef.current = setTimeout(() => setDebouncedQuery(searchQuery), 250);
+    return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
+  }, [searchQuery]);
 
   // Category counts
   const categoryCounts = useMemo(() => {
@@ -66,9 +75,9 @@ export function FeedLayout({ articles, initialCategory }: FeedLayoutProps) {
       result = result.filter((a) => a.source === sourceFilter);
     }
 
-    // Search filter (simple client-side for immediate feedback)
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase();
+    // Search filter (debounced for performance)
+    if (debouncedQuery.trim()) {
+      const q = debouncedQuery.toLowerCase();
       result = result.filter(
         (a) =>
           a.title.toLowerCase().includes(q) ||
@@ -95,7 +104,7 @@ export function FeedLayout({ articles, initialCategory }: FeedLayoutProps) {
     }
 
     return result;
-  }, [articles, activeCategory, sourceFilter, searchQuery, sortMode]);
+  }, [articles, activeCategory, sourceFilter, debouncedQuery, sortMode]);
 
   const handleClearFilters = useCallback(() => {
     setActiveCategory(null);
@@ -189,6 +198,7 @@ export function FeedLayout({ articles, initialCategory }: FeedLayoutProps) {
               <ContentCard
                 key={article.id}
                 article={article}
+                isBookmarked={article.id in bookmarks}
                 onToggleBookmark={toggleBookmark}
                 onArticleClick={markAsRead}
                 layout={layout}

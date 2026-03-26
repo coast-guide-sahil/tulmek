@@ -72,6 +72,7 @@ export function SavedFeed({ articles }: SavedFeedProps) {
           <ContentCard
             key={article.id}
             article={article}
+            isBookmarked={article.id in bookmarks}
             onToggleBookmark={toggleBookmark}
             layout="list"
           />
