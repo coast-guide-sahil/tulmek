@@ -1,22 +1,15 @@
 import { create, insert, search as oramaSearch } from "@orama/orama";
+import type { HubSearchEngine, HubSearchParams } from "@tulmek/core/ports";
 import type { FeedArticle, HubFacetedResult, HubFacetCount, HubSearchResult } from "@tulmek/core/domain";
 
-export interface HubSearchParams {
-  readonly query?: string;
-  readonly category?: string;
-  readonly source?: string;
-  readonly tags?: string[];
-  readonly limit?: number;
-  readonly offset?: number;
-}
-
 /**
- * Orama adapter for hub article search.
+ * Orama adapter for HubSearchEngine port.
  *
  * Provides full-text search with typo tolerance across article titles,
- * excerpts, tags, and source names.
+ * excerpts, tags, and source names. Swap by creating another adapter
+ * implementing the HubSearchEngine port.
  */
-export class OramaHubSearchEngine {
+export class OramaHubSearchEngine implements HubSearchEngine {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private db: any = null;
   private articles: FeedArticle[] = [];

@@ -12,3 +12,7 @@ export type {
 } from "./content-source.port";
 export type { ArticleSource } from "./article-source.port";
 export type { BookmarkStore } from "./bookmark-store.port";
+export type {
+  HubSearchEngine,
+  HubSearchParams,
+} from "./hub-search-engine.port";

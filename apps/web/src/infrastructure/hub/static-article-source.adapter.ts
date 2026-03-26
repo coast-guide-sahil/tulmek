@@ -11,7 +11,7 @@ import metadataData from "@/content/hub/metadata.json";
  */
 export class StaticArticleSource implements ArticleSource {
   private articles: FeedArticle[] = feedData as FeedArticle[];
-  private metadata: FeedMetadata = metadataData as unknown as FeedMetadata;
+  private metadata: FeedMetadata = metadataData as FeedMetadata;
 
   async getArticles(category?: HubCategory): Promise<FeedArticle[]> {
     if (!category) return this.articles;

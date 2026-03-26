@@ -1,8 +1,6 @@
 import { create } from "zustand";
-import type { BookmarkStore } from "@tulmek/core/ports";
-import type { BookmarkMap, FeedArticle } from "@tulmek/core/domain";
-import type { OramaHubSearchEngine, HubSearchParams } from "@/infrastructure/hub/orama-hub-search.adapter";
-import type { HubFacetedResult } from "@tulmek/core/domain";
+import type { BookmarkStore, HubSearchEngine, HubSearchParams } from "@tulmek/core/ports";
+import type { BookmarkMap, FeedArticle, HubFacetedResult } from "@tulmek/core/domain";
 
 const READ_STORAGE_KEY = "tulmek:hub:read";
 
@@ -61,7 +59,7 @@ type HubStore = HubState & HubActions;
  */
 export function createHubStore(deps: {
   bookmarkStore: BookmarkStore;
-  searchEngine: OramaHubSearchEngine;
+  searchEngine: HubSearchEngine;
 }) {
   return create<HubStore>()((set, get) => ({
     bookmarks: {},

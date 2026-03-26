@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import type { FeedArticle } from "@tulmek/core/domain";
+import type { FeedMetadata } from "@tulmek/core/domain";
 import feedData from "@/content/hub/feed.json";
 import metadataJson from "@/content/hub/metadata.json";
 import { FeedLayout } from "@/components/hub/feed-layout";
 import { StatsBanner } from "@/components/hub/stats-banner";
 import { APP_NAME } from "@tulmek/config/constants";
+
+const articles = feedData as FeedArticle[];
+const feedMeta = metadataJson as FeedMetadata;
 
 export const metadata: Metadata = {
   title: `Knowledge Hub — ${APP_NAME}`,
@@ -13,9 +17,6 @@ export const metadata: Metadata = {
 };
 
 export default function HubPage() {
-  const articles = feedData as FeedArticle[];
-  const feedMeta = metadataJson;
-
   return (
     <div className="space-y-6">
       {/* Header */}

@@ -81,5 +81,6 @@ export interface HubFacetCount {
 export interface FeedMetadata {
   readonly lastRefreshedAt: string;
   readonly totalArticles: number;
-  readonly sourceBreakdown: Record<FeedSourceId, number>;
+  readonly sourceBreakdown: Record<string, number>;
+  readonly categoryBreakdown: Record<string, number>;
 }

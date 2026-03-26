@@ -9,7 +9,7 @@ import {
 } from "react";
 import { useStore } from "zustand";
 import { useShallow } from "zustand/shallow";
-import type { BookmarkStore } from "@tulmek/core/ports";
+import type { BookmarkStore, HubSearchEngine } from "@tulmek/core/ports";
 import type { FeedArticle } from "@tulmek/core/domain";
 import { createHubStore, type UseHubStore } from "./store";
 import { LocalStorageBookmarkStore } from "@/infrastructure/hub/localstorage-bookmark.adapter";
@@ -26,7 +26,7 @@ const ArticlesContext = createContext<FeedArticle[]>([]);
  */
 const defaultDeps: {
   bookmarkStore: BookmarkStore;
-  searchEngine: OramaHubSearchEngine;
+  searchEngine: HubSearchEngine;
 } = {
   bookmarkStore: new LocalStorageBookmarkStore(),
   searchEngine: new OramaHubSearchEngine(),
@@ -39,7 +39,7 @@ interface HubProviderProps {
   /** Override adapters for testing */
   deps?: {
     bookmarkStore: BookmarkStore;
-    searchEngine: OramaHubSearchEngine;
+    searchEngine: HubSearchEngine;
   };
 }
 
