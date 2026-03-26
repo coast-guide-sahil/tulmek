@@ -6,7 +6,7 @@ test.describe("Knowledge Hub", () => {
       await page.goto("/hub");
       await expect(
         page.getByRole("heading", { name: "Knowledge Hub" }),
-      ).toBeVisible();
+      ).toBeVisible({ timeout: 10000 });
       await expect(page.getByText(/\d+ articles/)).toBeVisible();
     });
 

@@ -67,6 +67,18 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
   const bookmarks = useHub((s) => s.bookmarks);
   const { toggleBookmark, markAsRead } = useHubActions();
 
+  // Default to list view on mobile if no explicit view param in URL
+  const mobileDefaultApplied = useRef(false);
+  useEffect(() => {
+    if (!mobileDefaultApplied.current && typeof window !== "undefined") {
+      mobileDefaultApplied.current = true;
+      const urlHasView = new URLSearchParams(window.location.search).has("view");
+      if (!urlHasView && window.innerWidth < 640) {
+        setLayout("list");
+      }
+    }
+  }, [setLayout]);
+
   // Debounce search query (250ms)
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(null);
