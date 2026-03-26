@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
+import { useQueryStates, parseAsString, parseAsStringEnum } from "nuqs";
 import type { FeedArticle, HubCategory } from "@tulmek/core/domain";
 import { useHub, useHubActions } from "@/lib/hub/provider";
 import { ContentCard } from "./content-card";
@@ -18,16 +19,48 @@ interface FeedLayoutProps {
 type SortMode = "trending" | "latest" | "most-discussed";
 const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
 
-export function FeedLayout({ articles, initialCategory }: FeedLayoutProps) {
+const HUB_CATEGORIES: HubCategory[] = ["dsa", "system-design", "ai-ml", "behavioral", "career", "general"];
+const SORT_MODES: SortMode[] = ["trending", "latest", "most-discussed"];
+const VIEW_MODES: ("grid" | "list")[] = ["grid", "list"];
+
+export function FeedLayout({ articles }: FeedLayoutProps) {
   const [nowMs] = useState(() => Date.now());
-  const [activeCategory, setActiveCategory] = useState<HubCategory | null>(
-    initialCategory ?? null
+
+  // URL-synced filter state (shareable links!)
+  const [params, setParams] = useQueryStates({
+    category: parseAsStringEnum<HubCategory>(HUB_CATEGORIES),
+    q: parseAsString.withDefault(""),
+    source: parseAsString,
+    sort: parseAsStringEnum<SortMode>(SORT_MODES).withDefault("trending"),
+    view: parseAsStringEnum<"grid" | "list">(VIEW_MODES).withDefault("grid"),
+  }, { shallow: true });
+
+  const activeCategory = params.category;
+  const searchQuery = params.q;
+  const sourceFilter = params.source;
+  const sortMode = params.sort;
+  const layout = params.view;
+
+  const setActiveCategory = useCallback(
+    (cat: HubCategory | null) => setParams({ category: cat }),
+    [setParams]
   );
-  const [searchQuery, setSearchQuery] = useState("");
-  const [debouncedQuery, setDebouncedQuery] = useState("");
-  const [sourceFilter, setSourceFilter] = useState<string | null>(null);
-  const [sortMode, setSortMode] = useState<SortMode>("trending");
-  const [layout, setLayout] = useState<"grid" | "list">("grid");
+  const setSearchQuery = useCallback(
+    (q: string) => setParams({ q: q || null }),
+    [setParams]
+  );
+  const setSourceFilter = useCallback(
+    (source: string | null) => setParams({ source }),
+    [setParams]
+  );
+  const setSortMode = useCallback(
+    (sort: SortMode) => setParams({ sort }),
+    [setParams]
+  );
+  const setLayout = useCallback(
+    (view: "grid" | "list") => setParams({ view }),
+    [setParams]
+  );
 
   const hydrated = useHub((s) => s.hydrated);
   const readIds = useHub((s) => s.readIds);
@@ -35,6 +68,7 @@ export function FeedLayout({ articles, initialCategory }: FeedLayoutProps) {
   const { toggleBookmark, markAsRead } = useHubActions();
 
   // Debounce search query (250ms)
+  const [debouncedQuery, setDebouncedQuery] = useState("");
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(null);
   useEffect(() => {
     debounceRef.current = setTimeout(() => setDebouncedQuery(searchQuery), 250);
@@ -107,10 +141,8 @@ export function FeedLayout({ articles, initialCategory }: FeedLayoutProps) {
   }, [articles, activeCategory, sourceFilter, debouncedQuery, sortMode]);
 
   const handleClearFilters = useCallback(() => {
-    setActiveCategory(null);
-    setSourceFilter(null);
-    setSearchQuery("");
-  }, []);
+    setParams({ category: null, source: null, q: null });
+  }, [setParams]);
 
   const [visibleCount, setVisibleCount] = useState(24);
 

@@ -1,9 +1,11 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import type { FeedArticle } from "@tulmek/core/domain";
 import type { FeedMetadata } from "@tulmek/core/domain";
 import feedData from "@/content/hub/feed.json";
 import metadataJson from "@/content/hub/metadata.json";
 import { FeedLayout } from "@/components/hub/feed-layout";
+import { FeedSkeleton } from "@/components/hub/feed-skeleton";
 import { StatsBanner } from "@/components/hub/stats-banner";
 import { APP_NAME } from "@tulmek/config/constants";
 
@@ -53,8 +55,10 @@ export default function HubPage() {
         lastRefreshedAt={feedMeta.lastRefreshedAt}
       />
 
-      {/* Feed */}
-      <FeedLayout articles={articles} />
+      {/* Feed — wrapped in Suspense for nuqs URL state */}
+      <Suspense fallback={<FeedSkeleton />}>
+        <FeedLayout articles={articles} />
+      </Suspense>
     </div>
   );
 }
