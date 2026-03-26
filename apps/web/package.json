@@ -12,7 +12,8 @@
     "test:watch": "vitest",
     "e2e": "playwright test",
     "e2e:ui": "playwright test --ui",
-    "validate-content": "tsx scripts/validate-content.ts"
+    "validate-content": "tsx scripts/validate-content.ts",
+    "fetch-hub-content": "tsx scripts/fetch-hub-content.ts"
   },
   "dependencies": {
     "@orama/orama": "^3.1.18",

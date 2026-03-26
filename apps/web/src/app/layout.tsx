@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: APP_NAME,
-  description: "Offline-first interview prep tracker with progress tracking, notes, and search",
+  description: "AI-powered interview prep knowledge hub — fresh content from HackerNews, Reddit, dev.to & more, updated daily.",
 };
 
 export const viewport: Viewport = {

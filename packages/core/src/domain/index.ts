@@ -10,3 +10,15 @@ export type {
   FacetCount,
   FacetedSearchResult,
 } from "./progress";
+
+export type {
+  FeedSourceId,
+  HubCategory,
+  FeedArticle,
+  Bookmark,
+  BookmarkMap,
+  HubSearchResult,
+  HubFacetedResult,
+  HubFacetCount,
+  FeedMetadata,
+} from "./article";

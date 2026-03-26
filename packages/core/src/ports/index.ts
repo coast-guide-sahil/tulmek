@@ -10,3 +10,5 @@ export type {
   ContentSection,
   DashboardSection,
 } from "./content-source.port";
+export type { ArticleSource } from "./article-source.port";
+export type { BookmarkStore } from "./bookmark-store.port";
