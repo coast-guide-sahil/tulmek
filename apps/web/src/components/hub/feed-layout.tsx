@@ -66,7 +66,8 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
   const hydrated = useHub((s) => s.hydrated);
   const readIds = useHub((s) => s.readIds);
   const bookmarks = useHub((s) => s.bookmarks);
-  const { toggleBookmark, markAsRead } = useHubActions();
+  const searchResults = useHub((s) => s.searchResults);
+  const { toggleBookmark, markAsRead, search: searchOrama } = useHubActions();
 
   // Default to list view on mobile if no explicit view param in URL
   const mobileDefaultApplied = useRef(false);
@@ -80,13 +81,18 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     }
   }, [setLayout]);
 
-  // Debounce search query (250ms)
+  // Debounce search query (250ms) and run through Orama for typo tolerance
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(null);
   useEffect(() => {
-    debounceRef.current = setTimeout(() => setDebouncedQuery(searchQuery), 250);
+    debounceRef.current = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+      if (searchQuery.trim()) {
+        searchOrama({ query: searchQuery, category: activeCategory ?? undefined, source: sourceFilter ?? undefined });
+      }
+    }, 250);
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
-  }, [searchQuery]);
+  }, [searchQuery, activeCategory, sourceFilter, searchOrama]);
 
   // Category counts
   const categoryCounts = useMemo(() => {
@@ -122,16 +128,21 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
       result = result.filter((a) => a.source === sourceFilter);
     }
 
-    // Search filter (debounced for performance)
+    // Search filter — use Orama results (typo-tolerant) when available, fallback to inline
     if (debouncedQuery.trim()) {
-      const q = debouncedQuery.toLowerCase();
-      result = result.filter(
-        (a) =>
-          a.title.toLowerCase().includes(q) ||
-          a.excerpt.toLowerCase().includes(q) ||
-          a.tags.some((t) => t.toLowerCase().includes(q)) ||
-          a.sourceName.toLowerCase().includes(q)
-      );
+      if (searchResults && searchResults.hits.length > 0) {
+        const matchIds = new Set(searchResults.hits.map((h) => h.article.id));
+        result = result.filter((a) => matchIds.has(a.id));
+      } else {
+        const q = debouncedQuery.toLowerCase();
+        result = result.filter(
+          (a) =>
+            a.title.toLowerCase().includes(q) ||
+            a.excerpt.toLowerCase().includes(q) ||
+            a.tags.some((t) => t.toLowerCase().includes(q)) ||
+            a.sourceName.toLowerCase().includes(q)
+        );
+      }
     }
 
     // Sort
@@ -151,7 +162,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     }
 
     return result;
-  }, [articles, activeCategory, sourceFilter, debouncedQuery, sortMode]);
+  }, [articles, activeCategory, sourceFilter, debouncedQuery, sortMode, searchResults]);
 
   const handleClearFilters = useCallback(() => {
     setParams({ category: null, source: null, q: null });
