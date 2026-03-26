@@ -231,10 +231,14 @@ textarea {
   opacity: 1;
 }
 
-/* Unread left accent border */
-.hub-card-unread {
-  border-left: 3px solid var(--primary);
-}
+/* Unread left accent border — category colored */
+.hub-card-unread { border-left: 3px solid var(--primary); }
+.hub-card-unread[data-category="dsa"] { border-left-color: var(--accent-dsa); }
+.hub-card-unread[data-category="system-design"] { border-left-color: var(--accent-system-design); }
+.hub-card-unread[data-category="ai-ml"] { border-left-color: var(--accent-ai-ml); }
+.hub-card-unread[data-category="behavioral"] { border-left-color: var(--accent-behavioral); }
+.hub-card-unread[data-category="career"] { border-left-color: var(--accent-career); }
+.hub-card-unread[data-category="general"] { border-left-color: var(--accent-general); }
 
 /* Bookmark pulse animation */
 @keyframes bookmark-pulse {

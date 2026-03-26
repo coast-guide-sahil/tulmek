@@ -39,7 +39,7 @@ export const ContentCard = memo(function ContentCard({
 
   if (layout === "list") {
     return (
-      <article className={`hub-card group flex items-start gap-3 rounded-xl border border-border bg-card p-3 sm:gap-4 sm:p-4 ${cardStateClass}`}>
+      <article data-category={article.category} className={`hub-card group flex items-start gap-3 rounded-xl border border-border bg-card p-3 sm:gap-4 sm:p-4 ${cardStateClass}`}>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <SourceBadge sourceName={article.sourceName} domain={article.domain} />
@@ -96,7 +96,7 @@ export const ContentCard = memo(function ContentCard({
 
   // Grid layout
   return (
-    <article className={`hub-card group flex flex-col rounded-xl border border-border bg-card p-4 sm:p-5 ${cardStateClass}`}>
+    <article data-category={article.category} className={`hub-card group flex flex-col rounded-xl border border-border bg-card p-4 sm:p-5 ${cardStateClass}`}>
       {/* Header: source + time + badges + bookmark */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
