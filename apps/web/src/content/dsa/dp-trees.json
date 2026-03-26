@@ -1,0 +1,243 @@
+[
+  {
+    "slug": "diameter-of-binary-tree",
+    "title": "Diameter of Binary Tree",
+    "url": "https://leetcode.com/problems/diameter-of-binary-tree/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "dp-trees",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "binary-tree-maximum-path-sum",
+    "title": "Binary Tree Maximum Path Sum",
+    "url": "https://leetcode.com/problems/binary-tree-maximum-path-sum/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-trees",
+      "hard",
+      "tier-1"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "house-robber-iii",
+    "title": "House Robber III",
+    "url": "https://leetcode.com/problems/house-robber-iii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-trees",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "sum-of-distances-in-tree",
+    "title": "Sum of Distances in Tree",
+    "url": "https://leetcode.com/problems/sum-of-distances-in-tree/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-trees",
+      "hard",
+      "tier-1",
+      "dfs",
+      "tree"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "count-good-nodes-in-binary-tree",
+    "title": "Count Good Nodes in Binary Tree",
+    "url": "https://leetcode.com/problems/count-good-nodes-in-binary-tree/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-trees",
+      "medium",
+      "tier-1",
+      "dfs",
+      "tree"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "path-sum-iii",
+    "title": "Path Sum III",
+    "url": "https://leetcode.com/problems/path-sum-iii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-trees",
+      "medium",
+      "tier-1",
+      "dfs",
+      "prefix-sum",
+      "tree"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "longest-univalue-path",
+    "title": "Longest Univalue Path",
+    "url": "https://leetcode.com/problems/longest-univalue-path/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-trees",
+      "medium",
+      "tier-1",
+      "dfs"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "delete-nodes-and-return-forest",
+    "title": "Delete Nodes And Return Forest",
+    "url": "https://leetcode.com/problems/delete-nodes-and-return-forest/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-trees",
+      "medium",
+      "tier-1",
+      "dfs",
+      "tree"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "maximum-width-of-binary-tree",
+    "title": "Maximum Width of Binary Tree",
+    "url": "https://leetcode.com/problems/maximum-width-of-binary-tree/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-trees",
+      "medium",
+      "tier-1",
+      "bfs"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "distribute-coins-in-binary-tree",
+    "title": "Distribute Coins in Binary Tree",
+    "url": "https://leetcode.com/problems/distribute-coins-in-binary-tree/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-trees",
+      "medium",
+      "tier-1",
+      "dfs",
+      "tree"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "binary-tree-cameras",
+    "title": "Binary Tree Cameras",
+    "url": "https://leetcode.com/problems/binary-tree-cameras/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-trees",
+      "hard",
+      "tier-2",
+      "greedy",
+      "tree"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "maximum-product-of-splitted-binary-tree",
+    "title": "Maximum Product of Splitted Binary Tree",
+    "url": "https://leetcode.com/problems/maximum-product-of-splitted-binary-tree/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-trees",
+      "medium",
+      "tier-2",
+      "tree"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "linked-list-in-binary-tree",
+    "title": "Linked List in Binary Tree",
+    "url": "https://leetcode.com/problems/linked-list-in-binary-tree/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-trees",
+      "medium",
+      "tier-2",
+      "dfs",
+      "linked-list",
+      "tree"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "tree-with-maximum-equal-leaf-nodes",
+    "title": "Tree with Maximum Equal Leaf Nodes",
+    "url": "https://leetcode.com/problems/largest-value-in-each-tree-row/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-trees",
+      "medium",
+      "tier-2",
+      "bfs"
+    ],
+    "displayOrder": 14
+  },
+  {
+    "slug": "serialize-and-deserialize-binary-tree",
+    "title": "Serialize and Deserialize Binary Tree",
+    "url": "https://leetcode.com/problems/serialize-and-deserialize-binary-tree/",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Google",
+        "frequency": 4
+      },
+      {
+        "name": "Databricks",
+        "frequency": 4
+      },
+      {
+        "name": "Rubrik",
+        "frequency": 4
+      },
+      {
+        "name": "Bloomberg",
+        "frequency": 4
+      },
+      {
+        "name": "Microsoft",
+        "frequency": 4
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 4
+      }
+    ],
+    "tags": [
+      "dp-trees",
+      "hard",
+      "tier-2",
+      "dfs"
+    ],
+    "displayOrder": 15
+  }
+]

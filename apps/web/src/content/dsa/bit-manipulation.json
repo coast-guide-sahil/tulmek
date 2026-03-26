@@ -1,0 +1,309 @@
+[
+  {
+    "slug": "single-number",
+    "title": "Single Number",
+    "url": "https://leetcode.com/problems/single-number/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "number-of-1-bits",
+    "title": "Number of 1 Bits",
+    "url": "https://leetcode.com/problems/number-of-1-bits/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "counting-bits",
+    "title": "Counting Bits",
+    "url": "https://leetcode.com/problems/counting-bits/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "reverse-bits",
+    "title": "Reverse Bits",
+    "url": "https://leetcode.com/problems/reverse-bits/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "missing-number",
+    "title": "Missing Number",
+    "url": "https://leetcode.com/problems/missing-number/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "power-of-two",
+    "title": "Power of Two",
+    "url": "https://leetcode.com/problems/power-of-two/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "power-of-four",
+    "title": "Power of Four",
+    "url": "https://leetcode.com/problems/power-of-four/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "single-number-ii",
+    "title": "Single Number II",
+    "url": "https://leetcode.com/problems/single-number-ii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "single-number-iii",
+    "title": "Single Number III",
+    "url": "https://leetcode.com/problems/single-number-iii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "sum-of-two-integers",
+    "title": "Sum of Two Integers",
+    "url": "https://leetcode.com/problems/sum-of-two-integers/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "bitwise-and-of-numbers-range",
+    "title": "Bitwise AND of Numbers Range",
+    "url": "https://leetcode.com/problems/bitwise-and-of-numbers-range/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "medium",
+      "tier-2"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "maximum-xor-of-two-numbers",
+    "title": "Maximum XOR of Two Numbers",
+    "url": "https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "medium",
+      "tier-2",
+      "greedy",
+      "trie"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "subsets-bitmask",
+    "title": "Subsets (Bitmask)",
+    "url": "https://leetcode.com/problems/subsets/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "medium",
+      "tier-2"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "total-hamming-distance",
+    "title": "Total Hamming Distance",
+    "url": "https://leetcode.com/problems/total-hamming-distance/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "medium",
+      "tier-2"
+    ],
+    "displayOrder": 14
+  },
+  {
+    "slug": "utf-8-validation",
+    "title": "UTF-8 Validation",
+    "url": "https://leetcode.com/problems/utf-8-validation/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "medium",
+      "tier-2"
+    ],
+    "displayOrder": 15
+  },
+  {
+    "slug": "gray-code",
+    "title": "Gray Code",
+    "url": "https://leetcode.com/problems/gray-code/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "medium",
+      "tier-2"
+    ],
+    "displayOrder": 16
+  },
+  {
+    "slug": "find-duplicate-number",
+    "title": "Find Duplicate Number",
+    "url": "https://leetcode.com/problems/find-the-duplicate-number/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "medium",
+      "tier-2",
+      "floyd-cycle"
+    ],
+    "displayOrder": 17
+  },
+  {
+    "slug": "xor-queries-of-a-subarray",
+    "title": "XOR Queries of a Subarray",
+    "url": "https://leetcode.com/problems/xor-queries-of-a-subarray/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "medium",
+      "tier-2",
+      "prefix-sum"
+    ],
+    "displayOrder": 18
+  },
+  {
+    "slug": "divide-two-integers",
+    "title": "Divide Two Integers",
+    "url": "https://leetcode.com/problems/divide-two-integers/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "medium",
+      "tier-2"
+    ],
+    "displayOrder": 19
+  },
+  {
+    "slug": "minimum-flips-to-make-a-or-b-equal-to-c",
+    "title": "Minimum Flips to Make a OR b Equal to c",
+    "url": "https://leetcode.com/problems/minimum-flips-to-make-a-or-b-equal-to-c/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "medium",
+      "tier-2"
+    ],
+    "displayOrder": 20
+  },
+  {
+    "slug": "maximum-xor-of-two-numbers-trie",
+    "title": "Maximum XOR of Two Numbers (Trie)",
+    "url": "https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "medium",
+      "tier-3",
+      "greedy",
+      "trie"
+    ],
+    "displayOrder": 21
+  },
+  {
+    "slug": "maximum-xor-with-an-element-from-array",
+    "title": "Maximum XOR With an Element From Array",
+    "url": "https://leetcode.com/problems/maximum-xor-with-an-element-from-array/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "hard",
+      "tier-3",
+      "sorting",
+      "trie"
+    ],
+    "displayOrder": 22
+  },
+  {
+    "slug": "concatenation-of-consecutive-binary-numbers",
+    "title": "Concatenation of Consecutive Binary Numbers",
+    "url": "https://leetcode.com/problems/concatenation-of-consecutive-binary-numbers/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "bit-manipulation",
+      "medium",
+      "tier-3"
+    ],
+    "displayOrder": 23
+  }
+]

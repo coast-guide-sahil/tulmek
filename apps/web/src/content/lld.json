@@ -1,0 +1,1043 @@
+[
+  {
+    "slug": "parking-lot-system",
+    "title": "Parking Lot System",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Uber",
+        "frequency": 4
+      },
+      {
+        "name": "Microsoft",
+        "frequency": 4
+      },
+      {
+        "name": "Atlassian",
+        "frequency": 4
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "singleton",
+      "strategy",
+      "factory",
+      "observer",
+      "oop"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "library-management-system",
+    "title": "Library Management System",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Google",
+        "frequency": 3
+      },
+      {
+        "name": "Microsoft",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "strategy",
+      "state",
+      "oop"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "movie-ticket-booking-bookmyshow",
+    "title": "Movie Ticket Booking (BookMyShow)",
+    "url": "",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Bloomberg",
+        "frequency": 4
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 3
+      },
+      {
+        "name": "Sprinklr",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "singleton",
+      "strategy",
+      "state",
+      "concurrency",
+      "oop"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "atm-system",
+    "title": "ATM System",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Goldman Sachs",
+        "frequency": 3
+      },
+      {
+        "name": "Microsoft",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "state",
+      "chain-of-responsibility",
+      "template-method",
+      "oop"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "vending-machine",
+    "title": "Vending Machine",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Bloomberg",
+        "frequency": 3
+      },
+      {
+        "name": "Microsoft",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "state",
+      "greedy",
+      "oop"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "snake-and-ladder-game",
+    "title": "Snake and Ladder Game",
+    "url": "",
+    "difficulty": "easy",
+    "companies": [
+      {
+        "name": "Goldman Sachs",
+        "frequency": 3
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "simulation",
+      "oop"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "chess-game",
+    "title": "Chess Game",
+    "url": "",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Google",
+        "frequency": 3
+      },
+      {
+        "name": "Meta",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "abstract-class",
+      "command",
+      "memento",
+      "oop"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "elevator-system",
+    "title": "Elevator System",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Microsoft",
+        "frequency": 3
+      },
+      {
+        "name": "Bloomberg",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "observer",
+      "state",
+      "strategy",
+      "concurrency",
+      "oop"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "hotel-management-system",
+    "title": "Hotel Management System",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Atlassian",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "state",
+      "strategy",
+      "decorator",
+      "oop"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "restaurant-ordering-system",
+    "title": "Restaurant Ordering System",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Swiggy",
+        "frequency": 4
+      }
+    ],
+    "tags": [
+      "tier-2",
+      "observer",
+      "state",
+      "command",
+      "builder",
+      "oop"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "ride-booking-system-uberola",
+    "title": "Ride Booking System (Uber/Ola)",
+    "url": "",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Uber",
+        "frequency": 5
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "strategy",
+      "observer",
+      "state",
+      "geospatial",
+      "oop"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "food-delivery-app-swiggyzomato",
+    "title": "Food Delivery App (Swiggy/Zomato)",
+    "url": "",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Swiggy",
+        "frequency": 5
+      },
+      {
+        "name": "Uber",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "observer",
+      "strategy",
+      "decorator",
+      "oop"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "e-commerce-cart-order-system",
+    "title": "E-Commerce Cart + Order System",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Amazon",
+        "frequency": 4
+      },
+      {
+        "name": "Flipkart",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "strategy",
+      "saga",
+      "oop"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "social-media-platform-instagram",
+    "title": "Social Media Platform (Instagram)",
+    "url": "",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Meta",
+        "frequency": 4
+      },
+      {
+        "name": "Google",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-2",
+      "observer",
+      "strategy",
+      "fan-out",
+      "oop"
+    ],
+    "displayOrder": 14
+  },
+  {
+    "slug": "banking-system",
+    "title": "Banking System",
+    "url": "",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Goldman Sachs",
+        "frequency": 4
+      },
+      {
+        "name": "Stripe",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "strategy",
+      "concurrency",
+      "audit",
+      "oop"
+    ],
+    "displayOrder": 15
+  },
+  {
+    "slug": "linkedin-job-portal",
+    "title": "LinkedIn / Job Portal",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "LinkedIn",
+        "frequency": 4
+      }
+    ],
+    "tags": [
+      "tier-2",
+      "bfs",
+      "recommendation",
+      "oop"
+    ],
+    "displayOrder": 16
+  },
+  {
+    "slug": "splitwise-expense-sharing",
+    "title": "Splitwise (Expense Sharing)",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Uber",
+        "frequency": 5
+      },
+      {
+        "name": "Google",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "strategy",
+      "graph",
+      "oop"
+    ],
+    "displayOrder": 17
+  },
+  {
+    "slug": "google-calendar",
+    "title": "Google Calendar",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Google",
+        "frequency": 4
+      },
+      {
+        "name": "Microsoft",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-2",
+      "composite",
+      "recurrence",
+      "interval",
+      "oop"
+    ],
+    "displayOrder": 18
+  },
+  {
+    "slug": "file-system-design",
+    "title": "File System Design",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Uber",
+        "frequency": 5
+      },
+      {
+        "name": "Databricks",
+        "frequency": 4
+      },
+      {
+        "name": "Rubrik",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "composite",
+      "tree",
+      "oop"
+    ],
+    "displayOrder": 19
+  },
+  {
+    "slug": "lru-cache",
+    "title": "LRU Cache",
+    "url": "https://leetcode.com/problems/lru-cache/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Google",
+        "frequency": 5
+      },
+      {
+        "name": "Meta",
+        "frequency": 5
+      },
+      {
+        "name": "Stripe",
+        "frequency": 5
+      },
+      {
+        "name": "Databricks",
+        "frequency": 5
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "hash-map",
+      "linked-list",
+      "oop"
+    ],
+    "displayOrder": 20
+  },
+  {
+    "slug": "lfu-cache",
+    "title": "LFU Cache",
+    "url": "https://leetcode.com/problems/lfu-cache/",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Bloomberg",
+        "frequency": 3
+      },
+      {
+        "name": "Google",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-2",
+      "hash-map",
+      "linked-list",
+      "frequency",
+      "oop"
+    ],
+    "displayOrder": 21
+  },
+  {
+    "slug": "tic-tac-toe-game",
+    "title": "Tic-Tac-Toe Game",
+    "url": "",
+    "difficulty": "easy",
+    "companies": [
+      {
+        "name": "Databricks",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-2",
+      "simulation",
+      "oop"
+    ],
+    "displayOrder": 22
+  },
+  {
+    "slug": "inventory-management-system",
+    "title": "Inventory Management System",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Amazon",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-2",
+      "observer",
+      "strategy",
+      "oop"
+    ],
+    "displayOrder": 23
+  },
+  {
+    "slug": "notification-service",
+    "title": "Notification Service",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "LinkedIn",
+        "frequency": 3
+      },
+      {
+        "name": "Microsoft",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-2",
+      "observer",
+      "factory",
+      "strategy",
+      "oop"
+    ],
+    "displayOrder": 24
+  },
+  {
+    "slug": "rate-limiter-code-level",
+    "title": "Rate Limiter (Code Level)",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Rubrik",
+        "frequency": 4
+      },
+      {
+        "name": "Stripe",
+        "frequency": 4
+      },
+      {
+        "name": "Microsoft",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "token-bucket",
+      "sliding-window",
+      "oop"
+    ],
+    "displayOrder": 25
+  },
+  {
+    "slug": "in-memory-file-system",
+    "title": "In-Memory File System",
+    "url": "https://leetcode.com/problems/design-in-memory-file-system/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Databricks",
+        "frequency": 4
+      },
+      {
+        "name": "Rubrik",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "composite",
+      "tree",
+      "hash-map",
+      "oop"
+    ],
+    "displayOrder": 26
+  },
+  {
+    "slug": "taskjob-scheduler",
+    "title": "Task/Job Scheduler",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Microsoft",
+        "frequency": 3
+      },
+      {
+        "name": "Rubrik",
+        "frequency": 3
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-2",
+      "priority-queue",
+      "concurrency",
+      "oop"
+    ],
+    "displayOrder": 27
+  },
+  {
+    "slug": "cachedfile-storageclient-thread-pool",
+    "title": "CachedFile (StorageClient + Thread Pool)",
+    "url": "",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Databricks",
+        "frequency": 4
+      }
+    ],
+    "tags": [
+      "tier-2",
+      "proxy",
+      "concurrency",
+      "caching",
+      "oop"
+    ],
+    "displayOrder": 28
+  },
+  {
+    "slug": "linux-file-system-mkdir-cd-ls-cat",
+    "title": "Linux File System (mkdir, cd, ls, cat)",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Uber",
+        "frequency": 5
+      }
+    ],
+    "tags": [
+      "tier-1",
+      "composite",
+      "command",
+      "tree",
+      "oop"
+    ],
+    "displayOrder": 29
+  },
+  {
+    "slug": "logging-framework-log4j-like",
+    "title": "Logging Framework (Log4j-like)",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Bloomberg",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-2",
+      "singleton",
+      "strategy",
+      "chain-of-responsibility",
+      "oop"
+    ],
+    "displayOrder": 30
+  },
+  {
+    "slug": "car-rental-system",
+    "title": "Car Rental System",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "tier-2",
+      "strategy",
+      "state",
+      "factory",
+      "oop"
+    ],
+    "displayOrder": 31
+  },
+  {
+    "slug": "online-auction-system",
+    "title": "Online Auction System",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "tier-2",
+      "observer",
+      "strategy",
+      "oop"
+    ],
+    "displayOrder": 32
+  },
+  {
+    "slug": "music-streaming-service-spotify",
+    "title": "Music Streaming Service (Spotify)",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "tier-2",
+      "observer",
+      "strategy",
+      "iterator",
+      "oop"
+    ],
+    "displayOrder": 33
+  },
+  {
+    "slug": "stack-overflow-qa-platform",
+    "title": "Stack Overflow / Q&A Platform",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "tier-2",
+      "observer",
+      "strategy",
+      "voting",
+      "oop"
+    ],
+    "displayOrder": 34
+  },
+  {
+    "slug": "airline-booking-system",
+    "title": "Airline Booking System",
+    "url": "",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "tier-2",
+      "state",
+      "strategy",
+      "concurrency",
+      "oop"
+    ],
+    "displayOrder": 35
+  },
+  {
+    "slug": "traffic-signal-system",
+    "title": "Traffic Signal System",
+    "url": "",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "tier-3",
+      "state",
+      "observer",
+      "oop"
+    ],
+    "displayOrder": 36
+  },
+  {
+    "slug": "design-hashmap",
+    "title": "Design HashMap",
+    "url": "https://leetcode.com/problems/design-hashmap/",
+    "difficulty": "easy",
+    "companies": [
+      {
+        "name": "Microsoft",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-2",
+      "hash-map",
+      "chaining",
+      "oop"
+    ],
+    "displayOrder": 37
+  },
+  {
+    "slug": "design-iterator",
+    "title": "Design Iterator",
+    "url": "",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "tier-3",
+      "iterator",
+      "oop"
+    ],
+    "displayOrder": 38
+  },
+  {
+    "slug": "design-a-pub-sub-system",
+    "title": "Design a Pub-Sub System",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Google",
+        "frequency": 3
+      },
+      {
+        "name": "LinkedIn",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-2",
+      "observer",
+      "publisher-subscriber",
+      "oop"
+    ],
+    "displayOrder": 39
+  },
+  {
+    "slug": "thread-safe-bounded-queue",
+    "title": "Thread-Safe Bounded Queue",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Databricks",
+        "frequency": 3
+      },
+      {
+        "name": "Bloomberg",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-2",
+      "concurrency",
+      "semaphore",
+      "producer-consumer",
+      "oop"
+    ],
+    "displayOrder": 40
+  },
+  {
+    "slug": "url-shortener-code-level",
+    "title": "URL Shortener (Code Level)",
+    "url": "",
+    "difficulty": "easy",
+    "companies": [
+      {
+        "name": "Google",
+        "frequency": 3
+      },
+      {
+        "name": "Meta",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-2",
+      "hash-map",
+      "base62",
+      "oop"
+    ],
+    "displayOrder": 41
+  },
+  {
+    "slug": "cron-job-scheduler",
+    "title": "Cron Job Scheduler",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Rubrik",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-2",
+      "scheduler",
+      "priority-queue",
+      "oop"
+    ],
+    "displayOrder": 42
+  },
+  {
+    "slug": "connection-pool",
+    "title": "Connection Pool",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Databricks",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-3",
+      "singleton",
+      "concurrency",
+      "pool",
+      "oop"
+    ],
+    "displayOrder": 43
+  },
+  {
+    "slug": "design-a-text-editor",
+    "title": "Design a Text Editor",
+    "url": "",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "tier-3",
+      "command",
+      "memento",
+      "rope-data-structure",
+      "oop"
+    ],
+    "displayOrder": 44
+  },
+  {
+    "slug": "design-a-deck-of-cards",
+    "title": "Design a Deck of Cards",
+    "url": "",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "tier-3",
+      "factory",
+      "abstract-class",
+      "oop"
+    ],
+    "displayOrder": 45
+  },
+  {
+    "slug": "design-cricket-scoreboard",
+    "title": "Design Cricket Scoreboard",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Swiggy",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-3",
+      "observer",
+      "state",
+      "oop"
+    ],
+    "displayOrder": 46
+  },
+  {
+    "slug": "order-book-trading-system",
+    "title": "Order Book (Trading System)",
+    "url": "",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Tower",
+        "frequency": 4
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 4
+      },
+      {
+        "name": "Coinbase",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "tier-2",
+      "sorted-map",
+      "concurrency",
+      "oop"
+    ],
+    "displayOrder": 47
+  },
+  {
+    "slug": "design-lru-lfu-hybrid-cache",
+    "title": "Design LRU + LFU Hybrid Cache",
+    "url": "",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "tier-3",
+      "hash-map",
+      "linked-list",
+      "frequency",
+      "oop"
+    ],
+    "displayOrder": 48
+  },
+  {
+    "slug": "multiplayer-game-server",
+    "title": "Multiplayer Game Server",
+    "url": "",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "tier-3",
+      "concurrency",
+      "state",
+      "observer",
+      "oop"
+    ],
+    "displayOrder": 49
+  }
+]

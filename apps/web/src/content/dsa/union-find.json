@@ -1,0 +1,240 @@
+[
+  {
+    "slug": "number-of-provinces",
+    "title": "Number of Provinces",
+    "url": "https://leetcode.com/problems/number-of-provinces/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "union-find",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "number-of-islands",
+    "title": "Number of Islands",
+    "url": "https://leetcode.com/problems/number-of-islands/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Google",
+        "frequency": 5
+      },
+      {
+        "name": "Meta",
+        "frequency": 5
+      },
+      {
+        "name": "Databricks",
+        "frequency": 5
+      },
+      {
+        "name": "Rubrik",
+        "frequency": 5
+      },
+      {
+        "name": "Microsoft",
+        "frequency": 5
+      },
+      {
+        "name": "LinkedIn",
+        "frequency": 5
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 5
+      },
+      {
+        "name": "Atlassian",
+        "frequency": 5
+      },
+      {
+        "name": "Rippling",
+        "frequency": 5
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 5
+      },
+      {
+        "name": "Sprinklr",
+        "frequency": 5
+      }
+    ],
+    "tags": [
+      "union-find",
+      "medium",
+      "tier-1",
+      "dfs"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "redundant-connection",
+    "title": "Redundant Connection",
+    "url": "https://leetcode.com/problems/redundant-connection/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "union-find",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "accounts-merge",
+    "title": "Accounts Merge",
+    "url": "https://leetcode.com/problems/accounts-merge/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "union-find",
+      "medium",
+      "tier-1",
+      "tree"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "most-stones-removed-with-same-row-or-column",
+    "title": "Most Stones Removed with Same Row or Column",
+    "url": "https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "union-find",
+      "medium",
+      "tier-1",
+      "matrix"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "satisfiability-of-equality-equations",
+    "title": "Satisfiability of Equality Equations",
+    "url": "https://leetcode.com/problems/satisfiability-of-equality-equations/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "union-find",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "number-of-operations-to-make-network-connected",
+    "title": "Number of Operations to Make Network Connected",
+    "url": "https://leetcode.com/problems/number-of-operations-to-make-network-connected/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "union-find",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "smallest-string-with-swaps",
+    "title": "Smallest String With Swaps",
+    "url": "https://leetcode.com/problems/smallest-string-with-swaps/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "union-find",
+      "medium",
+      "tier-1",
+      "sorting"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "find-if-path-exists-in-graph",
+    "title": "Find if Path Exists in Graph",
+    "url": "https://leetcode.com/problems/find-if-path-exists-in-graph/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "union-find",
+      "easy",
+      "tier-1",
+      "dfs",
+      "bfs"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "count-unreachable-pairs-of-nodes",
+    "title": "Count Unreachable Pairs of Nodes",
+    "url": "https://leetcode.com/problems/count-unreachable-pairs-of-nodes-in-an-undirected-graph/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "union-find",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "redundant-connection-ii",
+    "title": "Redundant Connection II",
+    "url": "https://leetcode.com/problems/redundant-connection-ii/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "union-find",
+      "hard",
+      "tier-2",
+      "graph"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "number-of-islands-ii",
+    "title": "Number of Islands II",
+    "url": "https://leetcode.com/problems/number-of-islands-ii/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "union-find",
+      "hard",
+      "tier-2"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "swim-in-rising-water",
+    "title": "Swim in Rising Water",
+    "url": "https://leetcode.com/problems/swim-in-rising-water/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "union-find",
+      "hard",
+      "tier-2",
+      "binary-search",
+      "bfs",
+      "dijkstra"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "minimum-cost-to-connect-all-points",
+    "title": "Minimum Cost to Connect All Points",
+    "url": "https://leetcode.com/problems/minimum-cost-to-connect-all-points/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "union-find",
+      "medium",
+      "tier-2",
+      "mst"
+    ],
+    "displayOrder": 14
+  }
+]

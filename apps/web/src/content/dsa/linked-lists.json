@@ -1,0 +1,391 @@
+[
+  {
+    "slug": "reverse-linked-list",
+    "title": "Reverse Linked List",
+    "url": "https://leetcode.com/problems/reverse-linked-list/",
+    "difficulty": "easy",
+    "companies": [
+      {
+        "name": "Microsoft",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "linked-lists",
+      "easy",
+      "tier-1",
+      "linked-list"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "merge-two-sorted-lists",
+    "title": "Merge Two Sorted Lists",
+    "url": "https://leetcode.com/problems/merge-two-sorted-lists/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "easy",
+      "tier-1",
+      "linked-list"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "linked-list-cycle",
+    "title": "Linked List Cycle",
+    "url": "https://leetcode.com/problems/linked-list-cycle/",
+    "difficulty": "easy",
+    "companies": [
+      {
+        "name": "Microsoft",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "linked-lists",
+      "easy",
+      "tier-1",
+      "two-pointers",
+      "linked-list"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "middle-of-the-linked-list",
+    "title": "Middle of the Linked List",
+    "url": "https://leetcode.com/problems/middle-of-the-linked-list/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "palindrome-linked-list",
+    "title": "Palindrome Linked List",
+    "url": "https://leetcode.com/problems/palindrome-linked-list/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "remove-duplicates-from-sorted-list",
+    "title": "Remove Duplicates from Sorted List",
+    "url": "https://leetcode.com/problems/remove-duplicates-from-sorted-list/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "intersection-of-two-linked-lists",
+    "title": "Intersection of Two Linked Lists",
+    "url": "https://leetcode.com/problems/intersection-of-two-linked-lists/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "easy",
+      "tier-1",
+      "two-pointers",
+      "linked-list"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "delete-node-in-a-linked-list",
+    "title": "Delete Node in a Linked List",
+    "url": "https://leetcode.com/problems/delete-node-in-a-linked-list/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "linked-list-cycle-ii",
+    "title": "Linked List Cycle II",
+    "url": "https://leetcode.com/problems/linked-list-cycle-ii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "medium",
+      "tier-1",
+      "two-pointers"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "remove-nth-node-from-end-of-list",
+    "title": "Remove Nth Node From End of List",
+    "url": "https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "medium",
+      "tier-1",
+      "linked-list"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "reorder-list",
+    "title": "Reorder List",
+    "url": "https://leetcode.com/problems/reorder-list/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "medium",
+      "tier-2"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "add-two-numbers",
+    "title": "Add Two Numbers",
+    "url": "https://leetcode.com/problems/add-two-numbers/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "medium",
+      "tier-2",
+      "linked-list",
+      "simulation"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "add-two-numbers-ii",
+    "title": "Add Two Numbers II",
+    "url": "https://leetcode.com/problems/add-two-numbers-ii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "medium",
+      "tier-2",
+      "stack"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "swap-nodes-in-pairs",
+    "title": "Swap Nodes in Pairs",
+    "url": "https://leetcode.com/problems/swap-nodes-in-pairs/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "medium",
+      "tier-2",
+      "linked-list"
+    ],
+    "displayOrder": 14
+  },
+  {
+    "slug": "odd-even-linked-list",
+    "title": "Odd Even Linked List",
+    "url": "https://leetcode.com/problems/odd-even-linked-list/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "medium",
+      "tier-2",
+      "two-pointers",
+      "linked-list"
+    ],
+    "displayOrder": 15
+  },
+  {
+    "slug": "copy-list-with-random-pointer",
+    "title": "Copy List with Random Pointer",
+    "url": "https://leetcode.com/problems/copy-list-with-random-pointer/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "medium",
+      "tier-2",
+      "hash-map"
+    ],
+    "displayOrder": 16
+  },
+  {
+    "slug": "rotate-list",
+    "title": "Rotate List",
+    "url": "https://leetcode.com/problems/rotate-list/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "medium",
+      "tier-2"
+    ],
+    "displayOrder": 17
+  },
+  {
+    "slug": "remove-linked-list-elements",
+    "title": "Remove Linked List Elements",
+    "url": "https://leetcode.com/problems/remove-linked-list-elements/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "easy",
+      "tier-2",
+      "linked-list"
+    ],
+    "displayOrder": 18
+  },
+  {
+    "slug": "partition-list",
+    "title": "Partition List",
+    "url": "https://leetcode.com/problems/partition-list/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "medium",
+      "tier-2",
+      "linked-list"
+    ],
+    "displayOrder": 19
+  },
+  {
+    "slug": "sort-list",
+    "title": "Sort List",
+    "url": "https://leetcode.com/problems/sort-list/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "medium",
+      "tier-2",
+      "sorting",
+      "divide-and-conquer"
+    ],
+    "displayOrder": 20
+  },
+  {
+    "slug": "merge-k-sorted-lists",
+    "title": "Merge k Sorted Lists",
+    "url": "https://leetcode.com/problems/merge-k-sorted-lists/",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Meta",
+        "frequency": 3
+      },
+      {
+        "name": "Bloomberg",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "linked-lists",
+      "hard",
+      "tier-3",
+      "heap"
+    ],
+    "displayOrder": 21
+  },
+  {
+    "slug": "reverse-nodes-in-k-group",
+    "title": "Reverse Nodes in k-Group",
+    "url": "https://leetcode.com/problems/reverse-nodes-in-k-group/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "linked-lists",
+      "hard",
+      "tier-3"
+    ],
+    "displayOrder": 22
+  },
+  {
+    "slug": "lru-cache",
+    "title": "LRU Cache",
+    "url": "https://leetcode.com/problems/lru-cache/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Google",
+        "frequency": 5
+      },
+      {
+        "name": "Meta",
+        "frequency": 5
+      },
+      {
+        "name": "Stripe",
+        "frequency": 5
+      },
+      {
+        "name": "Databricks",
+        "frequency": 5
+      },
+      {
+        "name": "Rubrik",
+        "frequency": 5
+      },
+      {
+        "name": "Bloomberg",
+        "frequency": 5
+      },
+      {
+        "name": "Microsoft",
+        "frequency": 5
+      },
+      {
+        "name": "LinkedIn",
+        "frequency": 5
+      },
+      {
+        "name": "Glean",
+        "frequency": 5
+      },
+      {
+        "name": "Uber",
+        "frequency": 5
+      },
+      {
+        "name": "Atlassian",
+        "frequency": 5
+      },
+      {
+        "name": "Rippling",
+        "frequency": 5
+      }
+    ],
+    "tags": [
+      "linked-lists",
+      "medium",
+      "tier-3",
+      "hash-map",
+      "linked-list"
+    ],
+    "displayOrder": 23
+  }
+]

@@ -1,0 +1,363 @@
+[
+  {
+    "slug": "valid-parentheses",
+    "title": "Valid Parentheses",
+    "url": "https://leetcode.com/problems/valid-parentheses/",
+    "difficulty": "easy",
+    "companies": [
+      {
+        "name": "Microsoft",
+        "frequency": 4
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 4
+      },
+      {
+        "name": "Bloomberg",
+        "frequency": 4
+      },
+      {
+        "name": "Meta",
+        "frequency": 4
+      },
+      {
+        "name": "Atlassian",
+        "frequency": 4
+      },
+      {
+        "name": "Rippling",
+        "frequency": 4
+      },
+      {
+        "name": "Sprinklr",
+        "frequency": 4
+      }
+    ],
+    "tags": [
+      "stack-queue",
+      "easy",
+      "tier-1",
+      "stack"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "min-stack",
+    "title": "Min Stack",
+    "url": "https://leetcode.com/problems/min-stack/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "stack-queue",
+      "easy",
+      "tier-1",
+      "stack"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "implement-queue-using-stacks",
+    "title": "Implement Queue using Stacks",
+    "url": "https://leetcode.com/problems/implement-queue-using-stacks/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "stack-queue",
+      "easy",
+      "tier-1",
+      "stack"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "implement-stack-using-queues",
+    "title": "Implement Stack using Queues",
+    "url": "https://leetcode.com/problems/implement-stack-using-queues/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "stack-queue",
+      "easy",
+      "tier-1",
+      "deque"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "baseball-game",
+    "title": "Baseball Game",
+    "url": "https://leetcode.com/problems/baseball-game/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "stack-queue",
+      "easy",
+      "tier-1",
+      "stack",
+      "simulation"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "remove-all-adjacent-duplicates-in-string",
+    "title": "Remove All Adjacent Duplicates In String",
+    "url": "https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "stack-queue",
+      "easy",
+      "tier-1",
+      "stack"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "evaluate-reverse-polish-notation",
+    "title": "Evaluate Reverse Polish Notation",
+    "url": "https://leetcode.com/problems/evaluate-reverse-polish-notation/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "stack-queue",
+      "medium",
+      "tier-1",
+      "stack"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "daily-temperatures",
+    "title": "Daily Temperatures",
+    "url": "https://leetcode.com/problems/daily-temperatures/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "stack-queue",
+      "medium",
+      "tier-1",
+      "stack"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "car-fleet",
+    "title": "Car Fleet",
+    "url": "https://leetcode.com/problems/car-fleet/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "stack-queue",
+      "medium",
+      "tier-1",
+      "stack",
+      "sorting"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "decode-string",
+    "title": "Decode String",
+    "url": "https://leetcode.com/problems/decode-string/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Stripe",
+        "frequency": 2
+      }
+    ],
+    "tags": [
+      "stack-queue",
+      "medium",
+      "tier-1",
+      "stack",
+      "string"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "asteroid-collision",
+    "title": "Asteroid Collision",
+    "url": "https://leetcode.com/problems/asteroid-collision/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "stack-queue",
+      "medium",
+      "tier-2",
+      "stack"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "next-greater-element-i",
+    "title": "Next Greater Element I",
+    "url": "https://leetcode.com/problems/next-greater-element-i/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "stack-queue",
+      "easy",
+      "tier-2",
+      "hash-map",
+      "stack"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "next-greater-element-ii",
+    "title": "Next Greater Element II",
+    "url": "https://leetcode.com/problems/next-greater-element-ii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "stack-queue",
+      "medium",
+      "tier-2",
+      "stack"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "online-stock-span",
+    "title": "Online Stock Span",
+    "url": "https://leetcode.com/problems/online-stock-span/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "stack-queue",
+      "medium",
+      "tier-2",
+      "stack"
+    ],
+    "displayOrder": 14
+  },
+  {
+    "slug": "simplify-path",
+    "title": "Simplify Path",
+    "url": "https://leetcode.com/problems/simplify-path/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "stack-queue",
+      "medium",
+      "tier-2",
+      "stack"
+    ],
+    "displayOrder": 15
+  },
+  {
+    "slug": "basic-calculator",
+    "title": "Basic Calculator",
+    "url": "https://leetcode.com/problems/basic-calculator/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "stack-queue",
+      "hard",
+      "tier-2",
+      "stack"
+    ],
+    "displayOrder": 16
+  },
+  {
+    "slug": "basic-calculator-ii",
+    "title": "Basic Calculator II",
+    "url": "https://leetcode.com/problems/basic-calculator-ii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "stack-queue",
+      "medium",
+      "tier-2",
+      "stack"
+    ],
+    "displayOrder": 17
+  },
+  {
+    "slug": "largest-rectangle-in-histogram",
+    "title": "Largest Rectangle in Histogram",
+    "url": "https://leetcode.com/problems/largest-rectangle-in-histogram/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "stack-queue",
+      "hard",
+      "tier-2",
+      "stack"
+    ],
+    "displayOrder": 18
+  },
+  {
+    "slug": "maximal-rectangle",
+    "title": "Maximal Rectangle",
+    "url": "https://leetcode.com/problems/maximal-rectangle/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "stack-queue",
+      "hard",
+      "tier-2"
+    ],
+    "displayOrder": 19
+  },
+  {
+    "slug": "sliding-window-maximum",
+    "title": "Sliding Window Maximum",
+    "url": "https://leetcode.com/problems/sliding-window-maximum/",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Tower",
+        "frequency": 3
+      },
+      {
+        "name": "Uber",
+        "frequency": 3
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 3
+      },
+      {
+        "name": "Glean",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "stack-queue",
+      "hard",
+      "tier-2",
+      "deque"
+    ],
+    "displayOrder": 20
+  },
+  {
+    "slug": "trapping-rain-water",
+    "title": "Trapping Rain Water",
+    "url": "https://leetcode.com/problems/trapping-rain-water/",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Tower",
+        "frequency": 3
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 3
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "stack-queue",
+      "hard",
+      "tier-3",
+      "stack"
+    ],
+    "displayOrder": 21
+  }
+]

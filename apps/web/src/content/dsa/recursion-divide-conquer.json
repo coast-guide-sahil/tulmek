@@ -1,0 +1,280 @@
+[
+  {
+    "slug": "merge-sort-pattern",
+    "title": "Merge Sort (pattern)",
+    "url": "https://leetcode.com/problems/sort-an-array/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "recursion-divide-conquer",
+      "medium",
+      "tier-1",
+      "sorting"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "count-of-smaller-numbers-after-self",
+    "title": "Count of Smaller Numbers After Self",
+    "url": "https://leetcode.com/problems/count-of-smaller-numbers-after-self/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "recursion-divide-conquer",
+      "hard",
+      "tier-1",
+      "sorting",
+      "divide-and-conquer"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "powx-n",
+    "title": "Pow(x, n)",
+    "url": "https://leetcode.com/problems/powx-n/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "recursion-divide-conquer",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "majority-element",
+    "title": "Majority Element",
+    "url": "https://leetcode.com/problems/majority-element/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "recursion-divide-conquer",
+      "easy",
+      "tier-1",
+      "two-pointers"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "maximum-subarray",
+    "title": "Maximum Subarray",
+    "url": "https://leetcode.com/problems/maximum-subarray/",
+    "difficulty": "easy",
+    "companies": [
+      {
+        "name": "Bloomberg",
+        "frequency": 5
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 5
+      },
+      {
+        "name": "Microsoft",
+        "frequency": 5
+      },
+      {
+        "name": "Tower",
+        "frequency": 5
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 5
+      },
+      {
+        "name": "Sprinklr",
+        "frequency": 5
+      }
+    ],
+    "tags": [
+      "recursion-divide-conquer",
+      "easy",
+      "tier-1",
+      "kadanes"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "different-ways-to-add-parentheses",
+    "title": "Different Ways to Add Parentheses",
+    "url": "https://leetcode.com/problems/different-ways-to-add-parentheses/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "recursion-divide-conquer",
+      "medium",
+      "tier-1",
+      "two-pointers"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "beautiful-array",
+    "title": "Beautiful Array",
+    "url": "https://leetcode.com/problems/beautiful-array/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "recursion-divide-conquer",
+      "medium",
+      "tier-1",
+      "dfs"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "construct-binary-tree-from-preorder-and-inorder",
+    "title": "Construct Binary Tree from Preorder and Inorder",
+    "url": "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "recursion-divide-conquer",
+      "medium",
+      "tier-1",
+      "dfs",
+      "tree"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "kth-largest-element-in-an-array",
+    "title": "Kth Largest Element in an Array",
+    "url": "https://leetcode.com/problems/kth-largest-element-in-an-array/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Microsoft",
+        "frequency": 3
+      },
+      {
+        "name": "Uber",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "recursion-divide-conquer",
+      "medium",
+      "tier-1",
+      "divide-and-conquer"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "find-peak-element",
+    "title": "Find Peak Element",
+    "url": "https://leetcode.com/problems/find-peak-element/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "recursion-divide-conquer",
+      "medium",
+      "tier-1",
+      "binary-search"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "search-in-rotated-sorted-array",
+    "title": "Search in Rotated Sorted Array",
+    "url": "https://leetcode.com/problems/search-in-rotated-sorted-array/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "recursion-divide-conquer",
+      "medium",
+      "tier-2",
+      "binary-search",
+      "sorting"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "count-of-range-sum",
+    "title": "Count of Range Sum",
+    "url": "https://leetcode.com/problems/count-of-range-sum/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "recursion-divide-conquer",
+      "hard",
+      "tier-2",
+      "prefix-sum",
+      "sorting",
+      "divide-and-conquer"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "reverse-pairs",
+    "title": "Reverse Pairs",
+    "url": "https://leetcode.com/problems/reverse-pairs/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "recursion-divide-conquer",
+      "hard",
+      "tier-2",
+      "sorting",
+      "divide-and-conquer"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "the-skyline-problem",
+    "title": "The Skyline Problem",
+    "url": "https://leetcode.com/problems/the-skyline-problem/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "recursion-divide-conquer",
+      "hard",
+      "tier-2",
+      "sorting",
+      "divide-and-conquer"
+    ],
+    "displayOrder": 14
+  },
+  {
+    "slug": "closest-pair-of-points",
+    "title": "Closest Pair of Points",
+    "url": "",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "recursion-divide-conquer",
+      "hard",
+      "tier-2",
+      "matrix"
+    ],
+    "displayOrder": 15
+  },
+  {
+    "slug": "sort-an-array",
+    "title": "Sort an Array",
+    "url": "https://leetcode.com/problems/sort-an-array/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "recursion-divide-conquer",
+      "medium",
+      "tier-2",
+      "sorting",
+      "divide-and-conquer"
+    ],
+    "displayOrder": 16
+  },
+  {
+    "slug": "count-of-inversions",
+    "title": "Count of Inversions",
+    "url": "",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "recursion-divide-conquer",
+      "hard",
+      "tier-2"
+    ],
+    "displayOrder": 17
+  }
+]

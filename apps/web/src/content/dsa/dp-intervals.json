@@ -1,0 +1,177 @@
+[
+  {
+    "slug": "minimum-cost-tree-from-leaf-values",
+    "title": "Minimum Cost Tree From Leaf Values",
+    "url": "https://leetcode.com/problems/minimum-cost-tree-from-leaf-values/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-intervals",
+      "medium",
+      "tier-1",
+      "dp",
+      "stack",
+      "tree"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "strange-printer",
+    "title": "Strange Printer",
+    "url": "https://leetcode.com/problems/strange-printer/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-intervals",
+      "hard",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "predict-the-winner",
+    "title": "Predict the Winner",
+    "url": "https://leetcode.com/problems/predict-the-winner/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-intervals",
+      "medium",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "stone-game",
+    "title": "Stone Game",
+    "url": "https://leetcode.com/problems/stone-game/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Uber",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "dp-intervals",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "stone-game-vii",
+    "title": "Stone Game VII",
+    "url": "https://leetcode.com/problems/stone-game-vii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-intervals",
+      "medium",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "minimum-score-triangulation-of-polygon",
+    "title": "Minimum Score Triangulation of Polygon",
+    "url": "https://leetcode.com/problems/minimum-score-triangulation-of-polygon/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-intervals",
+      "medium",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "palindrome-partitioning-ii",
+    "title": "Palindrome Partitioning II",
+    "url": "https://leetcode.com/problems/palindrome-partitioning-ii/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-intervals",
+      "hard",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "burst-balloons",
+    "title": "Burst Balloons",
+    "url": "https://leetcode.com/problems/burst-balloons/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-intervals",
+      "hard",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "remove-boxes",
+    "title": "Remove Boxes",
+    "url": "https://leetcode.com/problems/remove-boxes/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-intervals",
+      "hard",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "zuma-game",
+    "title": "Zuma Game",
+    "url": "https://leetcode.com/problems/zuma-game/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-intervals",
+      "hard",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "optimal-bst",
+    "title": "Optimal BST",
+    "url": "https://leetcode.com/problems/minimum-cost-to-hire-k-workers/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-intervals",
+      "hard",
+      "tier-2",
+      "dp",
+      "tree"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "matrix-chain-multiplication-classic",
+    "title": "Matrix Chain Multiplication (classic)",
+    "url": "",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-intervals",
+      "hard",
+      "tier-2",
+      "dp"
+    ],
+    "displayOrder": 12
+  }
+]

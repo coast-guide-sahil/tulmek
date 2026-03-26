@@ -1,0 +1,295 @@
+[
+  {
+    "slug": "longest-palindromic-substring",
+    "title": "Longest Palindromic Substring",
+    "url": "https://leetcode.com/problems/longest-palindromic-substring/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Microsoft",
+        "frequency": 2
+      }
+    ],
+    "tags": [
+      "dp-strings",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "palindromic-substrings",
+    "title": "Palindromic Substrings",
+    "url": "https://leetcode.com/problems/palindromic-substrings/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-strings",
+      "medium",
+      "tier-1",
+      "string"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "longest-palindromic-subsequence",
+    "title": "Longest Palindromic Subsequence",
+    "url": "https://leetcode.com/problems/longest-palindromic-subsequence/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-strings",
+      "medium",
+      "tier-1",
+      "dp",
+      "interval"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "word-break",
+    "title": "Word Break",
+    "url": "https://leetcode.com/problems/word-break/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Microsoft",
+        "frequency": 4
+      },
+      {
+        "name": "Bloomberg",
+        "frequency": 4
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 4
+      },
+      {
+        "name": "Atlassian",
+        "frequency": 4
+      },
+      {
+        "name": "Rippling",
+        "frequency": 4
+      },
+      {
+        "name": "Sprinklr",
+        "frequency": 4
+      }
+    ],
+    "tags": [
+      "dp-strings",
+      "medium",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "word-break-ii",
+    "title": "Word Break II",
+    "url": "https://leetcode.com/problems/word-break-ii/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-strings",
+      "hard",
+      "tier-1",
+      "dp",
+      "dfs",
+      "backtracking"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "palindrome-partitioning",
+    "title": "Palindrome Partitioning",
+    "url": "https://leetcode.com/problems/palindrome-partitioning/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-strings",
+      "medium",
+      "tier-1",
+      "dfs",
+      "backtracking"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "palindrome-partitioning-ii",
+    "title": "Palindrome Partitioning II",
+    "url": "https://leetcode.com/problems/palindrome-partitioning-ii/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-strings",
+      "hard",
+      "tier-1",
+      "dp",
+      "string"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "count-palindromic-subsequences",
+    "title": "Count Palindromic Subsequences",
+    "url": "https://leetcode.com/problems/count-different-palindromic-subsequences/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-strings",
+      "hard",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "minimum-insertions-to-make-string-palindrome",
+    "title": "Minimum Insertions to Make String Palindrome",
+    "url": "https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-strings",
+      "hard",
+      "tier-1",
+      "dp",
+      "interval"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "valid-palindrome-ii",
+    "title": "Valid Palindrome II",
+    "url": "https://leetcode.com/problems/valid-palindrome-ii/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "dp-strings",
+      "easy",
+      "tier-1",
+      "two-pointers",
+      "linked-list"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "shortest-palindrome",
+    "title": "Shortest Palindrome",
+    "url": "https://leetcode.com/problems/shortest-palindrome/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-strings",
+      "hard",
+      "tier-2",
+      "string"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "concatenated-words",
+    "title": "Concatenated Words",
+    "url": "https://leetcode.com/problems/concatenated-words/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-strings",
+      "hard",
+      "tier-2"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "decode-ways",
+    "title": "Decode Ways",
+    "url": "https://leetcode.com/problems/decode-ways/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Google",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "dp-strings",
+      "medium",
+      "tier-2",
+      "dp"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "decode-ways-ii",
+    "title": "Decode Ways II",
+    "url": "https://leetcode.com/problems/decode-ways-ii/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-strings",
+      "hard",
+      "tier-2"
+    ],
+    "displayOrder": 14
+  },
+  {
+    "slug": "wildcard-matching",
+    "title": "Wildcard Matching",
+    "url": "https://leetcode.com/problems/wildcard-matching/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-strings",
+      "hard",
+      "tier-2",
+      "dp"
+    ],
+    "displayOrder": 15
+  },
+  {
+    "slug": "regular-expression-matching",
+    "title": "Regular Expression Matching",
+    "url": "https://leetcode.com/problems/regular-expression-matching/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-strings",
+      "hard",
+      "tier-2",
+      "dp"
+    ],
+    "displayOrder": 16
+  },
+  {
+    "slug": "minimum-window-substring",
+    "title": "Minimum Window Substring",
+    "url": "https://leetcode.com/problems/minimum-window-substring/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-strings",
+      "hard",
+      "tier-2",
+      "sliding-window",
+      "string"
+    ],
+    "displayOrder": 17
+  },
+  {
+    "slug": "longest-valid-parentheses",
+    "title": "Longest Valid Parentheses",
+    "url": "https://leetcode.com/problems/longest-valid-parentheses/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-strings",
+      "hard",
+      "tier-2",
+      "dp",
+      "stack"
+    ],
+    "displayOrder": 18
+  }
+]

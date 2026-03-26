@@ -1,0 +1,251 @@
+[
+  {
+    "slug": "partition-equal-subset-sum",
+    "title": "Partition Equal Subset Sum",
+    "url": "https://leetcode.com/problems/partition-equal-subset-sum/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-knapsack",
+      "medium",
+      "tier-1",
+      "knapsack"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "last-stone-weight-ii",
+    "title": "Last Stone Weight II",
+    "url": "https://leetcode.com/problems/last-stone-weight-ii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-knapsack",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "target-sum",
+    "title": "Target Sum",
+    "url": "https://leetcode.com/problems/target-sum/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-knapsack",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "count-of-subset-sum",
+    "title": "Count of Subset Sum",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-knapsack",
+      "medium",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "01-knapsack-classic",
+    "title": "0/1 Knapsack (Classic)",
+    "url": "",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-knapsack",
+      "medium",
+      "tier-1",
+      "dp",
+      "matrix",
+      "string"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "ones-and-zeroes",
+    "title": "Ones and Zeroes",
+    "url": "https://leetcode.com/problems/ones-and-zeroes/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-knapsack",
+      "medium",
+      "tier-1",
+      "matrix",
+      "knapsack"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "profitable-schemes",
+    "title": "Profitable Schemes",
+    "url": "https://leetcode.com/problems/profitable-schemes/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-knapsack",
+      "hard",
+      "tier-1",
+      "knapsack"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "coin-change",
+    "title": "Coin Change",
+    "url": "https://leetcode.com/problems/coin-change/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Microsoft",
+        "frequency": 3
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "dp-knapsack",
+      "medium",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "coin-change-ii",
+    "title": "Coin Change II",
+    "url": "https://leetcode.com/problems/coin-change-ii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-knapsack",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "integer-break",
+    "title": "Integer Break",
+    "url": "https://leetcode.com/problems/integer-break/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-knapsack",
+      "medium",
+      "tier-1",
+      "dp"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "perfect-squares",
+    "title": "Perfect Squares",
+    "url": "https://leetcode.com/problems/perfect-squares/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-knapsack",
+      "medium",
+      "tier-2"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "combination-sum-iv",
+    "title": "Combination Sum IV",
+    "url": "https://leetcode.com/problems/combination-sum-iv/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-knapsack",
+      "medium",
+      "tier-2",
+      "dp",
+      "math"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "minimum-cost-for-tickets",
+    "title": "Minimum Cost for Tickets",
+    "url": "https://leetcode.com/problems/minimum-cost-for-tickets/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-knapsack",
+      "medium",
+      "tier-2",
+      "dp"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "shopping-offers",
+    "title": "Shopping Offers",
+    "url": "https://leetcode.com/problems/shopping-offers/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-knapsack",
+      "medium",
+      "tier-2",
+      "dfs",
+      "knapsack"
+    ],
+    "displayOrder": 14
+  },
+  {
+    "slug": "maximum-value-at-a-given-index",
+    "title": "Maximum Value at a Given Index",
+    "url": "https://leetcode.com/problems/maximum-value-at-a-given-index-in-a-bounded-array/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "dp-knapsack",
+      "medium",
+      "tier-2",
+      "binary-search",
+      "greedy"
+    ],
+    "displayOrder": 15
+  },
+  {
+    "slug": "knapsack-with-cooldown",
+    "title": "Knapsack with Cooldown",
+    "url": "",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-knapsack",
+      "\u2014",
+      "tier-2",
+      "knapsack"
+    ],
+    "displayOrder": 16
+  },
+  {
+    "slug": "number-of-ways-to-earn-points",
+    "title": "Number of Ways to Earn Points",
+    "url": "https://leetcode.com/problems/number-of-ways-to-earn-points/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "dp-knapsack",
+      "hard",
+      "tier-2",
+      "knapsack"
+    ],
+    "displayOrder": 17
+  }
+]

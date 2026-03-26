@@ -1,0 +1,565 @@
+[
+  {
+    "slug": "cap-theorem",
+    "title": "CAP Theorem",
+    "url": "",
+    "difficulty": "beginner",
+    "companies": [],
+    "tags": [
+      "fundamentals",
+      "distributed-systems",
+      "consistency"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "acid-vs-base",
+    "title": "ACID vs BASE",
+    "url": "",
+    "difficulty": "beginner",
+    "companies": [],
+    "tags": [
+      "fundamentals",
+      "databases",
+      "transactions"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "consistent-hashing",
+    "title": "Consistent Hashing",
+    "url": "",
+    "difficulty": "intermediate",
+    "companies": [],
+    "tags": [
+      "fundamentals",
+      "distributed-systems",
+      "hashing"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "load-balancing",
+    "title": "Load Balancing",
+    "url": "",
+    "difficulty": "beginner",
+    "companies": [],
+    "tags": [
+      "fundamentals",
+      "networking",
+      "scalability"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "caching-strategies",
+    "title": "Caching Strategies",
+    "url": "",
+    "difficulty": "intermediate",
+    "companies": [],
+    "tags": [
+      "fundamentals",
+      "performance",
+      "redis"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "content-delivery-network",
+    "title": "Content Delivery Network",
+    "url": "",
+    "difficulty": "beginner",
+    "companies": [],
+    "tags": [
+      "fundamentals",
+      "networking",
+      "cdn"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "database-sharding-and-partitioning",
+    "title": "Database Sharding and Partitioning",
+    "url": "",
+    "difficulty": "intermediate",
+    "companies": [],
+    "tags": [
+      "fundamentals",
+      "databases",
+      "scalability"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "database-replication",
+    "title": "Database Replication",
+    "url": "",
+    "difficulty": "intermediate",
+    "companies": [],
+    "tags": [
+      "fundamentals",
+      "databases",
+      "availability"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "message-queues",
+    "title": "Message Queues",
+    "url": "",
+    "difficulty": "intermediate",
+    "companies": [],
+    "tags": [
+      "fundamentals",
+      "async",
+      "kafka"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "rate-limiting-algorithms",
+    "title": "Rate Limiting Algorithms",
+    "url": "",
+    "difficulty": "intermediate",
+    "companies": [],
+    "tags": [
+      "fundamentals",
+      "api-design",
+      "security"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "api-gateway-patterns",
+    "title": "API Gateway Patterns",
+    "url": "",
+    "difficulty": "intermediate",
+    "companies": [],
+    "tags": [
+      "fundamentals",
+      "microservices",
+      "api-design"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "microservices-vs-monolith",
+    "title": "Microservices vs Monolith",
+    "url": "",
+    "difficulty": "beginner",
+    "companies": [],
+    "tags": [
+      "fundamentals",
+      "architecture",
+      "microservices"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "event-driven-architecture",
+    "title": "Event-Driven Architecture",
+    "url": "",
+    "difficulty": "intermediate",
+    "companies": [],
+    "tags": [
+      "fundamentals",
+      "async",
+      "kafka"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "sql-vs-nosql",
+    "title": "SQL vs NoSQL",
+    "url": "",
+    "difficulty": "beginner",
+    "companies": [],
+    "tags": [
+      "fundamentals",
+      "databases"
+    ],
+    "displayOrder": 14
+  },
+  {
+    "slug": "indexing-strategies",
+    "title": "Indexing Strategies",
+    "url": "",
+    "difficulty": "intermediate",
+    "companies": [],
+    "tags": [
+      "fundamentals",
+      "databases",
+      "performance"
+    ],
+    "displayOrder": 15
+  },
+  {
+    "slug": "numbers-every-engineer-must-know",
+    "title": "Numbers Every Engineer Must Know",
+    "url": "",
+    "difficulty": "beginner",
+    "companies": [],
+    "tags": [
+      "fundamentals",
+      "capacity-estimation"
+    ],
+    "displayOrder": 16
+  },
+  {
+    "slug": "url-shortener-tinyurl",
+    "title": "URL Shortener (TinyURL)",
+    "url": "",
+    "difficulty": "intermediate",
+    "companies": [
+      {
+        "name": "Google",
+        "frequency": 3
+      },
+      {
+        "name": "Meta",
+        "frequency": 3
+      },
+      {
+        "name": "Stripe",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "classic-systems",
+      "databases",
+      "caching"
+    ],
+    "displayOrder": 17
+  },
+  {
+    "slug": "rate-limiter",
+    "title": "Rate Limiter",
+    "url": "",
+    "difficulty": "intermediate",
+    "companies": [
+      {
+        "name": "Stripe",
+        "frequency": 4
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 4
+      },
+      {
+        "name": "Coinbase",
+        "frequency": 3
+      },
+      {
+        "name": "Rubrik",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "classic-systems",
+      "api-design",
+      "redis"
+    ],
+    "displayOrder": 18
+  },
+  {
+    "slug": "key-value-store",
+    "title": "Key-Value Store",
+    "url": "",
+    "difficulty": "advanced",
+    "companies": [
+      {
+        "name": "Databricks",
+        "frequency": 4
+      },
+      {
+        "name": "Stripe",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "classic-systems",
+      "distributed-systems",
+      "databases"
+    ],
+    "displayOrder": 19
+  },
+  {
+    "slug": "distributed-cache",
+    "title": "Distributed Cache",
+    "url": "",
+    "difficulty": "advanced",
+    "companies": [
+      {
+        "name": "Google",
+        "frequency": 3
+      },
+      {
+        "name": "Meta",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "classic-systems",
+      "caching",
+      "redis"
+    ],
+    "displayOrder": 20
+  },
+  {
+    "slug": "unique-id-generator-snowflake",
+    "title": "Unique ID Generator (Snowflake)",
+    "url": "",
+    "difficulty": "intermediate",
+    "companies": [
+      {
+        "name": "Uber",
+        "frequency": 3
+      },
+      {
+        "name": "Stripe",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "classic-systems",
+      "distributed-systems"
+    ],
+    "displayOrder": 21
+  },
+  {
+    "slug": "chat-application-whatsapp",
+    "title": "Chat Application (WhatsApp)",
+    "url": "",
+    "difficulty": "advanced",
+    "companies": [
+      {
+        "name": "Microsoft",
+        "frequency": 3
+      },
+      {
+        "name": "Meta",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "classic-systems",
+      "websocket",
+      "real-time"
+    ],
+    "displayOrder": 22
+  },
+  {
+    "slug": "social-feed-twitterinstagram",
+    "title": "Social Feed (Twitter/Instagram)",
+    "url": "",
+    "difficulty": "advanced",
+    "companies": [
+      {
+        "name": "Meta",
+        "frequency": 4
+      },
+      {
+        "name": "Google",
+        "frequency": 3
+      },
+      {
+        "name": "LinkedIn",
+        "frequency": 3
+      },
+      {
+        "name": "Sprinklr",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "classic-systems",
+      "fan-out",
+      "caching"
+    ],
+    "displayOrder": 23
+  },
+  {
+    "slug": "video-streaming-youtubenetflix",
+    "title": "Video Streaming (YouTube/Netflix)",
+    "url": "",
+    "difficulty": "advanced",
+    "companies": [
+      {
+        "name": "Google",
+        "frequency": 3
+      },
+      {
+        "name": "Meta",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "classic-systems",
+      "cdn",
+      "streaming"
+    ],
+    "displayOrder": 24
+  },
+  {
+    "slug": "search-autocomplete-typeahead",
+    "title": "Search Autocomplete (Typeahead)",
+    "url": "",
+    "difficulty": "intermediate",
+    "companies": [
+      {
+        "name": "Glean",
+        "frequency": 4
+      },
+      {
+        "name": "LinkedIn",
+        "frequency": 3
+      },
+      {
+        "name": "Atlassian",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "classic-systems",
+      "trie",
+      "search"
+    ],
+    "displayOrder": 25
+  },
+  {
+    "slug": "web-crawler",
+    "title": "Web Crawler",
+    "url": "",
+    "difficulty": "advanced",
+    "companies": [
+      {
+        "name": "Google",
+        "frequency": 4
+      }
+    ],
+    "tags": [
+      "classic-systems",
+      "distributed-systems",
+      "crawling"
+    ],
+    "displayOrder": 26
+  },
+  {
+    "slug": "notification-system",
+    "title": "Notification System",
+    "url": "",
+    "difficulty": "intermediate",
+    "companies": [
+      {
+        "name": "LinkedIn",
+        "frequency": 3
+      },
+      {
+        "name": "Microsoft",
+        "frequency": 3
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 3
+      },
+      {
+        "name": "Sprinklr",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "classic-systems",
+      "async",
+      "push-notifications"
+    ],
+    "displayOrder": 27
+  },
+  {
+    "slug": "ride-sharing-uber",
+    "title": "Ride Sharing (Uber)",
+    "url": "",
+    "difficulty": "advanced",
+    "companies": [
+      {
+        "name": "Uber",
+        "frequency": 5
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "classic-systems",
+      "geospatial",
+      "real-time"
+    ],
+    "displayOrder": 28
+  },
+  {
+    "slug": "file-storage-dropboxgoogle-drive",
+    "title": "File Storage (Dropbox/Google Drive)",
+    "url": "",
+    "difficulty": "advanced",
+    "companies": [
+      {
+        "name": "Rubrik",
+        "frequency": 4
+      },
+      {
+        "name": "Databricks",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "classic-systems",
+      "storage",
+      "sync"
+    ],
+    "displayOrder": 29
+  },
+  {
+    "slug": "distributed-message-queue-kafka",
+    "title": "Distributed Message Queue (Kafka)",
+    "url": "",
+    "difficulty": "advanced",
+    "companies": [
+      {
+        "name": "Databricks",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "classic-systems",
+      "distributed-systems",
+      "messaging"
+    ],
+    "displayOrder": 30
+  },
+  {
+    "slug": "payment-system",
+    "title": "Payment System",
+    "url": "",
+    "difficulty": "advanced",
+    "companies": [
+      {
+        "name": "Stripe",
+        "frequency": 5
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 3
+      },
+      {
+        "name": "Coinbase",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "classic-systems",
+      "transactions",
+      "idempotency"
+    ],
+    "displayOrder": 31
+  }
+]

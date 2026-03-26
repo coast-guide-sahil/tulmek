@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: APP_NAME,
-  description: "Full-stack app with authentication, user management, and admin panel",
+  description: "Offline-first interview prep tracker with progress tracking, notes, and search",
 };
 
 export const viewport: Viewport = {

@@ -1,0 +1,602 @@
+[
+  {
+    "slug": "tell-me-about-a-time-you-influenced-without-authority",
+    "title": "Tell me about a time you influenced without authority",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "leadership",
+      "influence"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "describe-a-situation-where-you-had-to-convince-senior-engineers-or-your-manager",
+    "title": "Describe a situation where you had to convince senior engineers or your manager",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "leadership",
+      "communication"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "tell-me-about-leading-a-project-from-start-to-finish",
+    "title": "Tell me about leading a project from start to finish",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "leadership",
+      "ownership"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "tell-me-about-a-time-you-mentored-someone",
+    "title": "Tell me about a time you mentored someone",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "leadership",
+      "mentoring"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "tell-me-about-a-time-you-drove-a-significant-change-on-your-team",
+    "title": "Tell me about a time you drove a significant change on your team",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "leadership",
+      "initiative"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "tell-me-about-a-time-you-had-to-make-a-decision-that-affected-many-people",
+    "title": "Tell me about a time you had to make a decision that affected many people",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "leadership",
+      "decision-making"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "describe-a-time-when-you-set-a-technical-direction-for-your-team",
+    "title": "Describe a time when you set a technical direction for your team",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "leadership",
+      "technical-direction"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "tell-me-about-a-time-you-raised-the-bar-for-code-quality-or-engineering-practices",
+    "title": "Tell me about a time you raised the bar for code quality or engineering practices",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "leadership",
+      "ownership"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "tell-me-about-a-time-you-had-to-make-an-unpopular-decision",
+    "title": "Tell me about a time you had to make an unpopular decision",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "leadership",
+      "courage"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "tell-me-about-a-time-you-worked-with-a-cross-functional-team",
+    "title": "Tell me about a time you worked with a cross-functional team",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "leadership",
+      "communication"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "tell-me-about-a-time-you-solved-a-very-difficult-technical-problem",
+    "title": "Tell me about a time you solved a very difficult technical problem",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "problem-solving",
+      "debugging"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "describe-a-situation-where-you-had-to-make-a-decision-with-incomplete-information",
+    "title": "Describe a situation where you had to make a decision with incomplete information",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "problem-solving",
+      "ambiguity"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "tell-me-about-a-time-you-had-to-handle-multiple-competing-priorities",
+    "title": "Tell me about a time you had to handle multiple competing priorities",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "problem-solving",
+      "time-management"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "tell-me-about-a-time-you-went-above-and-beyond-what-was-required",
+    "title": "Tell me about a time you went above and beyond what was required",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "ownership",
+      "initiative"
+    ],
+    "displayOrder": 14
+  },
+  {
+    "slug": "tell-me-about-a-time-you-had-to-debug-a-production-issue-under-pressure",
+    "title": "Tell me about a time you had to debug a production issue under pressure",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "problem-solving",
+      "incident-management"
+    ],
+    "displayOrder": 15
+  },
+  {
+    "slug": "describe-a-project-where-you-had-to-learn-a-new-technology-quickly",
+    "title": "Describe a project where you had to learn a new technology quickly",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "learning",
+      "adaptability"
+    ],
+    "displayOrder": 16
+  },
+  {
+    "slug": "tell-me-about-a-time-you-pushed-back-on-an-unrealistic-deadline-or-scope",
+    "title": "Tell me about a time you pushed back on an unrealistic deadline or scope",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "ownership",
+      "communication"
+    ],
+    "displayOrder": 17
+  },
+  {
+    "slug": "tell-me-about-a-time-you-took-ownership-of-something-outside-your-role",
+    "title": "Tell me about a time you took ownership of something outside your role",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "ownership",
+      "initiative"
+    ],
+    "displayOrder": 18
+  },
+  {
+    "slug": "describe-a-time-when-you-simplified-a-complex-system-or-process",
+    "title": "Describe a time when you simplified a complex system or process",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "problem-solving",
+      "systems-thinking"
+    ],
+    "displayOrder": 19
+  },
+  {
+    "slug": "tell-me-about-a-time-you-improved-performance-or-efficiency",
+    "title": "Tell me about a time you improved performance or efficiency",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "problem-solving",
+      "optimization"
+    ],
+    "displayOrder": 20
+  },
+  {
+    "slug": "tell-me-about-a-conflict-with-a-teammate-and-how-you-resolved-it",
+    "title": "Tell me about a conflict with a teammate and how you resolved it",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "conflict-resolution",
+      "communication"
+    ],
+    "displayOrder": 21
+  },
+  {
+    "slug": "describe-working-with-a-difficult-stakeholder",
+    "title": "Describe working with a difficult stakeholder",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "communication",
+      "stakeholder-management"
+    ],
+    "displayOrder": 22
+  },
+  {
+    "slug": "tell-me-about-a-time-you-gave-critical-feedback-to-a-colleague",
+    "title": "Tell me about a time you gave critical feedback to a colleague",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "communication",
+      "feedback"
+    ],
+    "displayOrder": 23
+  },
+  {
+    "slug": "tell-me-about-a-time-you-received-critical-feedback-and-acted-on-it",
+    "title": "Tell me about a time you received critical feedback and acted on it",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "learning",
+      "self-awareness"
+    ],
+    "displayOrder": 24
+  },
+  {
+    "slug": "how-do-you-communicate-technical-concepts-to-non-technical-stakeholders",
+    "title": "How do you communicate technical concepts to non-technical stakeholders",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "communication",
+      "leadership"
+    ],
+    "displayOrder": 25
+  },
+  {
+    "slug": "tell-me-about-a-time-you-had-a-disagreement-with-your-manager",
+    "title": "Tell me about a time you had a disagreement with your manager",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "conflict-resolution",
+      "communication"
+    ],
+    "displayOrder": 26
+  },
+  {
+    "slug": "tell-me-about-a-time-you-worked-with-a-remote-or-distributed-team",
+    "title": "Tell me about a time you worked with a remote or distributed team",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "communication",
+      "collaboration"
+    ],
+    "displayOrder": 27
+  },
+  {
+    "slug": "tell-me-about-a-time-you-helped-a-struggling-teammate",
+    "title": "Tell me about a time you helped a struggling teammate",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "collaboration",
+      "empathy"
+    ],
+    "displayOrder": 28
+  },
+  {
+    "slug": "describe-a-time-when-you-had-to-present-a-complex-technical-decision-to-leadership",
+    "title": "Describe a time when you had to present a complex technical decision to leadership",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "communication",
+      "leadership"
+    ],
+    "displayOrder": 29
+  },
+  {
+    "slug": "tell-me-about-a-time-you-had-to-build-consensus-among-disagreeing-people",
+    "title": "Tell me about a time you had to build consensus among disagreeing people",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "conflict-resolution",
+      "facilitation"
+    ],
+    "displayOrder": 30
+  },
+  {
+    "slug": "tell-me-about-your-biggest-mistake-at-work",
+    "title": "Tell me about your biggest mistake at work",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "learning",
+      "accountability"
+    ],
+    "displayOrder": 31
+  },
+  {
+    "slug": "describe-a-project-that-failed-and-what-you-learned",
+    "title": "Describe a project that failed and what you learned",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "learning",
+      "resilience"
+    ],
+    "displayOrder": 32
+  },
+  {
+    "slug": "tell-me-about-a-time-when-something-did-not-go-as-planned-and-how-you-responded",
+    "title": "Tell me about a time when something did not go as planned and how you responded",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "learning",
+      "adaptability"
+    ],
+    "displayOrder": 33
+  },
+  {
+    "slug": "what-is-the-most-constructive-feedback-you-have-received-in-your-career",
+    "title": "What is the most constructive feedback you have received in your career",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "learning",
+      "self-awareness"
+    ],
+    "displayOrder": 34
+  },
+  {
+    "slug": "tell-me-about-a-time-you-made-a-technical-decision-you-later-regretted",
+    "title": "Tell me about a time you made a technical decision you later regretted",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "learning",
+      "technical-depth"
+    ],
+    "displayOrder": 35
+  },
+  {
+    "slug": "where-do-you-see-yourself-in-5-years",
+    "title": "Where do you see yourself in 5 years",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "growth",
+      "ambition"
+    ],
+    "displayOrder": 36
+  },
+  {
+    "slug": "why-are-you-leaving-your-current-company",
+    "title": "Why are you leaving your current company",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "growth",
+      "self-awareness"
+    ],
+    "displayOrder": 37
+  },
+  {
+    "slug": "why-do-you-want-to-join-this-company",
+    "title": "Why do you want to join this company",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "growth",
+      "motivation"
+    ],
+    "displayOrder": 38
+  },
+  {
+    "slug": "what-are-you-looking-for-in-your-next-role",
+    "title": "What are you looking for in your next role",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "growth",
+      "self-awareness"
+    ],
+    "displayOrder": 39
+  },
+  {
+    "slug": "what-makes-you-unique-compared-to-other-candidates",
+    "title": "What makes you unique compared to other candidates",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "growth",
+      "self-awareness"
+    ],
+    "displayOrder": 40
+  },
+  {
+    "slug": "what-is-the-most-challenging-technical-problem-you-have-solved-in-the-last-6-months",
+    "title": "What is the most challenging technical problem you have solved in the last 6 months",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "problem-solving",
+      "technical-depth"
+    ],
+    "displayOrder": 41
+  },
+  {
+    "slug": "tell-me-about-the-most-interesting-project-you-have-worked-on-and-how-it-is-relevant-here",
+    "title": "Tell me about the most interesting project you have worked on and how it is relevant here",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "problem-solving",
+      "ownership"
+    ],
+    "displayOrder": 42
+  },
+  {
+    "slug": "describe-a-time-you-had-to-choose-between-two-competing-technical-approaches",
+    "title": "Describe a time you had to choose between two competing technical approaches",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "problem-solving",
+      "decision-making"
+    ],
+    "displayOrder": 43
+  },
+  {
+    "slug": "tell-me-about-a-system-you-designed-that-scaled-well-or-did-not-scale-well",
+    "title": "Tell me about a system you designed that scaled well or did not scale well",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "problem-solving",
+      "systems-thinking"
+    ],
+    "displayOrder": 44
+  },
+  {
+    "slug": "how-do-you-stay-current-with-new-technologies",
+    "title": "How do you stay current with new technologies",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "learning",
+      "initiative"
+    ],
+    "displayOrder": 45
+  },
+  {
+    "slug": "what-was-the-most-difficult-bug-that-you-fixed-in-the-past-6-months",
+    "title": "What was the most difficult bug that you fixed in the past 6 months",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "problem-solving",
+      "debugging"
+    ],
+    "displayOrder": 46
+  },
+  {
+    "slug": "tell-me-about-a-time-you-improved-the-reliability-or-availability-of-a-system",
+    "title": "Tell me about a time you improved the reliability or availability of a system",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "ownership",
+      "technical-depth"
+    ],
+    "displayOrder": 47
+  },
+  {
+    "slug": "what-is-a-technology-decision-you-would-make-differently-today",
+    "title": "What is a technology decision you would make differently today",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "learning",
+      "technical-depth"
+    ],
+    "displayOrder": 48
+  },
+  {
+    "slug": "how-do-you-approach-code-reviews",
+    "title": "How do you approach code reviews",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "communication",
+      "technical-depth"
+    ],
+    "displayOrder": 49
+  },
+  {
+    "slug": "tell-me-about-a-time-you-had-to-balance-speed-and-quality",
+    "title": "Tell me about a time you had to balance speed and quality",
+    "url": "",
+    "difficulty": "",
+    "companies": [],
+    "tags": [
+      "problem-solving",
+      "decision-making"
+    ],
+    "displayOrder": 50
+  }
+]

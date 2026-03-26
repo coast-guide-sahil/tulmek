@@ -1,0 +1,300 @@
+[
+  {
+    "slug": "best-time-to-buy-and-sell-stock",
+    "title": "Best Time to Buy and Sell Stock",
+    "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+    "difficulty": "easy",
+    "companies": [
+      {
+        "name": "Goldman Sachs",
+        "frequency": 4
+      },
+      {
+        "name": "Coinbase",
+        "frequency": 4
+      },
+      {
+        "name": "Tower",
+        "frequency": 4
+      }
+    ],
+    "tags": [
+      "sliding-window",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "maximum-average-subarray-i",
+    "title": "Maximum Average Subarray I",
+    "url": "https://leetcode.com/problems/maximum-average-subarray-i/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "sliding-window",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "contains-duplicate-ii",
+    "title": "Contains Duplicate II",
+    "url": "https://leetcode.com/problems/contains-duplicate-ii/",
+    "difficulty": "easy",
+    "companies": [],
+    "tags": [
+      "sliding-window",
+      "easy",
+      "tier-1"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "longest-substring-without-repeating-characters",
+    "title": "Longest Substring Without Repeating Characters",
+    "url": "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Meta",
+        "frequency": 4
+      },
+      {
+        "name": "Glean",
+        "frequency": 4
+      }
+    ],
+    "tags": [
+      "sliding-window",
+      "medium",
+      "tier-1",
+      "hash-map"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "longest-repeating-character-replacement",
+    "title": "Longest Repeating Character Replacement",
+    "url": "https://leetcode.com/problems/longest-repeating-character-replacement/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "sliding-window",
+      "medium",
+      "tier-1",
+      "hash-map"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "permutation-in-string",
+    "title": "Permutation in String",
+    "url": "https://leetcode.com/problems/permutation-in-string/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "sliding-window",
+      "medium",
+      "tier-1",
+      "hash-map"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "find-all-anagrams-in-a-string",
+    "title": "Find All Anagrams in a String",
+    "url": "https://leetcode.com/problems/find-all-anagrams-in-a-string/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "sliding-window",
+      "medium",
+      "tier-1",
+      "string"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "minimum-size-subarray-sum",
+    "title": "Minimum Size Subarray Sum",
+    "url": "https://leetcode.com/problems/minimum-size-subarray-sum/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "sliding-window",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "longest-substring-with-at-most-k-distinct-characters",
+    "title": "Longest Substring with At Most K Distinct Characters",
+    "url": "https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "sliding-window",
+      "medium",
+      "tier-1",
+      "hash-map"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "fruit-into-baskets",
+    "title": "Fruit Into Baskets",
+    "url": "https://leetcode.com/problems/fruit-into-baskets/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "sliding-window",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "number-of-subarrays-with-product-less-than-k",
+    "title": "Number of Subarrays with Product Less Than K",
+    "url": "https://leetcode.com/problems/subarray-product-less-than-k/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "sliding-window",
+      "medium",
+      "tier-2"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "subarray-sum-equals-k",
+    "title": "Subarray Sum Equals K",
+    "url": "https://leetcode.com/problems/subarray-sum-equals-k/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "sliding-window",
+      "medium",
+      "tier-2",
+      "hash-map",
+      "prefix-sum"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "maximum-number-of-vowels-in-a-substring",
+    "title": "Maximum Number of Vowels in a Substring",
+    "url": "https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "sliding-window",
+      "medium",
+      "tier-2"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "longest-subarray-of-1s-after-deleting-one-element",
+    "title": "Longest Subarray of 1s After Deleting One Element",
+    "url": "https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "sliding-window",
+      "medium",
+      "tier-2"
+    ],
+    "displayOrder": 14
+  },
+  {
+    "slug": "max-consecutive-ones-iii",
+    "title": "Max Consecutive Ones III",
+    "url": "https://leetcode.com/problems/max-consecutive-ones-iii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "sliding-window",
+      "medium",
+      "tier-2"
+    ],
+    "displayOrder": 15
+  },
+  {
+    "slug": "minimum-window-substring",
+    "title": "Minimum Window Substring",
+    "url": "https://leetcode.com/problems/minimum-window-substring/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "sliding-window",
+      "hard",
+      "tier-2",
+      "hash-map"
+    ],
+    "displayOrder": 16
+  },
+  {
+    "slug": "sliding-window-maximum",
+    "title": "Sliding Window Maximum",
+    "url": "https://leetcode.com/problems/sliding-window-maximum/",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Tower",
+        "frequency": 3
+      },
+      {
+        "name": "Uber",
+        "frequency": 3
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 3
+      },
+      {
+        "name": "Glean",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "sliding-window",
+      "hard",
+      "tier-2",
+      "deque"
+    ],
+    "displayOrder": 17
+  },
+  {
+    "slug": "substring-with-concatenation-of-all-words",
+    "title": "Substring with Concatenation of All Words",
+    "url": "https://leetcode.com/problems/substring-with-concatenation-of-all-words/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "sliding-window",
+      "hard",
+      "tier-2",
+      "hash-map"
+    ],
+    "displayOrder": 18
+  },
+  {
+    "slug": "minimum-window-subsequence",
+    "title": "Minimum Window Subsequence",
+    "url": "https://leetcode.com/problems/minimum-window-subsequence/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "sliding-window",
+      "hard",
+      "tier-2",
+      "two-pointers",
+      "linked-list"
+    ],
+    "displayOrder": 19
+  }
+]

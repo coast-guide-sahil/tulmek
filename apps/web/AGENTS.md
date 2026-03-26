@@ -5,25 +5,23 @@ This version has breaking changes — APIs, conventions, and file structure may 
 <!-- END:nextjs-agent-rules -->
 
 ## Commands
-- `pnpm dev` — Turbopack dev server
-- `pnpm build` — Production build
-- `pnpm lint` — ESLint
-- `pnpm typecheck` — TypeScript check
-- `pnpm test` — Unit tests (Vitest)
-- `pnpm e2e` — E2E tests (Playwright)
-- `pnpm db:push` — Push schema to Turso
-- `pnpm db:studio` — Drizzle Studio GUI
+- `pnpm validate-content` — Validate content JSON against Zod schemas
+- `pnpm e2e` / `pnpm e2e:ui` — E2E tests (Playwright)
 
-## Architecture
-- `src/app/` — Pages, layouts, API routes (THIN — delegates to use cases)
-- `src/components/` — React UI components
-- `src/infrastructure/` — Adapters implementing core ports
-  - `auth/` — Better Auth config + adapter (implements AuthPort)
-  - `database/drizzle/` — DB client, schema, user repository (implements UserRepository)
-  - `email/` — Mailchecker adapter (EmailValidatorPort) + Resend OTP sender
-  - `composition-root.ts` — THE one file to change when swapping providers
-- `src/lib/` — Auth re-export, client, session helper, OTP hashing, rate limiter
-- `src/proxy.ts` — Route protection (NOT middleware.ts)
-- `e2e/` — Playwright E2E tests (health, navigation)
+## Adapter Wiring
+- **Client-side** (progress, notes, search): `src/lib/progress/provider.tsx` via `deps` prop
+- Swap any adapter by changing one line in the provider
+- See `docs/guides/swapping-providers.md` for swap examples
+
+## Ports (in `packages/core/src/ports/`)
+ProgressStore, NoteStore, SearchEngine, ContentSource
+
+## Content
+- `src/content/` — 690 JSON items validated by Zod schemas (`src/content/schema.ts`)
+- `src/lib/progress/content.ts` — sole importer of content, implements ContentSource port
+- `scripts/validate-content.ts` — CI validation script
+
+## Non-Obvious Conventions
+- All `dangerouslySetInnerHTML` MUST be sanitized via `src/lib/progress/sanitize.ts`
 - Unit tests live alongside source files (`*.test.ts`)
 - Standalone output enabled for Docker production builds

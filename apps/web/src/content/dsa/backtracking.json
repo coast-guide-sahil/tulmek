@@ -1,0 +1,328 @@
+[
+  {
+    "slug": "subsets",
+    "title": "Subsets",
+    "url": "https://leetcode.com/problems/subsets/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "subsets-ii",
+    "title": "Subsets II",
+    "url": "https://leetcode.com/problems/subsets-ii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "medium",
+      "tier-1",
+      "dfs",
+      "sorting"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "permutations",
+    "title": "Permutations",
+    "url": "https://leetcode.com/problems/permutations/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "permutations-ii",
+    "title": "Permutations II",
+    "url": "https://leetcode.com/problems/permutations-ii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "medium",
+      "tier-1",
+      "sorting"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "combinations",
+    "title": "Combinations",
+    "url": "https://leetcode.com/problems/combinations/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "combination-sum",
+    "title": "Combination Sum",
+    "url": "https://leetcode.com/problems/combination-sum/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "medium",
+      "tier-1",
+      "knapsack"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "combination-sum-ii",
+    "title": "Combination Sum II",
+    "url": "https://leetcode.com/problems/combination-sum-ii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "medium",
+      "tier-1",
+      "sorting"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "combination-sum-iii",
+    "title": "Combination Sum III",
+    "url": "https://leetcode.com/problems/combination-sum-iii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "palindrome-partitioning",
+    "title": "Palindrome Partitioning",
+    "url": "https://leetcode.com/problems/palindrome-partitioning/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "medium",
+      "tier-1",
+      "string"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "letter-combinations-of-a-phone-number",
+    "title": "Letter Combinations of a Phone Number",
+    "url": "https://leetcode.com/problems/letter-combinations-of-a-phone-number/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "medium",
+      "tier-1"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "word-search",
+    "title": "Word Search",
+    "url": "https://leetcode.com/problems/word-search/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Meta",
+        "frequency": 3
+      },
+      {
+        "name": "Microsoft",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "backtracking",
+      "medium",
+      "tier-2",
+      "dfs"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "restore-ip-addresses",
+    "title": "Restore IP Addresses",
+    "url": "https://leetcode.com/problems/restore-ip-addresses/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "medium",
+      "tier-2"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "generate-parentheses",
+    "title": "Generate Parentheses",
+    "url": "https://leetcode.com/problems/generate-parentheses/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "medium",
+      "tier-2"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "all-paths-from-source-to-target",
+    "title": "All Paths From Source to Target",
+    "url": "https://leetcode.com/problems/all-paths-from-source-to-target/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "medium",
+      "tier-2",
+      "dfs"
+    ],
+    "displayOrder": 14
+  },
+  {
+    "slug": "path-sum-ii",
+    "title": "Path Sum II",
+    "url": "https://leetcode.com/problems/path-sum-ii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "medium",
+      "tier-2",
+      "dfs",
+      "tree"
+    ],
+    "displayOrder": 15
+  },
+  {
+    "slug": "partition-to-k-equal-sum-subsets",
+    "title": "Partition to K Equal Sum Subsets",
+    "url": "https://leetcode.com/problems/partition-to-k-equal-sum-subsets/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "medium",
+      "tier-2",
+      "dfs"
+    ],
+    "displayOrder": 16
+  },
+  {
+    "slug": "n-queens",
+    "title": "N-Queens",
+    "url": "https://leetcode.com/problems/n-queens/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "hard",
+      "tier-2"
+    ],
+    "displayOrder": 17
+  },
+  {
+    "slug": "n-queens-ii",
+    "title": "N-Queens II",
+    "url": "https://leetcode.com/problems/n-queens-ii/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "hard",
+      "tier-2"
+    ],
+    "displayOrder": 18
+  },
+  {
+    "slug": "sudoku-solver",
+    "title": "Sudoku Solver",
+    "url": "https://leetcode.com/problems/sudoku-solver/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "hard",
+      "tier-2",
+      "matrix"
+    ],
+    "displayOrder": 19
+  },
+  {
+    "slug": "word-search-ii",
+    "title": "Word Search II",
+    "url": "https://leetcode.com/problems/word-search-ii/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "hard",
+      "tier-2",
+      "dfs",
+      "trie"
+    ],
+    "displayOrder": 20
+  },
+  {
+    "slug": "zuma-game",
+    "title": "Zuma Game",
+    "url": "https://leetcode.com/problems/zuma-game/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "hard",
+      "tier-3",
+      "dfs",
+      "bfs"
+    ],
+    "displayOrder": 21
+  },
+  {
+    "slug": "expression-add-operators",
+    "title": "Expression Add Operators",
+    "url": "https://leetcode.com/problems/expression-add-operators/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "hard",
+      "tier-3"
+    ],
+    "displayOrder": 22
+  },
+  {
+    "slug": "remove-invalid-parentheses",
+    "title": "Remove Invalid Parentheses",
+    "url": "https://leetcode.com/problems/remove-invalid-parentheses/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "backtracking",
+      "hard",
+      "tier-3",
+      "dfs",
+      "bfs"
+    ],
+    "displayOrder": 23
+  }
+]

@@ -1,0 +1,568 @@
+[
+  {
+    "slug": "number-of-islands",
+    "title": "Number of Islands",
+    "url": "https://leetcode.com/problems/number-of-islands/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Google",
+        "frequency": 5
+      },
+      {
+        "name": "Meta",
+        "frequency": 5
+      },
+      {
+        "name": "Databricks",
+        "frequency": 5
+      },
+      {
+        "name": "Rubrik",
+        "frequency": 5
+      },
+      {
+        "name": "Microsoft",
+        "frequency": 5
+      },
+      {
+        "name": "LinkedIn",
+        "frequency": 5
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 5
+      },
+      {
+        "name": "Atlassian",
+        "frequency": 5
+      },
+      {
+        "name": "Rippling",
+        "frequency": 5
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 5
+      },
+      {
+        "name": "Sprinklr",
+        "frequency": 5
+      }
+    ],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-1",
+      "dfs",
+      "bfs"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "slug": "clone-graph",
+    "title": "Clone Graph",
+    "url": "https://leetcode.com/problems/clone-graph/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Google",
+        "frequency": 4
+      },
+      {
+        "name": "Meta",
+        "frequency": 4
+      },
+      {
+        "name": "Microsoft",
+        "frequency": 4
+      },
+      {
+        "name": "Rubrik",
+        "frequency": 4
+      },
+      {
+        "name": "Atlassian",
+        "frequency": 4
+      }
+    ],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-1",
+      "hash-map",
+      "bfs"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "slug": "rotting-oranges",
+    "title": "Rotting Oranges",
+    "url": "https://leetcode.com/problems/rotting-oranges/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-1",
+      "bfs"
+    ],
+    "displayOrder": 3
+  },
+  {
+    "slug": "word-ladder",
+    "title": "Word Ladder",
+    "url": "https://leetcode.com/problems/word-ladder/",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Google",
+        "frequency": 3
+      },
+      {
+        "name": "LinkedIn",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "graphs",
+      "hard",
+      "tier-1",
+      "bfs"
+    ],
+    "displayOrder": 4
+  },
+  {
+    "slug": "shortest-path-in-binary-matrix",
+    "title": "Shortest Path in Binary Matrix",
+    "url": "https://leetcode.com/problems/shortest-path-in-binary-matrix/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-1",
+      "bfs"
+    ],
+    "displayOrder": 5
+  },
+  {
+    "slug": "open-the-lock",
+    "title": "Open the Lock",
+    "url": "https://leetcode.com/problems/open-the-lock/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-1",
+      "bfs"
+    ],
+    "displayOrder": 6
+  },
+  {
+    "slug": "snakes-and-ladders",
+    "title": "Snakes and Ladders",
+    "url": "https://leetcode.com/problems/snakes-and-ladders/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-1",
+      "bfs",
+      "matrix"
+    ],
+    "displayOrder": 7
+  },
+  {
+    "slug": "max-area-of-island",
+    "title": "Max Area of Island",
+    "url": "https://leetcode.com/problems/max-area-of-island/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-1",
+      "dfs"
+    ],
+    "displayOrder": 8
+  },
+  {
+    "slug": "pacific-atlantic-water-flow",
+    "title": "Pacific Atlantic Water Flow",
+    "url": "https://leetcode.com/problems/pacific-atlantic-water-flow/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-1",
+      "dfs"
+    ],
+    "displayOrder": 9
+  },
+  {
+    "slug": "surrounded-regions",
+    "title": "Surrounded Regions",
+    "url": "https://leetcode.com/problems/surrounded-regions/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-1",
+      "dfs"
+    ],
+    "displayOrder": 10
+  },
+  {
+    "slug": "number-of-connected-components-in-undirected-graph",
+    "title": "Number of Connected Components in Undirected Graph",
+    "url": "https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-2",
+      "dfs",
+      "bfs"
+    ],
+    "displayOrder": 11
+  },
+  {
+    "slug": "graph-valid-tree",
+    "title": "Graph Valid Tree",
+    "url": "https://leetcode.com/problems/graph-valid-tree/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-2",
+      "dfs",
+      "union-find",
+      "tree"
+    ],
+    "displayOrder": 12
+  },
+  {
+    "slug": "count-sub-islands",
+    "title": "Count Sub Islands",
+    "url": "https://leetcode.com/problems/count-sub-islands/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-2",
+      "matrix"
+    ],
+    "displayOrder": 13
+  },
+  {
+    "slug": "course-schedule",
+    "title": "Course Schedule",
+    "url": "https://leetcode.com/problems/course-schedule/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Meta",
+        "frequency": 5
+      },
+      {
+        "name": "Goldman Sachs",
+        "frequency": 5
+      },
+      {
+        "name": "LinkedIn",
+        "frequency": 5
+      },
+      {
+        "name": "Atlassian",
+        "frequency": 5
+      },
+      {
+        "name": "Rippling",
+        "frequency": 5
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 5
+      },
+      {
+        "name": "Sprinklr",
+        "frequency": 5
+      },
+      {
+        "name": "Coinbase",
+        "frequency": 5
+      }
+    ],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-2",
+      "dfs",
+      "graph"
+    ],
+    "displayOrder": 14
+  },
+  {
+    "slug": "course-schedule-ii",
+    "title": "Course Schedule II",
+    "url": "https://leetcode.com/problems/course-schedule-ii/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-2",
+      "dfs",
+      "bfs",
+      "sorting"
+    ],
+    "displayOrder": 15
+  },
+  {
+    "slug": "alien-dictionary",
+    "title": "Alien Dictionary",
+    "url": "https://leetcode.com/problems/alien-dictionary/",
+    "difficulty": "hard",
+    "companies": [
+      {
+        "name": "Bloomberg",
+        "frequency": 2
+      },
+      {
+        "name": "Atlassian",
+        "frequency": 2
+      }
+    ],
+    "tags": [
+      "graphs",
+      "hard",
+      "tier-2",
+      "sorting",
+      "topological-sort"
+    ],
+    "displayOrder": 16
+  },
+  {
+    "slug": "parallel-courses",
+    "title": "Parallel Courses",
+    "url": "https://leetcode.com/problems/parallel-courses/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-2",
+      "bfs",
+      "sorting",
+      "topological-sort"
+    ],
+    "displayOrder": 17
+  },
+  {
+    "slug": "find-all-possible-recipes",
+    "title": "Find All Possible Recipes",
+    "url": "https://leetcode.com/problems/find-all-possible-recipes-from-given-supplies/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-2",
+      "sorting",
+      "topological-sort"
+    ],
+    "displayOrder": 18
+  },
+  {
+    "slug": "minimum-height-trees",
+    "title": "Minimum Height Trees",
+    "url": "https://leetcode.com/problems/minimum-height-trees/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-2",
+      "sorting",
+      "topological-sort",
+      "tree"
+    ],
+    "displayOrder": 19
+  },
+  {
+    "slug": "network-delay-time",
+    "title": "Network Delay Time",
+    "url": "https://leetcode.com/problems/network-delay-time/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-2",
+      "dijkstra"
+    ],
+    "displayOrder": 20
+  },
+  {
+    "slug": "cheapest-flights-within-k-stops",
+    "title": "Cheapest Flights Within K Stops",
+    "url": "https://leetcode.com/problems/cheapest-flights-within-k-stops/",
+    "difficulty": "medium",
+    "companies": [
+      {
+        "name": "Uber",
+        "frequency": 3
+      },
+      {
+        "name": "Swiggy",
+        "frequency": 3
+      }
+    ],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-3",
+      "dijkstra",
+      "bellman-ford"
+    ],
+    "displayOrder": 21
+  },
+  {
+    "slug": "path-with-minimum-effort",
+    "title": "Path With Minimum Effort",
+    "url": "https://leetcode.com/problems/path-with-minimum-effort/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-3",
+      "dijkstra"
+    ],
+    "displayOrder": 22
+  },
+  {
+    "slug": "swim-in-rising-water",
+    "title": "Swim in Rising Water",
+    "url": "https://leetcode.com/problems/swim-in-rising-water/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "hard",
+      "tier-3",
+      "dijkstra"
+    ],
+    "displayOrder": 23
+  },
+  {
+    "slug": "find-the-city-with-the-smallest-number-of-neighbors",
+    "title": "Find the City With the Smallest Number of Neighbors",
+    "url": "https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-3",
+      "floyd-cycle"
+    ],
+    "displayOrder": 24
+  },
+  {
+    "slug": "reconstruct-itinerary",
+    "title": "Reconstruct Itinerary",
+    "url": "https://leetcode.com/problems/reconstruct-itinerary/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "hard",
+      "tier-3",
+      "dfs",
+      "sorting"
+    ],
+    "displayOrder": 25
+  },
+  {
+    "slug": "critical-connections-in-a-network",
+    "title": "Critical Connections in a Network",
+    "url": "https://leetcode.com/problems/critical-connections-in-a-network/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "hard",
+      "tier-3"
+    ],
+    "displayOrder": 26
+  },
+  {
+    "slug": "accounts-merge",
+    "title": "Accounts Merge",
+    "url": "https://leetcode.com/problems/accounts-merge/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-3",
+      "dfs",
+      "union-find",
+      "graph"
+    ],
+    "displayOrder": 27
+  },
+  {
+    "slug": "redundant-connection",
+    "title": "Redundant Connection",
+    "url": "https://leetcode.com/problems/redundant-connection/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-3",
+      "union-find"
+    ],
+    "displayOrder": 28
+  },
+  {
+    "slug": "is-graph-bipartite",
+    "title": "Is Graph Bipartite",
+    "url": "https://leetcode.com/problems/is-graph-bipartite/",
+    "difficulty": "medium",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "medium",
+      "tier-3",
+      "dfs",
+      "bfs",
+      "graph"
+    ],
+    "displayOrder": 29
+  },
+  {
+    "slug": "bus-routes",
+    "title": "Bus Routes",
+    "url": "https://leetcode.com/problems/bus-routes/",
+    "difficulty": "hard",
+    "companies": [],
+    "tags": [
+      "graphs",
+      "hard",
+      "tier-3",
+      "bfs"
+    ],
+    "displayOrder": 30
+  }
+]
