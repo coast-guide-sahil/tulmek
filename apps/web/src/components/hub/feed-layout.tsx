@@ -103,7 +103,15 @@ export function FeedLayout({ articles, initialCategory }: FeedLayoutProps) {
     setSearchQuery("");
   }, []);
 
+  const [visibleCount, setVisibleCount] = useState(24);
+
   const hasActiveFilters = activeCategory !== null || sourceFilter !== null || searchQuery.trim() !== "";
+  const visibleArticles = filteredArticles.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredArticles.length;
+
+  const handleLoadMore = useCallback(() => {
+    setVisibleCount((prev) => prev + 24);
+  }, []);
 
   if (!hydrated) {
     return <FeedSkeleton />;
@@ -153,6 +161,13 @@ export function FeedLayout({ articles, initialCategory }: FeedLayoutProps) {
         </div>
       </div>
 
+      {/* Screen reader announcement for filter results */}
+      <div className="sr-only" aria-live="polite" role="status">
+        {hasActiveFilters
+          ? `Showing ${filteredArticles.length} of ${articles.length} articles`
+          : `${articles.length} articles`}
+      </div>
+
       {/* Results count */}
       {hasActiveFilters && (
         <p className="text-sm text-muted-foreground">
@@ -162,25 +177,39 @@ export function FeedLayout({ articles, initialCategory }: FeedLayoutProps) {
 
       {/* Feed */}
       {filteredArticles.length > 0 ? (
-        <div
-          className={
-            layout === "grid"
-              ? "grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-              : "space-y-3"
-          }
-        >
-          {filteredArticles.map((article) => (
-            <ContentCard
-              key={article.id}
-              article={article}
-              onToggleBookmark={toggleBookmark}
-              onArticleClick={markAsRead}
-              layout={layout}
-              isNew={nowMs - new Date(article.publishedAt).getTime() < SIX_HOURS_MS}
-              isRead={readIds.has(article.id)}
-            />
-          ))}
-        </div>
+        <>
+          <div
+            className={
+              layout === "grid"
+                ? "grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+                : "space-y-3"
+            }
+          >
+            {visibleArticles.map((article) => (
+              <ContentCard
+                key={article.id}
+                article={article}
+                onToggleBookmark={toggleBookmark}
+                onArticleClick={markAsRead}
+                layout={layout}
+                isNew={nowMs - new Date(article.publishedAt).getTime() < SIX_HOURS_MS}
+                isRead={readIds.has(article.id)}
+              />
+            ))}
+          </div>
+
+          {/* Load more */}
+          {hasMore && (
+            <div className="flex justify-center pt-4">
+              <button
+                onClick={handleLoadMore}
+                className="min-h-[44px] rounded-lg border border-border bg-card px-6 text-sm font-medium text-card-foreground transition-colors hover:bg-muted"
+              >
+                Show more ({filteredArticles.length - visibleCount} remaining)
+              </button>
+            </div>
+          )}
+        </>
       ) : (
         <EmptyState onClear={handleClearFilters} />
       )}
@@ -205,7 +234,7 @@ function SortTabs({ value, onChange }: { value: SortMode; onChange: (v: SortMode
           role="tab"
           aria-selected={value === tab.id}
           onClick={() => onChange(tab.id)}
-          className={`min-h-[36px] rounded-md px-3 text-xs font-medium transition-colors sm:text-sm ${
+          className={`min-h-[44px] rounded-md px-3 text-xs font-medium transition-colors sm:text-sm ${
             value === tab.id
               ? "bg-card text-card-foreground shadow-sm"
               : "text-muted-foreground hover:text-foreground"
@@ -231,7 +260,7 @@ function SourceFilter({
     <select
       value={active ?? ""}
       onChange={(e) => onChange(e.target.value || null)}
-      className="h-9 rounded-lg border border-border bg-card px-2 text-xs text-card-foreground sm:text-sm"
+      className="h-11 rounded-lg border border-border bg-card px-2 text-xs text-card-foreground sm:text-sm"
       aria-label="Filter by source"
     >
       <option value="">All sources</option>

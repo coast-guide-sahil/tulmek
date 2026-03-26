@@ -136,6 +136,20 @@ export function ContentCard({
         </p>
       )}
 
+      {/* Tags */}
+      {article.tags.length > 0 && (
+        <div className="mt-2 flex flex-wrap gap-1">
+          {article.tags.slice(0, 3).map((tag) => (
+            <span
+              key={tag}
+              className="rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
       {/* Footer: category + meta */}
       <div className="mt-auto flex flex-wrap items-center gap-2 pt-3">
         <CategoryPill config={categoryConfig} />
