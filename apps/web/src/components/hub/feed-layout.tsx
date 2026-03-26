@@ -10,6 +10,7 @@ import { HubSearchBar } from "./hub-search-bar";
 import { ViewToggle } from "./view-toggle";
 import { FeedSkeleton } from "./feed-skeleton";
 import { getSourceLabel } from "./hub-utils";
+import { TrendingTopics } from "./trending-topics";
 
 interface FeedLayoutProps {
   readonly articles: FeedArticle[];
@@ -191,6 +192,11 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
         onCategoryChange={setActiveCategory}
         categoryCounts={categoryCounts}
       />
+
+      {/* Trending Topics */}
+      {!hasActiveFilters && (
+        <TrendingTopics articles={articles} onTopicClick={setSearchQuery} />
+      )}
 
       {/* Sort + Source Filter */}
       <div className="flex flex-wrap items-center gap-2">
