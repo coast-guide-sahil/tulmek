@@ -18,8 +18,8 @@ export function CategoryNav({
   const totalCount = Object.values(categoryCounts).reduce((a, b) => a + b, 0);
 
   return (
-    <nav aria-label="Content categories" className="overflow-x-auto">
-      <div className="flex gap-2 pb-1">
+    <nav aria-label="Content categories" className="category-scroll overflow-x-auto">
+      <div className="flex gap-2 px-1 pb-1">
         {/* All */}
         <button
           onClick={() => onCategoryChange(null)}

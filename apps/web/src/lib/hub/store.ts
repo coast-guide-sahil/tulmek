@@ -4,6 +4,23 @@ import type { BookmarkMap, FeedArticle } from "@tulmek/core/domain";
 import type { OramaHubSearchEngine, HubSearchParams } from "@/infrastructure/hub/orama-hub-search.adapter";
 import type { HubFacetedResult } from "@tulmek/core/domain";
 
+const READ_STORAGE_KEY = "tulmek:hub:read";
+
+function loadReadSet(): Set<string> {
+  if (typeof window === "undefined") return new Set();
+  try {
+    const raw = localStorage.getItem(READ_STORAGE_KEY);
+    return raw ? new Set(JSON.parse(raw) as string[]) : new Set();
+  } catch {
+    return new Set();
+  }
+}
+
+function saveReadSet(readIds: Set<string>): void {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(READ_STORAGE_KEY, JSON.stringify([...readIds]));
+}
+
 interface HubState {
   /** All bookmarks keyed by article ID */
   bookmarks: BookmarkMap;
@@ -13,10 +30,12 @@ interface HubState {
   searchResults: HubFacetedResult | null;
   /** Whether a search is in progress */
   searching: boolean;
+  /** Set of read article IDs */
+  readIds: Set<string>;
 }
 
 interface HubActions {
-  /** Initialize store — loads bookmarks from persistence */
+  /** Initialize store — loads bookmarks and read state from persistence */
   hydrate: () => Promise<void>;
   /** Index articles in search engine */
   indexArticles: (articles: FeedArticle[]) => Promise<void>;
@@ -28,6 +47,10 @@ interface HubActions {
   isBookmarked: (articleId: string) => boolean;
   /** Get all bookmarked article IDs */
   getBookmarkedIds: () => string[];
+  /** Mark an article as read */
+  markAsRead: (articleId: string) => void;
+  /** Check if an article has been read */
+  isRead: (articleId: string) => boolean;
 }
 
 type HubStore = HubState & HubActions;
@@ -45,10 +68,12 @@ export function createHubStore(deps: {
     hydrated: false,
     searchResults: null,
     searching: false,
+    readIds: new Set<string>(),
 
     hydrate: async () => {
       const bookmarks = await deps.bookmarkStore.getAll();
-      set({ bookmarks, hydrated: true });
+      const readIds = loadReadSet();
+      set({ bookmarks, readIds, hydrated: true });
     },
 
     indexArticles: async (articles: FeedArticle[]) => {
@@ -98,6 +123,18 @@ export function createHubStore(deps: {
 
     getBookmarkedIds: () => {
       return Object.keys(get().bookmarks);
+    },
+
+    markAsRead: (articleId: string) => {
+      const readIds = new Set(get().readIds);
+      if (readIds.has(articleId)) return;
+      readIds.add(articleId);
+      set({ readIds });
+      saveReadSet(readIds);
+    },
+
+    isRead: (articleId: string) => {
+      return get().readIds.has(articleId);
     },
   }));
 }

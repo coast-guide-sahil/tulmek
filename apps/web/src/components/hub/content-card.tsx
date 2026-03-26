@@ -7,24 +7,44 @@ import { formatRelativeTime, getCategoryConfig } from "./hub-utils";
 interface ContentCardProps {
   readonly article: FeedArticle;
   readonly onToggleBookmark: (id: string) => void;
+  readonly onArticleClick?: (id: string) => void;
   readonly layout: "grid" | "list";
   readonly isNew?: boolean;
+  readonly isRead?: boolean;
 }
 
-export function ContentCard({ article, onToggleBookmark, layout, isNew = false }: ContentCardProps) {
+const TRENDING_THRESHOLD = 500;
+const HOT_DISCUSSION_THRESHOLD = 100;
+
+export function ContentCard({
+  article,
+  onToggleBookmark,
+  onArticleClick,
+  layout,
+  isNew = false,
+  isRead = false,
+}: ContentCardProps) {
   const isBookmarked = useHub((s) => article.id in s.bookmarks);
   const categoryConfig = getCategoryConfig(article.category);
   const relativeTime = formatRelativeTime(article.publishedAt);
+  const isTrending = article.score >= TRENDING_THRESHOLD;
+  const isHotDiscussion = article.commentCount >= HOT_DISCUSSION_THRESHOLD;
+
+  const handleLinkClick = () => {
+    onArticleClick?.(article.id);
+  };
+
+  const cardStateClass = isRead ? "hub-card-read" : "hub-card-unread";
 
   if (layout === "list") {
     return (
-      <article className="group flex items-start gap-3 rounded-xl border border-border bg-card p-3 transition-all hover:border-primary/30 hover:shadow-sm sm:gap-4 sm:p-4">
-        {/* Source + meta */}
+      <article className={`hub-card group flex items-start gap-3 rounded-xl border border-border bg-card p-3 sm:gap-4 sm:p-4 ${cardStateClass}`}>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <SourceBadge sourceName={article.sourceName} domain={article.domain} />
             <span aria-label="Published">{relativeTime}</span>
             {isNew && <NewBadge />}
+            {isTrending && <TrendingBadge />}
           </div>
 
           <h3 className="mt-1 text-sm font-semibold leading-snug text-card-foreground group-hover:text-primary sm:text-base">
@@ -33,6 +53,7 @@ export function ContentCard({ article, onToggleBookmark, layout, isNew = false }
               target="_blank"
               rel="noopener noreferrer"
               className="hover:underline"
+              onClick={handleLinkClick}
             >
               {article.title}
             </a>
@@ -41,8 +62,9 @@ export function ContentCard({ article, onToggleBookmark, layout, isNew = false }
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <CategoryPill config={categoryConfig} />
             {article.score > 0 && (
-              <span className="text-xs text-muted-foreground">
-                {article.score} pts
+              <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                <UpvoteIcon />
+                {formatCount(article.score)}
               </span>
             )}
             {article.commentCount > 0 && article.discussionUrl && (
@@ -50,9 +72,11 @@ export function ContentCard({ article, onToggleBookmark, layout, isNew = false }
                 href={article.discussionUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-muted-foreground hover:text-foreground"
+                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
               >
-                {article.commentCount} comments
+                <CommentIcon />
+                {formatCount(article.commentCount)}
+                {isHotDiscussion && <span className="text-destructive">*</span>}
               </a>
             )}
             <span className="text-xs text-muted-foreground">
@@ -61,7 +85,6 @@ export function ContentCard({ article, onToggleBookmark, layout, isNew = false }
           </div>
         </div>
 
-        {/* Bookmark button */}
         <BookmarkButton
           isBookmarked={isBookmarked}
           onClick={() => onToggleBookmark(article.id)}
@@ -72,18 +95,21 @@ export function ContentCard({ article, onToggleBookmark, layout, isNew = false }
 
   // Grid layout
   return (
-    <article className="group flex flex-col rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/30 hover:shadow-sm sm:p-5">
-      {/* Header: source + time + bookmark */}
+    <article className={`hub-card group flex flex-col rounded-xl border border-border bg-card p-4 sm:p-5 ${cardStateClass}`}>
+      {/* Header: source + time + badges + bookmark */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <SourceBadge sourceName={article.sourceName} domain={article.domain} />
           <span aria-label="Published">{relativeTime}</span>
-          {isNew && <NewBadge />}
         </div>
-        <BookmarkButton
-          isBookmarked={isBookmarked}
-          onClick={() => onToggleBookmark(article.id)}
-        />
+        <div className="flex items-center gap-1">
+          {isNew && <NewBadge />}
+          {isTrending && <TrendingBadge />}
+          <BookmarkButton
+            isBookmarked={isBookmarked}
+            onClick={() => onToggleBookmark(article.id)}
+          />
+        </div>
       </div>
 
       {/* Title */}
@@ -93,6 +119,7 @@ export function ContentCard({ article, onToggleBookmark, layout, isNew = false }
           target="_blank"
           rel="noopener noreferrer"
           className="hover:underline"
+          onClick={handleLinkClick}
         >
           {article.title}
         </a>
@@ -111,7 +138,7 @@ export function ContentCard({ article, onToggleBookmark, layout, isNew = false }
         {article.score > 0 && (
           <span className="flex items-center gap-1 text-xs text-muted-foreground">
             <UpvoteIcon />
-            {article.score}
+            {formatCount(article.score)}
           </span>
         )}
         {article.commentCount > 0 && article.discussionUrl && (
@@ -122,15 +149,32 @@ export function ContentCard({ article, onToggleBookmark, layout, isNew = false }
             className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
           >
             <CommentIcon />
-            {article.commentCount}
+            {formatCount(article.commentCount)}
           </a>
         )}
         <span className="ml-auto text-xs text-muted-foreground">
           {article.readingTime} min
         </span>
       </div>
+
+      {/* Engagement bar (visual indicator) */}
+      {isTrending && (
+        <div className="mt-2 h-0.5 w-full overflow-hidden rounded-full bg-muted">
+          <div
+            className="h-full rounded-full bg-primary/60 transition-all"
+            style={{ width: `${Math.min(100, (article.score / 2000) * 100)}%` }}
+          />
+        </div>
+      )}
     </article>
   );
+}
+
+// ── Helpers ──
+
+function formatCount(n: number): string {
+  if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
+  return String(n);
 }
 
 // ── Sub-components ──
@@ -163,11 +207,19 @@ function NewBadge() {
   );
 }
 
+function TrendingBadge() {
+  return (
+    <span className="trending-badge inline-flex items-center gap-1 rounded-full bg-destructive/10 px-1.5 py-0.5 text-xs font-medium text-destructive">
+      TRENDING
+    </span>
+  );
+}
+
 function BookmarkButton({ isBookmarked, onClick }: { isBookmarked: boolean; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+      className={`flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground ${isBookmarked ? "bookmark-active" : ""}`}
       aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
       aria-pressed={isBookmarked}
     >

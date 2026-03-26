@@ -104,6 +104,8 @@ export function useHubActions() {
       getBookmarkedIds: s.getBookmarkedIds,
       search: s.search,
       indexArticles: s.indexArticles,
+      markAsRead: s.markAsRead,
+      isRead: s.isRead,
     })),
   );
 }

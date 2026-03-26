@@ -1,0 +1,76 @@
+import type { FeedArticle } from "@tulmek/core/domain";
+import { getCategoryConfig } from "./hub-utils";
+
+interface StatsBannerProps {
+  readonly articles: FeedArticle[];
+  readonly lastRefreshedAt: string;
+}
+
+export function StatsBanner({ articles, lastRefreshedAt }: StatsBannerProps) {
+  // Compute stats
+  const sourceCount = new Set(articles.map((a) => a.source)).size;
+  const trendingCount = articles.filter((a) => a.score >= 500).length;
+
+  // Top 3 categories by count
+  const categoryCounts: Record<string, number> = {};
+  for (const a of articles) {
+    categoryCounts[a.category] = (categoryCounts[a.category] ?? 0) + 1;
+  }
+  const topCategories = Object.entries(categoryCounts)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 3);
+
+  return (
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+      <StatCard
+        label="Total Articles"
+        value={String(articles.length)}
+        detail={`From ${sourceCount} sources`}
+      />
+      <StatCard
+        label="Trending Now"
+        value={String(trendingCount)}
+        detail="500+ engagement"
+      />
+      <StatCard
+        label="Top Topics"
+        value={topCategories.map(([cat]) => getCategoryConfig(cat).label).join(", ")}
+        detail="By volume"
+        small
+      />
+      <StatCard
+        label="Last Refresh"
+        value={new Date(lastRefreshedAt).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+        })}
+        detail={new Date(lastRefreshedAt).toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "2-digit",
+        })}
+      />
+    </div>
+  );
+}
+
+function StatCard({
+  label,
+  value,
+  detail,
+  small = false,
+}: {
+  label: string;
+  value: string;
+  detail: string;
+  small?: boolean;
+}) {
+  return (
+    <div className="rounded-xl border border-border bg-card p-3 sm:p-4">
+      <p className="text-xs font-medium text-muted-foreground">{label}</p>
+      <p className={`mt-1 font-bold text-card-foreground ${small ? "text-sm" : "text-xl sm:text-2xl"}`}>
+        {value}
+      </p>
+      <p className="mt-0.5 text-xs text-muted-foreground">{detail}</p>
+    </div>
+  );
+}

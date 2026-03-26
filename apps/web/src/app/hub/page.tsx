@@ -3,6 +3,7 @@ import type { FeedArticle } from "@tulmek/core/domain";
 import feedData from "@/content/hub/feed.json";
 import metadataJson from "@/content/hub/metadata.json";
 import { FeedLayout } from "@/components/hub/feed-layout";
+import { StatsBanner } from "@/components/hub/stats-banner";
 import { APP_NAME } from "@tulmek/config/constants";
 
 export const metadata: Metadata = {
@@ -44,6 +45,12 @@ export default function HubPage() {
           </span>
         </div>
       </div>
+
+      {/* Stats Banner */}
+      <StatsBanner
+        articles={articles}
+        lastRefreshedAt={feedMeta.lastRefreshedAt}
+      />
 
       {/* Feed */}
       <FeedLayout articles={articles} />

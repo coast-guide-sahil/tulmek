@@ -29,7 +29,8 @@ export function FeedLayout({ articles, initialCategory }: FeedLayoutProps) {
   const [layout, setLayout] = useState<"grid" | "list">("grid");
 
   const hydrated = useHub((s) => s.hydrated);
-  const { toggleBookmark } = useHubActions();
+  const readIds = useHub((s) => s.readIds);
+  const { toggleBookmark, markAsRead } = useHubActions();
 
   // Category counts
   const categoryCounts = useMemo(() => {
@@ -173,8 +174,10 @@ export function FeedLayout({ articles, initialCategory }: FeedLayoutProps) {
               key={article.id}
               article={article}
               onToggleBookmark={toggleBookmark}
+              onArticleClick={markAsRead}
               layout={layout}
               isNew={nowMs - new Date(article.publishedAt).getTime() < SIX_HOURS_MS}
+              isRead={readIds.has(article.id)}
             />
           ))}
         </div>
