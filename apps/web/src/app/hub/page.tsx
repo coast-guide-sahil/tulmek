@@ -6,11 +6,13 @@ import feedData from "@/content/hub/feed.json";
 import metadataJson from "@/content/hub/metadata.json";
 import { FeedLayout } from "@/components/hub/feed-layout";
 import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+import { FeaturedPicks } from "@/components/hub/featured-picks";
 import { StatsBanner } from "@/components/hub/stats-banner";
 import { APP_NAME } from "@tulmek/config/constants";
 
 const articles = feedData as FeedArticle[];
 const feedMeta = metadataJson as FeedMetadata;
+const BUILD_TIME = new Date(feedMeta.lastRefreshedAt).getTime();
 
 export const metadata: Metadata = {
   title: `Knowledge Hub — ${APP_NAME}`,
@@ -54,6 +56,9 @@ export default function HubPage() {
         articles={articles}
         lastRefreshedAt={feedMeta.lastRefreshedAt}
       />
+
+      {/* Featured Picks */}
+      <FeaturedPicks articles={articles} nowMs={BUILD_TIME} />
 
       {/* Feed — wrapped in Suspense for nuqs URL state */}
       <Suspense fallback={<FeedSkeleton />}>
