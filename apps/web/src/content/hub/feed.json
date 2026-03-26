@@ -12,7 +12,7 @@
       "leetcode",
       "Discussion"
     ],
-    "excerpt": "Edit: Apologies, the post turned out a bit longer than I thought it would. Summary at the bottom.  Yup, it sounds ridiculous, but I cracked a FAANG+ offer by studying just 30 minutes a day. I’m not ta",
+    "excerpt": "Edit: Apologies, the post turned out a bit longer than I thought it would. Summary at the bottom.  Yup, it sounds ridiculous, but I cracked a FAANG+ offer by studying just 30 minutes a day. I\u2019m not ta",
     "publishedAt": "2025-05-14T23:00:16.000Z",
     "score": 4435,
     "commentCount": 279,
@@ -52,7 +52,7 @@
     "tags": [
       "cscareerquestions"
     ],
-    "excerpt": "Hey all,  We actually have open SWE positions.  And our applicants? Ex-FAANG. I’ve never seen this before in my entire career. Usually we get bottom talent, because who wants to do insurance.  Well no",
+    "excerpt": "Hey all,  We actually have open SWE positions.  And our applicants? Ex-FAANG. I\u2019ve never seen this before in my entire career. Usually we get bottom talent, because who wants to do insurance.  Well no",
     "publishedAt": "2026-03-25T03:38:15.000Z",
     "score": 1245,
     "commentCount": 193,
@@ -72,7 +72,7 @@
     "tags": [
       "cscareerquestions"
     ],
-    "excerpt": "After being laid off, a programmer became a welder. One day while working, he suddenly muttered to himself, “It’s been so long, I’ve even forgotten how to solve three sum.”   A coworker next to him qu",
+    "excerpt": "After being laid off, a programmer became a welder. One day while working, he suddenly muttered to himself, \u201cIt\u2019s been so long, I\u2019ve even forgotten how to solve three sum.\u201d   A coworker next to him qu",
     "publishedAt": "2026-03-25T14:30:49.000Z",
     "score": 700,
     "commentCount": 67,
@@ -155,7 +155,7 @@
       "leetcode",
       "Discussion"
     ],
-    "excerpt": "I know how frustrating DSA feels in the beginning.   You read a question… and it just doesn’t make sense.  I went through the same thing.  So instead of jumping into hard stuff, I focused on very basi",
+    "excerpt": "I know how frustrating DSA feels in the beginning.   You read a question\u2026 and it just doesn\u2019t make sense.  I went through the same thing.  So instead of jumping into hard stuff, I focused on very basi",
     "publishedAt": "2026-03-25T09:26:39.000Z",
     "score": 527,
     "commentCount": 32,
@@ -288,7 +288,7 @@
   },
   {
     "id": "reddit:1s3j3ef",
-    "title": "[D] Is LeCun’s $1B seed round the signal that autoregressive LLMs have actually hit a wall for formal reasoning?",
+    "title": "[D] Is LeCun\u2019s $1B seed round the signal that autoregressive LLMs have actually hit a wall for formal reasoning?",
     "url": "https://www.reddit.com/r/MachineLearning/comments/1s3j3ef/d_is_lecuns_1b_seed_round_the_signal_that/",
     "source": "reddit",
     "sourceName": "r/MachineLearning",
@@ -299,7 +299,7 @@
       "MachineLearning",
       "Discussion"
     ],
-    "excerpt": "I’m still trying to wrap my head around the [Bloomberg news](https://www.bloomberg.com/news/articles/2026-03-10/yann-lecun-s-new-ai-startup-raises-1-billion-in-seed-funding) from a couple of weeks ago",
+    "excerpt": "I\u2019m still trying to wrap my head around the [Bloomberg news](https://www.bloomberg.com/news/articles/2026-03-10/yann-lecun-s-new-ai-startup-raises-1-billion-in-seed-funding) from a couple of weeks ago",
     "publishedAt": "2026-03-25T18:32:19.000Z",
     "score": 231,
     "commentCount": 87,
@@ -372,7 +372,7 @@
   },
   {
     "id": "reddit:1ryy02k",
-    "title": "Almost 15 years since the article “The Sexiest Job of the 21st Century\". How come we still don’t have a standardized interview process?",
+    "title": "Almost 15 years since the article \u201cThe Sexiest Job of the 21st Century\". How come we still don\u2019t have a standardized interview process?",
     "url": "https://www.reddit.com/r/datascience/comments/1ryy02k/almost_15_years_since_the_article_the_sexiest_job/",
     "source": "reddit",
     "sourceName": "r/datascience",
@@ -383,7 +383,7 @@
       "datascience",
       "Discussion"
     ],
-    "excerpt": "Data science isn’t really “new” anymore, but somehow the hardest part is still getting through interviews, not actually doing the job.  Maybe it’s the market, maybe it’s the field, but if you’re tryin",
+    "excerpt": "Data science isn\u2019t really \u201cnew\u201d anymore, but somehow the hardest part is still getting through interviews, not actually doing the job.  Maybe it\u2019s the market, maybe it\u2019s the field, but if you\u2019re tryin",
     "publishedAt": "2026-03-20T14:37:45.000Z",
     "score": 182,
     "commentCount": 76,
@@ -404,7 +404,7 @@
       "ExperiencedDevs",
       "Career/Workplace"
     ],
-    "excerpt": "I left a super small startup that had non required on call to join a larger startup that has rotations every 3 weeks and hands on keyboard in 15min. It’s for a week at a time  I knew about on call and",
+    "excerpt": "I left a super small startup that had non required on call to join a larger startup that has rotations every 3 weeks and hands on keyboard in 15min. It\u2019s for a week at a time  I knew about on call and",
     "publishedAt": "2026-03-24T21:43:12.000Z",
     "score": 180,
     "commentCount": 180,
@@ -508,7 +508,7 @@
       "MachineLearning",
       "Discussion"
     ],
-    "excerpt": "Hello! I started my PhD a year and a half ago, and I feel like when I did everyone was kind of dismissive of how much/little theoretical knowledge I have or am missing.  Now that I’ve been here a year",
+    "excerpt": "Hello! I started my PhD a year and a half ago, and I feel like when I did everyone was kind of dismissive of how much/little theoretical knowledge I have or am missing.  Now that I\u2019ve been here a year",
     "publishedAt": "2026-03-25T13:13:18.000Z",
     "score": 132,
     "commentCount": 38,
@@ -591,7 +591,7 @@
     "tags": [
       "programming"
     ],
-    "excerpt": "litellm, a famous python package got compromised and it executes on your system without even importing it — cloud creds, SSH keys, K8s secrets, crypto wallets, env vars and what not, all exfiltrated t",
+    "excerpt": "litellm, a famous python package got compromised and it executes on your system without even importing it \u2014 cloud creds, SSH keys, K8s secrets, crypto wallets, env vars and what not, all exfiltrated t",
     "publishedAt": "2026-03-24T15:33:36.000Z",
     "score": 112,
     "commentCount": 16,
@@ -612,7 +612,7 @@
       "ExperiencedDevs",
       "Career/Workplace"
     ],
-    "excerpt": "I’m trying to make sense of a situation and mostly looking to hear from others who’ve been through something similar.  I was recently asked to choose between going on a PIP or leaving. The feedback wa",
+    "excerpt": "I\u2019m trying to make sense of a situation and mostly looking to hear from others who\u2019ve been through something similar.  I was recently asked to choose between going on a PIP or leaving. The feedback wa",
     "publishedAt": "2026-03-26T03:50:33.000Z",
     "score": 110,
     "commentCount": 61,
@@ -622,7 +622,7 @@
   },
   {
     "id": "hackernews:47364116",
-    "title": "Launch HN: Spine Swarm (YC S23) – AI agents that collaborate on a visual canvas",
+    "title": "Launch HN: Spine Swarm (YC S23) \u2013 AI agents that collaborate on a visual canvas",
     "url": "https://www.getspine.ai/",
     "source": "hackernews",
     "sourceName": "Hacker News",
@@ -635,7 +635,7 @@
       "story_47364116",
       "launch_hn"
     ],
-    "excerpt": "Launch HN: Spine Swarm (YC S23) – AI agents that collaborate on a visual canvas",
+    "excerpt": "Launch HN: Spine Swarm (YC S23) \u2013 AI agents that collaborate on a visual canvas",
     "publishedAt": "2026-03-13T13:22:40Z",
     "score": 109,
     "commentCount": 69,
@@ -706,7 +706,7 @@
   },
   {
     "id": "reddit:1s36xha",
-    "title": "Small features don’t feel “small” anymore",
+    "title": "Small features don\u2019t feel \u201csmall\u201d anymore",
     "url": "https://www.reddit.com/r/ExperiencedDevs/comments/1s36xha/small_features_dont_feel_small_anymore/",
     "source": "reddit",
     "sourceName": "r/ExperiencedDevs",
@@ -717,7 +717,7 @@
       "ExperiencedDevs",
       "Technical question"
     ],
-    "excerpt": "I’ve been noticing a shift in how small changes behave when you’re using AI tools regularly, and it’s been bothering me more over the past few weeks.    A change that used to be trivial, something lik",
+    "excerpt": "I\u2019ve been noticing a shift in how small changes behave when you\u2019re using AI tools regularly, and it\u2019s been bothering me more over the past few weeks.    A change that used to be trivial, something lik",
     "publishedAt": "2026-03-25T10:27:06.000Z",
     "score": 88,
     "commentCount": 81,
@@ -845,7 +845,7 @@
       "cscareerquestions",
       "Meta"
     ],
-    "excerpt": "And most of the time they’re just posting AI slop with with AI generated infographics. Don’t forget the “ex-big tech” in their handle",
+    "excerpt": "And most of the time they\u2019re just posting AI slop with with AI generated infographics. Don\u2019t forget the \u201cex-big tech\u201d in their handle",
     "publishedAt": "2026-03-26T09:03:19.000Z",
     "score": 72,
     "commentCount": 21,
@@ -866,7 +866,7 @@
       "ExperiencedDevs",
       "Career/Workplace"
     ],
-    "excerpt": "Even after years of experience, I still get that slight hesitation before opening a PR.  Not because I don’t know what I’m doing, but more like: “Did I miss something obvious?” “Is there a much simple",
+    "excerpt": "Even after years of experience, I still get that slight hesitation before opening a PR.  Not because I don\u2019t know what I\u2019m doing, but more like: \u201cDid I miss something obvious?\u201d \u201cIs there a much simple",
     "publishedAt": "2026-03-25T07:43:09.000Z",
     "score": 71,
     "commentCount": 59,
@@ -920,7 +920,7 @@
   },
   {
     "id": "reddit:1s3wl49",
-    "title": "2-year gap after graduation despite strong DSA + projects — feeling stuck, need honest advice",
+    "title": "2-year gap after graduation despite strong DSA + projects \u2014 feeling stuck, need honest advice",
     "url": "https://www.reddit.com/r/leetcode/comments/1s3wl49/2year_gap_after_graduation_despite_strong_dsa/",
     "source": "reddit",
     "sourceName": "r/leetcode",
@@ -931,7 +931,7 @@
       "leetcode",
       "Discussion"
     ],
-    "excerpt": "Hi everyone,  I graduated in June 2024 with a BTech in Computer Science (Tier 3). Since then, I’ve been consistently working on improving myself:  * Solved 1200+ DSA problems on LeetCode * Built real-",
+    "excerpt": "Hi everyone,  I graduated in June 2024 with a BTech in Computer Science (Tier 3). Since then, I\u2019ve been consistently working on improving myself:  * Solved 1200+ DSA problems on LeetCode * Built real-",
     "publishedAt": "2026-03-26T03:31:40.000Z",
     "score": 65,
     "commentCount": 39,
@@ -1137,7 +1137,7 @@
   },
   {
     "id": "devto:3378072",
-    "title": "Why hiring junior developers pays off more than you think (I’ve lived it firsthand)",
+    "title": "Why hiring junior developers pays off more than you think (I\u2019ve lived it firsthand)",
     "url": "https://dev.to/javz/why-hiring-junior-developers-pays-off-more-than-you-think-ive-lived-it-firsthand-1lg2",
     "source": "devto",
     "sourceName": "DEV Community",
@@ -1205,7 +1205,7 @@
   },
   {
     "id": "reddit:1s3syh1",
-    "title": "Does jargon quietly cap an engineer’s influence?",
+    "title": "Does jargon quietly cap an engineer\u2019s influence?",
     "url": "https://www.reddit.com/r/ExperiencedDevs/comments/1s3syh1/does_jargon_quietly_cap_an_engineers_influence/",
     "source": "reddit",
     "sourceName": "r/ExperiencedDevs",
@@ -1216,7 +1216,7 @@
       "ExperiencedDevs",
       "Technical question"
     ],
-    "excerpt": "I’ve seen engineers use technical language as a credibility signal for years. Sometimes it helps. A lot of times it seems to do the opposite. Not because the engineer is wrong. Because the room they’r",
+    "excerpt": "I\u2019ve seen engineers use technical language as a credibility signal for years. Sometimes it helps. A lot of times it seems to do the opposite. Not because the engineer is wrong. Because the room they\u2019r",
     "publishedAt": "2026-03-26T00:48:33.000Z",
     "score": 46,
     "commentCount": 71,
@@ -1226,7 +1226,7 @@
   },
   {
     "id": "devto:3395533",
-    "title": "I’m Learning AI in Public, and I Think Developers Need to Chill a Bit",
+    "title": "I\u2019m Learning AI in Public, and I Think Developers Need to Chill a Bit",
     "url": "https://dev.to/jon_at_backboardio/im-learning-ai-in-public-and-i-think-developers-need-to-chill-a-bit-31d2",
     "source": "devto",
     "sourceName": "DEV Community",
@@ -1239,7 +1239,7 @@
       "devrel",
       "programming"
     ],
-    "excerpt": "I’ve been going hard learning AI and tech. Building, breaking stuff, rebuilding it, reading docs at...",
+    "excerpt": "I\u2019ve been going hard learning AI and tech. Building, breaking stuff, rebuilding it, reading docs at...",
     "publishedAt": "2026-03-24T14:53:30Z",
     "score": 46,
     "commentCount": 10,
@@ -1308,7 +1308,7 @@
       "googlecloud",
       "agents"
     ],
-    "excerpt": "Experimenting with Agent skills for the first time, feeling empowered!    Last week, I was at an...",
+    "excerpt": "Experimenting with Agent skills for the first time, feeling empowered!  \u00a0 Last week, I was at an...",
     "publishedAt": "2026-03-20T15:23:02Z",
     "score": 41,
     "commentCount": 2,
@@ -1382,7 +1382,7 @@
   },
   {
     "id": "devto:3391606",
-    "title": "✅ Benefits of the FTI Architecture — The Cleanest Way to Build Production ML Systems✅",
+    "title": "\u2705 Benefits of the FTI Architecture \u2014 The Cleanest Way to Build Production ML Systems\u2705",
     "url": "https://dev.to/tomorrmonkey/benefits-of-the-fti-architecture-the-cleanest-way-to-build-production-ml-systems-222",
     "source": "devto",
     "sourceName": "DEV Community",
@@ -1468,7 +1468,7 @@
   },
   {
     "id": "reddit:1s3tsin",
-    "title": "F1 student graduating in May — 1,500+ applications, almost no callbacks. Can someone please give honest resume feedback?",
+    "title": "F1 student graduating in May \u2014 1,500+ applications, almost no callbacks. Can someone please give honest resume feedback?",
     "url": "https://www.reddit.com/r/leetcode/comments/1s3tsin/f1_student_graduating_in_may_1500_applications/",
     "source": "reddit",
     "sourceName": "r/leetcode",
@@ -1479,7 +1479,7 @@
       "leetcode",
       "Question"
     ],
-    "excerpt": "Hey everyone,  I’m an F-1 international student in the US, currently in the last semester of my MS in Computer Science, and I’ll be graduating in May.  I’ve applied to somewhere between 1,500 and 2,00",
+    "excerpt": "Hey everyone,  I\u2019m an F-1 international student in the US, currently in the last semester of my MS in Computer Science, and I\u2019ll be graduating in May.  I\u2019ve applied to somewhere between 1,500 and 2,00",
     "publishedAt": "2026-03-26T01:24:57.000Z",
     "score": 35,
     "commentCount": 43,
@@ -1513,7 +1513,7 @@
   {
     "id": "reddit:1rwcm4s",
     "title": "Nobody talks about the career trap that's about to get a lot more dangerous for analysts",
-    "url": "/r/mavenanalytics/comments/1rwcknm/nobody_talks_about_the_career_trap_thats_about_to/",
+    "url": "https://www.reddit.com/r/mavenanalytics/comments/1rwcknm/nobody_talks_about_the_career_trap_thats_about_to/",
     "source": "reddit",
     "sourceName": "r/datascience",
     "sourceIcon": "https://www.reddit.com/favicon.ico",
@@ -1533,7 +1533,7 @@
   },
   {
     "id": "devto:3381788",
-    "title": "How I Almost Burned Out Doing Everything “Right”",
+    "title": "How I Almost Burned Out Doing Everything \u201cRight\u201d",
     "url": "https://dev.to/sylwia-lask/how-i-almost-burned-out-doing-everything-right-31j6",
     "source": "devto",
     "sourceName": "DEV Community",
@@ -1588,7 +1588,7 @@
       "datascience",
       "Discussion"
     ],
-    "excerpt": "for context: i’m an international candidate currently interviewing for data/analytics roles. i’ve been wondering how much more emphasis there is on how you explain your thinking vs. just getting the c",
+    "excerpt": "for context: i\u2019m an international candidate currently interviewing for data/analytics roles. i\u2019ve been wondering how much more emphasis there is on how you explain your thinking vs. just getting the c",
     "publishedAt": "2026-03-19T16:07:38.000Z",
     "score": 29,
     "commentCount": 32,
@@ -1609,7 +1609,7 @@
       "MachineLearning",
       "Research"
     ],
-    "excerpt": "We’ve been working on a probabilistic interpretation of causal self-attention where token embeddings are treated as latent variables. In that view, the attention map induces a change-of-variables term",
+    "excerpt": "We\u2019ve been working on a probabilistic interpretation of causal self-attention where token embeddings are treated as latent variables. In that view, the attention map induces a change-of-variables term",
     "publishedAt": "2026-03-24T04:37:53.000Z",
     "score": 27,
     "commentCount": 5,
@@ -1697,7 +1697,7 @@
       "MachineLearning",
       "Discussion"
     ],
-    "excerpt": "Hey everyone, 4th year Physics PhD here doing applied ML (surrogate models for fluid dynamics). I’m trying to finalize my summer 2026 internship and I'm totally torn between two offers, mostly because",
+    "excerpt": "Hey everyone, 4th year Physics PhD here doing applied ML (surrogate models for fluid dynamics). I\u2019m trying to finalize my summer 2026 internship and I'm totally torn between two offers, mostly because",
     "publishedAt": "2026-03-24T01:54:11.000Z",
     "score": 24,
     "commentCount": 13,
@@ -1867,7 +1867,7 @@
       "datascience",
       "Projects"
     ],
-    "excerpt": "I gave this talk at an event called DataFest last November, and it did really well, so I thought it might be useful to share it more broadly. That session wasn’t recorded, so I’m running it again as a",
+    "excerpt": "I gave this talk at an event called DataFest last November, and it did really well, so I thought it might be useful to share it more broadly. That session wasn\u2019t recorded, so I\u2019m running it again as a",
     "publishedAt": "2026-03-23T16:16:26.000Z",
     "score": 18,
     "commentCount": 18,
@@ -1909,7 +1909,7 @@
       "leetcode",
       "Discussion"
     ],
-    "excerpt": "Title… Definitely brutal this sucks I was given feedback that i did very well in other rounds but recruiter told me “priority shift” was to cause for role being sunset. i spent about a month in interv",
+    "excerpt": "Title\u2026 Definitely brutal this sucks I was given feedback that i did very well in other rounds but recruiter told me \u201cpriority shift\u201d was to cause for role being sunset. i spent about a month in interv",
     "publishedAt": "2026-03-25T22:48:36.000Z",
     "score": 16,
     "commentCount": 16,
@@ -2012,7 +2012,7 @@
     "tags": [
       "leetcode"
     ],
-    "excerpt": "Hello everyone - this community is in need of a few new mods, and you can use the comments on this post to let us know why you’d like to be a mod here.   Priority is given to redditors who have past a",
+    "excerpt": "Hello everyone - this community is in need of a few new mods, and you can use the comments on this post to let us know why you\u2019d like to be a mod here.\u00a0  Priority is given to redditors who have past a",
     "publishedAt": "2026-03-12T15:29:17.000Z",
     "score": 14,
     "commentCount": 29,
@@ -2079,7 +2079,7 @@
       "MachineLearning",
       "Research"
     ],
-    "excerpt": "We're a small ML team for a project and we keep running into the same wall: large preprocessing jobs (think 50–100GB datasets) running on a single machine take hours, and when something fails halfway",
+    "excerpt": "We're a small ML team for a project and we keep running into the same wall: large preprocessing jobs (think 50\u2013100GB datasets) running on a single machine take hours, and when something fails halfway",
     "publishedAt": "2026-03-24T21:07:11.000Z",
     "score": 12,
     "commentCount": 13,
@@ -2113,7 +2113,7 @@
   {
     "id": "reddit:1s3b69m",
     "title": "Data Science interview questions from my time hiring",
-    "url": "/r/learndatascience/comments/1s3b46w/data_science_interview_questions_from_my_time/",
+    "url": "https://www.reddit.com/r/learndatascience/comments/1s3b46w/data_science_interview_questions_from_my_time/",
     "source": "reddit",
     "sourceName": "r/datascience",
     "sourceIcon": "https://www.reddit.com/favicon.ico",
@@ -2212,7 +2212,7 @@
       "developers",
       "automation"
     ],
-    "excerpt": "Chatbots were only the beginning. The real revolution is tool-using AI agents—systems that don’t just...",
+    "excerpt": "Chatbots were only the beginning. The real revolution is tool-using AI agents\u2014systems that don\u2019t just...",
     "publishedAt": "2026-03-20T23:00:00Z",
     "score": 9,
     "commentCount": 1,
@@ -2295,7 +2295,7 @@
       "cscareerquestions",
       "Experienced"
     ],
-    "excerpt": "Hi all,  I am a security engineer in the Chicago area.  My company was recently acquired by “BigSecurityCompany”. You definitely know this security company. My existing role was pretty high-level but",
+    "excerpt": "Hi all,  I am a security engineer in the Chicago area.  My company was recently acquired by \u201cBigSecurityCompany\u201d. You definitely know this security company. My existing role was pretty high-level but",
     "publishedAt": "2026-03-26T14:53:54.000Z",
     "score": 7,
     "commentCount": 3,
@@ -2474,7 +2474,7 @@
   },
   {
     "id": "reddit:1s3v9ok",
-    "title": "eBay Cloud Platform Software Engineer interview — CodeSignal experience? (Engineering Systems Tools team, Toronto)",
+    "title": "eBay Cloud Platform Software Engineer interview \u2014 CodeSignal experience? (Engineering Systems Tools team, Toronto)",
     "url": "https://www.reddit.com/r/leetcode/comments/1s3v9ok/ebay_cloud_platform_software_engineer_interview/",
     "source": "reddit",
     "sourceName": "r/leetcode",
@@ -2485,7 +2485,7 @@
       "leetcode",
       "Intervew Prep"
     ],
-    "excerpt": "\\*\\*eBay Cloud Platform Software Engineer interview — CodeSignal experience? (Engineering Systems Tools team, Toronto)\\*\\*  Hey everyone, I have a CodeSignal live coding interview coming up for the \\*",
+    "excerpt": "\\*\\*eBay Cloud Platform Software Engineer interview \u2014 CodeSignal experience? (Engineering Systems Tools team, Toronto)\\*\\*  Hey everyone, I have a CodeSignal live coding interview coming up for the \\*",
     "publishedAt": "2026-03-26T02:30:21.000Z",
     "score": 6,
     "commentCount": 4,
@@ -2560,7 +2560,7 @@
   },
   {
     "id": "devto:3369085",
-    "title": "Arrays: Los bloques fundamentales de la programación",
+    "title": "Arrays: Los bloques fundamentales de la programaci\u00f3n",
     "url": "https://dev.to/aws/arrays-los-bloques-fundamentales-de-la-programacion-3jmf",
     "source": "devto",
     "sourceName": "DEV Community",
@@ -2573,7 +2573,7 @@
       "beginners",
       "coding"
     ],
-    "excerpt": "Bienvenido a esta serie de artículos donde cubrimos temas fundamentales de computación. Hoy...",
+    "excerpt": "Bienvenido a esta serie de art\u00edculos donde cubrimos temas fundamentales de computaci\u00f3n. Hoy...",
     "publishedAt": "2026-03-20T18:40:05Z",
     "score": 6,
     "commentCount": 0,
@@ -2746,7 +2746,7 @@
       "interview",
       "constructor"
     ],
-    "excerpt": "Ever tried to build a house without a foundation? Or maybe you’ve tried to order a \"Double...",
+    "excerpt": "Ever tried to build a house without a foundation? Or maybe you\u2019ve tried to order a \"Double...",
     "publishedAt": "2026-03-23T15:51:05Z",
     "score": 5,
     "commentCount": 0,
@@ -2756,7 +2756,7 @@
   },
   {
     "id": "hackernews:47472965",
-    "title": "Show HN: ClawMem – Open-source agent memory with SOTA local GPU retrieval",
+    "title": "Show HN: ClawMem \u2013 Open-source agent memory with SOTA local GPU retrieval",
     "url": "https://github.com/yoloshii/ClawMem",
     "source": "hackernews",
     "sourceName": "Hacker News",
@@ -2769,7 +2769,7 @@
       "story_47472965",
       "show_hn"
     ],
-    "excerpt": "Show HN: ClawMem – Open-source agent memory with SOTA local GPU retrieval",
+    "excerpt": "Show HN: ClawMem \u2013 Open-source agent memory with SOTA local GPU retrieval",
     "publishedAt": "2026-03-22T00:13:15Z",
     "score": 5,
     "commentCount": 0,
@@ -2799,7 +2799,7 @@
   },
   {
     "id": "hackernews:47532331",
-    "title": "Show HN: Micro – apps without ads, algorithms or tracking",
+    "title": "Show HN: Micro \u2013 apps without ads, algorithms or tracking",
     "url": "https://micro.mu",
     "source": "hackernews",
     "sourceName": "Hacker News",
@@ -2812,7 +2812,7 @@
       "story_47532331",
       "show_hn"
     ],
-    "excerpt": "Show HN: Micro – apps without ads, algorithms or tracking",
+    "excerpt": "Show HN: Micro \u2013 apps without ads, algorithms or tracking",
     "publishedAt": "2026-03-26T16:14:15Z",
     "score": 4,
     "commentCount": 0,
@@ -2950,7 +2950,7 @@
   },
   {
     "id": "hackernews:47496950",
-    "title": "Manitoba Moves to Outlaw Algorithmic Pricing–A First in Canada",
+    "title": "Manitoba Moves to Outlaw Algorithmic Pricing\u2013A First in Canada",
     "url": "https://thewalrus.ca/manitoba-moves-against-retailers-charging-different-prices-for-the-same-goods/",
     "source": "hackernews",
     "sourceName": "Hacker News",
@@ -2962,7 +2962,7 @@
       "author_pseudolus",
       "story_47496950"
     ],
-    "excerpt": "Manitoba Moves to Outlaw Algorithmic Pricing–A First in Canada",
+    "excerpt": "Manitoba Moves to Outlaw Algorithmic Pricing\u2013A First in Canada",
     "publishedAt": "2026-03-24T00:12:01Z",
     "score": 4,
     "commentCount": 0,
@@ -3122,7 +3122,7 @@
   {
     "id": "reddit:1s469bh",
     "title": "Amazon Business - SDE2 - Spain",
-    "url": "/r/cscareerquestionsEU/comments/1s468t0/amazon_business_sde2_spain/",
+    "url": "https://www.reddit.com/r/cscareerquestionsEU/comments/1s468t0/amazon_business_sde2_spain/",
     "source": "reddit",
     "sourceName": "r/leetcode",
     "sourceIcon": "https://www.reddit.com/favicon.ico",
@@ -3195,7 +3195,7 @@
       "artificial",
       "Engineering"
     ],
-    "excerpt": "\"As AI processing demands reach the limits of current CMOS technology, neuromorphic computing—hardware and software that mimic the human brain's structure—can help process information faster and more",
+    "excerpt": "\"As AI processing demands reach the limits of current CMOS technology, neuromorphic computing\u2014hardware and software that mimic the human brain's structure\u2014can help process information faster and more",
     "publishedAt": "2026-03-25T22:24:44.000Z",
     "score": 3,
     "commentCount": 0,
@@ -3292,7 +3292,7 @@
   },
   {
     "id": "hackernews:47505624",
-    "title": "Show HN: HiredToday.app – AI resume tailoring, cover letters and interview prep",
+    "title": "Show HN: HiredToday.app \u2013 AI resume tailoring, cover letters and interview prep",
     "url": "https://www.hiredtoday.app",
     "source": "hackernews",
     "sourceName": "Hacker News",
@@ -3305,7 +3305,7 @@
       "story_47505624",
       "show_hn"
     ],
-    "excerpt": "Show HN: HiredToday.app – AI resume tailoring, cover letters and interview prep",
+    "excerpt": "Show HN: HiredToday.app \u2013 AI resume tailoring, cover letters and interview prep",
     "publishedAt": "2026-03-24T16:51:33Z",
     "score": 3,
     "commentCount": 0,
@@ -3360,7 +3360,7 @@
   },
   {
     "id": "hackernews:47491826",
-    "title": "Show HN: Wire Memory – Persistent cross-session memory for Claude Code",
+    "title": "Show HN: Wire Memory \u2013 Persistent cross-session memory for Claude Code",
     "url": "https://github.com/usewire/wire-memory",
     "source": "hackernews",
     "sourceName": "Hacker News",
@@ -3373,7 +3373,7 @@
       "story_47491826",
       "show_hn"
     ],
-    "excerpt": "Show HN: Wire Memory – Persistent cross-session memory for Claude Code",
+    "excerpt": "Show HN: Wire Memory \u2013 Persistent cross-session memory for Claude Code",
     "publishedAt": "2026-03-23T16:38:22Z",
     "score": 3,
     "commentCount": 0,
@@ -3396,7 +3396,7 @@
       "python",
       "performanceoptimization"
     ],
-    "excerpt": "Flash-KMeans brings Flash Attention-style optimizations to K-Means clustering — 5-16x faster with less memory. Here's what it means for your ML pipelines.",
+    "excerpt": "Flash-KMeans brings Flash Attention-style optimizations to K-Means clustering \u2014 5-16x faster with less memory. Here's what it means for your ML pipelines.",
     "publishedAt": "2026-03-21T20:55:10Z",
     "score": 3,
     "commentCount": 1,
@@ -3521,7 +3521,7 @@
       "artificial",
       "Discussion"
     ],
-    "excerpt": "hi, been thinking about this a lot lately. i’m currently learning 3 foreign languages and my experience has been… interesting, to say the least.  been working on my skills with tutors, books, some app",
+    "excerpt": "hi, been thinking about this a lot lately. i\u2019m currently learning 3 foreign languages and my experience has been\u2026 interesting, to say the least.  been working on my skills with tutors, books, some app",
     "publishedAt": "2026-03-26T16:14:48.000Z",
     "score": 2,
     "commentCount": 3,
@@ -3628,7 +3628,7 @@
       "leetcode",
       "Discussion"
     ],
-    "excerpt": "Has anyone’s build challenge status changed from ‘In Review’ to ‘Completed’ after a few days?",
+    "excerpt": "Has anyone\u2019s build challenge status changed from \u2018In Review\u2019 to \u2018Completed\u2019 after a few days?",
     "publishedAt": "2026-03-26T11:26:45.000Z",
     "score": 2,
     "commentCount": 0,
@@ -3759,7 +3759,7 @@
       "MachineLearning",
       "Project"
     ],
-    "excerpt": "Hey everyone,  I’ve been working on the idea of taking Scientific AI out of research notebooks and making it accessible as a useful real-time tool. I just finished the first interactive demo, and I’d",
+    "excerpt": "Hey everyone,  I\u2019ve been working on the idea of taking Scientific AI out of research notebooks and making it accessible as a useful real-time tool. I just finished the first interactive demo, and I\u2019d",
     "publishedAt": "2026-03-25T12:02:34.000Z",
     "score": 2,
     "commentCount": 0,
@@ -3814,7 +3814,7 @@
   },
   {
     "id": "hackernews:47507454",
-    "title": "Show HN: Clarity – An AI Slack coach for better work communication",
+    "title": "Show HN: Clarity \u2013 An AI Slack coach for better work communication",
     "url": "https://clarity.rocktangle.com/",
     "source": "hackernews",
     "sourceName": "Hacker News",
@@ -3827,7 +3827,7 @@
       "story_47507454",
       "show_hn"
     ],
-    "excerpt": "Show HN: Clarity – An AI Slack coach for better work communication",
+    "excerpt": "Show HN: Clarity \u2013 An AI Slack coach for better work communication",
     "publishedAt": "2026-03-24T18:55:09Z",
     "score": 2,
     "commentCount": 0,
@@ -3915,7 +3915,7 @@
       "MachineLearning",
       "Research"
     ],
-    "excerpt": "Hey there, we’re sharing KidGym, an interactive 2D grid-based benchmark for evaluating MLLMs in continuous, trajectory-based interaction, accepted to **ICLR 2026**.  Motivation: Many existing MLLM ben",
+    "excerpt": "Hey there, we\u2019re sharing KidGym, an interactive 2D grid-based benchmark for evaluating MLLMs in continuous, trajectory-based interaction, accepted to **ICLR 2026**.  Motivation: Many existing MLLM ben",
     "publishedAt": "2026-03-24T12:39:35.000Z",
     "score": 2,
     "commentCount": 1,
@@ -3938,7 +3938,7 @@
       "dataengineering",
       "systemdesign"
     ],
-    "excerpt": "Why Did Kafka Come Into the Picture?  Before jumping into understanding Kafka, let’s first understand...",
+    "excerpt": "Why Did Kafka Come Into the Picture?  Before jumping into understanding Kafka, let\u2019s first understand...",
     "publishedAt": "2026-03-23T21:39:24Z",
     "score": 2,
     "commentCount": 0,
@@ -4059,7 +4059,7 @@
   },
   {
     "id": "devto:3385223",
-    "title": "I Built 26 AI Career Tools for Claude Code — Here's What I Learned",
+    "title": "I Built 26 AI Career Tools for Claude Code \u2014 Here's What I Learned",
     "url": "https://dev.to/ajitsingh25/i-built-26-ai-career-tools-for-claude-code-heres-what-i-learned-489k",
     "source": "devto",
     "sourceName": "DEV Community",
@@ -4070,7 +4070,7 @@
       "career",
       "opensource"
     ],
-    "excerpt": "Job hunting is a second full-time job. And if you're a developer, it's a particularly strange one —...",
+    "excerpt": "Job hunting is a second full-time job. And if you're a developer, it's a particularly strange one \u2014...",
     "publishedAt": "2026-03-22T16:49:08Z",
     "score": 2,
     "commentCount": 0,
@@ -4126,7 +4126,7 @@
   },
   {
     "id": "devto:3377777",
-    "title": "Reverse a Linked List – CA22",
+    "title": "Reverse a Linked List \u2013 CA22",
     "url": "https://dev.to/mohith_001/reverse-a-linked-list-ca22-4d0p",
     "source": "devto",
     "sourceName": "DEV Community",
@@ -4172,7 +4172,7 @@
   },
   {
     "id": "hackernews:47199406",
-    "title": "Show HN: InterviewTrackr – All-in-one command center for CS job hunts",
+    "title": "Show HN: InterviewTrackr \u2013 All-in-one command center for CS job hunts",
     "url": "https://interviewtrackr.com/",
     "source": "hackernews",
     "sourceName": "Hacker News",
@@ -4185,7 +4185,7 @@
       "story_47199406",
       "show_hn"
     ],
-    "excerpt": "Show HN: InterviewTrackr – All-in-one command center for CS job hunts",
+    "excerpt": "Show HN: InterviewTrackr \u2013 All-in-one command center for CS job hunts",
     "publishedAt": "2026-02-28T19:48:32Z",
     "score": 2,
     "commentCount": 0,
@@ -4195,7 +4195,7 @@
   },
   {
     "id": "hackernews:47155394",
-    "title": "Show HN: I built an AI senior architect – vibe coding meets system design",
+    "title": "Show HN: I built an AI senior architect \u2013 vibe coding meets system design",
     "url": "https://www.sysdesai.com",
     "source": "hackernews",
     "sourceName": "Hacker News",
@@ -4208,7 +4208,7 @@
       "story_47155394",
       "show_hn"
     ],
-    "excerpt": "Show HN: I built an AI senior architect – vibe coding meets system design",
+    "excerpt": "Show HN: I built an AI senior architect \u2013 vibe coding meets system design",
     "publishedAt": "2026-02-25T18:16:14Z",
     "score": 2,
     "commentCount": 2,
@@ -4218,7 +4218,7 @@
   },
   {
     "id": "hackernews:47113408",
-    "title": "Show HN: SharpSkill – LeetCode Alternative to Optimize Success in Tech ITW",
+    "title": "Show HN: SharpSkill \u2013 LeetCode Alternative to Optimize Success in Tech ITW",
     "url": "https://sharpskill.fr/en",
     "source": "hackernews",
     "sourceName": "Hacker News",
@@ -4231,7 +4231,7 @@
       "story_47113408",
       "show_hn"
     ],
-    "excerpt": "Show HN: SharpSkill – LeetCode Alternative to Optimize Success in Tech ITW",
+    "excerpt": "Show HN: SharpSkill \u2013 LeetCode Alternative to Optimize Success in Tech ITW",
     "publishedAt": "2026-02-22T18:29:50Z",
     "score": 2,
     "commentCount": 1,
@@ -4263,7 +4263,7 @@
   },
   {
     "id": "hackernews:47073956",
-    "title": "Show HN: PortLume AI – Auto-generate portfolios from GitHub and AI job tools",
+    "title": "Show HN: PortLume AI \u2013 Auto-generate portfolios from GitHub and AI job tools",
     "url": "https://portlumeai.com/",
     "source": "hackernews",
     "sourceName": "Hacker News",
@@ -4276,7 +4276,7 @@
       "story_47073956",
       "show_hn"
     ],
-    "excerpt": "Show HN: PortLume AI – Auto-generate portfolios from GitHub and AI job tools",
+    "excerpt": "Show HN: PortLume AI \u2013 Auto-generate portfolios from GitHub and AI job tools",
     "publishedAt": "2026-02-19T14:14:52Z",
     "score": 2,
     "commentCount": 0,
@@ -4353,7 +4353,7 @@
   },
   {
     "id": "hackernews:46204619",
-    "title": "Show HN: ADPList – free mentorship platform for developers and designers",
+    "title": "Show HN: ADPList \u2013 free mentorship platform for developers and designers",
     "url": "https://adplist.org/",
     "source": "hackernews",
     "sourceName": "Hacker News",
@@ -4366,7 +4366,7 @@
       "story_46204619",
       "show_hn"
     ],
-    "excerpt": "Show HN: ADPList – free mentorship platform for developers and designers",
+    "excerpt": "Show HN: ADPList \u2013 free mentorship platform for developers and designers",
     "publishedAt": "2025-12-09T13:16:43Z",
     "score": 2,
     "commentCount": 0,
@@ -4564,7 +4564,7 @@
   },
   {
     "id": "reddit:1s49ylx",
-    "title": "Passed interviews for two Google roles (L4 App Eng + SWE-SRE) — now in team matching. What should I expect, and how long does this take?",
+    "title": "Passed interviews for two Google roles (L4 App Eng + SWE-SRE) \u2014 now in team matching. What should I expect, and how long does this take?",
     "url": "https://www.reddit.com/r/leetcode/comments/1s49ylx/passed_interviews_for_two_google_roles_l4_app_eng/",
     "source": "reddit",
     "sourceName": "r/leetcode",
@@ -4607,7 +4607,7 @@
   {
     "id": "reddit:1s45ecn",
     "title": "Goldman Sachs SWE Associate - recent interview experience?",
-    "url": "/r/goldmansachs/comments/1s45dvg/goldman_sachs_swe_associate_recent_interview/",
+    "url": "https://www.reddit.com/r/goldmansachs/comments/1s45dvg/goldman_sachs_swe_associate_recent_interview/",
     "source": "reddit",
     "sourceName": "r/leetcode",
     "sourceIcon": "https://www.reddit.com/favicon.ico",
@@ -4683,7 +4683,7 @@
       "architecture",
       "database"
     ],
-    "excerpt": "By Design — Episode 01  In 2000, D. Richard Hipp built a database for a U.S. Navy destroyer. The...",
+    "excerpt": "By Design \u2014 Episode 01  In 2000, D. Richard Hipp built a database for a U.S. Navy destroyer. The...",
     "publishedAt": "2026-03-26T06:47:06Z",
     "score": 1,
     "commentCount": 0,
@@ -4693,7 +4693,7 @@
   },
   {
     "id": "reddit:1s3p4hm",
-    "title": "[R] How to apply for a reviewer role at NeurIPS ‘26?",
+    "title": "[R] How to apply for a reviewer role at NeurIPS \u201826?",
     "url": "https://www.reddit.com/r/MachineLearning/comments/1s3p4hm/r_how_to_apply_for_a_reviewer_role_at_neurips_26/",
     "source": "reddit",
     "sourceName": "r/MachineLearning",
@@ -4704,7 +4704,7 @@
       "MachineLearning",
       "Research"
     ],
-    "excerpt": "I just heard from a PhD student at my uni that they got an offer to be a NeurIPS reviewer. This was strange to me since they’ve never published at NeurIPS/ICML/ICLR and have only submitted to journals",
+    "excerpt": "I just heard from a PhD student at my uni that they got an offer to be a NeurIPS reviewer. This was strange to me since they\u2019ve never published at NeurIPS/ICML/ICLR and have only submitted to journals",
     "publishedAt": "2026-03-25T22:12:50.000Z",
     "score": 1,
     "commentCount": 19,
@@ -4727,7 +4727,7 @@
       "interview",
       "netsec"
     ],
-    "excerpt": "My personal answers to 10 real Security Engineering phone screen questions — covering TCP, cookies, sessions, OAuth2, JWT, PKI, TLS, symmetric/asymmetric crypto, and HMAC.",
+    "excerpt": "My personal answers to 10 real Security Engineering phone screen questions \u2014 covering TCP, cookies, sessions, OAuth2, JWT, PKI, TLS, symmetric/asymmetric crypto, and HMAC.",
     "publishedAt": "2026-03-25T19:37:13Z",
     "score": 1,
     "commentCount": 0,
@@ -4783,7 +4783,7 @@
   },
   {
     "id": "devto:3404128",
-    "title": "# I Overcomplicated This Grid Problem… Until Prefix Sum Saved Me",
+    "title": "# I Overcomplicated This Grid Problem\u2026 Until Prefix Sum Saved Me",
     "url": "https://dev.to/codewithishwar/-i-overcomplicated-this-grid-problem-until-prefix-sum-saved-me-2k32",
     "source": "devto",
     "sourceName": "DEV Community",
@@ -4796,7 +4796,7 @@
       "java",
       "programming"
     ],
-    "excerpt": "Sometimes the problem isn’t hard — we just make it harder.  While solving Equal Sum Grid Partition...",
+    "excerpt": "Sometimes the problem isn\u2019t hard \u2014 we just make it harder.  While solving Equal Sum Grid Partition...",
     "publishedAt": "2026-03-25T16:41:44Z",
     "score": 1,
     "commentCount": 0,
@@ -4851,7 +4851,7 @@
   },
   {
     "id": "hackernews:47516492",
-    "title": "Labuladong Algo Notes – Algorithm practice platform",
+    "title": "Labuladong Algo Notes \u2013 Algorithm practice platform",
     "url": "https://labuladong.online/en/",
     "source": "hackernews",
     "sourceName": "Hacker News",
@@ -4863,7 +4863,7 @@
       "author_Brysonbw",
       "story_47516492"
     ],
-    "excerpt": "Labuladong Algo Notes – Algorithm practice platform",
+    "excerpt": "Labuladong Algo Notes \u2013 Algorithm practice platform",
     "publishedAt": "2026-03-25T12:34:16Z",
     "score": 1,
     "commentCount": 0,
@@ -4873,7 +4873,7 @@
   },
   {
     "id": "devto:3400459",
-    "title": "Designing Google Maps / Location Service at Scale A System Design Deep Dive — Question by Question",
+    "title": "Designing Google Maps / Location Service at Scale A System Design Deep Dive \u2014 Question by Question",
     "url": "https://dev.to/shubham_pandeyconnoisse/designing-google-maps-location-service-at-scalea-system-design-deep-dive-question-by-question-a7e",
     "source": "devto",
     "sourceName": "DEV Community",
@@ -4919,7 +4919,7 @@
   },
   {
     "id": "hackernews:47510864",
-    "title": "Hash23 – A constexpr implementation of different hashing algorithms",
+    "title": "Hash23 \u2013 A constexpr implementation of different hashing algorithms",
     "url": "https://github.com/rwindegger/hash23",
     "source": "hackernews",
     "sourceName": "Hacker News",
@@ -4931,7 +4931,7 @@
       "author_superreeen",
       "story_47510864"
     ],
-    "excerpt": "Hash23 – A constexpr implementation of different hashing algorithms",
+    "excerpt": "Hash23 \u2013 A constexpr implementation of different hashing algorithms",
     "publishedAt": "2026-03-24T23:08:52Z",
     "score": 1,
     "commentCount": 0,
@@ -4954,7 +4954,7 @@
       "security",
       "machinelearning"
     ],
-    "excerpt": "Most AI systems today don’t just generate text. They actually take actions. They send emails, trigger...",
+    "excerpt": "Most AI systems today don\u2019t just generate text. They actually take actions. They send emails, trigger...",
     "publishedAt": "2026-03-24T20:49:24Z",
     "score": 1,
     "commentCount": 0,
@@ -4964,7 +4964,7 @@
   },
   {
     "id": "devto:3396092",
-    "title": "# Sorted Squares of a Sorted Array (Java) – Efficient Two-Pointer Approach",
+    "title": "# Sorted Squares of a Sorted Array (Java) \u2013 Efficient Two-Pointer Approach",
     "url": "https://dev.to/sharmi_sabari_09/-sorted-squares-of-a-sorted-array-java-efficient-two-pointer-approach-2bp5",
     "source": "devto",
     "sourceName": "DEV Community",
@@ -4977,7 +4977,7 @@
       "java",
       "leetcode"
     ],
-    "excerpt": "When working with sorted arrays, a seemingly simple transformation—like squaring each element—can...",
+    "excerpt": "When working with sorted arrays, a seemingly simple transformation\u2014like squaring each element\u2014can...",
     "publishedAt": "2026-03-24T17:06:40Z",
     "score": 1,
     "commentCount": 0,
@@ -5078,7 +5078,7 @@
   },
   {
     "id": "hackernews:47498262",
-    "title": "Show HN: QuarterMaster – Generate performance reviews from your GitHub activity",
+    "title": "Show HN: QuarterMaster \u2013 Generate performance reviews from your GitHub activity",
     "url": "https://github.com/imponenm/QuarterMaster",
     "source": "hackernews",
     "sourceName": "Hacker News",
@@ -5091,7 +5091,7 @@
       "story_47498262",
       "show_hn"
     ],
-    "excerpt": "Show HN: QuarterMaster – Generate performance reviews from your GitHub activity",
+    "excerpt": "Show HN: QuarterMaster \u2013 Generate performance reviews from your GitHub activity",
     "publishedAt": "2026-03-24T03:18:54Z",
     "score": 1,
     "commentCount": 0,
@@ -5101,7 +5101,7 @@
   },
   {
     "id": "hackernews:47498037",
-    "title": "Show HN: Picca – A Parallel Implementation of Common Checksum Algorithms",
+    "title": "Show HN: Picca \u2013 A Parallel Implementation of Common Checksum Algorithms",
     "url": "https://codeberg.org/bryson/picca",
     "source": "hackernews",
     "sourceName": "Hacker News",
@@ -5114,7 +5114,7 @@
       "story_47498037",
       "show_hn"
     ],
-    "excerpt": "Show HN: Picca – A Parallel Implementation of Common Checksum Algorithms",
+    "excerpt": "Show HN: Picca \u2013 A Parallel Implementation of Common Checksum Algorithms",
     "publishedAt": "2026-03-24T02:35:19Z",
     "score": 1,
     "commentCount": 1,
@@ -5292,7 +5292,7 @@
       "algorithms",
       "linkedlists"
     ],
-    "excerpt": "Merging Two Sorted Linked Lists            Problem   You’re given two sorted linked lists....",
+    "excerpt": "Merging Two Sorted Linked Lists            Problem   You\u2019re given two sorted linked lists....",
     "publishedAt": "2026-03-22T14:44:28Z",
     "score": 1,
     "commentCount": 0,
@@ -5361,7 +5361,7 @@
       "hackathon",
       "machinelearning"
     ],
-    "excerpt": "🚀 Introduction  Preparing for coding interviews is a challenging journey for students. Most coding...",
+    "excerpt": "\ud83d\ude80 Introduction  Preparing for coding interviews is a challenging journey for students. Most coding...",
     "publishedAt": "2026-03-21T19:40:09Z",
     "score": 1,
     "commentCount": 0,
@@ -5522,7 +5522,7 @@
       "princeofsongklauniversity",
       "deeplearning"
     ],
-    "excerpt": "Hello y'all, I'm back again in 2026🔥🔥  Last Wednesday I just had the opportunity to join in the...",
+    "excerpt": "Hello y'all, I'm back again in 2026\ud83d\udd25\ud83d\udd25  Last Wednesday I just had the opportunity to join in the...",
     "publishedAt": "2026-03-21T14:39:54Z",
     "score": 1,
     "commentCount": 0,
@@ -5545,7 +5545,7 @@
       "backenddevelopment",
       "architecture"
     ],
-    "excerpt": "How to Choose the Right Database for Your Use Case    \"There is no best database — only the...",
+    "excerpt": "How to Choose the Right Database for Your Use Case    \"There is no best database \u2014 only the...",
     "publishedAt": "2026-03-21T11:46:03Z",
     "score": 1,
     "commentCount": 0,
@@ -5555,7 +5555,7 @@
   },
   {
     "id": "devto:3380019",
-    "title": "Caching 101: The Ultimate Guide to Caching — From Basics to Production-Grade Strategies",
+    "title": "Caching 101: The Ultimate Guide to Caching \u2014 From Basics to Production-Grade Strategies",
     "url": "https://dev.to/ishaaan/caching-101-the-ultimate-guide-to-caching-from-basics-to-production-grade-strategies-2bhf",
     "source": "devto",
     "sourceName": "DEV Community",
@@ -5578,7 +5578,7 @@
   },
   {
     "id": "devto:3377556",
-    "title": "How AST Powers Modern Frameworks — And a Wild Idea for Blade",
+    "title": "How AST Powers Modern Frameworks \u2014 And a Wild Idea for Blade",
     "url": "https://dev.to/thomas_emad/how-ast-powers-modern-frameworks-and-a-wild-idea-for-blade-1ka3",
     "source": "devto",
     "sourceName": "DEV Community",
@@ -5591,7 +5591,7 @@
       "framework",
       "php"
     ],
-    "excerpt": "We talked last time about Blaze and how it makes improvements — and if you think about it, we said...",
+    "excerpt": "We talked last time about Blaze and how it makes improvements \u2014 and if you think about it, we said...",
     "publishedAt": "2026-03-20T16:50:25Z",
     "score": 1,
     "commentCount": 0,
@@ -5637,7 +5637,7 @@
       "tucodigocotidiano",
       "programming"
     ],
-    "excerpt": "We often hear that AI can “understand” text, images, or user intent. But under the hood, a lot of...",
+    "excerpt": "We often hear that AI can \u201cunderstand\u201d text, images, or user intent. But under the hood, a lot of...",
     "publishedAt": "2026-03-20T00:47:54Z",
     "score": 1,
     "commentCount": 0,
@@ -5935,7 +5935,7 @@
   },
   {
     "id": "hackernews:40789334",
-    "title": "Show HN: Recruit AI – try a natural voice interview",
+    "title": "Show HN: Recruit AI \u2013 try a natural voice interview",
     "url": "https://app.ribbon.ai/interview/08f5188d",
     "source": "hackernews",
     "sourceName": "Hacker News",
@@ -5948,7 +5948,7 @@
       "story_40789334",
       "show_hn"
     ],
-    "excerpt": "Show HN: Recruit AI – try a natural voice interview",
+    "excerpt": "Show HN: Recruit AI \u2013 try a natural voice interview",
     "publishedAt": "2024-06-25T14:47:58Z",
     "score": 1,
     "commentCount": 7,
@@ -5991,7 +5991,7 @@
       "interview",
       "leetcode"
     ],
-    "excerpt": "1. Two Sum     Working:   seen keeps track of numbers we’ve already visited and their...",
+    "excerpt": "1. Two Sum     Working:   seen keeps track of numbers we\u2019ve already visited and their...",
     "publishedAt": "2026-03-26T16:36:01Z",
     "score": 0,
     "commentCount": 0,
@@ -6159,7 +6159,7 @@
       "artificial",
       "Project"
     ],
-    "excerpt": "&gt;**TL;DR:** Meet CODEC—a completely open-source tool that transforms any LLM into a personal computer agent. You can command it via text or voice to look at your screen, type, manage your apps, run",
+    "excerpt": "&gt;**TL;DR:** Meet CODEC\u2014a completely open-source tool that transforms any LLM into a personal computer agent. You can command it via text or voice to look at your screen, type, manage your apps, run",
     "publishedAt": "2026-03-26T09:51:02.000Z",
     "score": 0,
     "commentCount": 11,
@@ -6190,7 +6190,7 @@
   },
   {
     "id": "reddit:1s40gtd",
-    "title": "I built a real-time pipeline that reads game subtitles and converts them into dynamic voice acting (OCR → TTS → RVC) [P]",
+    "title": "I built a real-time pipeline that reads game subtitles and converts them into dynamic voice acting (OCR \u2192 TTS \u2192 RVC) [P]",
     "url": "https://www.reddit.com/r/MachineLearning/comments/1s40gtd/i_built_a_realtime_pipeline_that_reads_game/",
     "source": "reddit",
     "sourceName": "r/MachineLearning",
@@ -6308,7 +6308,7 @@
       "datascience",
       "Discussion"
     ],
-    "excerpt": "I’ve got a senior DS interview coming up. The interviewer is an MIT grad, and I’ve already started doubting myself, wondering why he’d pick me when I feel like I’m just average and went to a state sch",
+    "excerpt": "I\u2019ve got a senior DS interview coming up. The interviewer is an MIT grad, and I\u2019ve already started doubting myself, wondering why he\u2019d pick me when I feel like I\u2019m just average and went to a state sch",
     "publishedAt": "2026-03-25T16:40:32.000Z",
     "score": 0,
     "commentCount": 21,
@@ -6329,7 +6329,7 @@
       "datascience",
       "Education"
     ],
-    "excerpt": "I’m one of the builders behind this, happy to answer questions or discuss better ways to approach this.  There's a lot of hype around AI data analysts right now and honestly most of it is vague. We wa",
+    "excerpt": "I\u2019m one of the builders behind this, happy to answer questions or discuss better ways to approach this.  There's a lot of hype around AI data analysts right now and honestly most of it is vague. We wa",
     "publishedAt": "2026-03-25T15:40:34.000Z",
     "score": 0,
     "commentCount": 4,
@@ -6339,7 +6339,7 @@
   },
   {
     "id": "youtube:sBS-TKHYbSE",
-    "title": "Industry Layoffs Are Back 😨 | What It Means for You",
+    "title": "Industry Layoffs Are Back \ud83d\ude28 | What It Means for You",
     "url": "https://www.youtube.com/watch?v=sBS-TKHYbSE",
     "source": "youtube",
     "sourceName": "Gaurav Sen",
@@ -6350,7 +6350,7 @@
       "video",
       "gaurav-sen"
     ],
-    "excerpt": "Gaurav Sen: Industry Layoffs Are Back 😨 | What It Means for You",
+    "excerpt": "Gaurav Sen: Industry Layoffs Are Back \ud83d\ude28 | What It Means for You",
     "publishedAt": "2026-03-25T12:31:20+00:00",
     "score": 0,
     "commentCount": 0,
@@ -6434,7 +6434,7 @@
       "MachineLearning",
       "Project"
     ],
-    "excerpt": "I have per-frame head counts from P2PNet running on crowd video clips. Counts are stable but noisy (±10%). I need to predict density 5-10 frames ahead per zone, and estimate time-to-critical-threshold",
+    "excerpt": "I have per-frame head counts from P2PNet running on crowd video clips. Counts are stable but noisy (\u00b110%). I need to predict density 5-10 frames ahead per zone, and estimate time-to-critical-threshold",
     "publishedAt": "2026-03-25T05:52:42.000Z",
     "score": 0,
     "commentCount": 0,
@@ -6457,7 +6457,7 @@
       "programming",
       "tutorial"
     ],
-    "excerpt": "Unlocking the Peak: A Binary Search Adventure (LeetCode 162)   Hey fellow coders! 👋...",
+    "excerpt": "Unlocking the Peak: A Binary Search Adventure (LeetCode 162)   Hey fellow coders! \ud83d\udc4b...",
     "publishedAt": "2026-03-24T18:41:35Z",
     "score": 0,
     "commentCount": 0,
@@ -6490,7 +6490,7 @@
   },
   {
     "id": "devto:3396223",
-    "title": "# 🎯 Guess the Number Game (Java) – Binary Search Made Simple",
+    "title": "# \ud83c\udfaf Guess the Number Game (Java) \u2013 Binary Search Made Simple",
     "url": "https://dev.to/sharmi_sabari_09/-guess-the-number-game-java-binary-search-made-simple-1npp",
     "source": "devto",
     "sourceName": "DEV Community",
@@ -6572,7 +6572,7 @@
       "machinelearning",
       "showdev"
     ],
-    "excerpt": "By Priyanshu  |  Team Clarion  |  Code Mentor AI  \"All six of us had the same experience — failing a...",
+    "excerpt": "By Priyanshu  |  Team Clarion  |  Code Mentor AI  \"All six of us had the same experience \u2014 failing a...",
     "publishedAt": "2026-03-23T16:26:29Z",
     "score": 0,
     "commentCount": 0,
@@ -6595,7 +6595,7 @@
       "programming",
       "tutorial"
     ],
-    "excerpt": "🤯 Unmasking the Magic: Cracking LeetCode 1009 with Bitwise Brilliance! ✨   Hey everyone!...",
+    "excerpt": "\ud83e\udd2f Unmasking the Magic: Cracking LeetCode 1009 with Bitwise Brilliance! \u2728   Hey everyone!...",
     "publishedAt": "2026-03-23T13:20:31Z",
     "score": 0,
     "commentCount": 0,
@@ -6605,7 +6605,7 @@
   },
   {
     "id": "devto:3385939",
-    "title": "🧩 Search in Rotated Sorted Array (Java)",
+    "title": "\ud83e\udde9 Search in Rotated Sorted Array (Java)",
     "url": "https://dev.to/sharmi_sabari_09/search-in-rotated-sorted-array-java-4dd2",
     "source": "devto",
     "sourceName": "DEV Community",
@@ -6618,7 +6618,7 @@
       "java",
       "leetcode"
     ],
-    "excerpt": "🚀 Problem Statement   You are given:   A sorted array that has been rotated  A target...",
+    "excerpt": "\ud83d\ude80 Problem Statement   You are given:   A sorted array that has been rotated  A target...",
     "publishedAt": "2026-03-22T20:31:41Z",
     "score": 0,
     "commentCount": 0,
@@ -6687,7 +6687,7 @@
       "computerscience",
       "dsa"
     ],
-    "excerpt": "First and Last Occurrences – CA23            My Thinking and Approach              ...",
+    "excerpt": "First and Last Occurrences \u2013 CA23            My Thinking and Approach              ...",
     "publishedAt": "2026-03-22T15:00:54Z",
     "score": 0,
     "commentCount": 0,
@@ -6720,7 +6720,7 @@
   },
   {
     "id": "devto:3383632",
-    "title": "Search in Rotated Sorted Array – Python",
+    "title": "Search in Rotated Sorted Array \u2013 Python",
     "url": "https://dev.to/manoj_kumar_401fd35052503/search-in-rotated-sorted-array-python-5hfc",
     "source": "devto",
     "sourceName": "DEV Community",
@@ -6733,7 +6733,7 @@
       "interview",
       "python"
     ],
-    "excerpt": "🔄 Search in Rotated Sorted Array – Python (Binary Search)   Hi All,  Today I solved an...",
+    "excerpt": "\ud83d\udd04 Search in Rotated Sorted Array \u2013 Python (Binary Search)   Hi All,  Today I solved an...",
     "publishedAt": "2026-03-22T11:41:20Z",
     "score": 0,
     "commentCount": 0,
@@ -6915,7 +6915,7 @@
       "python",
       "tutorial"
     ],
-    "excerpt": "Hi everyone! Today I solved a simple but important array problem — moving all zeroes to the end while...",
+    "excerpt": "Hi everyone! Today I solved a simple but important array problem \u2014 moving all zeroes to the end while...",
     "publishedAt": "2026-03-22T06:43:03Z",
     "score": 0,
     "commentCount": 0,
@@ -6982,7 +6982,7 @@
       "llm",
       "machinelearning"
     ],
-    "excerpt": "Artificial intelligence appears powerful on the surface — capable of writing code, generating essays,...",
+    "excerpt": "Artificial intelligence appears powerful on the surface\u200a\u2014\u200acapable of writing code, generating essays,...",
     "publishedAt": "2026-03-22T00:39:01Z",
     "score": 0,
     "commentCount": 0,
@@ -7014,7 +7014,7 @@
   },
   {
     "id": "devto:3381016",
-    "title": "Designing a Stock Exchange / Trading System at Scale A System Design Deep Dive — Question by Question",
+    "title": "Designing a Stock Exchange / Trading System at Scale A System Design Deep Dive \u2014 Question by Question",
     "url": "https://dev.to/shubham_pandeyconnoisse/designing-a-stock-exchange-trading-system-at-scale-a-system-design-deep-dive-question-by-4be9",
     "source": "devto",
     "sourceName": "DEV Community",
@@ -7059,7 +7059,7 @@
   {
     "id": "reddit:1ry73eb",
     "title": "AI is coming for the parts of the job that were holding you back",
-    "url": "/r/mavenanalytics/comments/1ry1ylt/ai_is_coming_for_the_parts_of_the_job_that_were/",
+    "url": "https://www.reddit.com/r/mavenanalytics/comments/1ry1ylt/ai_is_coming_for_the_parts_of_the_job_that_were/",
     "source": "reddit",
     "sourceName": "r/datascience",
     "sourceIcon": "https://www.reddit.com/favicon.ico",

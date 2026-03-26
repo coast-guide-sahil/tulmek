@@ -254,9 +254,11 @@ async function fetchReddit(): Promise<RawArticle[]> {
         const tags = [sub, post.link_flair_text].filter(Boolean) as string[];
         if (!isRelevant(post.title, tags)) continue;
 
-        const url = post.is_self
+        const rawUrl = post.is_self
           ? `https://www.reddit.com${post.permalink}`
           : post.url;
+        // Ensure absolute URL (some Reddit posts have relative URLs)
+        const url = rawUrl.startsWith("http") ? rawUrl : `https://www.reddit.com${rawUrl}`;
 
         articles.push({
           id: `reddit:${post.id}`,
