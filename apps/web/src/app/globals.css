@@ -211,6 +211,12 @@ textarea {
   }
 }
 
+/* ── Hub focus rings ── */
+.hub-card:focus-within {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
 /* ── Hub card animations ── */
 .hub-card {
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
