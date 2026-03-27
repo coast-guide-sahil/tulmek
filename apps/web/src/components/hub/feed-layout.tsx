@@ -380,26 +380,17 @@ function SourceFilter({
 
 function EmptyState({ onClear }: { onClear: () => void }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border py-16 text-center">
-      <svg
-        className="h-12 w-12 text-muted-foreground/40"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1}
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"
-        />
-      </svg>
-      <p className="mt-3 text-sm font-medium text-muted-foreground">
-        No articles match your filters
+    <div className="section-enter flex flex-col items-center justify-center rounded-xl border border-dashed border-border py-16 text-center">
+      <div className="text-4xl">🔍</div>
+      <h3 className="mt-3 text-base font-semibold text-foreground">
+        No articles found
+      </h3>
+      <p className="mt-1 max-w-sm text-sm text-muted-foreground">
+        Try adjusting your filters, searching for something else, or exploring a different category.
       </p>
       <button
         onClick={onClear}
-        className="mt-2 text-sm font-medium text-primary underline-offset-4 hover:underline"
+        className="mt-4 min-h-[44px] rounded-lg bg-primary px-5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
       >
         Clear all filters
       </button>
