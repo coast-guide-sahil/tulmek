@@ -8,8 +8,7 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "build": "echo 'Use: pnpm mobile:build (requires Android/iOS SDK)'",
-    "mobile:build": "expo export",
-    "test": "jest"
+    "mobile:build": "expo export"
   },
   "dependencies": {
     "@tulmek/core": "workspace:*",
