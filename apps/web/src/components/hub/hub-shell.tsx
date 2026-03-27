@@ -71,10 +71,27 @@ export function HubShell({ children }: { children: ReactNode }) {
 
       {/* Footer */}
       <footer className="border-t border-border bg-background">
-        <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
-          <p className="text-center text-xs text-muted-foreground">
-            Content refreshed daily from HackerNews, Reddit, dev.to, YouTube & more.
-            All bookmarks saved locally — no account required.
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+            <div className="text-center sm:text-left">
+              <p className="text-sm font-medium text-foreground">{APP_NAME}</p>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                AI-powered interview prep knowledge hub
+              </p>
+            </div>
+            <div className="flex flex-wrap justify-center gap-3 text-xs text-muted-foreground">
+              <span>Powered by</span>
+              <a href="https://news.ycombinator.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">HackerNews</a>
+              <span>·</span>
+              <a href="https://reddit.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">Reddit</a>
+              <span>·</span>
+              <a href="https://dev.to" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">dev.to</a>
+              <span>·</span>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">YouTube</a>
+            </div>
+          </div>
+          <p className="mt-3 text-center text-xs text-muted-foreground">
+            Content refreshed daily. All bookmarks saved locally — no account required.
           </p>
         </div>
       </footer>
