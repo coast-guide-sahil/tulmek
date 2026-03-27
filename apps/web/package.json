@@ -31,6 +31,7 @@
     "@tiptap/react": "^3.20.5",
     "@tiptap/starter-kit": "^3.20.5",
     "@tulmek/config": "workspace:*",
+    "@tulmek/content": "workspace:*",
     "@tulmek/core": "workspace:*",
     "@types/dompurify": "^3.2.0",
     "dompurify": "^3.3.3",

@@ -8,7 +8,8 @@ export type FeedSourceId =
   | "youtube"
   | "medium"
   | "github"
-  | "leetcode";
+  | "leetcode"
+  | "newsletter";
 
 /** Hub content categories */
 export type HubCategory =

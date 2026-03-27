@@ -137,12 +137,14 @@ export function HubShell({ children }: { children: ReactNode }) {
               <a href="https://medium.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">Medium</a>
               <span>·</span>
               <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">GitHub</a>
+              <span>·</span>
+              <a href="https://substack.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">Newsletters</a>
             </div>
           </div>
           <div className="mt-3 flex flex-col items-center gap-2">
             <UserStats />
             <p className="text-center text-xs text-muted-foreground">
-              Content refreshed every 3 hours from 7 sources. All bookmarks saved locally — no account required.
+              Content refreshed every 3 hours from 8 sources. All bookmarks saved locally — no account required.
             </p>
           </div>
         </div>

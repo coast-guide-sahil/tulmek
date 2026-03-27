@@ -11,7 +11,7 @@ export const feedArticleSchema = z.object({
   id: z.string().min(1),
   title: z.string().min(1).max(500),
   url: safeUrlSchema,
-  source: z.enum(["hackernews", "reddit", "devto", "youtube", "medium", "github", "leetcode"]),
+  source: z.enum(["hackernews", "reddit", "devto", "youtube", "medium", "github", "leetcode", "newsletter"]),
   // Note: "medium" and "github" are valid sources even if not yet fully integrated
   sourceName: z.string().min(1),
   sourceIcon: z.string(),

@@ -61,6 +61,7 @@ const SOURCE_CREDIBILITY: Record<string, number> = {
   youtube: 0.7,
   medium: 0.65,
   reddit: 0.6,
+  newsletter: 0.88,
 };
 
 // ── Helper functions ──
