@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import type { FeedArticle, HubCategory } from "@tulmek/core/domain";
+import type { FeedArticle } from "@tulmek/core/domain";
 import { useHub } from "@/lib/hub/provider";
 import { getCategoryConfig, formatRelativeTime } from "./hub-utils";
 

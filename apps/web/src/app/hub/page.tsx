@@ -66,7 +66,7 @@ export default function HubPage() {
               Live
             </span>
             <span>·</span>
-            <span>{feedMeta.totalArticles} articles</span>
+            <span>{feedMeta.totalArticles} articles · {Object.keys(feedMeta.sourceBreakdown).length} sources</span>
           </div>
         </div>
         <WelcomeBack />
