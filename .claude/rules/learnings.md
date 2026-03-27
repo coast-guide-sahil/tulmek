@@ -50,6 +50,13 @@ Root-cause fix: DONE -- sprint 104 fixed DSA button selector.
 Commit message subjects must be lowercase (commitlint subject-case rule).
 "feat: TCRA v2" fails, "feat: tcra v2" passes.
 
+### 2026-03-28 | testing | NEVER skip mobile live test
+inotify limit (65536) blocks Metro on Linux. After any system crash/reboot,
+ALWAYS check `cat /proc/sys/fs/inotify/max_user_watches` and ask user to run
+`sudo sysctl -w fs.inotify.max_user_watches=524288` BEFORE attempting mobile test.
+Do NOT merge PRs with "inotify blocked" as an excuse — wait for the fix.
+Root-cause fix: TODO — add to /etc/sysctl.conf for persistence across reboots.
+
 ## Resolved (delete after 30 days)
 
 (none yet)

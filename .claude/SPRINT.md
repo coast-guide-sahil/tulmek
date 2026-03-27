@@ -6,7 +6,6 @@
 ## Backlog (prioritized)
 
 1. [ ] Extract Zustand store factories to `packages/core/stores/` `#architecture` `#high`
-2. [ ] SimHash title dedup — cross-source near-duplicates `#data-quality` `#high`
 3. [ ] Remaining storage key migration (streak, visited, countdown) `#constants` `#medium`
 4. [ ] Branded types: ArticleId, ItemSlug, ISOTimestamp `#types` `#medium`
 5. [ ] AI content classification at fetch time (Groq free tier) `#data-quality` `#medium`
