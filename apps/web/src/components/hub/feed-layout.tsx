@@ -78,8 +78,9 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
   const hydrated = useHub((s) => s.hydrated);
   const readIds = useHub((s) => s.readIds);
   const bookmarks = useHub((s) => s.bookmarks);
+  const dismissedIds = useHub((s) => s.dismissedIds);
   const searchResults = useHub((s) => s.searchResults);
-  const { toggleBookmark, markAsRead, search: searchOrama } = useHubActions();
+  const { toggleBookmark, markAsRead, dismiss, search: searchOrama } = useHubActions();
 
   // Default to list view on mobile if no explicit view param in URL
   const mobileDefaultApplied = useRef(false);
@@ -136,7 +137,8 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
 
   // Filter + sort
   const filteredArticles = useMemo(() => {
-    let result = [...articles];
+    // Remove dismissed articles first
+    let result = articles.filter((a) => !dismissedIds.has(a.id));
 
     // Category filter
     if (activeCategory) {
@@ -204,7 +206,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     }
 
     return result;
-  }, [articles, activeCategory, sourceFilter, contentType, readingDepth, debouncedQuery, sortMode, searchResults, nowMs, readIds, bookmarks]);
+  }, [articles, dismissedIds, activeCategory, sourceFilter, contentType, readingDepth, debouncedQuery, sortMode, searchResults, nowMs, readIds, bookmarks]);
 
   const handleClearFilters = useCallback(() => {
     setParams({ category: null, source: null, q: null });
@@ -315,6 +317,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
                 isBookmarked={article.id in bookmarks}
                 onToggleBookmark={toggleBookmark}
                 onArticleClick={markAsRead}
+                onDismiss={dismiss}
                 layout={layout}
                 isNew={nowMs - new Date(article.publishedAt).getTime() < SIX_HOURS_MS}
                 isRead={readIds.has(article.id)}
