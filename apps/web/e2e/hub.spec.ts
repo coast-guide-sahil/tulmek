@@ -277,6 +277,29 @@ test.describe("Knowledge Hub", () => {
     });
   });
 
+  test.describe("Sprint 2 Features", () => {
+    test("shows daily digest section", async ({ page }) => {
+      await page.goto("/hub");
+      await expect(
+        page.getByRole("heading", { name: "Daily Digest" }),
+      ).toBeVisible();
+    });
+
+    test("shows active discussions section", async ({ page }) => {
+      await page.goto("/hub");
+      await expect(
+        page.getByRole("heading", { name: "Active Discussions" }),
+      ).toBeVisible();
+    });
+
+    test("keyboard shortcuts help button exists", async ({ page }) => {
+      await page.goto("/hub");
+      await expect(
+        page.getByRole("button", { name: /keyboard shortcuts/i }),
+      ).toBeVisible();
+    });
+  });
+
   test.describe("SEO", () => {
     test("has JSON-LD structured data", async ({ page }) => {
       await page.goto("/hub");

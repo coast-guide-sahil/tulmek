@@ -5,8 +5,9 @@ import { SavedFeed } from "@/components/hub/saved-feed";
 import { APP_NAME } from "@tulmek/config/constants";
 
 export const metadata: Metadata = {
-  title: `Saved — ${APP_NAME}`,
-  description: "Your bookmarked interview prep articles.",
+  title: `Saved Articles — ${APP_NAME}`,
+  description: "Your bookmarked interview prep articles. All saved locally — no account required.",
+  alternates: { canonical: "/hub/saved" },
 };
 
 export default function SavedPage() {

@@ -14,8 +14,11 @@ import { tulmekRank } from "@/lib/hub/ranking";
 import { TrendingTopics } from "./trending-topics";
 import { CompanyPulse } from "./company-pulse";
 import { AutoTopics } from "./auto-topics";
+import { ExploreCompanies } from "./explore-companies";
 import { ContentTypeFilter, type ContentType } from "./content-type-filter";
+import { ReadingTimeFilter, type ReadingDepth } from "./reading-time-filter";
 import { CopyFeedLink } from "./copy-feed-link";
+import { FocusSuggestion } from "./focus-suggestion";
 
 interface FeedLayoutProps {
   readonly articles: FeedArticle[];
@@ -69,6 +72,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
   );
 
   const [contentType, setContentType] = useState<ContentType>("all");
+  const [readingDepth, setReadingDepth] = useState<ReadingDepth>("all");
 
   const hydrated = useHub((s) => s.hydrated);
   const readIds = useHub((s) => s.readIds);
@@ -143,6 +147,15 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
       result = result.filter((a) => a.source === sourceFilter);
     }
 
+    // Reading depth filter
+    if (readingDepth === "quick") {
+      result = result.filter((a) => a.readingTime <= 3);
+    } else if (readingDepth === "medium") {
+      result = result.filter((a) => a.readingTime >= 4 && a.readingTime <= 8);
+    } else if (readingDepth === "deep") {
+      result = result.filter((a) => a.readingTime >= 9);
+    }
+
     // Content type filter
     if (contentType === "videos") {
       result = result.filter((a) => a.source === "youtube");
@@ -190,7 +203,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     }
 
     return result;
-  }, [articles, activeCategory, sourceFilter, contentType, debouncedQuery, sortMode, searchResults, nowMs, readIds, bookmarks]);
+  }, [articles, activeCategory, sourceFilter, contentType, readingDepth, debouncedQuery, sortMode, searchResults, nowMs, readIds, bookmarks]);
 
   const handleClearFilters = useCallback(() => {
     setParams({ category: null, source: null, q: null });
@@ -226,6 +239,9 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
         </div>
       </div>
 
+      {/* Focus Suggestion */}
+      <FocusSuggestion onCategoryClick={setActiveCategory} />
+
       {/* Category Navigation */}
       <CategoryNav
         activeCategory={activeCategory}
@@ -239,6 +255,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
           <TrendingTopics articles={articles} onTopicClick={setSearchQuery} />
           <CompanyPulse articles={articles} onCompanyClick={setSearchQuery} />
           <AutoTopics articles={articles} onTopicClick={setSearchQuery} />
+          <ExploreCompanies articles={articles} onCompanyClick={setSearchQuery} />
         </>
       )}
 
@@ -247,6 +264,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
         <ContentTypeFilter value={contentType} onChange={setContentType} counts={contentTypeCounts} />
         <SortTabs value={sortMode} onChange={setSortMode} />
         <div className="ml-auto flex items-center gap-2">
+          <ReadingTimeFilter value={readingDepth} onChange={setReadingDepth} />
           {sourceCounts.length > 1 && (
             <SourceFilter
               sources={sourceCounts}

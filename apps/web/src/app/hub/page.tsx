@@ -13,6 +13,8 @@ import { ForYou } from "@/components/hub/for-you";
 import { SourceDiversity } from "@/components/hub/source-diversity";
 import { PrepPulse } from "@/components/hub/prep-pulse";
 import { StatsBanner } from "@/components/hub/stats-banner";
+import { DailyDigest } from "@/components/hub/daily-digest";
+import { ActiveDiscussions } from "@/components/hub/active-discussions";
 import { APP_NAME } from "@tulmek/config/constants";
 
 const articles = feedData as FeedArticle[];
@@ -23,6 +25,9 @@ export const metadata: Metadata = {
   title: `Knowledge Hub — ${APP_NAME}`,
   description:
     "Stay current with the latest interview prep content aggregated from HackerNews, Reddit, dev.to, YouTube and more. Updated daily.",
+  alternates: {
+    canonical: "/hub",
+  },
 };
 
 const jsonLd = {
@@ -93,8 +98,14 @@ export default function HubPage() {
       {/* Featured Picks */}
       <FeaturedPicks articles={articles} nowMs={BUILD_TIME} />
 
+      {/* Daily Digest */}
+      <DailyDigest articles={articles} refreshedAt={feedMeta.lastRefreshedAt} />
+
       {/* Personalized Recommendations */}
       <ForYou articles={articles} />
+
+      {/* Active Discussions */}
+      <ActiveDiscussions articles={articles} nowMs={BUILD_TIME} />
 
       {/* Compensation & Interview Experience Highlights */}
       <CompensationHighlights articles={articles} />
