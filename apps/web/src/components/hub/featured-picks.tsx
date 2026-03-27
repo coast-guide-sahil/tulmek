@@ -34,7 +34,7 @@ export function FeaturedPicks({ articles, nowMs }: FeaturedPicksProps) {
       <a
         href={hero.url}
         target="_blank"
-        rel="noopener noreferrer"
+        rel="noopener noreferrer nofollow"
         className="gradient-shine group relative flex flex-col justify-end rounded-xl border border-primary/20 bg-card p-5 transition-all hover:border-primary/40 hover:shadow-lg sm:col-span-2 sm:p-6"
       >
         <span className="absolute -left-1.5 -top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground shadow-sm">
@@ -71,7 +71,7 @@ export function FeaturedPicks({ articles, nowMs }: FeaturedPicksProps) {
               key={article.id}
               href={article.url}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener noreferrer nofollow"
               className="group relative flex flex-1 flex-col rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/30 hover:shadow-sm"
             >
               <span className="absolute -left-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-muted text-xs font-bold text-muted-foreground">
