@@ -10,6 +10,7 @@ import { FeedSkeleton } from "@/components/hub/feed-skeleton";
 import { FeaturedPicks } from "@/components/hub/featured-picks";
 import { CompensationHighlights } from "@/components/hub/compensation-highlights";
 import { ForYou } from "@/components/hub/for-you";
+import { SimilarToSaved } from "@/components/hub/similar-to-saved";
 import { SourceDiversity } from "@/components/hub/source-diversity";
 import { PrepPulse } from "@/components/hub/prep-pulse";
 import { StatsBanner } from "@/components/hub/stats-banner";
@@ -103,6 +104,9 @@ export default function HubPage() {
 
       {/* Personalized Recommendations */}
       <ForYou articles={articles} />
+
+      {/* Similar to Saved */}
+      <SimilarToSaved articles={articles} />
 
       {/* Active Discussions */}
       <ActiveDiscussions articles={articles} nowMs={BUILD_TIME} />
