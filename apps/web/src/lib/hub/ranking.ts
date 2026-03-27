@@ -55,11 +55,12 @@ const DECAY_FLOORS: Record<string, number> = {
 
 const SOURCE_CREDIBILITY: Record<string, number> = {
   hackernews: 0.85,
+  leetcode: 0.9,
+  github: 0.8,
   devto: 0.75,
   youtube: 0.7,
-  reddit: 0.6,
   medium: 0.65,
-  github: 0.8,
+  reddit: 0.6,
 };
 
 // ── Helper functions ──
