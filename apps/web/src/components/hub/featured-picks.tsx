@@ -56,7 +56,7 @@ function FeaturedCard({ article, rank }: { article: FeedArticle; rank: number })
       href={article.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex flex-col rounded-xl border border-primary/20 bg-card p-4 transition-all hover:border-primary/40 hover:shadow-md"
+      className="gradient-shine group relative flex flex-col rounded-xl border border-primary/20 bg-card p-4 transition-all hover:border-primary/40 hover:shadow-md"
     >
       {/* Rank badge */}
       <span className="absolute -left-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">

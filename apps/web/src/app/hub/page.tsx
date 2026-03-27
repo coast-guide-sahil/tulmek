@@ -68,9 +68,10 @@ export default function HubPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       {/* Header */}
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+      <div className="hub-hero-gradient -mx-4 rounded-2xl px-4 py-2 sm:-mx-6 sm:px-6">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
+          <h1 className="section-enter text-2xl font-bold text-foreground sm:text-3xl">
             Knowledge Hub
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -93,6 +94,7 @@ export default function HubPage() {
             })}
           </span>
         </div>
+      </div>
       </div>
 
       {/* Stats Banner */}
