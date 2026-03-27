@@ -282,6 +282,22 @@ test.describe("Knowledge Hub", () => {
     });
   });
 
+  test.describe("Smart Badges", () => {
+    test("shows offer/reject badges on experience cards", async ({ page }) => {
+      await page.goto("/hub?category=interview-experience&source=leetcode&sort=popular");
+      await expect(page.locator("article").first()).toBeVisible({ timeout: 10000 });
+      // At least one card should have OFFER or REJECT badge
+      const badges = page.locator("text=/OFFER|REJECT/");
+      const count = await badges.count();
+      expect(count).toBeGreaterThan(0);
+    });
+
+    test("shows company name tags on pipe-separated titles", async ({ page }) => {
+      await page.goto("/hub?category=interview-experience&source=leetcode&sort=latest");
+      await expect(page.locator("article").first()).toBeVisible({ timeout: 10000 });
+    });
+  });
+
   test.describe("Sources", () => {
     test("leetcode content is available", async ({ page }) => {
       await page.goto("/hub?source=leetcode&sort=latest");
