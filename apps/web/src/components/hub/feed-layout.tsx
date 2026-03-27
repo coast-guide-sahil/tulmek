@@ -19,6 +19,7 @@ import { ContentTypeFilter, type ContentType } from "./content-type-filter";
 import { ReadingTimeFilter, type ReadingDepth } from "./reading-time-filter";
 import { CopyFeedLink } from "./copy-feed-link";
 import { FocusSuggestion } from "./focus-suggestion";
+import { FeedActions } from "./feed-actions";
 
 interface FeedLayoutProps {
   readonly articles: FeedArticle[];
@@ -321,17 +322,18 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
             ))}
           </div>
 
-          {/* Load more */}
-          {hasMore && (
-            <div className="flex justify-center pt-4">
+          {/* Feed actions + Load more */}
+          <div className="flex items-center justify-between pt-4">
+            <FeedActions visibleArticles={visibleArticles} />
+            {hasMore && (
               <button
                 onClick={handleLoadMore}
                 className="min-h-[44px] rounded-lg border border-border bg-card px-6 text-sm font-medium text-card-foreground transition-colors hover:bg-muted"
               >
                 Show more ({filteredArticles.length - visibleCount} remaining)
               </button>
-            </div>
-          )}
+            )}
+          </div>
         </>
       ) : (
         <EmptyState onClear={handleClearFilters} />
