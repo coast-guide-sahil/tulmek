@@ -58,7 +58,7 @@
   --accent-general: #6b7280;
 }
 
-html {
+html[data-scroll-behavior="smooth"] {
   scroll-behavior: smooth;
 }
 
