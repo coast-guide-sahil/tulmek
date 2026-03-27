@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import Link from "next/link";
 import type { FeedArticle } from "@tulmek/core/domain";
 
 interface CompanyFilterProps {
@@ -89,13 +90,13 @@ export function CompanyFilter({ articles, activeCompany, onCompanyClick }: Compa
         </button>
       )}
       {!activeCompany && companies.map(({ name, count }) => (
-        <button
+        <Link
           key={name}
-          onClick={() => onCompanyClick(name)}
-          className="min-h-[32px] rounded-md bg-muted px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary"
+          href={`/hub/company/${name.toLowerCase()}`}
+          className="min-h-[32px] inline-flex items-center rounded-md bg-muted px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary"
         >
-          {name} <span className="text-muted-foreground/50">{count}</span>
-        </button>
+          {name} <span className="ml-1 text-muted-foreground/50">{count}</span>
+        </Link>
       ))}
     </div>
   );
