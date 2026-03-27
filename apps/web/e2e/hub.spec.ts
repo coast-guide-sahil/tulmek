@@ -249,5 +249,39 @@ test.describe("Knowledge Hub", () => {
         page.getByRole("heading", { name: "Compensation Insights" }),
       ).toBeVisible();
     });
+
+    test("shows top picks section", async ({ page }) => {
+      await page.goto("/hub");
+      await expect(
+        page.getByRole("heading", { name: "Top Picks" }),
+      ).toBeVisible();
+    });
+
+    test("shows trending mentions section", async ({ page }) => {
+      await page.goto("/hub");
+      await expect(
+        page.getByRole("heading", { name: "Trending Mentions" }),
+      ).toBeVisible();
+    });
+  });
+
+  test.describe("Content Types", () => {
+    test("can filter by articles type", async ({ page }) => {
+      await page.goto("/hub");
+      await expect(page.locator("article").first()).toBeVisible();
+      const articlesTab = page.getByRole("tab", { name: /Articles/ });
+      if (await articlesTab.isVisible()) {
+        await articlesTab.click();
+        await expect(articlesTab).toHaveAttribute("aria-selected", "true");
+      }
+    });
+  });
+
+  test.describe("SEO", () => {
+    test("has JSON-LD structured data", async ({ page }) => {
+      await page.goto("/hub");
+      const jsonLd = page.locator('script[type="application/ld+json"]');
+      await expect(jsonLd).toBeAttached();
+    });
   });
 });
