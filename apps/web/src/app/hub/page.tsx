@@ -20,7 +20,7 @@ const BUILD_TIME = new Date(feedMeta.lastRefreshedAt).getTime();
 const ogDescription = `${feedMeta.totalArticles} interview prep articles from ${Object.keys(feedMeta.sourceBreakdown).length} sources across ${Object.keys(feedMeta.categoryBreakdown).length} categories. DSA, System Design, AI/ML, Compensation & more. Refreshed every 3 hours.`;
 
 export const metadata: Metadata = {
-  title: `Knowledge Hub — ${APP_NAME}`,
+  title: "Knowledge Hub",
   description: ogDescription,
   openGraph: {
     title: `${APP_NAME} Knowledge Hub — Interview Prep Content Aggregator`,

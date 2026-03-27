@@ -136,7 +136,7 @@ export function TodaysBrief({ articles, nowMs, onCategoryClick }: TodaysBriefPro
                 if (!readIds.has(a.id)) markAsRead(a.id);
               }
             }}
-            className="text-xs font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+            className="min-h-[44px] inline-flex items-center text-xs font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
           >
             Mark all today&apos;s as read
           </button>
