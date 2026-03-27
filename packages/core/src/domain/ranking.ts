@@ -30,12 +30,12 @@ const CATEGORY_WEIGHT: Record<string, number> = {
 // ── Freshness decay: per-category half-lives (hours) and floors ──
 
 const HALF_LIVES: Record<string, number> = {
-  dsa: 720 * 24,
-  "system-design": 180 * 24,
-  "ai-ml": 60 * 24,
-  behavioral: 360 * 24,
-  "interview-experience": 45 * 24,
-  compensation: 30 * 24,
+  dsa: 720 * 24,              // Evergreen — problems don't change
+  "system-design": 180 * 24,  // Principles stable, tech stacks shift
+  "ai-ml": 45 * 24,           // Moves extremely fast (LLM landscape monthly)
+  behavioral: 360 * 24,       // Leadership principles don't change
+  "interview-experience": 30 * 24, // Hiring loops change each quarter
+  compensation: 14 * 24,      // TC data stale in weeks
   career: 90 * 24,
   general: 14 * 24,
 };
@@ -115,16 +115,38 @@ function sourceCredibility(article: FeedArticle): number {
   return SOURCE_CREDIBILITY[article.source] ?? 0.5;
 }
 
+// ── Interview-prep content richness (replaces title relevance placeholder) ──
+
+const COMPANY_REGEX = /\b(google|amazon|meta|apple|microsoft|netflix|uber|airbnb|stripe|coinbase|lyft|nvidia|tesla|openai|anthropic|palantir|databricks|snowflake|linkedin|salesforce|oracle|adobe|bloomberg|jpmorgan|goldman|citadel|jane street|flipkart|swiggy|atlassian|shopify|spotify|dropbox|doordash|pinterest|samsung|ibm|paypal|cloudflare|datadog|mongodb|vercel|github)\b/i;
+
+function contentRichness(article: FeedArticle): number {
+  let score = 0;
+  const text = `${article.title} ${article.excerpt}`.toLowerCase();
+
+  // Code presence — articles with solutions/implementations are more actionable
+  if (/```|solution|implement|function\s|def\s|class\s|algorithm/.test(text)) score += 0.25;
+  // Complexity analysis — signals depth
+  if (/o\([^)]*\)|time complex|space complex|big o|optimal/.test(text)) score += 0.2;
+  // Company mentions — specific company context is high-value
+  if (COMPANY_REGEX.test(text)) score += 0.2;
+  // Interview round specificity — actionable stage detail
+  if (/phone screen|onsite|coding round|system design round|hiring manager|bar raiser/.test(text)) score += 0.15;
+  // Outcome + compensation data — real experiences
+  if (/got (the )?offer|rejected|accepted|tc[\s:]|\$\d{2,3}k|lpa|ctc/.test(text)) score += 0.2;
+
+  return Math.min(1.0, score);
+}
+
 function computeCRS(
   article: FeedArticle,
   sourcePercentiles: Map<string, number[]>,
 ): number {
   return (
-    0.30 * categoryConfidence(article) +
-    0.25 * normalizedEngagement(article, sourcePercentiles) +
-    0.20 * discussionDepth(article) +
+    0.25 * categoryConfidence(article) +
+    0.20 * normalizedEngagement(article, sourcePercentiles) +
+    0.15 * discussionDepth(article) +
     0.15 * sourceCredibility(article) +
-    0.10 * 0.5 // Title relevance placeholder (would need lexicon)
+    0.25 * contentRichness(article)
   );
 }
 
@@ -133,8 +155,17 @@ function computeCRS(
 function freshnessDecay(article: FeedArticle, nowMs: number): number {
   const ageHours =
     (nowMs - new Date(article.publishedAt).getTime()) / 3600000;
-  const halfLife = HALF_LIVES[article.category] ?? 14 * 24;
+  let halfLife = HALF_LIVES[article.category] ?? 14 * 24;
   const floor = DECAY_FLOORS[article.category] ?? 0.05;
+
+  // Adaptive decay: salary data and "just happened" posts decay faster
+  const text = `${article.title} ${article.excerpt}`.toLowerCase();
+  if (/\$\d|tc[\s:]|total comp|salary|offer letter|package/.test(text)) {
+    halfLife = Math.min(halfLife, 14 * 24);
+  }
+  if (/just interviewed|this week|today i|yesterday|got my offer/.test(text)) {
+    halfLife = Math.min(halfLife, 21 * 24);
+  }
 
   return floor + (1 - floor) * Math.pow(2, -ageHours / halfLife);
 }
@@ -257,14 +288,23 @@ function diverseRerank(articles: FeedArticle[], windowSize = 12): FeedArticle[] 
       const article = articles[idx]!;
       const windowStart = Math.max(0, result.length - windowSize);
       const windowSlice = result.slice(windowStart);
+
+      // Source diversity
       const sourceInWindow = windowSlice.filter(
         (a) => a.source === article.source,
       ).length;
-
       const quota = quotas.get(article.source) ?? 1;
-      const overrep = sourceInWindow / quota;
-      const diversityMult =
-        overrep <= 1 ? 1.0 : overrep <= 1.5 ? 0.85 : overrep <= 2 ? 0.6 : 0.3;
+      const sourceOverrep = sourceInWindow / quota;
+      const sourceMult =
+        sourceOverrep <= 1 ? 1.0 : sourceOverrep <= 1.5 ? 0.85 : sourceOverrep <= 2 ? 0.6 : 0.3;
+
+      // Category diversity — don't show 5 DSA articles in a row
+      const catInWindow = windowSlice.filter(
+        (a) => a.category === article.category,
+      ).length;
+      const catMult = catInWindow <= 2 ? 1.0 : catInWindow <= 3 ? 0.85 : 0.6;
+
+      const diversityMult = sourceMult * catMult;
 
       // Use array position as base score (articles already sorted by TulmekScore)
       const baseScore = articles.length - idx;
