@@ -1,0 +1,13 @@
+{
+  "extends": "@tulmek/typescript-config/base.json",
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "@tulmek/core/*": ["../../packages/core/src/*"],
+      "@tulmek/config/*": ["../../packages/config/src/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
