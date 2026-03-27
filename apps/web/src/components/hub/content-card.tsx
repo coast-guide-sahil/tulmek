@@ -165,19 +165,22 @@ export const ContentCard = memo(function ContentCard({
         </p>
       )}
 
-      {/* Tags */}
-      {article.tags.length > 0 && (
-        <div className="mt-2 flex flex-wrap gap-1">
-          {article.tags.slice(0, 3).map((tag) => (
-            <span
-              key={tag}
-              className="rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
+      {/* Tags — extract company from pipe-separated titles like "Google | L4 | Offer" */}
+      <div className="mt-2 flex flex-wrap gap-1">
+        {article.title.includes("|") && article.title.split("|")[0]!.trim().length <= 20 && (
+          <span className="rounded bg-primary/10 px-1.5 py-0.5 text-xs font-medium text-primary">
+            {article.title.split("|")[0]!.trim()}
+          </span>
+        )}
+        {article.tags.slice(0, 2).map((tag) => (
+          <span
+            key={tag}
+            className="rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
 
       {/* Footer: category + meta */}
       <div className="mt-auto flex flex-wrap items-center gap-2 pt-3">
