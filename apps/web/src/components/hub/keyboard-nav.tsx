@@ -59,6 +59,18 @@ export function KeyboardNav() {
         return;
       }
 
+      // R = mark focused article as read (click its first link without navigating)
+      if (e.key === "r") {
+        const focused = articles[focusedArticleIdx] ?? document.activeElement?.closest("article");
+        const link = focused?.querySelector<HTMLAnchorElement>("a[target='_blank']");
+        if (link) {
+          e.preventDefault();
+          // Trigger the onArticleClick handler by dispatching a click event
+          link.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+        }
+        return;
+      }
+
       // S = copy focused article link to clipboard
       if (e.key === "s") {
         const focused = articles[focusedArticleIdx] ?? document.activeElement?.closest("article");

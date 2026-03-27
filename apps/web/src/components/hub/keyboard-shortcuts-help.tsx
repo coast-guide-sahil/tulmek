@@ -9,6 +9,7 @@ const SHORTCUTS = [
   { key: "n", desc: "Next unread article" },
   { key: "o", desc: "Open article in new tab" },
   { key: "b", desc: "Toggle bookmark" },
+  { key: "r", desc: "Mark as read" },
   { key: "s", desc: "Share article" },
   { key: "Home", desc: "Scroll to top" },
   { key: "←→", desc: "Navigate categories" },
