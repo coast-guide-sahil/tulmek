@@ -24,12 +24,20 @@ export function ProgressShell({ children }: { children: ReactNode }) {
         {/* Header */}
         <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-            <Link
-              href="/"
-              className="text-base font-semibold text-foreground sm:text-lg"
-            >
-              {APP_NAME}
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link
+                href="/"
+                className="text-base font-semibold text-foreground sm:text-lg"
+              >
+                {APP_NAME}
+              </Link>
+              <Link
+                href="/hub"
+                className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary hover:bg-primary/20"
+              >
+                Hub
+              </Link>
+            </div>
             <ThemeToggle />
           </div>
 
