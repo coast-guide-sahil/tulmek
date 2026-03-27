@@ -239,9 +239,11 @@ test.describe("Knowledge Hub", () => {
   });
 
   test.describe("Highlights", () => {
-    test("shows live indicator", async ({ page }) => {
+    test("shows knowledge hub heading", async ({ page }) => {
       await page.goto("/hub");
-      await expect(page.getByText("Live")).toBeVisible({ timeout: 10000 });
+      await expect(
+        page.getByRole("heading", { name: "Knowledge Hub" }),
+      ).toBeVisible({ timeout: 10000 });
     });
 
     test("shows featured picks with bento layout", async ({ page }) => {
