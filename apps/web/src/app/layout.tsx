@@ -14,15 +14,52 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteDescription =
+  "AI-powered interview prep knowledge hub — fresh content from HackerNews, Reddit, dev.to & more, updated daily.";
+
 export const metadata: Metadata = {
-  title: APP_NAME,
-  description: "Offline-first interview prep tracker with progress tracking, notes, and search",
+  title: {
+    default: `${APP_NAME} — Interview Prep Knowledge Hub`,
+    template: `%s — ${APP_NAME}`,
+  },
+  description: siteDescription,
+  keywords: [
+    "interview prep",
+    "software engineering",
+    "system design",
+    "leetcode",
+    "DSA",
+    "AI ML interview",
+    "coding interview",
+    "career",
+    "tech interview",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: APP_NAME,
+    title: `${APP_NAME} — Interview Prep Knowledge Hub`,
+    description: siteDescription,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${APP_NAME} — Interview Prep Knowledge Hub`,
+    description: siteDescription,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
+    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+  ],
 };
 
 export default function RootLayout({
@@ -37,6 +74,12 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-dvh flex flex-col bg-background text-foreground">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+        >
+          Skip to content
+        </a>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

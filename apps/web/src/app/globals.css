@@ -48,6 +48,14 @@
   --primary-fg: #18181b;
   --destructive: #ef4444;
   --success: #22c55e;
+  --accent-dsa: #10b981;
+  --accent-system-design: #3b82f6;
+  --accent-ai-ml: #a855f7;
+  --accent-behavioral: #f59e0b;
+  --accent-career: #f43f5e;
+  --accent-interview-experience: #06b6d4;
+  --accent-compensation: #eab308;
+  --accent-general: #6b7280;
 }
 
 html {
@@ -201,4 +209,96 @@ textarea {
     padding-left: 0.75em;
     color: var(--muted-fg);
   }
+}
+
+/* ── Hub focus rings ── */
+.hub-card:focus-within {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ── Hub card animations ── */
+.hub-card {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s ease;
+}
+.hub-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.06);
+}
+.dark .hub-card:hover {
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.25);
+}
+
+/* Hub card read state */
+.hub-card-read {
+  opacity: 0.7;
+}
+.hub-card-read:hover {
+  opacity: 1;
+}
+
+/* Unread left accent border — category colored */
+.hub-card-unread { border-left: 3px solid var(--primary); }
+.hub-card-unread[data-category="dsa"] { border-left-color: var(--accent-dsa); }
+.hub-card-unread[data-category="system-design"] { border-left-color: var(--accent-system-design); }
+.hub-card-unread[data-category="ai-ml"] { border-left-color: var(--accent-ai-ml); }
+.hub-card-unread[data-category="behavioral"] { border-left-color: var(--accent-behavioral); }
+.hub-card-unread[data-category="career"] { border-left-color: var(--accent-career); }
+.hub-card-unread[data-category="interview-experience"] { border-left-color: var(--accent-interview-experience); }
+.hub-card-unread[data-category="compensation"] { border-left-color: var(--accent-compensation); }
+.hub-card-unread[data-category="general"] { border-left-color: var(--accent-general); }
+
+/* Bookmark pulse animation */
+@keyframes bookmark-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+.bookmark-active {
+  animation: bookmark-pulse 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Trending fire glow */
+@keyframes trending-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.trending-badge {
+  animation: trending-glow 2s ease-in-out infinite;
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--muted) 0%,
+    var(--border) 50%,
+    var(--muted) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Category scroll fade edges */
+.category-scroll {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 16px,
+    black calc(100% - 16px),
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 16px,
+    black calc(100% - 16px),
+    transparent
+  );
 }

@@ -13,6 +13,10 @@ import {
   lldFileSchema,
   behavioralFileSchema,
 } from "../src/content/schema";
+import {
+  feedFileSchema,
+  feedMetadataSchema,
+} from "../src/content/hub-schema";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const CONTENT_DIR = join(__dirname, "../src/content");
@@ -66,6 +70,12 @@ validate(
   behavioralFileSchema,
   "behavioral.json",
 );
+
+// Hub content
+console.log("\nHub feed:");
+const hubDir = join(CONTENT_DIR, "hub");
+validate(join(hubDir, "feed.json"), feedFileSchema, "feed.json");
+validate(join(hubDir, "metadata.json"), feedMetadataSchema, "metadata.json");
 
 // Summary
 console.log(`\n${"─".repeat(40)}`);
