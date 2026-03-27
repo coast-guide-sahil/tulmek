@@ -73,6 +73,14 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        <link rel="preconnect" href="https://www.reddit.com" />
+        <link rel="preconnect" href="https://news.ycombinator.com" />
+        <link rel="preconnect" href="https://dev.to" />
+        <link rel="dns-prefetch" href="https://medium.com" />
+        <link rel="dns-prefetch" href="https://github.com" />
+        <link rel="dns-prefetch" href="https://www.youtube.com" />
+      </head>
       <body className="min-h-dvh flex flex-col bg-background text-foreground">
         <a
           href="#main-content"
