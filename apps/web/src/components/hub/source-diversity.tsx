@@ -12,6 +12,7 @@ const SOURCE_COLORS: Record<string, string> = {
   youtube: "bg-red-500",
   medium: "bg-green-500",
   github: "bg-gray-500",
+  leetcode: "bg-yellow-500",
 };
 
 /**

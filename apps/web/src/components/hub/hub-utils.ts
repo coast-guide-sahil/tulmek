@@ -98,6 +98,7 @@ export function getSourceLabel(source: string): string {
     youtube: "YouTube",
     medium: "Medium",
     github: "GitHub",
+    leetcode: "LeetCode",
   };
   return labels[source] ?? source;
 }
