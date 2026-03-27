@@ -282,6 +282,17 @@ test.describe("Knowledge Hub", () => {
     });
   });
 
+  test.describe("Sources", () => {
+    test("leetcode content is available", async ({ page }) => {
+      await page.goto("/hub?source=leetcode&sort=latest");
+      await expect(page.locator("article").first()).toBeVisible({ timeout: 10000 });
+      // LeetCode source should show in source filter
+      const sourceDropdown = page.locator("select[aria-label='Filter by source']");
+      const selectedText = await sourceDropdown.inputValue();
+      expect(selectedText).toBe("leetcode");
+    });
+  });
+
   test.describe("SEO", () => {
     test("has JSON-LD structured data", async ({ page }) => {
       await page.goto("/hub");
