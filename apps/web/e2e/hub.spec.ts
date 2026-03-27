@@ -284,7 +284,7 @@ test.describe("Knowledge Hub", () => {
     test("shows daily digest section", async ({ page }) => {
       await page.goto("/hub");
       await expect(
-        page.getByRole("heading", { name: "Daily Digest" }),
+        page.getByRole("heading", { name: "Today's Picks" }),
       ).toBeVisible();
     });
 
