@@ -7,11 +7,11 @@ interface DailyDigestProps {
 }
 
 /**
- * Daily digest — curated best article per category, updated daily.
- * Creates the "newspaper front page" experience that drives daily visits.
+ * Daily digest — THE hero section. Newspaper front page experience.
+ * Shows the single best article per category with visual hierarchy.
+ * This is what users check first every day.
  */
 export function DailyDigest({ articles, refreshedAt }: DailyDigestProps) {
-  // Get best article per category (by engagement)
   const bestPerCategory = new Map<string, FeedArticle>();
   const sorted = [...articles].sort((a, b) => b.score - a.score);
 
@@ -31,16 +31,57 @@ export function DailyDigest({ articles, refreshedAt }: DailyDigestProps) {
     day: "numeric",
   });
 
+  // Feature the top article prominently
+  const featured = digest[0]!;
+  const rest = digest.slice(1);
+  const featuredConfig = getCategoryConfig(featured.category);
+
   return (
-    <div className="rounded-xl border border-border bg-card p-4 sm:p-5">
+    <div className="section-enter space-y-3">
       <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-sm font-semibold text-foreground">Daily Digest</h2>
-          <p className="text-xs text-muted-foreground">{dateStr} — top pick from each domain</p>
+        <div className="flex items-center gap-2">
+          <h2 className="text-lg font-bold text-foreground">Today&apos;s Picks</h2>
+          <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+            {dateStr}
+          </span>
         </div>
       </div>
-      <div className="mt-3 divide-y divide-border">
-        {digest.map((article) => {
+
+      {/* Hero article — the #1 pick */}
+      <a
+        href={featured.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="gradient-shine group block rounded-xl border border-primary/20 bg-card p-5 transition-all hover:border-primary/40 hover:shadow-lg sm:p-6"
+      >
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
+            1
+          </span>
+          <span className={`rounded-full px-2 py-0.5 font-medium ${featuredConfig.className}`}>
+            {featuredConfig.label}
+          </span>
+          <span>{featured.sourceName}</span>
+          <span>{formatRelativeTime(featured.publishedAt)}</span>
+        </div>
+        <h3 className="mt-2 text-lg font-bold leading-snug text-card-foreground group-hover:text-primary sm:text-xl">
+          {featured.title}
+        </h3>
+        {featured.excerpt && featured.excerpt !== featured.title && (
+          <p className="mt-1.5 line-clamp-2 text-sm text-muted-foreground">
+            {featured.excerpt}
+          </p>
+        )}
+        <div className="mt-3 flex items-center gap-3 text-xs text-muted-foreground">
+          {featured.score > 0 && <span>{featured.score >= 1000 ? `${(featured.score / 1000).toFixed(1)}k` : featured.score} pts</span>}
+          {featured.commentCount > 0 && <span>{featured.commentCount} comments</span>}
+          <span>{featured.readingTime} min read</span>
+        </div>
+      </a>
+
+      {/* Rest of digest — compact grid */}
+      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        {rest.map((article, i) => {
           const config = getCategoryConfig(article.category);
           return (
             <a
@@ -48,19 +89,22 @@ export function DailyDigest({ articles, refreshedAt }: DailyDigestProps) {
               href={article.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-start gap-3 py-2.5 first:pt-0 last:pb-0"
+              className="group flex flex-col rounded-lg border border-border bg-card p-3 transition-all hover:border-primary/30 hover:shadow-sm"
             >
-              <span className={`mt-0.5 shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${config.className}`}>
-                {config.label}
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium leading-snug text-card-foreground group-hover:text-primary">
-                  {article.title}
-                </p>
-                <p className="mt-0.5 text-xs text-muted-foreground">
-                  {article.sourceName} · {formatRelativeTime(article.publishedAt)} · {article.readingTime} min
-                </p>
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-muted text-xs font-bold">
+                  {i + 2}
+                </span>
+                <span className={`rounded-full px-1.5 py-0.5 font-medium ${config.className}`}>
+                  {config.label}
+                </span>
               </div>
+              <h3 className="mt-1.5 line-clamp-2 text-sm font-semibold leading-snug text-card-foreground group-hover:text-primary">
+                {article.title}
+              </h3>
+              <p className="mt-auto pt-2 text-xs text-muted-foreground">
+                {article.sourceName} · {article.readingTime} min
+              </p>
             </a>
           );
         })}
