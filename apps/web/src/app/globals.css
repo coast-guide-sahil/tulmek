@@ -238,6 +238,29 @@ textarea {
   transition-duration: 0.1s;
 }
 
+/* Category-aware hover glow — colored shadow on hover */
+.hub-card-unread[data-category="dsa"]:hover {
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--accent-dsa) 12%, transparent);
+}
+.hub-card-unread[data-category="system-design"]:hover {
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--accent-system-design) 12%, transparent);
+}
+.hub-card-unread[data-category="ai-ml"]:hover {
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--accent-ai-ml) 12%, transparent);
+}
+.hub-card-unread[data-category="behavioral"]:hover {
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--accent-behavioral) 12%, transparent);
+}
+.hub-card-unread[data-category="career"]:hover {
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--accent-career) 12%, transparent);
+}
+.hub-card-unread[data-category="interview-experience"]:hover {
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--accent-interview-experience) 12%, transparent);
+}
+.hub-card-unread[data-category="compensation"]:hover {
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--accent-compensation) 12%, transparent);
+}
+
 /* Card entrance animation */
 @keyframes card-enter {
   from {
