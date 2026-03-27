@@ -12,7 +12,7 @@
  * 5. Personalization — client-side preference profiling
  */
 
-import type { FeedArticle } from "./article";
+import type { FeedArticle, HubCategory, FeedSourceId } from "./article";
 
 // Time conversion constants (avoid magic numbers)
 const MS_PER_HOUR = 3_600_000;
@@ -21,7 +21,7 @@ const TRENDING_WINDOW_HOURS = 168; // 7 days
 
 // ── Category weights: how relevant is this category to interview prep ──
 
-const CATEGORY_WEIGHT: Record<string, number> = {
+const CATEGORY_WEIGHT = {
   dsa: 1.0,
   "system-design": 1.0,
   behavioral: 0.95,
@@ -30,11 +30,11 @@ const CATEGORY_WEIGHT: Record<string, number> = {
   compensation: 0.7,
   career: 0.6,
   general: 0.3,
-};
+} as const satisfies Record<HubCategory, number>;
 
 // ── Freshness decay: per-category half-lives (hours) and floors ──
 
-const HALF_LIVES: Record<string, number> = {
+const HALF_LIVES = {
   dsa: 720 * 24,              // Evergreen — problems don't change
   "system-design": 180 * 24,  // Principles stable, tech stacks shift
   "ai-ml": 45 * 24,           // Moves extremely fast (LLM landscape monthly)
@@ -43,9 +43,9 @@ const HALF_LIVES: Record<string, number> = {
   compensation: 14 * 24,      // TC data stale in weeks
   career: 90 * 24,
   general: 14 * 24,
-};
+} as const satisfies Record<HubCategory, number>;
 
-const DECAY_FLOORS: Record<string, number> = {
+const DECAY_FLOORS = {
   dsa: 0.4,
   "system-design": 0.25,
   "ai-ml": 0.1,
@@ -54,11 +54,11 @@ const DECAY_FLOORS: Record<string, number> = {
   compensation: 0.03,
   career: 0.1,
   general: 0.05,
-};
+} as const satisfies Record<HubCategory, number>;
 
 // ── Source credibility baselines ──
 
-const SOURCE_CREDIBILITY: Record<string, number> = {
+const SOURCE_CREDIBILITY = {
   hackernews: 0.85,
   leetcode: 0.9,
   github: 0.8,
@@ -67,7 +67,7 @@ const SOURCE_CREDIBILITY: Record<string, number> = {
   medium: 0.65,
   reddit: 0.6,
   newsletter: 0.88,
-};
+} as const satisfies Record<FeedSourceId, number>;
 
 // ── Helper functions ──
 

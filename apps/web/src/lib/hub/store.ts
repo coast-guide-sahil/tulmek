@@ -2,8 +2,10 @@ import { create } from "zustand";
 import type { BookmarkStore, HubSearchEngine, HubSearchParams } from "@tulmek/core/ports";
 import type { BookmarkMap, FeedArticle, HubFacetedResult } from "@tulmek/core/domain";
 
-const READ_STORAGE_KEY = "tulmek:hub:read";
-const DISMISSED_STORAGE_KEY = "tulmek:hub:dismissed";
+import { STORAGE_KEYS } from "@tulmek/config/constants";
+
+const READ_STORAGE_KEY = STORAGE_KEYS.hubRead;
+const DISMISSED_STORAGE_KEY = STORAGE_KEYS.hubDismissed;
 
 function loadReadSet(): Set<string> {
   if (typeof window === "undefined") return new Set();
