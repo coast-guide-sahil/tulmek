@@ -1,7 +1,7 @@
 /**
  * TULMEK CORE RANKING ALGORITHM (TCRA)
  *
- * Proprietary multi-signal ranking system that produces interview-prep-optimized
+ * Multi-signal ranking system that produces interview-prep-optimized
  * content ordering. Runs entirely client-side with zero backend dependency.
  *
  * Components:
