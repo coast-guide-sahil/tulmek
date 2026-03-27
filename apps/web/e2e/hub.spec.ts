@@ -239,7 +239,7 @@ test.describe("Knowledge Hub", () => {
   test.describe("Highlights", () => {
     test("shows stats banner with article count", async ({ page }) => {
       await page.goto("/hub");
-      await expect(page.getByText("Total Articles")).toBeVisible();
+      await expect(page.getByText("New Today")).toBeVisible();
       await expect(page.getByText("Trending Now")).toBeVisible();
     });
 

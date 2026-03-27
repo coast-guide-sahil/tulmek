@@ -10,6 +10,10 @@ export function StatsBanner({ articles, lastRefreshedAt }: StatsBannerProps) {
   // Compute stats
   const sourceCount = new Set(articles.map((a) => a.source)).size;
   const trendingCount = articles.filter((a) => a.score >= 500).length;
+  const oneDayAgo = new Date(lastRefreshedAt).getTime() - 86400000;
+  const newTodayCount = articles.filter(
+    (a) => new Date(a.publishedAt).getTime() > oneDayAgo
+  ).length;
 
   // Top 3 categories by count
   const categoryCounts: Record<string, number> = {};
@@ -23,14 +27,14 @@ export function StatsBanner({ articles, lastRefreshedAt }: StatsBannerProps) {
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
       <StatCard
-        label="Total Articles"
-        value={String(articles.length)}
-        detail={`From ${sourceCount} sources`}
+        label="New Today"
+        value={String(newTodayCount)}
+        detail={`of ${articles.length} total`}
       />
       <StatCard
         label="Trending Now"
         value={String(trendingCount)}
-        detail="500+ engagement"
+        detail={`From ${sourceCount} sources`}
       />
       <StatCard
         label="Top Topics"
