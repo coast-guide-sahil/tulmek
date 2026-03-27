@@ -9,42 +9,42 @@ interface CategoryConfig {
 const CATEGORY_CONFIGS: Record<string, CategoryConfig> = {
   dsa: {
     label: "DSA",
-    className: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400",
+    className: "bg-emerald-500/15 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300",
     emoji: "🧩",
   },
   "system-design": {
     label: "System Design",
-    className: "bg-blue-500/10 text-blue-700 dark:text-blue-400",
+    className: "bg-blue-500/15 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300",
     emoji: "🏗️",
   },
   "ai-ml": {
     label: "AI / ML",
-    className: "bg-purple-500/10 text-purple-700 dark:text-purple-400",
+    className: "bg-purple-500/15 text-purple-700 dark:bg-purple-500/20 dark:text-purple-300",
     emoji: "🤖",
   },
   behavioral: {
     label: "Behavioral",
-    className: "bg-amber-500/10 text-amber-700 dark:text-amber-400",
+    className: "bg-amber-500/15 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300",
     emoji: "🗣️",
   },
   career: {
     label: "Career",
-    className: "bg-rose-500/10 text-rose-700 dark:text-rose-400",
+    className: "bg-rose-500/15 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300",
     emoji: "📈",
   },
   "interview-experience": {
     label: "Experiences",
-    className: "bg-cyan-500/10 text-cyan-700 dark:text-cyan-400",
+    className: "bg-cyan-500/15 text-cyan-700 dark:bg-cyan-500/20 dark:text-cyan-300",
     emoji: "💬",
   },
   compensation: {
     label: "Compensation",
-    className: "bg-yellow-500/10 text-yellow-700 dark:text-yellow-400",
+    className: "bg-yellow-500/15 text-yellow-700 dark:bg-yellow-500/20 dark:text-yellow-300",
     emoji: "💰",
   },
   general: {
     label: "General",
-    className: "bg-gray-500/10 text-gray-700 dark:text-gray-400",
+    className: "bg-gray-500/15 text-gray-700 dark:bg-gray-500/20 dark:text-gray-300",
     emoji: "📄",
   },
 };
