@@ -17,7 +17,7 @@ export function HubSearchBar({
 }: HubSearchBarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Press "/" to focus search (common pattern in dev tools)
+  // Press "/" to focus search, Escape to clear and blur
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (
@@ -30,10 +30,14 @@ export function HubSearchBar({
         e.preventDefault();
         inputRef.current?.focus();
       }
+      if (e.key === "Escape" && document.activeElement === inputRef.current) {
+        onChange("");
+        inputRef.current?.blur();
+      }
     };
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
-  }, []);
+  }, [onChange]);
 
   return (
     <div className="relative flex-1">
