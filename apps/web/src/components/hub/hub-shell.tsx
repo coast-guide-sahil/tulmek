@@ -131,6 +131,12 @@ export function HubShell({ children }: { children: ReactNode }) {
               <a href="https://dev.to" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">dev.to</a>
               <span>·</span>
               <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">YouTube</a>
+              <span>·</span>
+              <a href="https://leetcode.com/discuss" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">LeetCode</a>
+              <span>·</span>
+              <a href="https://medium.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">Medium</a>
+              <span>·</span>
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">GitHub</a>
             </div>
           </div>
           <div className="mt-3 flex flex-col items-center gap-2">
