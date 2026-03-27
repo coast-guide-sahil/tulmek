@@ -225,6 +225,14 @@ textarea {
   outline-offset: 2px;
 }
 
+/* Header auto-hide on scroll */
+.header-auto-hide {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.header-hidden {
+  transform: translateY(-100%);
+}
+
 /* Keyboard navigation highlight */
 article.keyboard-focused {
   outline: 2px solid var(--primary);
