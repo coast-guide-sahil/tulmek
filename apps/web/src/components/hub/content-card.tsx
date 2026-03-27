@@ -30,6 +30,9 @@ export const ContentCard = memo(function ContentCard({
   const relativeTime = formatRelativeTime(article.publishedAt);
   const isTrending = article.score >= TRENDING_THRESHOLD;
   const isHotDiscussion = article.commentCount >= HOT_DISCUSSION_THRESHOLD;
+  // Quality tier: engagement + discussion depth
+  const qualityScore = article.score + article.commentCount * 3;
+  const qualityTier = qualityScore >= 1000 ? "high" : qualityScore >= 200 ? "medium" : "low";
 
   const handleLinkClick = () => {
     onArticleClick?.(article.id);
@@ -100,6 +103,7 @@ export const ContentCard = memo(function ContentCard({
       {/* Header: source + time + badges + bookmark */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <QualityDot tier={qualityTier} />
           <SourceBadge sourceName={article.sourceName} domain={article.domain} />
           <span aria-label="Published">{relativeTime}</span>
         </div>
@@ -257,6 +261,26 @@ function BookmarkButton({ isBookmarked, onClick }: { isBookmarked: boolean; onCl
         </svg>
       )}
     </button>
+  );
+}
+
+function QualityDot({ tier }: { tier: "high" | "medium" | "low" }) {
+  const colors = {
+    high: "bg-success",
+    medium: "bg-amber-400",
+    low: "bg-muted-foreground/30",
+  };
+  const labels = {
+    high: "High quality",
+    medium: "Good quality",
+    low: "Standard",
+  };
+  return (
+    <span
+      className={`h-2 w-2 shrink-0 rounded-full ${colors[tier]}`}
+      title={labels[tier]}
+      aria-label={labels[tier]}
+    />
   );
 }
 
