@@ -10,15 +10,10 @@ import { FeedSkeleton } from "@/components/hub/feed-skeleton";
 import { FeaturedPicks } from "@/components/hub/featured-picks";
 import { CompensationHighlights } from "@/components/hub/compensation-highlights";
 import { ForYou } from "@/components/hub/for-you";
-import { SimilarToSaved } from "@/components/hub/similar-to-saved";
 import { RandomDiscovery } from "@/components/hub/random-discovery";
-import { SourceDiversity } from "@/components/hub/source-diversity";
-import { PrepPulse } from "@/components/hub/prep-pulse";
 import { StatsBanner } from "@/components/hub/stats-banner";
-import { CategoryHealth } from "@/components/hub/category-health";
 import { DailyDigest } from "@/components/hub/daily-digest";
 import { ActiveDiscussions } from "@/components/hub/active-discussions";
-import { WeeklyHighlights } from "@/components/hub/weekly-highlights";
 import { WelcomeBack } from "@/components/hub/welcome-back";
 import { APP_NAME } from "@tulmek/config/constants";
 
@@ -68,80 +63,63 @@ export default function HubPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {/* Header */}
-      <div className="hub-hero-gradient -mx-4 rounded-2xl px-4 py-2 sm:-mx-6 sm:px-6">
+
+      {/* 1. Hero — clean, focused */}
+      <div className="hub-hero-gradient -mx-4 rounded-2xl px-4 py-3 sm:-mx-6 sm:px-6">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <h1 className="section-enter text-2xl font-bold text-foreground sm:text-3xl">
-            Knowledge Hub
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Latest interview prep content from across the web — refreshed daily.
-          </p>
-          <WelcomeBack />
-        </div>
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <span className="inline-flex items-center gap-1">
-            <span className="h-2 w-2 rounded-full bg-success" />
-            {feedMeta.totalArticles} articles
-          </span>
-          <span>·</span>
-          <span>
-            Updated{" "}
-            {new Date(feedMeta.lastRefreshedAt).toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              hour: "numeric",
-              minute: "2-digit",
-            })}
-          </span>
+          <div>
+            <h1 className="section-enter text-2xl font-bold text-foreground sm:text-3xl">
+              Knowledge Hub
+            </h1>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {feedMeta.totalArticles} articles from {Object.keys(feedMeta.sourceBreakdown).length} sources — refreshed daily
+            </p>
+            <WelcomeBack />
+          </div>
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <span className="inline-flex items-center gap-1">
+              <span className="h-2 w-2 live-pulse rounded-full bg-success" />
+              Live
+            </span>
+            <span>·</span>
+            <span>
+              Updated{" "}
+              {new Date(feedMeta.lastRefreshedAt).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                hour: "numeric",
+                minute: "2-digit",
+              })}
+            </span>
+          </div>
         </div>
       </div>
-      </div>
 
-      {/* Stats Banner */}
-      <StatsBanner
-        articles={articles}
-        lastRefreshedAt={feedMeta.lastRefreshedAt}
-      />
-
-      {/* What's New Banner */}
+      {/* 2. What's New — return hook */}
       <WhatsNewBanner articles={articles} />
 
-      {/* Prep Pulse — latest from each source */}
-      <PrepPulse articles={articles} />
+      {/* 3. Stats — compact overview */}
+      <StatsBanner articles={articles} lastRefreshedAt={feedMeta.lastRefreshedAt} />
 
-      {/* Category Health */}
-      <CategoryHealth articles={articles} nowMs={BUILD_TIME} />
-
-      {/* Source Diversity Bar */}
-      <SourceDiversity articles={articles} />
-
-      {/* Featured Picks */}
-      <FeaturedPicks articles={articles} nowMs={BUILD_TIME} />
-
-      {/* Daily Digest */}
+      {/* 4. Daily Digest — THE hero section (newspaper front page) */}
       <DailyDigest articles={articles} refreshedAt={feedMeta.lastRefreshedAt} />
 
-      {/* Personalized Recommendations */}
+      {/* 5. Top Picks — curated best content */}
+      <FeaturedPicks articles={articles} nowMs={BUILD_TIME} />
+
+      {/* 6. Personalized — only shows after 3+ reads */}
       <ForYou articles={articles} />
 
-      {/* Similar to Saved */}
-      <SimilarToSaved articles={articles} />
-
-      {/* Active Discussions */}
+      {/* 7. Active Discussions — live urgency */}
       <ActiveDiscussions articles={articles} nowMs={BUILD_TIME} />
 
-      {/* Compensation & Interview Experience Highlights */}
+      {/* 8. Compensation & Experiences — dedicated sections */}
       <CompensationHighlights articles={articles} />
 
-      {/* Weekly Highlights */}
-      <WeeklyHighlights articles={articles} nowMs={BUILD_TIME} />
-
-      {/* Random Discovery */}
+      {/* 9. Discovery — surprise element */}
       <RandomDiscovery articles={articles} />
 
-      {/* Feed — wrapped in Suspense for nuqs URL state */}
+      {/* 10. Full Feed — the main content */}
       <Suspense fallback={<FeedSkeleton />}>
         <FeedLayout articles={articles} />
       </Suspense>
