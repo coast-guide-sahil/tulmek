@@ -16,6 +16,17 @@ export function KeyboardNav() {
         e.ctrlKey || e.metaKey || e.altKey
       ) return;
 
+      // O = open current article in new tab
+      if (e.key === "o") {
+        const focused = document.activeElement?.closest("article");
+        const link = focused?.querySelector<HTMLAnchorElement>("a[target='_blank']");
+        if (link) {
+          e.preventDefault();
+          window.open(link.href, "_blank", "noopener,noreferrer");
+        }
+        return;
+      }
+
       if (e.key === "j" || e.key === "k") {
         e.preventDefault();
         const articles = Array.from(document.querySelectorAll("article"));
