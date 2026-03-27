@@ -279,6 +279,7 @@ function SourceBadge({ sourceName, domain }: { sourceName: string; domain: strin
   const knownDomains = new Set(["reddit.com", "dev.to", "youtube.com", "leetcode.com", "medium.com", "github.com"]);
   return (
     <span className="flex items-center gap-1 font-medium">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={`https://www.google.com/s2/favicons?domain=${domain}&sz=16`}
         alt=""
