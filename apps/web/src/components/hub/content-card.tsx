@@ -182,7 +182,7 @@ export const ContentCard = memo(function ContentCard({
 
       {/* Excerpt */}
       {article.excerpt && article.excerpt !== article.title && (
-        <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-muted-foreground sm:text-sm">
+        <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted-foreground/80">
           {article.excerpt}
         </p>
       )}
