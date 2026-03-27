@@ -541,10 +541,10 @@ async function fetchLeetCode(): Promise<RawArticle[]> {
   console.log("  Fetching LeetCode Discuss...");
   const articles: RawArticle[] = [];
 
+  // ONLY fetch Compensation and Interview tabs from LeetCode Discuss
   const categories = [
     { slug: "interview-experience", label: "Interview Experience", category: "interview-experience" },
     { slug: "compensation", label: "Compensation", category: "compensation" },
-    { slug: "interview-question", label: "Interview Questions", category: "dsa" },
   ];
 
   for (const { slug, label, category } of categories) {
@@ -556,7 +556,7 @@ async function fetchLeetCode(): Promise<RawArticle[]> {
           "Referer": "https://leetcode.com",
         },
         body: JSON.stringify({
-          query: `query { categoryTopicList(orderBy: most_votes, skip: 0, first: 20, categories: ["${slug}"]) { edges { node { id title post { voteCount creationDate } commentCount } } } }`,
+          query: `query { categoryTopicList(orderBy: most_votes, skip: 0, first: 40, categories: ["${slug}"]) { edges { node { id title post { voteCount creationDate } commentCount } } } }`,
         }),
       });
 
