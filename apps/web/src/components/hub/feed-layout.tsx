@@ -20,6 +20,7 @@ import { ReadingTimeFilter, type ReadingDepth } from "./reading-time-filter";
 import { CopyFeedLink } from "./copy-feed-link";
 import { FocusSuggestion } from "./focus-suggestion";
 import { FeedActions } from "./feed-actions";
+import { MobileActionBar } from "./mobile-action-bar";
 
 interface FeedLayoutProps {
   readonly articles: FeedArticle[];
@@ -337,6 +338,14 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
       ) : (
         <EmptyState onClear={handleClearFilters} />
       )}
+
+      {/* Mobile filter bar */}
+      <MobileActionBar
+        activeCategory={activeCategory}
+        articleCount={filteredArticles.length}
+        onClearFilters={handleClearFilters}
+        hasFilters={hasActiveFilters}
+      />
     </div>
   );
 }
