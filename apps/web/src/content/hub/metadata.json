@@ -1,20 +1,20 @@
 {
-  "lastRefreshedAt": "2026-03-27T07:19:07.502Z",
-  "totalArticles": 600,
+  "lastRefreshedAt": "2026-03-27T08:10:59.542Z",
+  "totalArticles": 733,
   "sourceBreakdown": {
-    "reddit": 326,
-    "hackernews": 99,
-    "devto": 153,
-    "youtube": 22
+    "reddit": 371,
+    "hackernews": 101,
+    "devto": 238,
+    "youtube": 23
   },
   "categoryBreakdown": {
-    "general": 121,
-    "compensation": 117,
-    "ai-ml": 63,
+    "general": 140,
+    "compensation": 123,
+    "ai-ml": 73,
     "behavioral": 6,
-    "career": 155,
-    "system-design": 67,
-    "interview-experience": 8,
-    "dsa": 63
+    "career": 166,
+    "system-design": 145,
+    "interview-experience": 11,
+    "dsa": 69
   }
 }

@@ -56,6 +56,11 @@ const CATEGORY_KEYWORDS: Record<string, string[]> = {
     "rate limiting", "sharding", "replication", "event driven",
     "architecture", "infrastructure", "kubernetes", "docker",
     "ci/cd", "monitoring", "observability", "devops",
+    "cloud architecture", "aws", "gcp", "azure",
+    "serverless", "edge computing", "data pipeline",
+    "streaming", "kafka", "redis", "elasticsearch",
+    "security architecture", "zero trust", "oauth",
+    "mobile architecture", "ios", "android", "react native", "flutter",
   ],
   "ai-ml": [
     "machine learning", "deep learning", "neural network", "nlp",
@@ -327,15 +332,26 @@ async function fetchRedditSearch(): Promise<RawArticle[]> {
   console.log("  Fetching Reddit search (interview exp + compensation)...");
   const articles: RawArticle[] = [];
 
-  // Targeted searches across top subreddits for specific content types
+  // Targeted searches across subreddits for specific content types
   const searches = [
+    // Interview experiences
     { sub: "cscareerquestions", query: "interview experience", sort: "new" },
+    { sub: "leetcode", query: "interview experience", sort: "new" },
+    { sub: "ExperiencedDevs", query: "interview process", sort: "new" },
+    // Compensation
     { sub: "cscareerquestions", query: "total compensation TC", sort: "new" },
     { sub: "cscareerquestions", query: "salary sharing thread", sort: "top" },
     { sub: "cscareerquestions", query: "offer negotiation", sort: "new" },
-    { sub: "leetcode", query: "interview experience", sort: "new" },
     { sub: "ExperiencedDevs", query: "compensation", sort: "new" },
-    { sub: "ExperiencedDevs", query: "interview process", sort: "new" },
+    // Domain-specific interviews (real value for ALL domains)
+    { sub: "devops", query: "interview", sort: "new" },
+    { sub: "dataengineering", query: "interview", sort: "new" },
+    { sub: "cybersecurity", query: "interview", sort: "new" },
+    { sub: "iOSProgramming", query: "interview", sort: "new" },
+    { sub: "androiddev", query: "interview", sort: "new" },
+    { sub: "aws", query: "interview", sort: "new" },
+    { sub: "golang", query: "interview", sort: "new" },
+    { sub: "rust", query: "interview", sort: "new" },
   ];
 
   for (const { sub, query, sort } of searches) {
@@ -410,6 +426,8 @@ async function fetchDevTo(): Promise<RawArticle[]> {
     "machinelearning", "ai", "programming", "webdev",
     "datastructures", "leetcode", "salary", "jobs",
     "hiring", "resume", "softwareengineering",
+    "devops", "cloud", "security", "mobile", "database",
+    "golang", "rust", "python", "java", "typescript",
   ];
 
   for (const tag of tags) {
