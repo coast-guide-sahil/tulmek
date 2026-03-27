@@ -142,7 +142,7 @@ export function HubShell({ children }: { children: ReactNode }) {
           <div className="mt-3 flex flex-col items-center gap-2">
             <UserStats />
             <p className="text-center text-xs text-muted-foreground">
-              Content refreshed daily. All bookmarks saved locally — no account required.
+              Content refreshed every 3 hours from 7 sources. All bookmarks saved locally — no account required.
             </p>
           </div>
         </div>
