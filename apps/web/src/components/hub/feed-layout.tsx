@@ -10,6 +10,7 @@ import { HubSearchBar } from "./hub-search-bar";
 import { ViewToggle } from "./view-toggle";
 import { FeedSkeleton } from "./feed-skeleton";
 import { getSourceLabel } from "./hub-utils";
+import { tulmekRank } from "@/lib/hub/ranking";
 import { TrendingTopics } from "./trending-topics";
 import { CompanyPulse } from "./company-pulse";
 import { AutoTopics } from "./auto-topics";
@@ -167,10 +168,11 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
       }
     }
 
-    // Sort
+    // Sort — TCRA for trending, standard for others
     switch (sortMode) {
       case "trending":
-        result.sort((a, b) => b.score - a.score);
+        // TULMEK Core Ranking Algorithm: multi-signal, personalized, diversity-aware
+        result = tulmekRank(result, nowMs, readIds, bookmarks);
         break;
       case "latest":
         result.sort(
@@ -184,7 +186,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     }
 
     return result;
-  }, [articles, activeCategory, sourceFilter, contentType, debouncedQuery, sortMode, searchResults]);
+  }, [articles, activeCategory, sourceFilter, contentType, debouncedQuery, sortMode, searchResults, nowMs, readIds, bookmarks]);
 
   const handleClearFilters = useCallback(() => {
     setParams({ category: null, source: null, q: null });
