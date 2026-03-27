@@ -81,6 +81,8 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://medium.com" />
         <link rel="dns-prefetch" href="https://github.com" />
         <link rel="dns-prefetch" href="https://www.youtube.com" />
+        <link rel="dns-prefetch" href="https://leetcode.com" />
+        <link rel="dns-prefetch" href="https://www.google.com" />
       </head>
       <body className="min-h-dvh flex flex-col bg-background text-foreground">
         <a
