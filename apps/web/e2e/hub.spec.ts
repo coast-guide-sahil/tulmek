@@ -84,7 +84,7 @@ test.describe("Knowledge Hub", () => {
       await latestTab.click();
       await expect(latestTab).toHaveAttribute("aria-selected", "true");
 
-      const trendingTab = page.getByRole("tab", { name: "Trending" });
+      const trendingTab = page.getByRole("tab", { name: "For You" });
       await trendingTab.click();
       await expect(trendingTab).toHaveAttribute("aria-selected", "true");
     });

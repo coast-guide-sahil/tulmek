@@ -21,11 +21,11 @@ interface FeedLayoutProps {
   readonly initialCategory?: HubCategory;
 }
 
-type SortMode = "trending" | "latest" | "most-discussed";
+type SortMode = "for-you" | "latest" | "popular" | "most-discussed";
 const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
 
 const HUB_CATEGORIES: HubCategory[] = ["dsa", "system-design", "ai-ml", "behavioral", "interview-experience", "compensation", "career", "general"];
-const SORT_MODES: SortMode[] = ["trending", "latest", "most-discussed"];
+const SORT_MODES: SortMode[] = ["for-you", "latest", "popular", "most-discussed"];
 const VIEW_MODES: ("grid" | "list")[] = ["grid", "list"];
 
 export function FeedLayout({ articles }: FeedLayoutProps) {
@@ -36,7 +36,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     category: parseAsStringEnum<HubCategory>(HUB_CATEGORIES),
     q: parseAsString.withDefault(""),
     source: parseAsString,
-    sort: parseAsStringEnum<SortMode>(SORT_MODES).withDefault("trending"),
+    sort: parseAsStringEnum<SortMode>(SORT_MODES).withDefault("for-you"),
     view: parseAsStringEnum<"grid" | "list">(VIEW_MODES).withDefault("grid"),
   }, { shallow: true });
 
@@ -168,11 +168,14 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
       }
     }
 
-    // Sort — TCRA for trending, standard for others
+    // Sort — TCRA for "For You", standard for others
     switch (sortMode) {
-      case "trending":
+      case "for-you":
         // TULMEK Core Ranking Algorithm: multi-signal, personalized, diversity-aware
         result = tulmekRank(result, nowMs, readIds, bookmarks);
+        break;
+      case "popular":
+        result.sort((a, b) => b.score - a.score);
         break;
       case "latest":
         result.sort(
@@ -321,8 +324,9 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
 
 function SortTabs({ value, onChange }: { value: SortMode; onChange: (v: SortMode) => void }) {
   const tabs: { id: SortMode; label: string }[] = [
-    { id: "trending", label: "Trending" },
+    { id: "for-you", label: "For You" },
     { id: "latest", label: "Latest" },
+    { id: "popular", label: "Popular" },
     { id: "most-discussed", label: "Most Discussed" },
   ];
 
