@@ -17,9 +17,10 @@ export function HubSearchBar({
 }: HubSearchBarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Press "/" to focus search, Escape to clear and blur
+  // Press "/" or Ctrl+K to focus search, Escape to clear and blur
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
+      // "/" without modifiers (standard aggregator shortcut)
       if (
         e.key === "/" &&
         !e.ctrlKey &&
@@ -27,6 +28,11 @@ export function HubSearchBar({
         document.activeElement?.tagName !== "INPUT" &&
         document.activeElement?.tagName !== "TEXTAREA"
       ) {
+        e.preventDefault();
+        inputRef.current?.focus();
+      }
+      // Ctrl+K or Cmd+K (VS Code / Notion / Linear standard)
+      if (e.key === "k" && (e.ctrlKey || e.metaKey)) {
         e.preventDefault();
         inputRef.current?.focus();
       }
@@ -62,7 +68,7 @@ export function HubSearchBar({
         onChange={(e) => onChange(e.target.value)}
         placeholder="Search articles, topics, sources..."
         className="h-11 w-full rounded-lg border border-border bg-input pl-10 pr-16 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary"
-        aria-label="Search articles (press / to focus)"
+        aria-label="Search articles (press / or Ctrl+K to focus)"
       />
       <div className="absolute right-3 top-1/2 flex -translate-y-1/2 items-center gap-2">
         {resultCount !== undefined ? (
