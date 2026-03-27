@@ -14,6 +14,7 @@ import { SimilarToSaved } from "@/components/hub/similar-to-saved";
 import { SourceDiversity } from "@/components/hub/source-diversity";
 import { PrepPulse } from "@/components/hub/prep-pulse";
 import { StatsBanner } from "@/components/hub/stats-banner";
+import { CategoryHealth } from "@/components/hub/category-health";
 import { DailyDigest } from "@/components/hub/daily-digest";
 import { ActiveDiscussions } from "@/components/hub/active-discussions";
 import { APP_NAME } from "@tulmek/config/constants";
@@ -92,6 +93,9 @@ export default function HubPage() {
 
       {/* Prep Pulse — latest from each source */}
       <PrepPulse articles={articles} />
+
+      {/* Category Health */}
+      <CategoryHealth articles={articles} nowMs={BUILD_TIME} />
 
       {/* Source Diversity Bar */}
       <SourceDiversity articles={articles} />
