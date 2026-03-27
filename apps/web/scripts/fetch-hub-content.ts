@@ -206,6 +206,64 @@ function deduplicateByUrl(articles: RawArticle[]): RawArticle[] {
   });
 }
 
+/** FNV-1a 32-bit hash for SimHash token hashing */
+function fnv1a32(str: string): number {
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < str.length; i++) {
+    hash ^= str.charCodeAt(i);
+    hash = (hash * 0x01000193) >>> 0;
+  }
+  return hash;
+}
+
+/** 32-bit SimHash fingerprint for near-duplicate title detection */
+function simhash(text: string): number {
+  const tokens = text.toLowerCase().replace(/[^a-z0-9\s]/g, "").split(/\s+/).filter(Boolean);
+  if (tokens.length === 0) return 0;
+  const v = new Array(32).fill(0);
+  for (const token of tokens) {
+    const hash = fnv1a32(token);
+    for (let i = 0; i < 32; i++) {
+      v[i] += (hash >>> i) & 1 ? 1 : -1;
+    }
+  }
+  let fingerprint = 0;
+  for (let i = 0; i < 32; i++) {
+    if (v[i]! > 0) fingerprint |= 1 << i;
+  }
+  return fingerprint >>> 0;
+}
+
+/** Hamming distance between two 32-bit integers */
+function hammingDistance(a: number, b: number): number {
+  let xor = (a ^ b) >>> 0;
+  let count = 0;
+  while (xor > 0) { count += xor & 1; xor >>>= 1; }
+  return count;
+}
+
+/** Remove near-duplicate articles by title similarity (SimHash, Hamming distance < 4) */
+function deduplicateByTitle(articles: RawArticle[]): RawArticle[] {
+  const kept: RawArticle[] = [];
+  const fingerprints: number[] = [];
+
+  for (const article of articles) {
+    const fp = simhash(article.title);
+    const dupeIdx = fingerprints.findIndex((existing) => hammingDistance(fp, existing) < 4);
+
+    if (dupeIdx === -1) {
+      kept.push(article);
+      fingerprints.push(fp);
+    } else if (article.score > kept[dupeIdx]!.score) {
+      // Keep higher-engagement version
+      kept[dupeIdx] = article;
+      fingerprints[dupeIdx] = fp;
+    }
+  }
+
+  return kept;
+}
+
 // ── Fetchers ──
 
 async function fetchHackerNews(): Promise<RawArticle[]> {
@@ -881,6 +939,14 @@ async function main() {
 
   let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...github, ...youtube, ...newsletters];
   all = deduplicateByUrl(all);
+
+  // Layer 2: SimHash near-duplicate title detection
+  const beforeTitle = all.length;
+  all = deduplicateByTitle(all);
+  const titleDupes = beforeTitle - all.length;
+  if (titleDupes > 0) {
+    console.log(`  SimHash dedup removed ${titleDupes} near-duplicate titles`);
+  }
 
   // Sort by score (engagement) descending, then by date
   all.sort((a, b) => {
