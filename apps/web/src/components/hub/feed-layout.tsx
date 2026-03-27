@@ -15,6 +15,7 @@ import { TrendingTopics } from "./trending-topics";
 import { CompanyPulse } from "./company-pulse";
 import { AutoTopics } from "./auto-topics";
 import { ContentTypeFilter, type ContentType } from "./content-type-filter";
+import { CopyFeedLink } from "./copy-feed-link";
 
 interface FeedLayoutProps {
   readonly articles: FeedArticle[];
@@ -220,6 +221,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
           totalCount={articles.length}
         />
         <div className="flex items-center gap-2">
+          <CopyFeedLink />
           <ViewToggle layout={layout} onChange={setLayout} />
         </div>
       </div>
