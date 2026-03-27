@@ -18,6 +18,7 @@ import { ExploreCompanies } from "./explore-companies";
 import { ContentTypeFilter, type ContentType } from "./content-type-filter";
 import { ReadingTimeFilter, type ReadingDepth } from "./reading-time-filter";
 import { CopyFeedLink } from "./copy-feed-link";
+import { FocusSuggestion } from "./focus-suggestion";
 
 interface FeedLayoutProps {
   readonly articles: FeedArticle[];
@@ -237,6 +238,9 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
           <ViewToggle layout={layout} onChange={setLayout} />
         </div>
       </div>
+
+      {/* Focus Suggestion */}
+      <FocusSuggestion onCategoryClick={setActiveCategory} />
 
       {/* Category Navigation */}
       <CategoryNav
