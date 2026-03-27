@@ -44,7 +44,7 @@ test.describe("Knowledge Hub", () => {
       await page.goto("/hub");
       const searchInput = page.getByRole("searchbox", { name: "Search articles" });
       await searchInput.fill("xyznonexistent12345");
-      await expect(page.getByText("No articles match your filters")).toBeVisible();
+      await expect(page.getByText("No articles found")).toBeVisible();
     });
   });
 
