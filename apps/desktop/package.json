@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "tauri dev",
-    "build": "tauri build",
+    "build": "echo 'Use: pnpm tauri:build (requires Rust)'",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
     "tauri": "tauri"
   },
   "dependencies": {
