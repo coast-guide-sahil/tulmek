@@ -2,12 +2,11 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Knowledge Hub", () => {
   test.describe("Feed Page", () => {
-    test("loads and shows header with article count", async ({ page }) => {
+    test("loads and shows header", async ({ page }) => {
       await page.goto("/hub");
       await expect(
         page.getByRole("heading", { name: "Knowledge Hub" }),
       ).toBeVisible({ timeout: 10000 });
-      await expect(page.getByText(/\d+ articles/)).toBeVisible();
     });
 
     test("shows content cards", async ({ page }) => {

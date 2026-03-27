@@ -42,7 +42,7 @@ export function TrendingTopics({ articles, onTopicClick }: TrendingTopicsProps) 
         <button
           key={tag}
           onClick={() => onTopicClick(tag)}
-          className="min-h-[32px] rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-card-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
+          className="min-h-[44px] rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-card-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
         >
           {tag}
         </button>
