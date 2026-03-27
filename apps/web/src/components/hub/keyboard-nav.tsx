@@ -59,13 +59,13 @@ export function KeyboardNav() {
         return;
       }
 
-      // S = share focused article
+      // S = copy focused article link to clipboard
       if (e.key === "s") {
         const focused = articles[focusedArticleIdx] ?? document.activeElement?.closest("article");
-        const shareBtn = focused?.querySelector<HTMLButtonElement>("button[aria-label='Share article']");
-        if (shareBtn) {
+        const link = focused?.querySelector<HTMLAnchorElement>("a[target='_blank']");
+        if (link && typeof navigator !== "undefined" && navigator.clipboard) {
           e.preventDefault();
-          shareBtn.click();
+          navigator.clipboard.writeText(link.href).catch(() => {});
         }
         return;
       }

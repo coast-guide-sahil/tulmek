@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useState } from "react";
+import { memo } from "react";
 import type { FeedArticle } from "@tulmek/core/domain";
 import { formatRelativeTime, getCategoryConfig } from "./hub-utils";
 
@@ -109,13 +109,9 @@ export const ContentCard = memo(function ContentCard({
           <SourceBadge sourceName={article.sourceName} domain={article.domain} />
           <span aria-label="Published">{relativeTime}</span>
         </div>
-        <div className="flex items-center gap-0">
+        <div className="flex items-center gap-0.5">
           {isNew && <NewBadge />}
           {isTrending && <TrendingBadge />}
-          {article.discussionUrl && (
-            <DiscussionButton url={article.discussionUrl} commentCount={article.commentCount} />
-          )}
-          <ShareButton url={article.url} title={article.title} />
           <BookmarkButton
             isBookmarked={isBookmarked}
             onClick={() => onToggleBookmark(article.id)}
@@ -123,11 +119,11 @@ export const ContentCard = memo(function ContentCard({
           {onDismiss && (
             <button
               onClick={() => onDismiss(article.id)}
-              className="flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-lg text-muted-foreground/50 transition-colors hover:bg-muted hover:text-foreground"
+              className="flex min-h-[44px] min-w-[36px] shrink-0 items-center justify-center rounded-lg text-muted-foreground/40 transition-colors hover:text-muted-foreground"
               aria-label="Not interested"
-              title="Hide this article"
+              title="Hide"
             >
-              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+              <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
@@ -304,56 +300,9 @@ function QualityDot({ tier }: { tier: "high" | "medium" | "low" }) {
   );
 }
 
-function DiscussionButton({ url, commentCount }: { url: string; commentCount: number }) {
-  return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-      aria-label={`View discussion (${commentCount} comments)`}
-      title={`${commentCount} comments`}
-    >
-      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
-      </svg>
-    </a>
-  );
-}
-
-function ShareButton({ url, title }: { url: string; title: string }) {
-  const [copied, setCopied] = useState(false);
-
-  const handleShare = () => {
-    if (typeof navigator !== "undefined" && navigator.share) {
-      navigator.share({ title, url }).catch(() => {});
-    } else if (typeof navigator !== "undefined" && navigator.clipboard) {
-      navigator.clipboard.writeText(url).then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      }).catch(() => {});
-    }
-  };
-
-  return (
-    <button
-      onClick={handleShare}
-      className="flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-      aria-label={copied ? "Link copied!" : "Share article"}
-      title={copied ? "Copied!" : "Share"}
-    >
-      {copied ? (
-        <svg className="h-4 w-4 text-success" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" aria-hidden="true">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-        </svg>
-      ) : (
-        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
-        </svg>
-      )}
-    </button>
-  );
-}
+// DiscussionButton and ShareButton removed — declutter card header per UX audit
+// Discussion link available via comment count in footer
+// Share available via "s" keyboard shortcut
 
 function UpvoteIcon() {
   return (
