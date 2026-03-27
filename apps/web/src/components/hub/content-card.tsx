@@ -224,10 +224,19 @@ function formatCount(n: number): string {
 // ── Sub-components ──
 
 function SourceBadge({ sourceName, domain }: { sourceName: string; domain: string }) {
+  const knownDomains = new Set(["reddit.com", "dev.to", "youtube.com", "leetcode.com", "medium.com", "github.com"]);
   return (
     <span className="flex items-center gap-1 font-medium">
+      <img
+        src={`https://www.google.com/s2/favicons?domain=${domain}&sz=16`}
+        alt=""
+        width={14}
+        height={14}
+        className="rounded-sm"
+        loading="lazy"
+      />
       <span>{sourceName}</span>
-      {domain !== "reddit.com" && domain !== "dev.to" && domain !== "youtube.com" && (
+      {!knownDomains.has(domain) && (
         <span className="text-muted-foreground/60">({domain})</span>
       )}
     </span>
