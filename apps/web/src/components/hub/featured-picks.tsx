@@ -14,7 +14,12 @@ export function FeaturedPicks({ articles, nowMs }: FeaturedPicksProps) {
     const ageHours = now > 0 ? (now - new Date(a.publishedAt).getTime()) / 3600000 : 48;
     const recencyBonus = ageHours < 24 ? 200 : ageHours < 72 ? 100 : 0;
     const discussionBonus = a.commentCount > 50 ? 150 : a.commentCount > 20 ? 50 : 0;
-    return { article: a, quality: a.score + recencyBonus + discussionBonus };
+    // Category bonus: interview experiences and compensation are highest value content
+    const categoryBonus = a.category === "interview-experience" ? 100
+      : a.category === "compensation" ? 80
+      : a.category === "dsa" || a.category === "system-design" ? 50
+      : 0;
+    return { article: a, quality: a.score + recencyBonus + discussionBonus + categoryBonus };
   });
 
   const picks = scored
