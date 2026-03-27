@@ -52,6 +52,12 @@ export const ContentCard = memo(function ContentCard({
   const levelMatch = article.title.match(/\b(L[3-7]|E[3-7]|SDE\s?[1-3]|ICT[3-6]|SSE|Staff|Principal|Senior|Junior)\b/i);
   const level = levelMatch ? levelMatch[1]!.toUpperCase() : null;
 
+  // Extract salary/TC mention from title or excerpt
+  const salaryMatch = (article.category === "compensation")
+    ? (article.title + " " + article.excerpt).match(/(\d+[\.,]?\d*)\s*(LPA|lpa|CTC|ctc|k\/yr|TC|tc)/i)
+    : null;
+  const salary = salaryMatch ? `${salaryMatch[1]} ${salaryMatch[2]!.toUpperCase()}` : null;
+
   // Extract location from pipe-separated titles (last segment often is location)
   const segments = article.title.split("|").map((s) => s.trim());
   const lastSeg = segments.length >= 3 ? segments[segments.length - 1] : null;
@@ -198,6 +204,11 @@ export const ContentCard = memo(function ContentCard({
         {level && (
           <span className="rounded bg-muted px-1.5 py-0.5 text-xs font-bold text-card-foreground">
             {level}
+          </span>
+        )}
+        {salary && (
+          <span className="rounded bg-yellow-500/15 px-1.5 py-0.5 text-xs font-bold text-yellow-700 dark:text-yellow-300">
+            {salary}
           </span>
         )}
         {location && (
