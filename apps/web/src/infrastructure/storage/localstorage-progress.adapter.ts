@@ -2,8 +2,9 @@ import type {
   ProgressStore,
 } from "@tulmek/core/ports";
 import type { ProgressEntry, ProgressMap } from "@tulmek/core/domain";
+import { STORAGE_KEYS } from "@tulmek/config/constants";
 
-const STORAGE_KEY = "tulmek:progress";
+const STORAGE_KEY = STORAGE_KEYS.progress;
 
 /**
  * LocalStorage adapter for progress persistence.

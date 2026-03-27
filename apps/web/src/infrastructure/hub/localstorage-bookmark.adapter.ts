@@ -1,7 +1,8 @@
 import type { BookmarkStore } from "@tulmek/core/ports";
 import type { Bookmark, BookmarkMap } from "@tulmek/core/domain";
+import { STORAGE_KEYS } from "@tulmek/config/constants";
 
-const STORAGE_KEY = "tulmek:hub:bookmarks";
+const STORAGE_KEY = STORAGE_KEYS.hubBookmarks;
 
 /**
  * LocalStorage adapter for BookmarkStore port.

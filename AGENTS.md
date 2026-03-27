@@ -64,3 +64,19 @@ apps/desktop/src-tauri/   → Desktop backend (Rust)
 - Architecture decisions: `docs/decisions/`
 - Adapter swap guide: `docs/guides/swapping-providers.md`
 - Platform setup: `README.md` (Developer Setup section)
+
+## Agent Self-Improvement Protocol
+
+When you encounter a non-obvious mistake, unexpected behavior, or discover
+a convention not documented anywhere:
+
+1. Fix the immediate problem
+2. Append a dated entry to `.claude/rules/learnings.md` under `## Active`
+3. Include: date, area tag, what went wrong, the correct approach
+4. If the root cause can be fixable (linter rule, better types, rename),
+   note it as "Root-cause fix: TODO — [description]"
+5. When a root-cause fix is implemented, move entry to `## Resolved`
+
+Do NOT add learnings that the agent can discover by reading code.
+Only add things that are genuinely surprising or non-obvious.
+The goal: this file SHRINKS over time as root causes are fixed.

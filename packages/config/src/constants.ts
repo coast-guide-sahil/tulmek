@@ -25,3 +25,18 @@ export const MIN_TOUCH_TARGET_PX = 44;
 /** Ranking diversity window */
 export const DIVERSITY_WINDOW_SIZE = 12;
 export const TRENDING_VELOCITY_WINDOW_HOURS = 168; // 7 days
+
+/** Storage keys — single source of truth for all localStorage/AsyncStorage keys */
+export const STORAGE_KEYS = {
+  hubBookmarks: "tulmek:hub:bookmarks",
+  hubRead: "tulmek:hub:read",
+  hubDismissed: "tulmek:hub:dismissed",
+  hubStreak: "tulmek:hub:streak",
+  hubLastVisit: "tulmek:hub:lastVisit",
+  hubVisited: "tulmek:hub:visited",
+  hubInterviewDate: "tulmek:hub:interviewDate",
+  progress: "tulmek:progress",
+  notes: "tulmek:notes",
+} as const satisfies Record<string, `tulmek:${string}`>;
+
+export type StorageKey = typeof STORAGE_KEYS[keyof typeof STORAGE_KEYS];
