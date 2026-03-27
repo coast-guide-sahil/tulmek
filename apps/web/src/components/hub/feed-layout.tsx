@@ -121,6 +121,17 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     return counts;
   }, [articles]);
 
+  // Per-category read counts (for progress indicators)
+  const categoryReadCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const a of articles) {
+      if (readIds.has(a.id)) {
+        counts[a.category] = (counts[a.category] ?? 0) + 1;
+      }
+    }
+    return counts;
+  }, [articles, readIds]);
+
   // Source counts
   const sourceCounts = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -229,6 +240,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
         activeCategory={activeCategory}
         onCategoryChange={setActiveCategory}
         categoryCounts={categoryCounts}
+        readCounts={categoryReadCounts}
       />
 
       {/* Trending Topics — auto-extracted from content */}
