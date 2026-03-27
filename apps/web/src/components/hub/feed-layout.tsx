@@ -273,9 +273,11 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
         readCounts={categoryReadCounts}
       />
 
-      {/* Trending Topics — auto-extracted from content */}
+      {/* Trending Topics — hidden on mobile to reduce vertical sprawl */}
       {!hasActiveFilters && (
-        <TrendingTopics articles={articles} onTopicClick={setSearchQuery} />
+        <div className="hidden sm:block">
+          <TrendingTopics articles={articles} onTopicClick={setSearchQuery} />
+        </div>
       )}
 
       {/* Sort + Filters */}
@@ -376,7 +378,7 @@ function SortTabs({ value, onChange }: { value: SortMode; onChange: (v: SortMode
   ];
 
   return (
-    <div className="flex gap-1 overflow-x-auto rounded-lg bg-muted p-1" role="tablist">
+    <div className="category-scroll flex gap-1 overflow-x-auto rounded-lg bg-muted p-1" role="tablist">
       {tabs.map((tab) => (
         <button
           key={tab.id}

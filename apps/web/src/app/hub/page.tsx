@@ -58,7 +58,7 @@ export default function HubPage() {
       {/* 1. Compact Hero — title + stats + welcome in one block */}
       <div>
         <div className="flex items-center justify-between">
-          <h1 className="section-enter text-xl font-bold text-foreground sm:text-2xl">
+          <h1 className="section-enter text-2xl font-extrabold text-foreground sm:text-3xl">
             Knowledge Hub
           </h1>
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
