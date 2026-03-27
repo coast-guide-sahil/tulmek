@@ -10,7 +10,7 @@ import {
   type ListRenderItemInfo,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { APP_NAME } from "@tulmek/config/constants";
+import { APP_NAME, TRENDING_SCORE_THRESHOLD, NEW_ARTICLE_WINDOW_MS } from "@tulmek/config/constants";
 import type { FeedArticle, HubCategory } from "@tulmek/core/domain";
 import {
   tulmekRank,
@@ -79,8 +79,8 @@ function ArticleCard({ article, nowMs, isBookmarked, onToggleBookmark }: {
   const color = getCategoryColor(article.category);
   const relTime = formatRelativeTime(article.publishedAt);
   const source = getSourceLabel(article.source);
-  const isNew = nowMs - new Date(article.publishedAt).getTime() < 6 * 60 * 60 * 1000;
-  const isTrending = article.score >= 500;
+  const isNew = nowMs - new Date(article.publishedAt).getTime() < NEW_ARTICLE_WINDOW_MS;
+  const isTrending = article.score >= TRENDING_SCORE_THRESHOLD;
 
   return (
     <Pressable
