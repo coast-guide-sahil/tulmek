@@ -119,6 +119,7 @@ const SOURCE_ICONS = {
   reddit: "https://www.reddit.com/favicon.ico",
   devto: "https://dev.to/favicon.ico",
   youtube: "https://www.youtube.com/favicon.ico",
+  medium: "https://medium.com/favicon.ico",
 } as const;
 
 // ── Utility functions ──
@@ -477,6 +478,63 @@ async function fetchDevTo(): Promise<RawArticle[]> {
   return articles;
 }
 
+async function fetchMedium(): Promise<RawArticle[]> {
+  console.log("  Fetching Medium...");
+  const articles: RawArticle[] = [];
+
+  const topics = [
+    "interview-tips", "system-design", "algorithms",
+    "career-advice", "software-engineering", "machine-learning",
+    "coding-interviews", "data-structures",
+  ];
+
+  for (const topic of topics) {
+    try {
+      const res = await fetch(`https://medium.com/feed/tag/${topic}`);
+      if (!res.ok) continue;
+      const xml = await res.text();
+
+      const items = xml.split("<item>").slice(1);
+      for (const item of items.slice(0, 8)) {
+        const titleMatch = item.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/);
+        const linkMatch = item.match(/<link>(.*?)<\/link>/);
+        const pubDateMatch = item.match(/<pubDate>(.*?)<\/pubDate>/);
+        const creatorMatch = item.match(/<dc:creator><!\[CDATA\[(.*?)\]\]><\/dc:creator>/);
+
+        if (!titleMatch?.[1] || !linkMatch?.[1]) continue;
+
+        const title = titleMatch[1];
+        if (!isRelevant(title, [topic])) continue;
+
+        // Clean the URL (remove query params)
+        const url = linkMatch[1].split("?")[0] ?? linkMatch[1];
+
+        articles.push({
+          id: `medium:${Buffer.from(url).toString("base64url").slice(0, 20)}`,
+          title,
+          url,
+          source: "medium",
+          sourceName: creatorMatch?.[1] ? `${creatorMatch[1]} on Medium` : "Medium",
+          sourceIcon: SOURCE_ICONS.medium,
+          domain: "medium.com",
+          category: categorize(title, [topic]),
+          tags: [topic.replace(/-/g, " ")],
+          excerpt: title,
+          publishedAt: pubDateMatch?.[1] ? new Date(pubDateMatch[1]).toISOString() : new Date().toISOString(),
+          score: 0,
+          commentCount: 0,
+          readingTime: 7,
+          discussionUrl: url,
+        });
+      }
+    } catch (err) {
+      console.warn(`  Warning: Medium topic "${topic}" failed:`, (err as Error).message);
+    }
+  }
+
+  return articles;
+}
+
 async function fetchYouTube(): Promise<RawArticle[]> {
   console.log("  Fetching YouTube...");
   const articles: RawArticle[] = [];
@@ -556,11 +614,12 @@ async function fetchYouTube(): Promise<RawArticle[]> {
 async function main() {
   console.log("🔄 Fetching hub content...\n");
 
-  const [hn, reddit, redditSearch, devto, youtube] = await Promise.all([
+  const [hn, reddit, redditSearch, devto, medium, youtube] = await Promise.all([
     fetchHackerNews(),
     fetchReddit(),
     fetchRedditSearch(),
     fetchDevTo(),
+    fetchMedium(),
     fetchYouTube(),
   ]);
 
@@ -568,9 +627,10 @@ async function main() {
   console.log(`  Reddit (feeds): ${reddit.length} articles`);
   console.log(`  Reddit (search): ${redditSearch.length} articles`);
   console.log(`  dev.to: ${devto.length} articles`);
+  console.log(`  Medium: ${medium.length} articles`);
   console.log(`  YouTube: ${youtube.length} articles`);
 
-  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...youtube];
+  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...youtube];
   all = deduplicateByUrl(all);
 
   // Sort by score (engagement) descending, then by date
