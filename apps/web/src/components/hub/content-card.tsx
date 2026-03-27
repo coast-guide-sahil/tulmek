@@ -81,7 +81,7 @@ export const ContentCard = memo(function ContentCard({
             <a
               href={article.url}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener noreferrer nofollow"
               className="hover:underline"
               onClick={handleLinkClick}
             >
@@ -101,7 +101,7 @@ export const ContentCard = memo(function ContentCard({
               <a
                 href={article.discussionUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer nofollow"
                 className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
               >
                 <CommentIcon />
@@ -166,7 +166,7 @@ export const ContentCard = memo(function ContentCard({
         <a
           href={article.url}
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener noreferrer nofollow"
           className="hover:underline"
           onClick={handleLinkClick}
         >
@@ -230,7 +230,7 @@ export const ContentCard = memo(function ContentCard({
           <a
             href={article.discussionUrl}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener noreferrer nofollow"
             className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
           >
             <CommentIcon />

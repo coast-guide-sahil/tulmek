@@ -75,7 +75,7 @@ export function ForYou({ articles }: ForYouProps) {
               key={a.id}
               href={a.url}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener noreferrer nofollow"
               className="group flex flex-col rounded-lg border border-border bg-card p-3 transition-all hover:border-primary/30 hover:shadow-sm"
             >
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
