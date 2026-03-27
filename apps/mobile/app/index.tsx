@@ -1,29 +1,319 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { useState, useMemo, useCallback } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Pressable,
+  Linking,
+  TextInput,
+  type ListRenderItemInfo,
+} from "react-native";
 import { APP_NAME } from "@tulmek/config/constants";
+import type { FeedArticle, HubCategory } from "@tulmek/core/domain";
+import {
+  tulmekRank,
+  getCategoryMeta,
+  getSourceLabel,
+  formatRelativeTime,
+  ALL_CATEGORIES,
+} from "@tulmek/core/domain";
+import feedData from "../src/content/hub/feed.json";
+import metadataJson from "../src/content/hub/metadata.json";
 
-/**
- * Home screen — shares APP_NAME from @tulmek/config.
- * Demonstrates code sharing between web, desktop, and mobile.
- */
-export default function HomeScreen() {
+const articles = feedData as FeedArticle[];
+const totalArticles = metadataJson.totalArticles;
+const sourceCount = Object.keys(metadataJson.sourceBreakdown).length;
+
+// ── Category colors (platform-agnostic, no Tailwind) ──
+const CATEGORY_COLORS: Record<string, string> = {
+  dsa: "#10b981",
+  "system-design": "#3b82f6",
+  "ai-ml": "#a855f7",
+  behavioral: "#f59e0b",
+  career: "#f43f5e",
+  "interview-experience": "#06b6d4",
+  compensation: "#eab308",
+  general: "#6b7280",
+};
+
+function getCategoryColor(category: string): string {
+  return CATEGORY_COLORS[category] ?? "#6b7280";
+}
+
+// ── Article Card ──
+function ArticleCard({ article }: { article: FeedArticle }) {
+  const meta = getCategoryMeta(article.category);
+  const color = getCategoryColor(article.category);
+  const relTime = formatRelativeTime(article.publishedAt);
+  const source = getSourceLabel(article.source);
+
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>{APP_NAME}</Text>
-        <Text style={styles.subtitle}>Knowledge Hub</Text>
-        <Text style={styles.description}>
-          AI-powered interview prep content aggregator.
-          Fresh content from 7 sources, refreshed every 3 hours.
-        </Text>
+    <Pressable
+      style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
+      onPress={() => Linking.openURL(article.url)}
+      accessibilityRole="link"
+      accessibilityLabel={`${article.title} from ${source}`}
+    >
+      {/* Header: source + time */}
+      <View style={styles.cardHeader}>
+        <View style={[styles.categoryPill, { backgroundColor: color + "20" }]}>
+          <Text style={[styles.categoryPillText, { color }]}>{meta.label}</Text>
+        </View>
+        <Text style={styles.cardSource}>{source}</Text>
+        <Text style={styles.cardTime}>{relTime}</Text>
       </View>
-    </ScrollView>
+
+      {/* Title */}
+      <Text style={styles.cardTitle} numberOfLines={3}>
+        {article.title}
+      </Text>
+
+      {/* Excerpt */}
+      {article.excerpt !== article.title && (
+        <Text style={styles.cardExcerpt} numberOfLines={2}>
+          {article.excerpt}
+        </Text>
+      )}
+
+      {/* Footer: stats */}
+      <View style={styles.cardFooter}>
+        {article.score > 0 && (
+          <Text style={styles.cardStat}>▲ {formatCount(article.score)}</Text>
+        )}
+        {article.commentCount > 0 && (
+          <Text style={styles.cardStat}>💬 {formatCount(article.commentCount)}</Text>
+        )}
+        <Text style={styles.cardStat}>{article.readingTime} min</Text>
+      </View>
+    </Pressable>
   );
 }
 
+function formatCount(n: number): string {
+  if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
+  return String(n);
+}
+
+// ── Category Filter ──
+function CategoryFilter({
+  active,
+  onSelect,
+  counts,
+}: {
+  active: HubCategory | null;
+  onSelect: (cat: HubCategory | null) => void;
+  counts: Record<string, number>;
+}) {
+  const total = Object.values(counts).reduce((a, b) => a + b, 0);
+
+  return (
+    <FlatList
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      data={[{ id: null as HubCategory | null, label: "All", count: total }, ...ALL_CATEGORIES.map((id) => ({
+        id: id as HubCategory | null,
+        label: getCategoryMeta(id).label,
+        count: counts[id] ?? 0,
+      }))].filter((c) => c.count > 0)}
+      keyExtractor={(item) => item.id ?? "all"}
+      contentContainerStyle={styles.categoryList}
+      renderItem={({ item }) => (
+        <Pressable
+          style={[
+            styles.categoryChip,
+            active === item.id && styles.categoryChipActive,
+          ]}
+          onPress={() => onSelect(active === item.id ? null : item.id)}
+          accessibilityRole="button"
+          accessibilityState={{ selected: active === item.id }}
+        >
+          <Text
+            style={[
+              styles.categoryChipText,
+              active === item.id && styles.categoryChipTextActive,
+            ]}
+          >
+            {item.label}
+          </Text>
+          <View style={[styles.countBadge, active === item.id && styles.countBadgeActive]}>
+            <Text style={[styles.countText, active === item.id && styles.countTextActive]}>
+              {item.count}
+            </Text>
+          </View>
+        </Pressable>
+      )}
+    />
+  );
+}
+
+// ── Main Screen ──
+export default function HomeScreen() {
+  const [nowMs] = useState(() => Date.now());
+  const [activeCategory, setActiveCategory] = useState<HubCategory | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const a of articles) {
+      counts[a.category] = (counts[a.category] ?? 0) + 1;
+    }
+    return counts;
+  }, []);
+
+  const filteredArticles = useMemo(() => {
+    let result = [...articles];
+
+    if (activeCategory) {
+      result = result.filter((a) => a.category === activeCategory);
+    }
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter(
+        (a) =>
+          a.title.toLowerCase().includes(q) ||
+          a.excerpt.toLowerCase().includes(q) ||
+          a.tags.some((t) => t.toLowerCase().includes(q))
+      );
+    }
+
+    // Apply TCRA ranking (shared from @tulmek/core)
+    return tulmekRank(result, nowMs, new Set(), {});
+  }, [activeCategory, searchQuery, nowMs]);
+
+  const renderItem = useCallback(
+    ({ item }: ListRenderItemInfo<FeedArticle>) => <ArticleCard article={item} />,
+    []
+  );
+
+  const keyExtractor = useCallback((item: FeedArticle) => item.id, []);
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={filteredArticles}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        contentContainerStyle={styles.listContent}
+        ListHeaderComponent={
+          <>
+            {/* Hero */}
+            <View style={styles.hero}>
+              <View style={styles.heroRow}>
+                <Text style={styles.heroTitle}>Knowledge Hub</Text>
+                <View style={styles.liveBadge}>
+                  <View style={styles.liveDot} />
+                  <Text style={styles.liveText}>Live</Text>
+                </View>
+              </View>
+              <Text style={styles.heroStats}>
+                {totalArticles} articles · {sourceCount} sources
+              </Text>
+            </View>
+
+            {/* Search */}
+            <View style={styles.searchContainer}>
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Search articles..."
+                placeholderTextColor="#71717a"
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+                accessibilityLabel="Search articles"
+              />
+            </View>
+
+            {/* Categories */}
+            <CategoryFilter
+              active={activeCategory}
+              onSelect={setActiveCategory}
+              counts={categoryCounts}
+            />
+
+            {/* Results count */}
+            <Text style={styles.resultCount}>
+              {filteredArticles.length} article{filteredArticles.length !== 1 ? "s" : ""}
+              {activeCategory ? ` in ${getCategoryMeta(activeCategory).label}` : ""}
+            </Text>
+          </>
+        }
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
+        windowSize={5}
+      />
+    </View>
+  );
+}
+
+// ── Styles ──
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#09090b" },
-  header: { padding: 24, paddingTop: 48 },
-  title: { fontSize: 28, fontWeight: "bold", color: "#fafafa" },
-  subtitle: { fontSize: 16, color: "#a1a1aa", marginTop: 4 },
-  description: { fontSize: 14, color: "#71717a", marginTop: 12, lineHeight: 22 },
+  listContent: { paddingBottom: 32 },
+
+  // Hero
+  hero: { paddingHorizontal: 16, paddingTop: 16, paddingBottom: 8 },
+  heroRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
+  heroTitle: { fontSize: 22, fontWeight: "800", color: "#fafafa" },
+  heroStats: { fontSize: 13, color: "#71717a", marginTop: 2 },
+  liveBadge: { flexDirection: "row", alignItems: "center", gap: 4 },
+  liveDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: "#22c55e" },
+  liveText: { fontSize: 12, color: "#22c55e", fontWeight: "600" },
+
+  // Search
+  searchContainer: { paddingHorizontal: 16, paddingVertical: 8 },
+  searchInput: {
+    backgroundColor: "#18181b",
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    fontSize: 15,
+    color: "#fafafa",
+    borderWidth: 1,
+    borderColor: "#27272a",
+  },
+
+  // Category filter
+  categoryList: { paddingHorizontal: 12, paddingVertical: 8, gap: 6 },
+  categoryChip: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: 10,
+    backgroundColor: "#18181b",
+    minHeight: 44,
+  },
+  categoryChipActive: { backgroundColor: "#fafafa" },
+  categoryChipText: { fontSize: 13, fontWeight: "600", color: "#a1a1aa" },
+  categoryChipTextActive: { color: "#09090b" },
+  countBadge: { backgroundColor: "#27272a", borderRadius: 8, paddingHorizontal: 6, paddingVertical: 2 },
+  countBadgeActive: { backgroundColor: "#09090b20" },
+  countText: { fontSize: 11, fontWeight: "700", color: "#71717a" },
+  countTextActive: { color: "#09090b" },
+
+  // Results
+  resultCount: { fontSize: 13, color: "#71717a", paddingHorizontal: 16, paddingBottom: 8 },
+
+  // Card
+  card: {
+    marginHorizontal: 16,
+    marginBottom: 10,
+    backgroundColor: "#18181b",
+    borderRadius: 14,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: "#27272a",
+  },
+  cardPressed: { opacity: 0.8, transform: [{ scale: 0.98 }] },
+  cardHeader: { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 8 },
+  categoryPill: { borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3 },
+  categoryPillText: { fontSize: 11, fontWeight: "700" },
+  cardSource: { fontSize: 12, fontWeight: "600", color: "#a1a1aa" },
+  cardTime: { fontSize: 12, color: "#71717a" },
+  cardTitle: { fontSize: 15, fontWeight: "700", color: "#fafafa", lineHeight: 22 },
+  cardExcerpt: { fontSize: 13, color: "#71717a", marginTop: 6, lineHeight: 20 },
+  cardFooter: { flexDirection: "row", gap: 12, marginTop: 10 },
+  cardStat: { fontSize: 12, color: "#71717a" },
 });

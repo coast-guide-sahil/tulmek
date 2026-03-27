@@ -1,0 +1,23 @@
+{
+  "lastRefreshedAt": "2026-03-27T17:10:23.515Z",
+  "totalArticles": 757,
+  "sourceBreakdown": {
+    "github": 27,
+    "reddit": 320,
+    "hackernews": 106,
+    "devto": 173,
+    "leetcode": 58,
+    "medium": 51,
+    "youtube": 22
+  },
+  "categoryBreakdown": {
+    "general": 151,
+    "dsa": 69,
+    "ai-ml": 71,
+    "compensation": 135,
+    "behavioral": 4,
+    "interview-experience": 40,
+    "career": 162,
+    "system-design": 125
+  }
+}

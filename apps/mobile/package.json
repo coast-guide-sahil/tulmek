@@ -12,17 +12,20 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.29.2",
+    "@expo/metro-runtime": "^55.0.6",
     "@tulmek/config": "workspace:*",
     "@tulmek/core": "workspace:*",
-    "expo": "~52.0.0",
-    "expo-router": "~4.0.0",
-    "react": "19.2.4",
-    "react-native": "0.79.0",
-    "react-native-web": "~0.19.0"
+    "expo": "~55.0.8",
+    "expo-router": "~55.0.7",
+    "metro-runtime": "^0.84.2",
+    "react": "19.2.0",
+    "react-dom": "19.2.4",
+    "react-native": "0.83.2",
+    "react-native-web": "~0.21.2"
   },
   "devDependencies": {
     "@tulmek/typescript-config": "workspace:*",
-    "@types/react": "^19",
-    "typescript": "^6"
+    "@types/react": "^19.2.14",
+    "typescript": "^5.9.3"
   }
 }
