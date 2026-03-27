@@ -142,8 +142,13 @@ function categorize(title: string, tags: string[] = []): string {
   const maxScore = Math.max(...Object.values(scores));
   if (maxScore === 0) return "general";
 
-  const best = Object.entries(scores).find(([, s]) => s === maxScore);
-  return best ? best[0] : "general";
+  // Priority order: specific categories beat generic ones when scores tie
+  const priority = [
+    "interview-experience", "compensation", "dsa", "system-design",
+    "ai-ml", "behavioral", "career",
+  ];
+  const best = priority.find((cat) => scores[cat] === maxScore);
+  return best ?? "general";
 }
 
 function isRelevant(title: string, tags: string[] = []): boolean {
