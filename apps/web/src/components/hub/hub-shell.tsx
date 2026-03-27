@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useState, useEffect, useRef, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -23,13 +23,29 @@ const NAV_ITEMS = [
 export function HubShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const bookmarkCount = useHub((s) => Object.keys(s.bookmarks).length);
+  const [headerHidden, setHeaderHidden] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handler = () => {
+      const currentY = window.scrollY;
+      if (currentY > 200 && currentY > lastScrollY.current) {
+        setHeaderHidden(true);
+      } else {
+        setHeaderHidden(false);
+      }
+      lastScrollY.current = currentY;
+    };
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
 
   return (
     <div className="flex min-h-dvh flex-col bg-background">
       <ReadingProgressBar />
       <KeyboardNav />
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
+      <header className={`header-auto-hide sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm ${headerHidden ? "header-hidden" : ""}`}>
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3">
             <Link
