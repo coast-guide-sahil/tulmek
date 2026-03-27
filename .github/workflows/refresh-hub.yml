@@ -2,8 +2,8 @@ name: Refresh Hub Content
 
 on:
   schedule:
-    # Run daily at 6:00 UTC
-    - cron: "0 6 * * *"
+    # Run every 3 hours for maximum freshness
+    - cron: "0 */3 * * *"
   workflow_dispatch: # Allow manual trigger
 
 concurrency:

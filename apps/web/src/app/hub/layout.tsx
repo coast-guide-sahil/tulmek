@@ -4,6 +4,7 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 import feedData from "@/content/hub/feed.json";
 import { HubShell } from "@/components/hub/hub-shell";
 import { HubProvider } from "@/lib/hub/provider";
+import { ToastProvider } from "@/components/hub/toast";
 
 export default function HubLayout({ children }: { children: ReactNode }) {
   const articles = feedData as FeedArticle[];
@@ -11,7 +12,9 @@ export default function HubLayout({ children }: { children: ReactNode }) {
   return (
     <NuqsAdapter>
       <HubProvider articles={articles}>
-        <HubShell>{children}</HubShell>
+        <ToastProvider>
+          <HubShell>{children}</HubShell>
+        </ToastProvider>
       </HubProvider>
     </NuqsAdapter>
   );

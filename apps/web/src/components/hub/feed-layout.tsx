@@ -18,6 +18,7 @@ import { ContentTypeFilter, type ContentType } from "./content-type-filter";
 import { CopyFeedLink } from "./copy-feed-link";
 import { FocusSuggestion } from "./focus-suggestion";
 import { FeedActions } from "./feed-actions";
+import { useToast } from "./toast";
 import { MobileActionBar } from "./mobile-action-bar";
 
 interface FeedLayoutProps {
@@ -79,6 +80,13 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
   const dismissedIds = useHub((s) => s.dismissedIds);
   const searchResults = useHub((s) => s.searchResults);
   const { toggleBookmark, markAsRead, dismiss, search: searchOrama } = useHubActions();
+  const showToast = useToast();
+
+  const handleBookmark = useCallback((articleId: string) => {
+    const wasBookmarked = articleId in bookmarks;
+    toggleBookmark(articleId);
+    showToast(wasBookmarked ? "Removed from saved" : "Saved to reading list");
+  }, [toggleBookmark, bookmarks, showToast]);
 
   // Default to list view on mobile if no explicit view param in URL
   const mobileDefaultApplied = useRef(false);
@@ -302,7 +310,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
                 key={article.id}
                 article={article}
                 isBookmarked={article.id in bookmarks}
-                onToggleBookmark={toggleBookmark}
+                onToggleBookmark={handleBookmark}
                 onArticleClick={markAsRead}
                 onDismiss={dismiss}
                 layout={layout}
