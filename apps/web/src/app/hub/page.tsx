@@ -14,6 +14,7 @@ import { SourceDiversity } from "@/components/hub/source-diversity";
 import { PrepPulse } from "@/components/hub/prep-pulse";
 import { StatsBanner } from "@/components/hub/stats-banner";
 import { DailyDigest } from "@/components/hub/daily-digest";
+import { ActiveDiscussions } from "@/components/hub/active-discussions";
 import { APP_NAME } from "@tulmek/config/constants";
 
 const articles = feedData as FeedArticle[];
@@ -102,6 +103,9 @@ export default function HubPage() {
 
       {/* Personalized Recommendations */}
       <ForYou articles={articles} />
+
+      {/* Active Discussions */}
+      <ActiveDiscussions articles={articles} nowMs={BUILD_TIME} />
 
       {/* Compensation & Interview Experience Highlights */}
       <CompensationHighlights articles={articles} />
