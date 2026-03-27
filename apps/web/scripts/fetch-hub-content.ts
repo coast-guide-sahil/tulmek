@@ -541,64 +541,78 @@ async function fetchLeetCode(): Promise<RawArticle[]> {
   console.log("  Fetching LeetCode Discuss...");
   const articles: RawArticle[] = [];
 
-  // ONLY fetch Compensation and Interview tabs from LeetCode Discuss
-  const categories = [
-    { slug: "interview-experience", label: "Interview Experience", category: "interview-experience" },
-    { slug: "compensation", label: "Compensation", category: "compensation" },
+  // Fetch from Interview + Compensation tabs using the REAL GraphQL API
+  // Discovered by inspecting network requests on leetcode.com/discuss/
+  const tabs = [
+    { tagSlug: "interview", label: "Interview Experience", category: "interview-experience" },
+    { tagSlug: "compensation", label: "Compensation", category: "compensation" },
   ];
 
-  for (const { slug, label, category } of categories) {
-    try {
-      const res = await fetch("https://leetcode.com/graphql", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Referer": "https://leetcode.com",
-        },
-        body: JSON.stringify({
-          query: `query { categoryTopicList(orderBy: most_votes, skip: 0, first: 40, categories: ["${slug}"]) { edges { node { id title post { voteCount creationDate } commentCount } } } }`,
-        }),
-      });
+  // Fetch both HOT (quality) and MOST_RECENT (freshness) for each tab
+  const orderings = ["HOT", "MOST_RECENT"] as const;
 
-      if (!res.ok) continue;
-      const data = await res.json() as {
-        data: {
-          categoryTopicList: {
-            edges: Array<{
-              node: {
-                id: string;
-                title: string;
-                post: { voteCount: number; creationDate: number };
-                commentCount: number;
-              };
-            }>;
+  for (const { tagSlug, label, category } of tabs) {
+    for (const orderBy of orderings) {
+      try {
+        const res = await fetch("https://leetcode.com/graphql/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Referer": "https://leetcode.com",
+          },
+          body: JSON.stringify({
+            query: `query { ugcArticleDiscussionArticles(orderBy: ${orderBy}, keywords: [""], tagSlugs: ["${tagSlug}"], skip: 0, first: 30) { edges { node { uuid title slug summary createdAt hitCount topicId reactions { count reactionType } } } } }`,
+          }),
+        });
+
+        if (!res.ok) continue;
+        const data = await res.json() as {
+          data: {
+            ugcArticleDiscussionArticles: {
+              edges: Array<{
+                node: {
+                  uuid: string;
+                  title: string;
+                  slug: string;
+                  summary: string;
+                  createdAt: string;
+                  hitCount: number;
+                  topicId: number;
+                  reactions: Array<{ count: number; reactionType: string }>;
+                };
+              }>;
+            };
           };
         };
-      };
 
-      for (const { node } of data.data.categoryTopicList.edges) {
-        if (!node.title || node.title.startsWith("[Guidelines]") || node.title.startsWith("How to")) continue;
+        for (const { node } of data.data.ugcArticleDiscussionArticles.edges) {
+          if (!node.title || node.title.startsWith("[Guidelines]") || node.title.startsWith("How to write")) continue;
 
-        articles.push({
-          id: `leetcode:${node.id}`,
-          title: node.title,
-          url: `https://leetcode.com/discuss/post/${node.id}`,
-          source: "leetcode" as string,
-          sourceName: `LeetCode ${label}`,
-          sourceIcon: "https://leetcode.com/favicon.ico",
-          domain: "leetcode.com",
-          category,
-          tags: [slug.replace(/-/g, " "), "leetcode"],
-          excerpt: node.title,
-          publishedAt: new Date(node.post.creationDate * 1000).toISOString(),
-          score: node.post.voteCount,
-          commentCount: node.commentCount,
-          readingTime: 4,
-          discussionUrl: `https://leetcode.com/discuss/post/${node.id}`,
-        });
+          const likes = node.reactions
+            ?.filter((r) => r.reactionType === "UPVOTE")
+            .reduce((sum, r) => sum + r.count, 0) ?? 0;
+
+          articles.push({
+            id: `leetcode:${node.uuid}`,
+            title: node.title,
+            url: `https://leetcode.com/discuss/${tagSlug}/${node.topicId}`,
+            source: "leetcode" as string,
+            sourceName: `LeetCode ${label}`,
+            sourceIcon: "https://leetcode.com/favicon.ico",
+            domain: "leetcode.com",
+            category,
+            tags: [tagSlug, "leetcode"],
+            excerpt: node.summary || node.title,
+            publishedAt: node.createdAt,
+            score: likes,
+            commentCount: 0,
+            readingTime: 4,
+            discussionUrl: `https://leetcode.com/discuss/${tagSlug}/${node.topicId}`,
+          });
+        }
+      } catch (err) {
+        console.warn(`  Warning: LeetCode "${tagSlug}" ${orderBy} failed:`, (err as Error).message);
       }
-    } catch (err) {
-      console.warn(`  Warning: LeetCode "${slug}" failed:`, (err as Error).message);
     }
   }
 
