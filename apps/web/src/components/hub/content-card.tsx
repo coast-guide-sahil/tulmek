@@ -40,6 +40,14 @@ export const ContentCard = memo(function ContentCard({
     onArticleClick?.(article.id);
   };
 
+  // Detect interview outcome from title for experience articles
+  const titleLower = article.title.toLowerCase();
+  const outcome = (article.category === "interview-experience" || article.category === "compensation")
+    ? titleLower.includes("offer") || titleLower.includes("selected") || titleLower.includes("accepted")
+      ? "offer"
+      : titleLower.includes("reject") ? "reject" : null
+    : null;
+
   const cardStateClass = isRead ? "hub-card-read" : "hub-card-unread";
 
   if (layout === "list") {
@@ -112,6 +120,12 @@ export const ContentCard = memo(function ContentCard({
         <div className="flex items-center gap-0.5">
           {isNew && <NewBadge />}
           {isTrending && <TrendingBadge />}
+          {outcome === "offer" && (
+            <span className="rounded-full bg-success/15 px-1.5 py-0.5 text-xs font-medium text-success">OFFER</span>
+          )}
+          {outcome === "reject" && (
+            <span className="rounded-full bg-destructive/15 px-1.5 py-0.5 text-xs font-medium text-destructive">REJECT</span>
+          )}
           <BookmarkButton
             isBookmarked={isBookmarked}
             onClick={() => onToggleBookmark(article.id)}
