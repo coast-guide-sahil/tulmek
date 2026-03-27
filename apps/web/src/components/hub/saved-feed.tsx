@@ -3,9 +3,11 @@
 import { useMemo } from "react";
 import type { FeedArticle } from "@tulmek/core/domain";
 import { useHub, useHubActions } from "@/lib/hub/provider";
+import { useCallback } from "react";
 import { ContentCard } from "./content-card";
 import { ExportReadingList } from "./export-reading-list";
 import { FeedSkeleton } from "./feed-skeleton";
+import { useToast } from "./toast";
 
 interface SavedFeedProps {
   readonly articles: FeedArticle[];
@@ -15,6 +17,13 @@ export function SavedFeed({ articles }: SavedFeedProps) {
   const bookmarks = useHub((s) => s.bookmarks);
   const hydrated = useHub((s) => s.hydrated);
   const { toggleBookmark } = useHubActions();
+  const showToast = useToast();
+
+  const handleBookmark = useCallback((articleId: string) => {
+    const wasBookmarked = articleId in bookmarks;
+    toggleBookmark(articleId);
+    showToast(wasBookmarked ? "Removed from saved" : "Saved to reading list");
+  }, [toggleBookmark, bookmarks, showToast]);
 
   const savedArticles = useMemo(() => {
     const bookmarkedIds = Object.keys(bookmarks);
@@ -77,7 +86,7 @@ export function SavedFeed({ articles }: SavedFeedProps) {
             key={article.id}
             article={article}
             isBookmarked={article.id in bookmarks}
-            onToggleBookmark={toggleBookmark}
+            onToggleBookmark={handleBookmark}
             layout="list"
           />
         ))}
