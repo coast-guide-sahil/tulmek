@@ -311,6 +311,32 @@ test.describe("Knowledge Hub", () => {
     });
   });
 
+  test.describe("Full Journey", () => {
+    test("complete user flow: browse → bookmark → saved → unbookmark", async ({ page }) => {
+      // 1. Land on hub
+      await page.goto("/hub");
+      await expect(page.getByRole("heading", { name: "Knowledge Hub" })).toBeVisible({ timeout: 10000 });
+
+      // 2. Articles visible
+      await expect(page.locator("article").first()).toBeVisible();
+
+      // 3. Bookmark first article
+      const bookmarkBtn = page.getByRole("button", { name: "Add bookmark" }).first();
+      await bookmarkBtn.click();
+      await expect(page.getByRole("button", { name: "Remove bookmark" }).first()).toBeVisible();
+
+      // 4. Navigate to saved
+      const nav = page.getByRole("navigation", { name: "Hub sections" });
+      await nav.getByRole("link", { name: "Saved" }).click();
+      await expect(page).toHaveURL(/\/hub\/saved/);
+      await expect(page.locator("article").first()).toBeVisible();
+
+      // 5. Unbookmark from saved page
+      await page.getByRole("button", { name: "Remove bookmark" }).first().click();
+      await expect(page.getByRole("heading", { name: "No saved articles yet" })).toBeVisible();
+    });
+  });
+
   test.describe("SEO", () => {
     test("has JSON-LD structured data", async ({ page }) => {
       await page.goto("/hub");
