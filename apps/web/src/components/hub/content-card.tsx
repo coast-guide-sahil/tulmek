@@ -171,7 +171,12 @@ export const ContentCard = memo(function ContentCard({
             {formatCount(article.commentCount)}
           </a>
         )}
-        <span className="ml-auto text-xs text-muted-foreground">
+        <span className="ml-auto flex items-center gap-1 text-xs text-muted-foreground">
+          {article.source === "youtube" && (
+            <svg className="h-3.5 w-3.5 text-red-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          )}
           {article.readingTime} min
         </span>
       </div>
