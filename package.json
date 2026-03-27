@@ -16,6 +16,11 @@
     "format": "prettier --write .",
     "prepare": "husky"
   },
+  "pnpm": {
+    "overrides": {
+      "tar": ">=7.5.4"
+    }
+  },
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
