@@ -207,12 +207,12 @@ export const ContentCard = memo(function ContentCard({
           </span>
         )}
         {salary && (
-          <span className="rounded bg-yellow-500/15 px-1.5 py-0.5 text-xs font-bold text-yellow-700 dark:text-yellow-300">
+          <span className="rounded bg-yellow-500/15 px-1.5 py-0.5 text-xs font-bold text-yellow-700 dark:text-yellow-300" aria-label={`Compensation: ${salary}`}>
             {salary}
           </span>
         )}
         {location && (
-          <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
+          <span className="flex items-center gap-0.5 text-xs text-muted-foreground" aria-label={`Location: ${location}`}>
             <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
               <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
