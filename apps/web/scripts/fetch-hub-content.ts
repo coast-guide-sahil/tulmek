@@ -176,11 +176,13 @@ function estimateReadingTime(text: string): number {
 }
 
 function deduplicateByUrl(articles: RawArticle[]): RawArticle[] {
-  const seen = new Set<string>();
+  const seenUrls = new Set<string>();
+  const seenIds = new Set<string>();
   return articles.filter((a) => {
-    const key = a.url.replace(/\/$/, "").toLowerCase();
-    if (seen.has(key)) return false;
-    seen.add(key);
+    const urlKey = a.url.replace(/\/$/, "").toLowerCase();
+    if (seenUrls.has(urlKey) || seenIds.has(a.id)) return false;
+    seenUrls.add(urlKey);
+    seenIds.add(a.id);
     return true;
   });
 }
@@ -655,7 +657,7 @@ async function fetchMedium(): Promise<RawArticle[]> {
         const url = linkMatch[1].split("?")[0] ?? linkMatch[1];
 
         articles.push({
-          id: `medium:${Buffer.from(url).toString("base64url").slice(0, 20)}`,
+          id: `medium:${Buffer.from(url).toString("base64url").slice(0, 40)}`,
           title,
           url,
           source: "medium",

@@ -5,7 +5,7 @@
   "build": {
     "frontendDist": "../../web/out",
     "devUrl": "http://localhost:3000",
-    "beforeDevCommand": "cd ../../ && pnpm --filter @tulmek/web dev",
+    "beforeDevCommand": "",
     "beforeBuildCommand": "echo 'Build web with output:export first'"
   },
   "app": {

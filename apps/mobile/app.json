@@ -4,7 +4,7 @@
     "slug": "tulmek",
     "version": "0.1.0",
     "scheme": "tulmek",
-    "platforms": ["ios", "android"],
+    "platforms": ["ios", "android", "web"],
     "newArchEnabled": true,
     "web": {
       "bundler": "metro",

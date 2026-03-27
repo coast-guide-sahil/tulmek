@@ -30,7 +30,10 @@ export class OramaHubSearchEngine implements HubSearchEngine {
       } as const,
     });
 
+    const seen = new Set<string>();
     for (const article of articles) {
+      if (seen.has(article.id)) continue;
+      seen.add(article.id);
       await insert(this.db, {
         id: article.id,
         title: article.title,
