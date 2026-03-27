@@ -52,13 +52,13 @@ export function FocusSuggestion({ onCategoryClick }: FocusSuggestionProps) {
       <div className="flex items-center gap-2">
         <button
           onClick={() => onCategoryClick(suggestion.category)}
-          className="min-h-[36px] rounded-md bg-primary px-3 text-xs font-medium text-primary-foreground hover:bg-primary/90"
+          className="min-h-[44px] rounded-md bg-primary px-3 text-xs font-medium text-primary-foreground hover:bg-primary/90"
         >
           Explore
         </button>
         <button
           onClick={() => setDismissed(true)}
-          className="min-h-[36px] rounded-md px-2 text-xs text-muted-foreground hover:text-foreground"
+          className="min-h-[44px] rounded-md px-2 text-xs text-muted-foreground hover:text-foreground"
           aria-label="Dismiss"
         >
           ✕

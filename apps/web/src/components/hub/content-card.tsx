@@ -191,7 +191,7 @@ export const ContentCard = memo(function ContentCard({
         )}
         {/* Social proof — estimated readers */}
         {article.score >= 100 && (
-          <span className="text-xs text-muted-foreground/70" title="Estimated readers based on engagement">
+          <span className="text-xs text-muted-foreground" title="Estimated readers based on engagement">
             ~{Math.round(article.score * 0.015 + article.commentCount * 0.08)} readers
           </span>
         )}
