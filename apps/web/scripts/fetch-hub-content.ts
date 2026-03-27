@@ -537,6 +537,74 @@ async function fetchGitHub(): Promise<RawArticle[]> {
   return articles;
 }
 
+async function fetchLeetCode(): Promise<RawArticle[]> {
+  console.log("  Fetching LeetCode Discuss...");
+  const articles: RawArticle[] = [];
+
+  const categories = [
+    { slug: "interview-experience", label: "Interview Experience", category: "interview-experience" },
+    { slug: "compensation", label: "Compensation", category: "compensation" },
+    { slug: "interview-question", label: "Interview Questions", category: "dsa" },
+  ];
+
+  for (const { slug, label, category } of categories) {
+    try {
+      const res = await fetch("https://leetcode.com/graphql", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Referer": "https://leetcode.com",
+        },
+        body: JSON.stringify({
+          query: `query { categoryTopicList(orderBy: most_votes, skip: 0, first: 20, categories: ["${slug}"]) { edges { node { id title post { voteCount creationDate } commentCount } } } }`,
+        }),
+      });
+
+      if (!res.ok) continue;
+      const data = await res.json() as {
+        data: {
+          categoryTopicList: {
+            edges: Array<{
+              node: {
+                id: string;
+                title: string;
+                post: { voteCount: number; creationDate: number };
+                commentCount: number;
+              };
+            }>;
+          };
+        };
+      };
+
+      for (const { node } of data.data.categoryTopicList.edges) {
+        if (!node.title || node.title.startsWith("[Guidelines]") || node.title.startsWith("How to")) continue;
+
+        articles.push({
+          id: `leetcode:${node.id}`,
+          title: node.title,
+          url: `https://leetcode.com/discuss/post/${node.id}`,
+          source: "leetcode" as string,
+          sourceName: `LeetCode ${label}`,
+          sourceIcon: "https://leetcode.com/favicon.ico",
+          domain: "leetcode.com",
+          category,
+          tags: [slug.replace(/-/g, " "), "leetcode"],
+          excerpt: node.title,
+          publishedAt: new Date(node.post.creationDate * 1000).toISOString(),
+          score: node.post.voteCount,
+          commentCount: node.commentCount,
+          readingTime: 4,
+          discussionUrl: `https://leetcode.com/discuss/post/${node.id}`,
+        });
+      }
+    } catch (err) {
+      console.warn(`  Warning: LeetCode "${slug}" failed:`, (err as Error).message);
+    }
+  }
+
+  return articles;
+}
+
 async function fetchMedium(): Promise<RawArticle[]> {
   console.log("  Fetching Medium...");
   const articles: RawArticle[] = [];
@@ -673,12 +741,13 @@ async function fetchYouTube(): Promise<RawArticle[]> {
 async function main() {
   console.log("🔄 Fetching hub content...\n");
 
-  const [hn, reddit, redditSearch, devto, medium, github, youtube] = await Promise.all([
+  const [hn, reddit, redditSearch, devto, medium, leetcode, github, youtube] = await Promise.all([
     fetchHackerNews(),
     fetchReddit(),
     fetchRedditSearch(),
     fetchDevTo(),
     fetchMedium(),
+    fetchLeetCode(),
     fetchGitHub(),
     fetchYouTube(),
   ]);
@@ -688,10 +757,11 @@ async function main() {
   console.log(`  Reddit (search): ${redditSearch.length} articles`);
   console.log(`  dev.to: ${devto.length} articles`);
   console.log(`  Medium: ${medium.length} articles`);
+  console.log(`  LeetCode: ${leetcode.length} articles`);
   console.log(`  GitHub: ${github.length} articles`);
   console.log(`  YouTube: ${youtube.length} articles`);
 
-  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...github, ...youtube];
+  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...github, ...youtube];
   all = deduplicateByUrl(all);
 
   // Sort by score (engagement) descending, then by date
