@@ -244,6 +244,10 @@ importers:
   packages/content: {}
 
   packages/core:
+    dependencies:
+      zustand:
+        specifier: '>=5'
+        version: 5.0.12(@types/react@19.2.14)(react@19.2.4)(use-sync-external-store@1.6.0(react@19.2.4))
     devDependencies:
       '@tulmek/typescript-config':
         specifier: workspace:*

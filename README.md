@@ -167,13 +167,38 @@ Content sources: Reddit, Hacker News, dev.to, LeetCode Discuss, Medium, GitHub, 
 | `NEXT_PUBLIC_APP_URL` | Public app URL | No |
 | `ANDROID_HOME` | Android SDK path (mobile dev) | Mobile only |
 
-## Deployment
+## Install (End Users)
 
-- **Web**: Vercel — auto-deploy from `main` branch
-- **Desktop**: `cd apps/desktop && pnpm tauri:build` produces native binaries
-- **Mobile**: `eas build --platform android` for APK via Expo EAS
+### Web
+Visit [tulmek.com](https://tulmek.com) — no installation needed.
 
-See [DEPLOYMENT.md](DEPLOYMENT.md) for full deployment guide.
+### Desktop
+Download from [GitHub Releases](https://github.com/coast-guide-sahil/tulmek/releases):
+
+| Platform | Format |
+|----------|--------|
+| macOS (Apple Silicon) | `.dmg` |
+| macOS (Intel) | `.dmg` |
+| Windows | `.exe` installer |
+| Linux | `.AppImage` / `.deb` |
+
+### Mobile
+
+| Platform | Link |
+|----------|------|
+| Android | [Google Play Store](https://play.google.com/store/apps/details?id=com.tulmek.app) |
+| Android (APK) | [GitHub Releases](https://github.com/coast-guide-sahil/tulmek/releases) |
+| iOS | Coming soon |
+
+## CI/CD
+
+| Platform | Trigger | Pipeline |
+|----------|---------|----------|
+| **Web** | Push to `main` | Vercel auto-deploy |
+| **Web CI** | Every PR | GitHub Actions: lint, typecheck, test, build, e2e (47 Playwright tests) |
+| **Desktop** | Tag `desktop-v*` | GitHub Actions: Tauri multi-platform build (Linux/macOS/Windows) |
+| **Mobile** | Tag `mobile-v*` | GitHub Actions: EAS Build (Android local, iOS cloud) |
+| **Content** | Every 3 hours | GitHub Actions: fetch from 8 sources |
 
 ## License
 
