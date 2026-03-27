@@ -83,12 +83,12 @@ export const ContentCard = memo(function ContentCard({
             {isTrending && <TrendingBadge />}
           </div>
 
-          <h3 className="mt-1 text-sm font-semibold leading-snug text-card-foreground group-hover:text-primary sm:text-base">
+          <h3 className="mt-1 text-sm font-semibold leading-normal text-card-foreground group-hover:text-primary sm:text-base">
             <a
               href={article.url}
               target="_blank"
               rel="noopener noreferrer nofollow"
-              className="hover:underline"
+              className="inline-block min-h-[44px] py-1 hover:underline"
               onClick={handleLinkClick}
             >
               {article.title}
@@ -108,7 +108,7 @@ export const ContentCard = memo(function ContentCard({
                 href={article.discussionUrl}
                 target="_blank"
                 rel="noopener noreferrer nofollow"
-                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
+                className="inline-flex min-h-[44px] items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
               >
                 <CommentIcon />
                 {formatCount(article.commentCount)}
@@ -155,7 +155,7 @@ export const ContentCard = memo(function ContentCard({
           {onDismiss && (
             <button
               onClick={() => onDismiss(article.id)}
-              className="flex min-h-[44px] min-w-[36px] shrink-0 items-center justify-center rounded-lg text-muted-foreground/40 transition-colors hover:text-muted-foreground"
+              className="flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-lg text-muted-foreground/40 transition-colors hover:text-muted-foreground"
               aria-label="Not interested"
               title="Hide"
             >
