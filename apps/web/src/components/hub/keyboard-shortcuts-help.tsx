@@ -5,6 +5,7 @@ import { useState } from "react";
 const SHORTCUTS = [
   { key: "/", desc: "Focus search" },
   { key: "Esc", desc: "Clear search & blur" },
+  { key: "j/k", desc: "Next/previous article" },
   { key: "Home", desc: "Scroll to top" },
   { key: "←→", desc: "Navigate categories" },
 ];
