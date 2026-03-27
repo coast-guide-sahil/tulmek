@@ -12,7 +12,7 @@ import { FeedSkeleton } from "./feed-skeleton";
 import { getSourceLabel } from "./hub-utils";
 import { tulmekRank } from "@/lib/hub/ranking";
 import { TrendingTopics } from "./trending-topics";
-import { AutoTopics } from "./auto-topics";
+// AutoTopics removed per UX redesign — TrendingTopics is sufficient
 // ContentTypeFilter removed — simplified per UX feedback
 // ReadingTimeFilter removed — too many filter dimensions (QA feedback)
 import { CopyFeedLink } from "./copy-feed-link";
@@ -231,12 +231,9 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
         categoryCounts={categoryCounts}
       />
 
-      {/* Dynamic Discovery — auto-extracted from content */}
+      {/* Trending Topics — auto-extracted from content */}
       {!hasActiveFilters && (
-        <>
-          <TrendingTopics articles={articles} onTopicClick={setSearchQuery} />
-          <AutoTopics articles={articles} onTopicClick={setSearchQuery} />
-        </>
+        <TrendingTopics articles={articles} onTopicClick={setSearchQuery} />
       )}
 
       {/* Sort + Source Filter */}
