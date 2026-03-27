@@ -20,7 +20,7 @@ ProgressStore, NoteStore, SearchEngine, ContentSource, ArticleSource, BookmarkSt
 
 ## Content
 - `src/content/` — 690 progress tracker items validated by Zod schemas (`src/content/schema.ts`)
-- `src/content/hub/` — 810+ aggregated articles validated by `src/content/hub-schema.ts`
+- `src/content/hub/` — 750+ aggregated articles from 7 sources validated by `src/content/hub-schema.ts`
 - `src/lib/progress/content.ts` — sole importer of progress content
 - `scripts/validate-content.ts` — CI validation script (validates both progress + hub)
 - `scripts/fetch-hub-content.ts` — Content aggregation from 6 sources
