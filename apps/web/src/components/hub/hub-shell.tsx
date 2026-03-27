@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { ScrollToTop } from "./scroll-to-top";
 import { APP_NAME } from "@tulmek/config/constants";
 
 const NAV_ITEMS = [
@@ -68,6 +69,8 @@ export function HubShell({ children }: { children: ReactNode }) {
       <main id="main-content" className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-8">
         {children}
       </main>
+
+      <ScrollToTop />
 
       {/* Footer */}
       <footer className="border-t border-border bg-background">
