@@ -6,8 +6,8 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ## Commands
 - `pnpm validate-content` — Validate all content JSON (690 progress + 810 hub articles) against Zod schemas
-- `pnpm fetch-hub-content` — Fetch fresh content from 6 sources (Reddit, HN, dev.to, Medium, GitHub, YouTube)
-- `pnpm e2e` / `pnpm e2e:ui` — E2E tests (Playwright, 47 tests)
+- `pnpm fetch-hub-content` — Fetch fresh content from 7 sources (Reddit, HN, dev.to, LeetCode, Medium, GitHub, YouTube)
+- `pnpm e2e` / `pnpm e2e:ui` — E2E tests (Playwright, 46 tests)
 
 ## Adapter Wiring
 - **Progress** (progress, notes, search): `src/lib/progress/provider.tsx` via `deps` prop
@@ -23,10 +23,10 @@ ProgressStore, NoteStore, SearchEngine, ContentSource, ArticleSource, BookmarkSt
 - `src/content/hub/` — 750+ aggregated articles from 7 sources validated by `src/content/hub-schema.ts`
 - `src/lib/progress/content.ts` — sole importer of progress content
 - `scripts/validate-content.ts` — CI validation script (validates both progress + hub)
-- `scripts/fetch-hub-content.ts` — Content aggregation from 6 sources
+- `scripts/fetch-hub-content.ts` — Content aggregation from 7 sources
 
 ## Hub Architecture
-- `src/components/hub/` — 40+ composition-driven React components
+- `src/components/hub/` — 28 composition-driven React components
 - `src/lib/hub/ranking.ts` — TCRA proprietary ranking algorithm
 - `src/lib/hub/store.ts` — Zustand store (bookmarks, read tracking, dismissed)
 - `src/lib/hub/provider.tsx` — Hub context with adapter injection
