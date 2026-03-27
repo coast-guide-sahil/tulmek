@@ -18,6 +18,7 @@ import { StatsBanner } from "@/components/hub/stats-banner";
 import { CategoryHealth } from "@/components/hub/category-health";
 import { DailyDigest } from "@/components/hub/daily-digest";
 import { ActiveDiscussions } from "@/components/hub/active-discussions";
+import { WeeklyHighlights } from "@/components/hub/weekly-highlights";
 import { APP_NAME } from "@tulmek/config/constants";
 
 const articles = feedData as FeedArticle[];
@@ -129,6 +130,9 @@ export default function HubPage() {
 
       {/* Compensation & Interview Experience Highlights */}
       <CompensationHighlights articles={articles} />
+
+      {/* Weekly Highlights */}
+      <WeeklyHighlights articles={articles} nowMs={BUILD_TIME} />
 
       {/* Random Discovery */}
       <RandomDiscovery articles={articles} />
