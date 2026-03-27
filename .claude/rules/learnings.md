@@ -57,6 +57,13 @@ ALWAYS check `cat /proc/sys/fs/inotify/max_user_watches` and ask user to run
 Do NOT merge PRs with "inotify blocked" as an excuse — wait for the fix.
 Root-cause fix: TODO — add to /etc/sysctl.conf for persistence across reboots.
 
+### 2026-03-28 | docs | Never write install links that don't exist
+Do NOT write download links, store URLs, or website URLs in README unless
+the actual deployment/release exists and has been verified. Placeholder links
+like "Coming soon" or links to empty GitHub Releases pages are misleading.
+Only document what is LIVE and WORKING right now.
+Root-cause fix: N/A — this is a permanent principle.
+
 ## Resolved (delete after 30 days)
 
 (none yet)

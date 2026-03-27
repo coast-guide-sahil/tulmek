@@ -10,98 +10,82 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  NEXT_PUBLIC_APP_URL: http://localhost:3000
+
 jobs:
-  ci:
-    name: Lint, Typecheck, Test & Build
+  # ─── FAST CHECKS (every PR) ──────────────────────
+  lint-typecheck:
+    name: Lint & Typecheck
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v5
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: "24"
           cache: "pnpm"
+      - uses: rharkor/caching-for-turbo@v2.3.11
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm turbo lint typecheck
 
-      - name: Setup Turborepo cache
-        uses: rharkor/caching-for-turbo@v2.3.11
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: "pnpm"
+      - uses: rharkor/caching-for-turbo@v2.3.11
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm turbo test
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Lint
-        run: pnpm turbo lint
-
-      - name: Typecheck
-        run: pnpm turbo typecheck
-
-      - name: Unit tests
-        run: pnpm turbo test
-
-      - name: Restore Next.js build cache
-        uses: actions/cache@v5
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [lint-typecheck]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: "pnpm"
+      - uses: rharkor/caching-for-turbo@v2.3.11
+      - run: pnpm install --frozen-lockfile
+      - uses: actions/cache@v5
         with:
           path: apps/web/.next/cache
-          key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('apps/web/src/**/*.ts', 'apps/web/src/**/*.tsx') }}
-          restore-keys: |
-            nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
-            nextjs-${{ runner.os }}-
+          key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('apps/web/src/**') }}
+          restore-keys: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+      - run: pnpm turbo build
 
-      - name: Build
-        run: pnpm turbo build
-        env:
-          NEXT_PUBLIC_APP_URL: http://localhost:3000
-
+  # ─── E2E + A11Y (every PR) ───────────────────────
   e2e:
     name: E2E Tests
     runs-on: ubuntu-latest
-    needs: ci
-
+    needs: [build]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v5
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: "24"
           cache: "pnpm"
-
-      - name: Setup Turborepo cache
-        uses: rharkor/caching-for-turbo@v2.3.11
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Cache Playwright browsers
-        uses: actions/cache@v5
+      - uses: rharkor/caching-for-turbo@v2.3.11
+      - run: pnpm install --frozen-lockfile
+      - uses: actions/cache@v5
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-
-      - name: Install Playwright Chromium
-        run: pnpm --filter @tulmek/web exec playwright install --with-deps chromium
-
-      - name: Build
-        run: pnpm turbo build
-        env:
-          NEXT_PUBLIC_APP_URL: http://localhost:3000
-
-      - name: Run E2E tests
+      - run: pnpm --filter @tulmek/web exec playwright install --with-deps chromium
+      - run: pnpm turbo build
+      - name: Run E2E + accessibility tests
         run: pnpm --filter @tulmek/web e2e
-        env:
-          NEXT_PUBLIC_APP_URL: http://localhost:3000
-
-      - name: Upload Playwright report
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
