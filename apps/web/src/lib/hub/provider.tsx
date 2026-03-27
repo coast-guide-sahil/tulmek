@@ -106,6 +106,7 @@ export function useHubActions() {
       indexArticles: s.indexArticles,
       markAsRead: s.markAsRead,
       isRead: s.isRead,
+      dismiss: s.dismiss,
     })),
   );
 }

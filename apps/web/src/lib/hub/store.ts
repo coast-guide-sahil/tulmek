@@ -3,6 +3,7 @@ import type { BookmarkStore, HubSearchEngine, HubSearchParams } from "@tulmek/co
 import type { BookmarkMap, FeedArticle, HubFacetedResult } from "@tulmek/core/domain";
 
 const READ_STORAGE_KEY = "tulmek:hub:read";
+const DISMISSED_STORAGE_KEY = "tulmek:hub:dismissed";
 
 function loadReadSet(): Set<string> {
   if (typeof window === "undefined") return new Set();
@@ -19,6 +20,21 @@ function saveReadSet(readIds: Set<string>): void {
   localStorage.setItem(READ_STORAGE_KEY, JSON.stringify([...readIds]));
 }
 
+function loadDismissedSet(): Set<string> {
+  if (typeof window === "undefined") return new Set();
+  try {
+    const raw = localStorage.getItem(DISMISSED_STORAGE_KEY);
+    return raw ? new Set(JSON.parse(raw) as string[]) : new Set();
+  } catch {
+    return new Set();
+  }
+}
+
+function saveDismissedSet(ids: Set<string>): void {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(DISMISSED_STORAGE_KEY, JSON.stringify([...ids]));
+}
+
 interface HubState {
   /** All bookmarks keyed by article ID */
   bookmarks: BookmarkMap;
@@ -30,6 +46,8 @@ interface HubState {
   searching: boolean;
   /** Set of read article IDs */
   readIds: Set<string>;
+  /** Set of dismissed article IDs ("not interested") */
+  dismissedIds: Set<string>;
 }
 
 interface HubActions {
@@ -49,6 +67,8 @@ interface HubActions {
   markAsRead: (articleId: string) => void;
   /** Check if an article has been read */
   isRead: (articleId: string) => boolean;
+  /** Dismiss an article ("not interested") */
+  dismiss: (articleId: string) => void;
 }
 
 type HubStore = HubState & HubActions;
@@ -67,11 +87,13 @@ export function createHubStore(deps: {
     searchResults: null,
     searching: false,
     readIds: new Set<string>(),
+    dismissedIds: new Set<string>(),
 
     hydrate: async () => {
       const bookmarks = await deps.bookmarkStore.getAll();
       const readIds = loadReadSet();
-      set({ bookmarks, readIds, hydrated: true });
+      const dismissedIds = loadDismissedSet();
+      set({ bookmarks, readIds, dismissedIds, hydrated: true });
     },
 
     indexArticles: async (articles: FeedArticle[]) => {
@@ -133,6 +155,13 @@ export function createHubStore(deps: {
 
     isRead: (articleId: string) => {
       return get().readIds.has(articleId);
+    },
+
+    dismiss: (articleId: string) => {
+      const dismissedIds = new Set(get().dismissedIds);
+      dismissedIds.add(articleId);
+      set({ dismissedIds });
+      saveDismissedSet(dismissedIds);
     },
   }));
 }

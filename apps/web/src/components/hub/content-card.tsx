@@ -9,6 +9,7 @@ interface ContentCardProps {
   readonly isBookmarked: boolean;
   readonly onToggleBookmark: (id: string) => void;
   readonly onArticleClick?: (id: string) => void;
+  readonly onDismiss?: (id: string) => void;
   readonly layout: "grid" | "list";
   readonly isNew?: boolean;
   readonly isRead?: boolean;
@@ -22,6 +23,7 @@ export const ContentCard = memo(function ContentCard({
   isBookmarked,
   onToggleBookmark,
   onArticleClick,
+  onDismiss,
   layout,
   isNew = false,
   isRead = false,
@@ -118,6 +120,18 @@ export const ContentCard = memo(function ContentCard({
             isBookmarked={isBookmarked}
             onClick={() => onToggleBookmark(article.id)}
           />
+          {onDismiss && (
+            <button
+              onClick={() => onDismiss(article.id)}
+              className="flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-lg text-muted-foreground/50 transition-colors hover:bg-muted hover:text-foreground"
+              aria-label="Not interested"
+              title="Hide this article"
+            >
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
         </div>
       </div>
 
