@@ -12,6 +12,7 @@ import { FeedSkeleton } from "./feed-skeleton";
 import { getSourceLabel } from "./hub-utils";
 import { TrendingTopics } from "./trending-topics";
 import { CompanyPulse } from "./company-pulse";
+import { ContentTypeFilter, type ContentType } from "./content-type-filter";
 
 interface FeedLayoutProps {
   readonly articles: FeedArticle[];
@@ -64,6 +65,8 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     [setParams]
   );
 
+  const [contentType, setContentType] = useState<ContentType>("all");
+
   const hydrated = useHub((s) => s.hydrated);
   const readIds = useHub((s) => s.readIds);
   const bookmarks = useHub((s) => s.bookmarks);
@@ -115,6 +118,14 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
       .sort((a, b) => b.count - a.count);
   }, [articles]);
 
+  // Content type counts
+  const contentTypeCounts = useMemo(() => ({
+    all: articles.length,
+    articles: articles.filter((a) => a.source !== "youtube" && a.readingTime >= 3).length,
+    videos: articles.filter((a) => a.source === "youtube").length,
+    discussions: articles.filter((a) => a.commentCount >= 10).length,
+  }), [articles]);
+
   // Filter + sort
   const filteredArticles = useMemo(() => {
     let result = [...articles];
@@ -127,6 +138,15 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     // Source filter
     if (sourceFilter) {
       result = result.filter((a) => a.source === sourceFilter);
+    }
+
+    // Content type filter
+    if (contentType === "videos") {
+      result = result.filter((a) => a.source === "youtube");
+    } else if (contentType === "discussions") {
+      result = result.filter((a) => a.commentCount >= 10);
+    } else if (contentType === "articles") {
+      result = result.filter((a) => a.source !== "youtube" && a.readingTime >= 3);
     }
 
     // Search filter — use Orama results (typo-tolerant) when available, fallback to inline
@@ -163,7 +183,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     }
 
     return result;
-  }, [articles, activeCategory, sourceFilter, debouncedQuery, sortMode, searchResults]);
+  }, [articles, activeCategory, sourceFilter, contentType, debouncedQuery, sortMode, searchResults]);
 
   const handleClearFilters = useCallback(() => {
     setParams({ category: null, source: null, q: null });
@@ -213,8 +233,9 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
         </>
       )}
 
-      {/* Sort + Source Filter */}
+      {/* Content Type + Sort + Source Filter */}
       <div className="flex flex-wrap items-center gap-2">
+        <ContentTypeFilter value={contentType} onChange={setContentType} counts={contentTypeCounts} />
         <SortTabs value={sortMode} onChange={setSortMode} />
         <div className="ml-auto flex items-center gap-2">
           {sourceCounts.length > 1 && (
