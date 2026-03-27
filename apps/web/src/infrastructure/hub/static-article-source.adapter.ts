@@ -1,7 +1,7 @@
 import type { ArticleSource } from "@tulmek/core/ports";
 import type { FeedArticle, HubCategory, FeedMetadata } from "@tulmek/core/domain";
-import feedData from "@/content/hub/feed.json";
-import metadataData from "@/content/hub/metadata.json";
+import feedData from "@tulmek/content/hub/feed";
+import metadataData from "@tulmek/content/hub/metadata";
 
 /**
  * Static JSON adapter for ArticleSource port.

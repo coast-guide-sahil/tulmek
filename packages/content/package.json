@@ -1,0 +1,10 @@
+{
+  "name": "@tulmek/content",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./hub/feed": "./src/hub/feed.json",
+    "./hub/metadata": "./src/hub/metadata.json"
+  }
+}

@@ -56,7 +56,9 @@ test.describe("Knowledge Hub", () => {
       const initialCount = await page.locator("article").count();
 
       // Click on a category button (DSA should always have items)
-      const dsaButton = page.getByRole("button", { name: /DSA/ });
+      // Scope to category nav toolbar to avoid matching Today's Brief cards
+      const categoryNav = page.getByRole("toolbar", { name: "Filter by category" });
+      const dsaButton = categoryNav.getByRole("button", { name: /DSA/ });
       await expect(dsaButton).toBeVisible();
       await dsaButton.click();
 
@@ -212,9 +214,9 @@ test.describe("Knowledge Hub", () => {
       await page.goto("/hub");
       await expect(page.locator("article").first()).toBeVisible();
 
-      // Click DSA category
-      const dsaButton = page.getByRole("button", { name: /DSA/ });
-      await dsaButton.click();
+      // Click DSA category (scoped to category nav)
+      const categoryNav2 = page.getByRole("toolbar", { name: "Filter by category" });
+      await categoryNav2.getByRole("button", { name: /DSA/ }).click();
 
       // URL should contain category param
       await expect(page).toHaveURL(/category=dsa/);
@@ -224,8 +226,9 @@ test.describe("Knowledge Hub", () => {
       await page.goto("/hub?category=dsa&sort=latest&view=list");
       await expect(page.locator("article").first()).toBeVisible({ timeout: 10000 });
 
-      // DSA should be active
-      const dsaButton = page.getByRole("button", { name: /DSA/ });
+      // DSA should be active (scoped to category nav)
+      const categoryNav3 = page.getByRole("toolbar", { name: "Filter by category" });
+      const dsaButton = categoryNav3.getByRole("button", { name: /DSA/ });
       await expect(dsaButton).toHaveAttribute("aria-pressed", "true");
 
       // Latest sort should be active

@@ -120,6 +120,7 @@ const SOURCE_ICONS = {
   devto: "https://dev.to/favicon.ico",
   youtube: "https://www.youtube.com/favicon.ico",
   medium: "https://medium.com/favicon.ico",
+  newsletter: "https://substack.com/favicon.ico",
 } as const;
 
 // ── Utility functions ──
@@ -756,12 +757,89 @@ async function fetchYouTube(): Promise<RawArticle[]> {
   return articles;
 }
 
+// ── Newsletters (Substack RSS) ──
+
+async function fetchNewsletters(): Promise<RawArticle[]> {
+  console.log("  Fetching Newsletters...");
+  const articles: RawArticle[] = [];
+
+  const feeds: Record<string, string> = {
+    "https://blog.bytebytego.com/feed": "ByteByteGo",
+    "https://blog.algomaster.io/feed": "AlgoMaster",
+    "https://designgurus.substack.com/feed": "System Design Nuggets",
+    "https://newsletter.systemdesign.one/feed": "System Design Newsletter",
+    "https://newsletter.pragmaticengineer.com/feed": "Pragmatic Engineer",
+  };
+
+  for (const [feedUrl, name] of Object.entries(feeds)) {
+    try {
+      const res = await fetch(feedUrl, {
+        headers: { "User-Agent": "TULMEK Hub Content Aggregator" },
+      });
+      if (!res.ok) continue;
+      const xml = await res.text();
+
+      const items = xml.split("<item>").slice(1);
+      for (const item of items.slice(0, 10)) {
+        const titleMatch = item.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/) ??
+                           item.match(/<title>(.*?)<\/title>/);
+        const linkMatch = item.match(/<link>(.*?)<\/link>/);
+        const pubDateMatch = item.match(/<pubDate>(.*?)<\/pubDate>/);
+        const descMatch = item.match(/<description><!\[CDATA\[(.*?)\]\]><\/description>/) ??
+                          item.match(/<description>(.*?)<\/description>/);
+
+        if (!titleMatch?.[1] || !linkMatch?.[1]) continue;
+
+        const title = titleMatch[1].replace(/<[^>]+>/g, "").trim();
+        const url = linkMatch[1].split("?")[0] ?? linkMatch[1];
+        const publishedAt = pubDateMatch?.[1]
+          ? new Date(pubDateMatch[1]).toISOString()
+          : new Date().toISOString();
+
+        // Extract plain text excerpt from description HTML
+        let excerpt = title;
+        if (descMatch?.[1]) {
+          excerpt = descMatch[1]
+            .replace(/<[^>]+>/g, " ")
+            .replace(/\s+/g, " ")
+            .trim()
+            .slice(0, 200);
+        }
+
+        const domain = new URL(url).hostname;
+
+        articles.push({
+          id: `newsletter:${Buffer.from(url).toString("base64url").slice(0, 40)}`,
+          title,
+          url,
+          source: "newsletter",
+          sourceName: name,
+          sourceIcon: SOURCE_ICONS.newsletter,
+          domain,
+          category: categorize(title),
+          tags: ["newsletter"],
+          excerpt: excerpt || title,
+          score: 0,
+          commentCount: 0,
+          readingTime: estimateReadingTime(excerpt),
+          publishedAt,
+          discussionUrl: null,
+        });
+      }
+    } catch (err) {
+      console.warn(`  Warning: Newsletter ${name} failed:`, (err as Error).message);
+    }
+  }
+
+  return articles;
+}
+
 // ── Main ──
 
 async function main() {
   console.log("🔄 Fetching hub content...\n");
 
-  const [hn, reddit, redditSearch, devto, medium, leetcode, github, youtube] = await Promise.all([
+  const [hn, reddit, redditSearch, devto, medium, leetcode, github, youtube, newsletters] = await Promise.all([
     fetchHackerNews(),
     fetchReddit(),
     fetchRedditSearch(),
@@ -770,6 +848,7 @@ async function main() {
     fetchLeetCode(),
     fetchGitHub(),
     fetchYouTube(),
+    fetchNewsletters(),
   ]);
 
   console.log(`\n  HackerNews: ${hn.length} articles`);
@@ -780,8 +859,9 @@ async function main() {
   console.log(`  LeetCode: ${leetcode.length} articles`);
   console.log(`  GitHub: ${github.length} articles`);
   console.log(`  YouTube: ${youtube.length} articles`);
+  console.log(`  Newsletters: ${newsletters.length} articles`);
 
-  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...github, ...youtube];
+  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...github, ...youtube, ...newsletters];
   all = deduplicateByUrl(all);
 
   // Sort by score (engagement) descending, then by date
@@ -817,8 +897,8 @@ async function main() {
     categoryBreakdown,
   };
 
-  // Write output
-  const outputDir = join(__dirname, "..", "src", "content", "hub");
+  // Write output to shared @tulmek/content package (single source of truth)
+  const outputDir = join(__dirname, "..", "..", "..", "packages", "content", "src", "hub");
   mkdirSync(outputDir, { recursive: true });
 
   writeFileSync(
@@ -830,7 +910,7 @@ async function main() {
     JSON.stringify(metadata, null, 2)
   );
 
-  console.log(`\n✅ Wrote ${articles.length} articles to src/content/hub/feed.json`);
+  console.log(`\n✅ Wrote ${articles.length} articles to packages/content/src/hub/feed.json`);
   console.log(`   Categories: ${JSON.stringify(categoryBreakdown)}`);
   console.log(`   Sources: ${JSON.stringify(sourceBreakdown)}`);
 }

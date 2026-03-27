@@ -71,9 +71,9 @@ validate(
   "behavioral.json",
 );
 
-// Hub content
+// Hub content (lives in @tulmek/content package)
 console.log("\nHub feed:");
-const hubDir = join(CONTENT_DIR, "hub");
+const hubDir = join(__dirname, "../../../packages/content/src/hub");
 validate(join(hubDir, "feed.json"), feedFileSchema, "feed.json");
 validate(join(hubDir, "metadata.json"), feedMetadataSchema, "metadata.json");
 

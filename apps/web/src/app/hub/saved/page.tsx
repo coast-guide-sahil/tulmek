@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { FeedArticle } from "@tulmek/core/domain";
-import feedData from "@/content/hub/feed.json";
+import feedData from "@tulmek/content/hub/feed";
 import { SavedFeed } from "@/components/hub/saved-feed";
 import { APP_NAME } from "@tulmek/config/constants";
 

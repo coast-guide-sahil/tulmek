@@ -19,8 +19,9 @@ import {
   formatRelativeTime,
   ALL_CATEGORIES,
 } from "@tulmek/core/domain";
-import feedData from "../src/content/hub/feed.json";
-import metadataJson from "../src/content/hub/metadata.json";
+// Single source of truth — content shared via @tulmek/content package
+import feedData from "@tulmek/content/hub/feed";
+import metadataJson from "@tulmek/content/hub/metadata";
 
 const articles = feedData as FeedArticle[];
 const totalArticles = metadataJson.totalArticles;
