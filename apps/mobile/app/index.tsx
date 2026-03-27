@@ -42,26 +42,30 @@ function getCategoryColor(category: string): string {
 }
 
 // ── Article Card ──
-function ArticleCard({ article }: { article: FeedArticle }) {
+function ArticleCard({ article, nowMs }: { article: FeedArticle; nowMs: number }) {
   const meta = getCategoryMeta(article.category);
   const color = getCategoryColor(article.category);
   const relTime = formatRelativeTime(article.publishedAt);
   const source = getSourceLabel(article.source);
+  const isNew = nowMs - new Date(article.publishedAt).getTime() < 6 * 60 * 60 * 1000;
+  const isTrending = article.score >= 500;
 
   return (
     <Pressable
-      style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
+      style={({ pressed }) => [styles.card, { borderLeftColor: color }, pressed && styles.cardPressed]}
       onPress={() => Linking.openURL(article.url)}
       accessibilityRole="link"
       accessibilityLabel={`${article.title} from ${source}`}
     >
-      {/* Header: source + time */}
+      {/* Header: source + time + badges */}
       <View style={styles.cardHeader}>
         <View style={[styles.categoryPill, { backgroundColor: color + "20" }]}>
           <Text style={[styles.categoryPillText, { color }]}>{meta.label}</Text>
         </View>
         <Text style={styles.cardSource}>{source}</Text>
         <Text style={styles.cardTime}>{relTime}</Text>
+        {isNew && <Text style={styles.newBadge}>NEW</Text>}
+        {isTrending && <Text style={styles.trendingBadge}>TRENDING</Text>}
       </View>
 
       {/* Title */}
@@ -235,8 +239,8 @@ export default function HomeScreen() {
   }, [activeCategory, searchQuery, sortMode, nowMs]);
 
   const renderItem = useCallback(
-    ({ item }: ListRenderItemInfo<FeedArticle>) => <ArticleCard article={item} />,
-    []
+    ({ item }: ListRenderItemInfo<FeedArticle>) => <ArticleCard article={item} nowMs={nowMs} />,
+    [nowMs]
   );
 
   const keyExtractor = useCallback((item: FeedArticle) => item.id, []);
@@ -375,13 +379,16 @@ const styles = StyleSheet.create({
     padding: 16,
     borderWidth: 1,
     borderColor: "#27272a",
+    borderLeftWidth: 3,
   },
   cardPressed: { opacity: 0.8, transform: [{ scale: 0.98 }] },
   cardHeader: { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 8 },
   categoryPill: { borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3 },
   categoryPillText: { fontSize: 11, fontWeight: "700" },
-  cardSource: { fontSize: 12, fontWeight: "600", color: "#a1a1aa" },
+  cardSource: { fontSize: 12, fontWeight: "600" as const, color: "#a1a1aa" },
   cardTime: { fontSize: 12, color: "#71717a" },
+  newBadge: { fontSize: 10, fontWeight: "700" as const, color: "#22c55e", backgroundColor: "#22c55e15", paddingHorizontal: 5, paddingVertical: 1, borderRadius: 4, overflow: "hidden" as const },
+  trendingBadge: { fontSize: 10, fontWeight: "700" as const, color: "#ef4444", backgroundColor: "#ef444415", paddingHorizontal: 5, paddingVertical: 1, borderRadius: 4, overflow: "hidden" as const },
   cardTitle: { fontSize: 15, fontWeight: "700", color: "#fafafa", lineHeight: 22 },
   cardExcerpt: { fontSize: 13, color: "#71717a", marginTop: 6, lineHeight: 20 },
   cardFooter: { flexDirection: "row", gap: 12, marginTop: 10 },
