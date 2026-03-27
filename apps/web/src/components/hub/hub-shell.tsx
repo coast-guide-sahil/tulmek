@@ -7,6 +7,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { ScrollToTop } from "./scroll-to-top";
 import { KeyboardShortcutsHelp } from "./keyboard-shortcuts-help";
 import { ReadingStreak } from "./reading-streak";
+import { PrepCountdown } from "./prep-countdown";
 import { UserStats } from "./user-stats";
 import { useHub } from "@/lib/hub/provider";
 import { APP_NAME } from "@tulmek/config/constants";
@@ -38,6 +39,7 @@ export function HubShell({ children }: { children: ReactNode }) {
             </span>
           </div>
           <div className="flex items-center gap-2">
+            <PrepCountdown />
             <ReadingStreak />
             <ThemeToggle />
           </div>
