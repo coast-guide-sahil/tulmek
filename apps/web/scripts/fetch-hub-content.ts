@@ -264,10 +264,13 @@ async function fetchReddit(): Promise<RawArticle[]> {
     "recruitinghell",
   ];
 
+  // Fetch both /hot (trending) and /new (freshest) for each subreddit
+  const endpoints = ["hot", "new"] as const;
   for (const sub of subreddits) {
+    for (const endpoint of endpoints) {
     try {
       const res = await fetch(
-        `https://www.reddit.com/r/${sub}/hot.json?limit=25`,
+        `https://www.reddit.com/r/${sub}/${endpoint}.json?limit=15`,
         { headers: { "User-Agent": "tulmek-hub/1.0" } }
       );
       if (!res.ok) continue;
@@ -322,7 +325,8 @@ async function fetchReddit(): Promise<RawArticle[]> {
         });
       }
     } catch (err) {
-      console.warn(`  Warning: Reddit r/${sub} failed:`, (err as Error).message);
+      console.warn(`  Warning: Reddit r/${sub}/${endpoint} failed:`, (err as Error).message);
+    }
     }
   }
 
@@ -434,7 +438,7 @@ async function fetchDevTo(): Promise<RawArticle[]> {
   for (const tag of tags) {
     try {
       const res = await fetch(
-        `https://dev.to/api/articles?tag=${tag}&per_page=15&top=7`
+        `https://dev.to/api/articles?tag=${tag}&per_page=15&top=1`
       );
       if (!res.ok) continue;
       const data = await res.json() as Array<{
@@ -490,7 +494,7 @@ async function fetchGitHub(): Promise<RawArticle[]> {
   for (const query of queries) {
     try {
       const res = await fetch(
-        `https://api.github.com/search/repositories?q=${encodeURIComponent(query)}&sort=stars&order=desc&per_page=5`,
+        `https://api.github.com/search/repositories?q=${encodeURIComponent(query)}+stars:>100&sort=updated&order=desc&per_page=5`,
         { headers: { "Accept": "application/vnd.github.v3+json", "User-Agent": "tulmek-hub/1.0" } }
       );
       if (!res.ok) continue;
