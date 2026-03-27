@@ -14,6 +14,7 @@ import { tulmekRank } from "@/lib/hub/ranking";
 import { TrendingTopics } from "./trending-topics";
 import { CompanyPulse } from "./company-pulse";
 import { AutoTopics } from "./auto-topics";
+import { ExploreCompanies } from "./explore-companies";
 import { ContentTypeFilter, type ContentType } from "./content-type-filter";
 import { ReadingTimeFilter, type ReadingDepth } from "./reading-time-filter";
 import { CopyFeedLink } from "./copy-feed-link";
@@ -250,6 +251,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
           <TrendingTopics articles={articles} onTopicClick={setSearchQuery} />
           <CompanyPulse articles={articles} onCompanyClick={setSearchQuery} />
           <AutoTopics articles={articles} onTopicClick={setSearchQuery} />
+          <ExploreCompanies articles={articles} onCompanyClick={setSearchQuery} />
         </>
       )}
 
