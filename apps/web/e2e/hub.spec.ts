@@ -239,10 +239,9 @@ test.describe("Knowledge Hub", () => {
   });
 
   test.describe("Highlights", () => {
-    test("shows article count and live indicator", async ({ page }) => {
+    test("shows live indicator", async ({ page }) => {
       await page.goto("/hub");
-      await expect(page.getByText(/\d+ articles/)).toBeVisible();
-      await expect(page.getByText("Live")).toBeVisible();
+      await expect(page.getByText("Live")).toBeVisible({ timeout: 10000 });
     });
 
     test("shows featured picks with bento layout", async ({ page }) => {

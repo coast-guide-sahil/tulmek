@@ -7,7 +7,8 @@ export type FeedSourceId =
   | "devto"
   | "youtube"
   | "medium"
-  | "github";
+  | "github"
+  | "leetcode";
 
 /** Hub content categories */
 export type HubCategory =
