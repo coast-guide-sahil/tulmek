@@ -58,6 +58,12 @@ export const ContentCard = memo(function ContentCard({
     : null;
   const salary = salaryMatch ? `${salaryMatch[1]} ${salaryMatch[2]!.toUpperCase()}` : null;
 
+  // Extract interview round from title
+  const roundMatch = article.category === "interview-experience"
+    ? titleLower.match(/\b(phone screen|oa round|online assessment|round [1-5]|onsite|final round|superday|bar raiser|baraiser)\b/i)
+    : null;
+  const round = roundMatch ? roundMatch[1]!.replace(/\b\w/g, (c) => c.toUpperCase()) : null;
+
   // Extract location from pipe-separated titles (last segment often is location)
   const segments = article.title.split("|").map((s) => s.trim());
   const lastSeg = segments.length >= 3 ? segments[segments.length - 1] : null;
@@ -204,6 +210,11 @@ export const ContentCard = memo(function ContentCard({
         {level && (
           <span className="rounded bg-muted px-1.5 py-0.5 text-xs font-bold text-card-foreground">
             {level}
+          </span>
+        )}
+        {round && (
+          <span className="rounded bg-blue-500/15 px-1.5 py-0.5 text-xs font-medium text-blue-700 dark:text-blue-300">
+            {round}
           </span>
         )}
         {salary && (
