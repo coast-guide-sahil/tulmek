@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useSyncExternalStore } from "react";
 
-const COUNTDOWN_KEY = "tulmek:hub:interviewDate";
+import { STORAGE_KEYS } from "@tulmek/config/constants";
+const COUNTDOWN_KEY = STORAGE_KEYS.hubInterviewDate;
 const emptySubscribe = () => () => {};
 
 /**

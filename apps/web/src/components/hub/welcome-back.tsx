@@ -4,7 +4,8 @@ import { useSyncExternalStore } from "react";
 import { useHub } from "@/lib/hub/provider";
 
 const emptySubscribe = () => () => {};
-const STREAK_KEY = "tulmek:hub:streak";
+import { STORAGE_KEYS } from "@tulmek/config/constants";
+const STREAK_KEY = STORAGE_KEYS.hubStreak;
 
 /**
  * Personalized greeting with engagement stats and streak.

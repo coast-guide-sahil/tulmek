@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import type { FeedArticle } from "@tulmek/core/domain";
 
-const LAST_VISIT_KEY = "tulmek:hub:lastVisit";
+import { STORAGE_KEYS } from "@tulmek/config/constants";
+const LAST_VISIT_KEY = STORAGE_KEYS.hubLastVisit;
 
 interface WhatsNewBannerProps {
   readonly articles: FeedArticle[];

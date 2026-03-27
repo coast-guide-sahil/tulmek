@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useSyncExternalStore } from "react";
 
-const VISITED_KEY = "tulmek:hub:visited";
+import { STORAGE_KEYS } from "@tulmek/config/constants";
+const VISITED_KEY = STORAGE_KEYS.hubVisited;
 const emptySubscribe = () => () => {};
 
 /**

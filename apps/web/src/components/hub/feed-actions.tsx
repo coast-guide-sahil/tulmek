@@ -2,6 +2,7 @@
 
 import { useHub, useHubActions } from "@/lib/hub/provider";
 import type { FeedArticle } from "@tulmek/core/domain";
+import { STORAGE_KEYS } from "@tulmek/config/constants";
 
 interface FeedActionsProps {
   readonly visibleArticles: FeedArticle[];
@@ -23,7 +24,7 @@ export function FeedActions({ visibleArticles }: FeedActionsProps) {
 
   const handleClearHistory = () => {
     if (typeof window !== "undefined") {
-      localStorage.removeItem("tulmek:hub:read");
+      localStorage.removeItem(STORAGE_KEYS.hubRead);
       window.location.reload();
     }
   };
