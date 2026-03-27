@@ -10,7 +10,14 @@
   "exports": {
     "./domain": "./src/domain/index.ts",
     "./ports": "./src/ports/index.ts",
+    "./stores/hub": "./src/stores/hub-store.ts",
     "./result": "./src/result.ts"
+  },
+  "peerDependencies": {
+    "zustand": ">=5"
+  },
+  "peerDependenciesMeta": {
+    "zustand": { "optional": true }
   },
   "devDependencies": {
     "@tulmek/typescript-config": "workspace:*",

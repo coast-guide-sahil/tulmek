@@ -9,10 +9,11 @@ import {
 } from "react";
 import { useStore } from "zustand";
 import { useShallow } from "zustand/shallow";
-import type { BookmarkStore, HubSearchEngine } from "@tulmek/core/ports";
 import type { FeedArticle } from "@tulmek/core/domain";
-import { createHubStore, type UseHubStore } from "./store";
+import { STORAGE_KEYS } from "@tulmek/config/constants";
+import { createHubStore, type UseHubStore, type HubStoreDeps } from "./store";
 import { LocalStorageBookmarkStore } from "@/infrastructure/hub/localstorage-bookmark.adapter";
+import { LocalStorageSetStorage } from "@/infrastructure/hub/localstorage-set-storage.adapter";
 import { OramaHubSearchEngine } from "@/infrastructure/hub/orama-hub-search.adapter";
 
 type HubStoreApi = ReturnType<typeof createHubStore>;
@@ -24,12 +25,11 @@ const ArticlesContext = createContext<FeedArticle[]>([]);
  * Default adapters — the ONLY place concrete implementations are chosen.
  * Swap these to change storage/search backends.
  */
-const defaultDeps: {
-  bookmarkStore: BookmarkStore;
-  searchEngine: HubSearchEngine;
-} = {
+const defaultDeps: HubStoreDeps = {
   bookmarkStore: new LocalStorageBookmarkStore(),
   searchEngine: new OramaHubSearchEngine(),
+  setStorage: new LocalStorageSetStorage(),
+  storageKeys: { readKey: STORAGE_KEYS.hubRead, dismissedKey: STORAGE_KEYS.hubDismissed },
 };
 
 interface HubProviderProps {
@@ -37,10 +37,7 @@ interface HubProviderProps {
   /** Pre-loaded articles (from server component) */
   articles: FeedArticle[];
   /** Override adapters for testing */
-  deps?: {
-    bookmarkStore: BookmarkStore;
-    searchEngine: HubSearchEngine;
-  };
+  deps?: HubStoreDeps;
 }
 
 /**

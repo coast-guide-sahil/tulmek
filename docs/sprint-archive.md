@@ -29,3 +29,5 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 107 | #146 | Type-safe maps, storage keys, self-improving agent protocol |
 | 108 | #147 | Company intelligence pages + cron persistence |
 | 109 | #148 | Link company chips to intelligence pages |
+| 110 | #149 | Persistent sprint tracker (.claude/SPRINT.md) |
+| 111 | #150 | SimHash title dedup — cross-source near-duplicates |

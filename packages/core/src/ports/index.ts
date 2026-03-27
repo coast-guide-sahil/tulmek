@@ -20,3 +20,4 @@ export type {
   ContentCategorizer,
   CategorizationInput,
 } from "./content-categorizer.port";
+export type { SetStorage } from "./set-storage.port";
