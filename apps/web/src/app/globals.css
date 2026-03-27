@@ -392,6 +392,17 @@ article.keyboard-focused {
   from { opacity: 0; }
 }
 
+/* Category pill hover */
+button[aria-pressed] {
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.15s ease,
+              box-shadow 0.15s ease;
+}
+button[aria-pressed]:active {
+  transform: scale(0.96);
+  transition-duration: 0.08s;
+}
+
 /* Smooth gradient background for header area */
 .hub-hero-gradient {
   background: linear-gradient(
