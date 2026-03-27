@@ -94,7 +94,7 @@ export function TodaysBrief({ articles, nowMs, onCategoryClick }: TodaysBriefPro
       </div>
 
       {/* Category digest grid */}
-      <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-3 grid grid-cols-2 gap-2 lg:grid-cols-4">
         {digest.categories.slice(0, 4).map((item) => {
           const config = getCategoryConfig(item.category);
           return (
