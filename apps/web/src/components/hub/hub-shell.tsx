@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ScrollToTop } from "./scroll-to-top";
 import { KeyboardShortcutsHelp } from "./keyboard-shortcuts-help";
+import { ReadingProgressBar } from "./reading-progress-bar";
 import { ReadingStreak } from "./reading-streak";
 import { PrepCountdown } from "./prep-countdown";
 import { UserStats } from "./user-stats";
@@ -24,6 +25,7 @@ export function HubShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-dvh flex-col bg-background">
+      <ReadingProgressBar />
       {/* Header */}
       <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
