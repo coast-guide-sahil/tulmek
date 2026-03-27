@@ -189,6 +189,12 @@ export const ContentCard = memo(function ContentCard({
             {formatCount(article.commentCount)}
           </a>
         )}
+        {/* Social proof — estimated readers */}
+        {article.score >= 100 && (
+          <span className="text-xs text-muted-foreground/70" title="Estimated readers based on engagement">
+            ~{Math.round(article.score * 0.015 + article.commentCount * 0.08)} readers
+          </span>
+        )}
         <span className="ml-auto flex items-center gap-1 text-xs text-muted-foreground">
           {article.source === "youtube" && (
             <svg className="h-3.5 w-3.5 text-red-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
