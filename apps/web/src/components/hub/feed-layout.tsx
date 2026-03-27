@@ -26,11 +26,11 @@ interface FeedLayoutProps {
   readonly initialCategory?: HubCategory;
 }
 
-type SortMode = "for-you" | "latest" | "popular" | "most-discussed";
+type SortMode = "for-you" | "latest" | "rising" | "popular" | "most-discussed";
 const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
 
 const HUB_CATEGORIES: HubCategory[] = ["dsa", "system-design", "ai-ml", "behavioral", "interview-experience", "compensation", "career", "general"];
-const SORT_MODES: SortMode[] = ["for-you", "latest", "popular", "most-discussed"];
+const SORT_MODES: SortMode[] = ["for-you", "latest", "rising", "popular", "most-discussed"];
 const VIEW_MODES: ("grid" | "list")[] = ["grid", "list"];
 
 export function FeedLayout({ articles }: FeedLayoutProps) {
@@ -180,6 +180,16 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
       case "for-you":
         // TULMEK Core Ranking Algorithm: multi-signal, personalized, diversity-aware
         result = tulmekRank(result, nowMs, readIds, bookmarks);
+        break;
+      case "rising":
+        // Velocity: engagement per hour of age — catches trending early
+        result.sort((a, b) => {
+          const ageA = Math.max(1, (nowMs - new Date(a.publishedAt).getTime()) / 3600000);
+          const ageB = Math.max(1, (nowMs - new Date(b.publishedAt).getTime()) / 3600000);
+          const velA = (a.score + a.commentCount * 3) / ageA;
+          const velB = (b.score + b.commentCount * 3) / ageB;
+          return velB - velA;
+        });
         break;
       case "popular":
         result.sort((a, b) => b.score - a.score);
@@ -336,28 +346,35 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
 // ── Sub-components ──
 
 function SortTabs({ value, onChange }: { value: SortMode; onChange: (v: SortMode) => void }) {
-  const tabs: { id: SortMode; label: string }[] = [
-    { id: "for-you", label: "For You" },
-    { id: "latest", label: "Latest" },
-    { id: "popular", label: "Popular" },
-    { id: "most-discussed", label: "Most Discussed" },
+  const tabs: { id: SortMode; label: string; desc: string }[] = [
+    { id: "for-you", label: "For You", desc: "Personalized" },
+    { id: "latest", label: "Latest", desc: "Newest first" },
+    { id: "rising", label: "Rising", desc: "Heating up" },
+    { id: "popular", label: "Popular", desc: "Most upvoted" },
+    { id: "most-discussed", label: "Discussed", desc: "Most comments" },
   ];
 
   return (
-    <div className="flex gap-1 rounded-lg bg-muted p-1" role="tablist">
+    <div className="flex gap-1 overflow-x-auto rounded-lg bg-muted p-1" role="tablist">
       {tabs.map((tab) => (
         <button
           key={tab.id}
           role="tab"
           aria-selected={value === tab.id}
           onClick={() => onChange(tab.id)}
-          className={`min-h-[44px] rounded-md px-3 text-xs font-medium transition-colors sm:text-sm ${
+          className={`flex min-h-[44px] shrink-0 flex-col items-center justify-center rounded-md px-3 transition-colors ${
             value === tab.id
               ? "bg-card text-card-foreground shadow-sm"
               : "text-muted-foreground hover:text-foreground"
           }`}
+          title={tab.desc}
         >
-          {tab.label}
+          <span className="text-xs font-medium sm:text-sm">{tab.label}</span>
+          <span className={`text-[10px] leading-tight ${
+            value === tab.id ? "text-muted-foreground" : "text-muted-foreground/60"
+          }`}>
+            {tab.desc}
+          </span>
         </button>
       ))}
     </div>
