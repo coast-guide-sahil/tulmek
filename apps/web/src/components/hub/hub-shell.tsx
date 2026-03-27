@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ScrollToTop } from "./scroll-to-top";
+import { KeyboardShortcutsHelp } from "./keyboard-shortcuts-help";
 import { ReadingStreak } from "./reading-streak";
 import { UserStats } from "./user-stats";
 import { useHub } from "@/lib/hub/provider";
@@ -87,6 +88,7 @@ export function HubShell({ children }: { children: ReactNode }) {
       </main>
 
       <ScrollToTop />
+      <KeyboardShortcutsHelp />
 
       {/* Footer */}
       <footer className="border-t border-border bg-background">
