@@ -32,6 +32,16 @@ const CATEGORY_CONFIGS: Record<string, CategoryConfig> = {
     className: "bg-rose-500/10 text-rose-700 dark:text-rose-400",
     emoji: "📈",
   },
+  "interview-experience": {
+    label: "Experiences",
+    className: "bg-cyan-500/10 text-cyan-700 dark:text-cyan-400",
+    emoji: "💬",
+  },
+  compensation: {
+    label: "Compensation",
+    className: "bg-yellow-500/10 text-yellow-700 dark:text-yellow-400",
+    emoji: "💰",
+  },
   general: {
     label: "General",
     className: "bg-gray-500/10 text-gray-700 dark:text-gray-400",
@@ -51,6 +61,8 @@ export function getAllCategories(): { id: HubCategory; config: CategoryConfig }[
     { id: "system-design", config: CATEGORY_CONFIGS["system-design"]! },
     { id: "ai-ml", config: CATEGORY_CONFIGS["ai-ml"]! },
     { id: "behavioral", config: CATEGORY_CONFIGS["behavioral"]! },
+    { id: "interview-experience", config: CATEGORY_CONFIGS["interview-experience"]! },
+    { id: "compensation", config: CATEGORY_CONFIGS["compensation"]! },
     { id: "career", config: CATEGORY_CONFIGS["career"]! },
     { id: "general", config: CATEGORY_CONFIGS["general"]! },
   ];

@@ -70,13 +70,32 @@ const CATEGORY_KEYWORDS: Record<string, string[]> = {
     "behavioral interview", "star method", "leadership", "conflict resolution",
     "teamwork", "communication", "amazon leadership", "culture fit",
     "tell me about a time", "strengths", "weaknesses", "career goal",
-    "salary negotiation", "offer negotiation", "job offer",
+  ],
+  "interview-experience": [
+    "interview experience", "interview process", "interview loop",
+    "onsite interview", "phone screen", "technical round", "hiring manager round",
+    "final round", "got the offer", "got rejected", "interview timeline",
+    "interview feedback", "interview debrief", "coding round",
+    "system design round", "take home assignment", "live coding",
+    "whiteboard interview", "virtual onsite", "recruiter call",
+    "offer received", "interview prep journey", "my interview at",
+    "just interviewed at", "interview went well", "failed interview",
+    "passed interview", "interview tips from", "what to expect",
+  ],
+  compensation: [
+    "compensation", "total comp", "tc", "salary", "base salary",
+    "stock options", "rsu", "equity", "signing bonus", "annual bonus",
+    "offer negotiation", "salary negotiation", "pay band", "level",
+    "sde1", "sde2", "sde3", "staff engineer", "senior engineer",
+    "principal engineer", "e3", "e4", "e5", "e6", "e7", "l3", "l4", "l5", "l6", "l7",
+    "compensation thread", "salary sharing", "pay transparency",
+    "highest paying", "top paying", "faang comp", "big tech salary",
+    "offer comparison", "competing offers", "counter offer",
   ],
   career: [
     "career", "job search", "resume", "portfolio", "networking",
     "remote work", "freelance", "promotion", "career switch",
     "tech industry", "layoff", "hiring", "recruiter", "job market",
-    "compensation", "equity", "stock options", "interview experience",
     "onboarding", "career advice", "mentor",
   ],
 };
@@ -107,6 +126,8 @@ function categorize(title: string, tags: string[] = []): string {
     "system-design": 0,
     "ai-ml": 0,
     behavioral: 0,
+    "interview-experience": 0,
+    compensation: 0,
     career: 0,
   };
 
@@ -163,6 +184,8 @@ async function fetchHackerNews(): Promise<RawArticle[]> {
     "interview", "system design", "leetcode", "coding interview",
     "machine learning interview", "career advice software",
     "algorithm", "data structure", "ai engineer",
+    "interview experience", "compensation", "salary tech",
+    "offer negotiation", "total compensation",
   ];
 
   for (const query of queries) {
@@ -221,6 +244,9 @@ async function fetchReddit(): Promise<RawArticle[]> {
     "cscareerquestions", "leetcode", "systemdesign",
     "ExperiencedDevs", "MachineLearning", "artificial",
     "datascience", "programming",
+    // Interview experiences & compensation focused
+    "interviews", "csMajors", "SoftwareEngineering",
+    "devops", "dataengineering",
   ];
 
   for (const sub of subreddits) {

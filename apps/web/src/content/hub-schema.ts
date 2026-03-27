@@ -15,7 +15,7 @@ export const feedArticleSchema = z.object({
   sourceName: z.string().min(1),
   sourceIcon: z.string(),
   domain: z.string().min(1),
-  category: z.enum(["dsa", "system-design", "ai-ml", "behavioral", "career", "general"]),
+  category: z.enum(["dsa", "system-design", "ai-ml", "behavioral", "career", "interview-experience", "compensation", "general"]),
   tags: z.array(z.string()),
   excerpt: z.string(),
   publishedAt: z.string().datetime({ offset: true }).or(z.string().datetime()),

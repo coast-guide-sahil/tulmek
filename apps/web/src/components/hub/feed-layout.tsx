@@ -20,7 +20,7 @@ interface FeedLayoutProps {
 type SortMode = "trending" | "latest" | "most-discussed";
 const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
 
-const HUB_CATEGORIES: HubCategory[] = ["dsa", "system-design", "ai-ml", "behavioral", "career", "general"];
+const HUB_CATEGORIES: HubCategory[] = ["dsa", "system-design", "ai-ml", "behavioral", "interview-experience", "compensation", "career", "general"];
 const SORT_MODES: SortMode[] = ["trending", "latest", "most-discussed"];
 const VIEW_MODES: ("grid" | "list")[] = ["grid", "list"];
 

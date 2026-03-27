@@ -16,6 +16,8 @@ export type HubCategory =
   | "ai-ml"
   | "behavioral"
   | "career"
+  | "interview-experience"
+  | "compensation"
   | "general";
 
 /** A single aggregated article/post from any source */

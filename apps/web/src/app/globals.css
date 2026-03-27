@@ -53,6 +53,8 @@
   --accent-ai-ml: #a855f7;
   --accent-behavioral: #f59e0b;
   --accent-career: #f43f5e;
+  --accent-interview-experience: #06b6d4;
+  --accent-compensation: #eab308;
   --accent-general: #6b7280;
 }
 
@@ -238,6 +240,8 @@ textarea {
 .hub-card-unread[data-category="ai-ml"] { border-left-color: var(--accent-ai-ml); }
 .hub-card-unread[data-category="behavioral"] { border-left-color: var(--accent-behavioral); }
 .hub-card-unread[data-category="career"] { border-left-color: var(--accent-career); }
+.hub-card-unread[data-category="interview-experience"] { border-left-color: var(--accent-interview-experience); }
+.hub-card-unread[data-category="compensation"] { border-left-color: var(--accent-compensation); }
 .hub-card-unread[data-category="general"] { border-left-color: var(--accent-general); }
 
 /* Bookmark pulse animation */
