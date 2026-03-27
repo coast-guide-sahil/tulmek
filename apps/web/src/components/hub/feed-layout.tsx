@@ -27,10 +27,18 @@ interface FeedLayoutProps {
 }
 
 type SortMode = "for-you" | "latest" | "rising" | "popular" | "most-discussed";
+type TimeRange = "today" | "week" | "month" | "all";
 const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
+const TIME_RANGE_MS: Record<TimeRange, number> = {
+  today: 24 * 60 * 60 * 1000,
+  week: 7 * 24 * 60 * 60 * 1000,
+  month: 30 * 24 * 60 * 60 * 1000,
+  all: Infinity,
+};
 
 const HUB_CATEGORIES: HubCategory[] = ["dsa", "system-design", "ai-ml", "behavioral", "interview-experience", "compensation", "career", "general"];
 const SORT_MODES: SortMode[] = ["for-you", "latest", "rising", "popular", "most-discussed"];
+const TIME_RANGES: TimeRange[] = ["today", "week", "month", "all"];
 const VIEW_MODES: ("grid" | "list")[] = ["grid", "list"];
 
 export function FeedLayout({ articles }: FeedLayoutProps) {
@@ -42,6 +50,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     q: parseAsString.withDefault(""),
     source: parseAsString,
     sort: parseAsStringEnum<SortMode>(SORT_MODES).withDefault("for-you"),
+    time: parseAsStringEnum<TimeRange>(TIME_RANGES).withDefault("all"),
     view: parseAsStringEnum<"grid" | "list">(VIEW_MODES).withDefault("grid"),
   }, { shallow: true });
 
@@ -49,6 +58,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
   const searchQuery = params.q;
   const sourceFilter = params.source;
   const sortMode = params.sort;
+  const timeRange = params.time;
   const layout = params.view;
 
   const setActiveCategory = useCallback(
@@ -61,6 +71,10 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
   );
   const setSourceFilter = useCallback(
     (source: string | null) => setParams({ source }),
+    [setParams]
+  );
+  const setTimeRange = useCallback(
+    (time: TimeRange) => setParams({ time: time === "all" ? null : time }),
     [setParams]
   );
   const setSortMode = useCallback(
@@ -158,6 +172,12 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
       result = result.filter((a) => a.source === sourceFilter);
     }
 
+    // Time range filter
+    if (timeRange !== "all") {
+      const cutoff = nowMs - TIME_RANGE_MS[timeRange];
+      result = result.filter((a) => new Date(a.publishedAt).getTime() >= cutoff);
+    }
+
     // Search filter — use Orama results (typo-tolerant) when available, fallback to inline
     if (debouncedQuery.trim()) {
       if (searchResults && searchResults.hits.length > 0) {
@@ -206,15 +226,15 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     }
 
     return result;
-  }, [articles, dismissedIds, activeCategory, sourceFilter, debouncedQuery, sortMode, searchResults, nowMs, readIds, bookmarks]);
+  }, [articles, dismissedIds, activeCategory, sourceFilter, timeRange, debouncedQuery, sortMode, searchResults, nowMs, readIds, bookmarks]);
 
   const handleClearFilters = useCallback(() => {
-    setParams({ category: null, source: null, q: null });
+    setParams({ category: null, source: null, q: null, time: null });
   }, [setParams]);
 
   const [visibleCount, setVisibleCount] = useState(24);
 
-  const hasActiveFilters = activeCategory !== null || sourceFilter !== null || searchQuery.trim() !== "";
+  const hasActiveFilters = activeCategory !== null || sourceFilter !== null || timeRange !== "all" || searchQuery.trim() !== "";
   const visibleArticles = filteredArticles.slice(0, visibleCount);
   const hasMore = visibleCount < filteredArticles.length;
 
@@ -258,10 +278,11 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
         <TrendingTopics articles={articles} onTopicClick={setSearchQuery} />
       )}
 
-      {/* Sort + Source Filter */}
+      {/* Sort + Filters */}
       <div className="flex flex-wrap items-center gap-2">
         <SortTabs value={sortMode} onChange={setSortMode} />
         <div className="ml-auto flex items-center gap-2">
+          <TimeRangeFilter value={timeRange} onChange={setTimeRange} />
           {sourceCounts.length > 1 && (
             <SourceFilter
               sources={sourceCounts}
@@ -402,6 +423,28 @@ function SourceFilter({
         <option key={s.source} value={s.source}>
           {s.label} ({s.count})
         </option>
+      ))}
+    </select>
+  );
+}
+
+function TimeRangeFilter({ value, onChange }: { value: TimeRange; onChange: (v: TimeRange) => void }) {
+  const options: { id: TimeRange; label: string }[] = [
+    { id: "today", label: "Today" },
+    { id: "week", label: "This week" },
+    { id: "month", label: "This month" },
+    { id: "all", label: "All time" },
+  ];
+
+  return (
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value as TimeRange)}
+      className="h-11 rounded-lg border border-border bg-card px-2 text-xs text-card-foreground sm:text-sm"
+      aria-label="Filter by time range"
+    >
+      {options.map((o) => (
+        <option key={o.id} value={o.id}>{o.label}</option>
       ))}
     </select>
   );
