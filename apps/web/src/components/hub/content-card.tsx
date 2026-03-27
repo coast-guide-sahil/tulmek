@@ -48,6 +48,10 @@ export const ContentCard = memo(function ContentCard({
       : titleLower.includes("reject") ? "reject" : null
     : null;
 
+  // Extract level from title (L3, L4, E5, SDE1, SDE2, etc.)
+  const levelMatch = article.title.match(/\b(L[3-7]|E[3-7]|SDE\s?[1-3]|ICT[3-6]|SSE|Staff|Principal|Senior|Junior)\b/i);
+  const level = levelMatch ? levelMatch[1]!.toUpperCase() : null;
+
   const cardStateClass = isRead ? "hub-card-read" : "hub-card-unread";
 
   if (layout === "list") {
@@ -185,6 +189,11 @@ export const ContentCard = memo(function ContentCard({
       {/* Footer: category + meta */}
       <div className="mt-auto flex flex-wrap items-center gap-2 pt-3">
         <CategoryPill config={categoryConfig} />
+        {level && (
+          <span className="rounded bg-muted px-1.5 py-0.5 text-xs font-bold text-card-foreground">
+            {level}
+          </span>
+        )}
         {article.score > 0 && (
           <span className="flex items-center gap-1 text-xs text-muted-foreground">
             <UpvoteIcon />
