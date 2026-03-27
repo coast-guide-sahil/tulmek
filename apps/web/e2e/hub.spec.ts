@@ -300,6 +300,33 @@ test.describe("Knowledge Hub", () => {
     });
   });
 
+  test.describe("Weekly & Discovery", () => {
+    test("shows popular this week section", async ({ page }) => {
+      await page.goto("/hub");
+      await expect(
+        page.getByRole("heading", { name: "Popular This Week" }),
+      ).toBeVisible();
+    });
+
+    test("surprise me button works", async ({ page }) => {
+      await page.goto("/hub");
+      const surpriseBtn = page.getByRole("button", { name: "Surprise Me" });
+      await expect(surpriseBtn).toBeVisible();
+      await surpriseBtn.click();
+      // Should show a discovered article
+      await expect(page.getByText("Discovery")).toBeVisible();
+    });
+
+    test("dismiss button exists on cards", async ({ page }) => {
+      await page.goto("/hub");
+      await expect(page.locator("article").first()).toBeVisible();
+      // Dismiss buttons should exist (may need hover to show on some layouts)
+      const dismissBtns = page.getByRole("button", { name: "Not interested" });
+      const count = await dismissBtns.count();
+      expect(count).toBeGreaterThan(0);
+    });
+  });
+
   test.describe("SEO", () => {
     test("has JSON-LD structured data", async ({ page }) => {
       await page.goto("/hub");
