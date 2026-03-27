@@ -11,6 +11,7 @@ import { FeaturedPicks } from "@/components/hub/featured-picks";
 import { CompensationHighlights } from "@/components/hub/compensation-highlights";
 import { ForYou } from "@/components/hub/for-you";
 import { SimilarToSaved } from "@/components/hub/similar-to-saved";
+import { RandomDiscovery } from "@/components/hub/random-discovery";
 import { SourceDiversity } from "@/components/hub/source-diversity";
 import { PrepPulse } from "@/components/hub/prep-pulse";
 import { StatsBanner } from "@/components/hub/stats-banner";
@@ -117,6 +118,9 @@ export default function HubPage() {
 
       {/* Compensation & Interview Experience Highlights */}
       <CompensationHighlights articles={articles} />
+
+      {/* Random Discovery */}
+      <RandomDiscovery articles={articles} />
 
       {/* Feed — wrapped in Suspense for nuqs URL state */}
       <Suspense fallback={<FeedSkeleton />}>
