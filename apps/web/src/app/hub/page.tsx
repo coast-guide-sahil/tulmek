@@ -25,9 +25,28 @@ export const metadata: Metadata = {
     "Stay current with the latest interview prep content aggregated from HackerNews, Reddit, dev.to, YouTube and more. Updated daily.",
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: `${APP_NAME} Knowledge Hub`,
+  description: "AI-powered interview prep content aggregator — fresh content daily from HackerNews, Reddit, dev.to, YouTube.",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: "/hub?q={search_term_string}",
+    },
+    "query-input": "required name=search_term_string",
+  },
+};
+
 export default function HubPage() {
   return (
     <div className="space-y-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Header */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
