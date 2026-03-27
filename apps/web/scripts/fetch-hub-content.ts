@@ -253,6 +253,9 @@ async function fetchReddit(): Promise<RawArticle[]> {
     // Interview experiences & compensation focused
     "interviews", "csMajors", "SoftwareEngineering",
     "devops", "dataengineering",
+    // Regional & role-specific
+    "cscareerquestionsEU", "developersIndia",
+    "recruitinghell",
   ];
 
   for (const sub of subreddits) {
@@ -314,6 +317,84 @@ async function fetchReddit(): Promise<RawArticle[]> {
       }
     } catch (err) {
       console.warn(`  Warning: Reddit r/${sub} failed:`, (err as Error).message);
+    }
+  }
+
+  return articles;
+}
+
+async function fetchRedditSearch(): Promise<RawArticle[]> {
+  console.log("  Fetching Reddit search (interview exp + compensation)...");
+  const articles: RawArticle[] = [];
+
+  // Targeted searches across top subreddits for specific content types
+  const searches = [
+    { sub: "cscareerquestions", query: "interview experience", sort: "new" },
+    { sub: "cscareerquestions", query: "total compensation TC", sort: "new" },
+    { sub: "cscareerquestions", query: "salary sharing thread", sort: "top" },
+    { sub: "cscareerquestions", query: "offer negotiation", sort: "new" },
+    { sub: "leetcode", query: "interview experience", sort: "new" },
+    { sub: "ExperiencedDevs", query: "compensation", sort: "new" },
+    { sub: "ExperiencedDevs", query: "interview process", sort: "new" },
+  ];
+
+  for (const { sub, query, sort } of searches) {
+    try {
+      const res = await fetch(
+        `https://www.reddit.com/r/${sub}/search.json?q=${encodeURIComponent(query)}&sort=${sort}&restrict_sr=on&limit=10&t=month`,
+        { headers: { "User-Agent": "tulmek-hub/1.0" } }
+      );
+      if (!res.ok) continue;
+      const data = await res.json() as {
+        data: {
+          children: Array<{
+            data: {
+              id: string;
+              title: string;
+              url: string;
+              permalink: string;
+              selftext: string;
+              score: number;
+              num_comments: number;
+              created_utc: number;
+              link_flair_text?: string;
+              is_self: boolean;
+            };
+          }>;
+        };
+      };
+
+      for (const { data: post } of data.data.children) {
+        if (!post.title) continue;
+        const tags = [sub, post.link_flair_text, query.split(" ")[0]].filter(Boolean) as string[];
+
+        const rawUrl = post.is_self
+          ? `https://www.reddit.com${post.permalink}`
+          : post.url;
+        const url = rawUrl.startsWith("http") ? rawUrl : `https://www.reddit.com${rawUrl}`;
+
+        articles.push({
+          id: `reddit:${post.id}`,
+          title: post.title,
+          url,
+          source: "reddit",
+          sourceName: `r/${sub}`,
+          sourceIcon: SOURCE_ICONS.reddit,
+          domain: post.is_self ? "reddit.com" : extractDomain(post.url),
+          category: categorize(post.title, tags),
+          tags,
+          excerpt: post.selftext
+            ? post.selftext.slice(0, 200).replace(/\n/g, " ").trim()
+            : post.title,
+          publishedAt: new Date(post.created_utc * 1000).toISOString(),
+          score: post.score,
+          commentCount: post.num_comments,
+          readingTime: post.selftext ? estimateReadingTime(post.selftext) : 3,
+          discussionUrl: `https://www.reddit.com${post.permalink}`,
+        });
+      }
+    } catch (err) {
+      console.warn(`  Warning: Reddit search "${query}" in r/${sub} failed:`, (err as Error).message);
     }
   }
 
@@ -457,19 +538,21 @@ async function fetchYouTube(): Promise<RawArticle[]> {
 async function main() {
   console.log("🔄 Fetching hub content...\n");
 
-  const [hn, reddit, devto, youtube] = await Promise.all([
+  const [hn, reddit, redditSearch, devto, youtube] = await Promise.all([
     fetchHackerNews(),
     fetchReddit(),
+    fetchRedditSearch(),
     fetchDevTo(),
     fetchYouTube(),
   ]);
 
   console.log(`\n  HackerNews: ${hn.length} articles`);
-  console.log(`  Reddit: ${reddit.length} articles`);
+  console.log(`  Reddit (feeds): ${reddit.length} articles`);
+  console.log(`  Reddit (search): ${redditSearch.length} articles`);
   console.log(`  dev.to: ${devto.length} articles`);
   console.log(`  YouTube: ${youtube.length} articles`);
 
-  let all = [...hn, ...reddit, ...devto, ...youtube];
+  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...youtube];
   all = deduplicateByUrl(all);
 
   // Sort by score (engagement) descending, then by date
