@@ -4,11 +4,11 @@ import { useSyncExternalStore } from "react";
 import { useHub } from "@/lib/hub/provider";
 
 const emptySubscribe = () => () => {};
+const STREAK_KEY = "tulmek:hub:streak";
 
 /**
- * Personalized greeting based on time of day and user engagement.
- * Creates emotional connection — "Good morning! You've read 23 articles."
- * Personal touch increases perceived value and daily return.
+ * Personalized greeting with engagement stats and streak.
+ * "Good morning! 23 articles explored · 5 saved · 7-day streak"
  */
 export function WelcomeBack() {
   const readCount = useHub((s) => s.readIds.size);
@@ -22,13 +22,21 @@ export function WelcomeBack() {
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
 
-  const messages: string[] = [];
-  if (readCount > 0) messages.push(`${readCount} articles explored`);
-  if (bookmarkCount > 0) messages.push(`${bookmarkCount} saved for later`);
+  // Get streak from localStorage
+  let streakDays = 0;
+  try {
+    const raw = localStorage.getItem(STREAK_KEY);
+    if (raw) streakDays = (JSON.parse(raw) as { currentStreak: number }).currentStreak;
+  } catch { /* ignore */ }
+
+  const parts: string[] = [];
+  if (readCount > 0) parts.push(`${readCount} explored`);
+  if (bookmarkCount > 0) parts.push(`${bookmarkCount} saved`);
+  if (streakDays > 1) parts.push(`${streakDays}-day streak`);
 
   return (
-    <p className="section-enter text-sm text-muted-foreground">
-      {greeting}! {messages.join(" · ")}. Keep going!
+    <p className="section-enter mt-0.5 text-sm text-muted-foreground">
+      {greeting}! {parts.join(" · ")}
     </p>
   );
 }
