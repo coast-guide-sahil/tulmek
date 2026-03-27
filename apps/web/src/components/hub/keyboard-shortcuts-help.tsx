@@ -7,6 +7,8 @@ const SHORTCUTS = [
   { key: "Esc", desc: "Clear search & blur" },
   { key: "j/k", desc: "Next/previous article" },
   { key: "o", desc: "Open article in new tab" },
+  { key: "b", desc: "Toggle bookmark" },
+  { key: "s", desc: "Share article" },
   { key: "Home", desc: "Scroll to top" },
   { key: "←→", desc: "Navigate categories" },
 ];
