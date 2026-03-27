@@ -478,6 +478,65 @@ async function fetchDevTo(): Promise<RawArticle[]> {
   return articles;
 }
 
+async function fetchGitHub(): Promise<RawArticle[]> {
+  console.log("  Fetching GitHub...");
+  const articles: RawArticle[] = [];
+
+  const queries = [
+    "interview questions", "system design", "leetcode",
+    "coding interview", "algorithm", "design patterns",
+  ];
+
+  for (const query of queries) {
+    try {
+      const res = await fetch(
+        `https://api.github.com/search/repositories?q=${encodeURIComponent(query)}&sort=stars&order=desc&per_page=5`,
+        { headers: { "Accept": "application/vnd.github.v3+json", "User-Agent": "tulmek-hub/1.0" } }
+      );
+      if (!res.ok) continue;
+      const data = await res.json() as {
+        items: Array<{
+          id: number;
+          full_name: string;
+          html_url: string;
+          description: string;
+          stargazers_count: number;
+          language: string;
+          topics: string[];
+          updated_at: string;
+        }>;
+      };
+
+      for (const repo of data.items) {
+        if (!repo.description || repo.stargazers_count < 50) continue;
+        const tags = [...(repo.topics ?? []).slice(0, 5), repo.language].filter(Boolean) as string[];
+
+        articles.push({
+          id: `github:${repo.id}`,
+          title: `${repo.full_name} — ${repo.description.slice(0, 120)}`,
+          url: repo.html_url,
+          source: "github",
+          sourceName: "GitHub",
+          sourceIcon: "https://github.com/favicon.ico",
+          domain: "github.com",
+          category: categorize(repo.full_name + " " + repo.description, tags),
+          tags,
+          excerpt: repo.description,
+          publishedAt: repo.updated_at,
+          score: repo.stargazers_count,
+          commentCount: 0,
+          readingTime: 5,
+          discussionUrl: repo.html_url,
+        });
+      }
+    } catch (err) {
+      console.warn(`  Warning: GitHub "${query}" failed:`, (err as Error).message);
+    }
+  }
+
+  return articles;
+}
+
 async function fetchMedium(): Promise<RawArticle[]> {
   console.log("  Fetching Medium...");
   const articles: RawArticle[] = [];
@@ -614,12 +673,13 @@ async function fetchYouTube(): Promise<RawArticle[]> {
 async function main() {
   console.log("🔄 Fetching hub content...\n");
 
-  const [hn, reddit, redditSearch, devto, medium, youtube] = await Promise.all([
+  const [hn, reddit, redditSearch, devto, medium, github, youtube] = await Promise.all([
     fetchHackerNews(),
     fetchReddit(),
     fetchRedditSearch(),
     fetchDevTo(),
     fetchMedium(),
+    fetchGitHub(),
     fetchYouTube(),
   ]);
 
@@ -628,9 +688,10 @@ async function main() {
   console.log(`  Reddit (search): ${redditSearch.length} articles`);
   console.log(`  dev.to: ${devto.length} articles`);
   console.log(`  Medium: ${medium.length} articles`);
+  console.log(`  GitHub: ${github.length} articles`);
   console.log(`  YouTube: ${youtube.length} articles`);
 
-  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...youtube];
+  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...github, ...youtube];
   all = deduplicateByUrl(all);
 
   // Sort by score (engagement) descending, then by date
