@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import type { FeedArticle } from "@tulmek/core/domain";
 import { useHub, useHubActions } from "@/lib/hub/provider";
 import { ContentCard } from "./content-card";
+import { ExportReadingList } from "./export-reading-list";
 import { FeedSkeleton } from "./feed-skeleton";
 
 interface SavedFeedProps {
@@ -62,9 +63,12 @@ export function SavedFeed({ articles }: SavedFeedProps) {
         <h2 className="text-lg font-semibold text-foreground">
           Saved Articles
         </h2>
-        <span className="text-sm text-muted-foreground">
-          {savedArticles.length} saved
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-muted-foreground">
+            {savedArticles.length} saved
+          </span>
+          <ExportReadingList articles={articles} />
+        </div>
       </div>
 
       <div className="space-y-3">
