@@ -12,6 +12,7 @@ import { FeedSkeleton } from "./feed-skeleton";
 import { getSourceLabel } from "./hub-utils";
 import { TrendingTopics } from "./trending-topics";
 import { CompanyPulse } from "./company-pulse";
+import { AutoTopics } from "./auto-topics";
 import { ContentTypeFilter, type ContentType } from "./content-type-filter";
 
 interface FeedLayoutProps {
@@ -225,11 +226,12 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
         categoryCounts={categoryCounts}
       />
 
-      {/* Trending Topics + Company Pulse */}
+      {/* Dynamic Discovery — all auto-extracted from content */}
       {!hasActiveFilters && (
         <>
           <TrendingTopics articles={articles} onTopicClick={setSearchQuery} />
           <CompanyPulse articles={articles} onCompanyClick={setSearchQuery} />
+          <AutoTopics articles={articles} onTopicClick={setSearchQuery} />
         </>
       )}
 
