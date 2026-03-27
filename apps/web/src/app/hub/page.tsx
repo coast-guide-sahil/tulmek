@@ -19,6 +19,7 @@ import { CategoryHealth } from "@/components/hub/category-health";
 import { DailyDigest } from "@/components/hub/daily-digest";
 import { ActiveDiscussions } from "@/components/hub/active-discussions";
 import { WeeklyHighlights } from "@/components/hub/weekly-highlights";
+import { WelcomeBack } from "@/components/hub/welcome-back";
 import { APP_NAME } from "@tulmek/config/constants";
 
 const articles = feedData as FeedArticle[];
@@ -77,6 +78,7 @@ export default function HubPage() {
           <p className="mt-1 text-sm text-muted-foreground">
             Latest interview prep content from across the web — refreshed daily.
           </p>
+          <WelcomeBack />
         </div>
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <span className="inline-flex items-center gap-1">
