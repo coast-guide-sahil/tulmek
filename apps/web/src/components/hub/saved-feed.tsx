@@ -63,10 +63,10 @@ export function SavedFeed({ articles }: SavedFeedProps) {
         <h2 className="text-lg font-semibold text-foreground">
           Saved Articles
         </h2>
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-muted-foreground">
-            {savedArticles.length} saved
-          </span>
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <span>{savedArticles.length} saved</span>
+          <span>·</span>
+          <span>{savedArticles.reduce((sum, a) => sum + a.readingTime, 0)} min total</span>
           <ExportReadingList articles={articles} />
         </div>
       </div>
