@@ -3,7 +3,8 @@
 import { useState, useEffect, useSyncExternalStore } from "react";
 import { useHub } from "@/lib/hub/provider";
 
-const STREAK_KEY = "tulmek:hub:streak";
+import { STORAGE_KEYS } from "@tulmek/config/constants";
+const STREAK_KEY = STORAGE_KEYS.hubStreak;
 const emptySubscribe = () => () => {};
 
 interface StreakData {
