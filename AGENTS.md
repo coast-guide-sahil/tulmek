@@ -2,7 +2,7 @@
 
 Monorepo: Turborepo + pnpm workspaces. Clean architecture (ports/adapters). Offline-first — no server, no auth, no DB.
 
-**Knowledge Hub** — AI-powered interview prep content aggregator. 750+ articles from 7 sources. TCRA proprietary ranking. Refreshed every 3 hours.
+**Knowledge Hub** — AI-powered interview prep content aggregator. 750+ articles from 7 sources. TCRA multi-signal ranking. Refreshed every 3 hours.
 
 **Cross-platform**: Web (Next.js 16), Desktop (Tauri v2), Mobile (Expo SDK 55 / React Native 0.83). Code shared via `packages/core` — add once, ship everywhere.
 

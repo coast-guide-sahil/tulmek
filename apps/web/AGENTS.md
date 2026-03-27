@@ -27,7 +27,7 @@ ProgressStore, NoteStore, SearchEngine, ContentSource, ArticleSource, BookmarkSt
 
 ## Hub Architecture
 - `src/components/hub/` — 28 composition-driven React components
-- `src/lib/hub/ranking.ts` — TCRA proprietary ranking algorithm
+- `src/lib/hub/ranking.ts` — TCRA ranking (re-exports from @tulmek/core)
 - `src/lib/hub/store.ts` — Zustand store (bookmarks, read tracking, dismissed)
 - `src/lib/hub/provider.tsx` — Hub context with adapter injection
 

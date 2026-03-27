@@ -1,6 +1,6 @@
 # TULMEK
 
-AI-powered interview prep Knowledge Hub. 750+ articles from 7 sources, ranked by our proprietary TCRA algorithm. Refreshed every 3 hours.
+AI-powered interview prep Knowledge Hub. 750+ articles from 7 sources, ranked by the TCRA (TULMEK Core Ranking Algorithm). Refreshed every 3 hours.
 
 Cross-platform: **Web** (Next.js 16) + **Desktop** (Tauri v2) + **Mobile** (Expo SDK 55 / React Native).
 
@@ -177,4 +177,4 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for full deployment guide.
 
 ## License
 
-Private
+MIT
