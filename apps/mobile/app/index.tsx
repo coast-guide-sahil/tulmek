@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef } from "react";
+import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   TextInput,
   type ListRenderItemInfo,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { APP_NAME } from "@tulmek/config/constants";
 import type { FeedArticle, HubCategory } from "@tulmek/core/domain";
 import {
@@ -41,8 +42,38 @@ function getCategoryColor(category: string): string {
   return CATEGORY_COLORS[category] ?? "#6b7280";
 }
 
+// ── Bookmark Hook (AsyncStorage) ──
+const BOOKMARKS_KEY = "tulmek:hub:bookmarks";
+
+function useBookmarks() {
+  const [bookmarks, setBookmarks] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    AsyncStorage.getItem(BOOKMARKS_KEY).then((raw) => {
+      if (raw) setBookmarks(new Set(JSON.parse(raw) as string[]));
+    });
+  }, []);
+
+  const toggle = useCallback((id: string) => {
+    setBookmarks((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      AsyncStorage.setItem(BOOKMARKS_KEY, JSON.stringify([...next]));
+      return next;
+    });
+  }, []);
+
+  return { bookmarks, toggle };
+}
+
 // ── Article Card ──
-function ArticleCard({ article, nowMs }: { article: FeedArticle; nowMs: number }) {
+function ArticleCard({ article, nowMs, isBookmarked, onToggleBookmark }: {
+  article: FeedArticle;
+  nowMs: number;
+  isBookmarked: boolean;
+  onToggleBookmark: (id: string) => void;
+}) {
   const meta = getCategoryMeta(article.category);
   const color = getCategoryColor(article.category);
   const relTime = formatRelativeTime(article.publishedAt);
@@ -80,15 +111,28 @@ function ArticleCard({ article, nowMs }: { article: FeedArticle; nowMs: number }
         </Text>
       )}
 
-      {/* Footer: stats */}
+      {/* Footer: stats + bookmark */}
       <View style={styles.cardFooter}>
-        {article.score > 0 && (
-          <Text style={styles.cardStat}>▲ {formatCount(article.score)}</Text>
-        )}
-        {article.commentCount > 0 && (
-          <Text style={styles.cardStat}>💬 {formatCount(article.commentCount)}</Text>
-        )}
-        <Text style={styles.cardStat}>{article.readingTime} min</Text>
+        <View style={styles.cardStats}>
+          {article.score > 0 && (
+            <Text style={styles.cardStat}>▲ {formatCount(article.score)}</Text>
+          )}
+          {article.commentCount > 0 && (
+            <Text style={styles.cardStat}>💬 {formatCount(article.commentCount)}</Text>
+          )}
+          <Text style={styles.cardStat}>{article.readingTime} min</Text>
+        </View>
+        <Pressable
+          onPress={(e) => { e.stopPropagation?.(); onToggleBookmark(article.id); }}
+          style={styles.bookmarkBtn}
+          accessibilityRole="button"
+          accessibilityLabel={isBookmarked ? "Remove bookmark" : "Add bookmark"}
+          hitSlop={8}
+        >
+          <Text style={[styles.bookmarkIcon, isBookmarked && styles.bookmarkIconActive]}>
+            {isBookmarked ? "★" : "☆"}
+          </Text>
+        </Pressable>
       </View>
     </Pressable>
   );
@@ -192,6 +236,7 @@ export default function HomeScreen() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortMode, setSortMode] = useState<SortMode>("for-you");
   const listRef = useRef<FlatList>(null);
+  const { bookmarks, toggle: toggleBookmark } = useBookmarks();
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -239,8 +284,15 @@ export default function HomeScreen() {
   }, [activeCategory, searchQuery, sortMode, nowMs]);
 
   const renderItem = useCallback(
-    ({ item }: ListRenderItemInfo<FeedArticle>) => <ArticleCard article={item} nowMs={nowMs} />,
-    [nowMs]
+    ({ item }: ListRenderItemInfo<FeedArticle>) => (
+      <ArticleCard
+        article={item}
+        nowMs={nowMs}
+        isBookmarked={bookmarks.has(item.id)}
+        onToggleBookmark={toggleBookmark}
+      />
+    ),
+    [nowMs, bookmarks, toggleBookmark]
   );
 
   const keyExtractor = useCallback((item: FeedArticle) => item.id, []);
@@ -266,6 +318,7 @@ export default function HomeScreen() {
               </View>
               <Text style={styles.heroStats}>
                 {totalArticles} articles · {sourceCount} sources
+                {bookmarks.size > 0 ? ` · ${bookmarks.size} saved` : ""}
               </Text>
             </View>
 
@@ -391,6 +444,10 @@ const styles = StyleSheet.create({
   trendingBadge: { fontSize: 10, fontWeight: "700" as const, color: "#ef4444", backgroundColor: "#ef444415", paddingHorizontal: 5, paddingVertical: 1, borderRadius: 4, overflow: "hidden" as const },
   cardTitle: { fontSize: 15, fontWeight: "700", color: "#fafafa", lineHeight: 22 },
   cardExcerpt: { fontSize: 13, color: "#71717a", marginTop: 6, lineHeight: 20 },
-  cardFooter: { flexDirection: "row", gap: 12, marginTop: 10 },
+  cardFooter: { flexDirection: "row" as const, alignItems: "center" as const, justifyContent: "space-between" as const, marginTop: 10 },
+  cardStats: { flexDirection: "row" as const, gap: 12 },
   cardStat: { fontSize: 12, color: "#71717a" },
+  bookmarkBtn: { minWidth: 44, minHeight: 44, alignItems: "center" as const, justifyContent: "center" as const },
+  bookmarkIcon: { fontSize: 20, color: "#71717a" },
+  bookmarkIconActive: { color: "#3b82f6" },
 });
