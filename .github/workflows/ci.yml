@@ -28,6 +28,9 @@ jobs:
           node-version: "24"
           cache: "pnpm"
 
+      - name: Setup Turborepo cache
+        uses: rharkor/caching-for-turbo@v2
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -71,6 +74,9 @@ jobs:
         with:
           node-version: "24"
           cache: "pnpm"
+
+      - name: Setup Turborepo cache
+        uses: rharkor/caching-for-turbo@v2
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
