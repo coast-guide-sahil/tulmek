@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ScrollToTop } from "./scroll-to-top";
 import { ReadingStreak } from "./reading-streak";
+import { UserStats } from "./user-stats";
 import { useHub } from "@/lib/hub/provider";
 import { APP_NAME } from "@tulmek/config/constants";
 
@@ -108,9 +109,12 @@ export function HubShell({ children }: { children: ReactNode }) {
               <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">YouTube</a>
             </div>
           </div>
-          <p className="mt-3 text-center text-xs text-muted-foreground">
-            Content refreshed daily. All bookmarks saved locally — no account required.
-          </p>
+          <div className="mt-3 flex flex-col items-center gap-2">
+            <UserStats />
+            <p className="text-center text-xs text-muted-foreground">
+              Content refreshed daily. All bookmarks saved locally — no account required.
+            </p>
+          </div>
         </div>
       </footer>
     </div>

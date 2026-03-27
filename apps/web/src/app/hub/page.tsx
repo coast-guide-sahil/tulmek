@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   title: `Knowledge Hub — ${APP_NAME}`,
   description:
     "Stay current with the latest interview prep content aggregated from HackerNews, Reddit, dev.to, YouTube and more. Updated daily.",
+  alternates: {
+    canonical: "/hub",
+  },
 };
 
 const jsonLd = {
