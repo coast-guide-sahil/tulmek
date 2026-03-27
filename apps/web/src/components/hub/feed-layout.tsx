@@ -325,17 +325,12 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
             ))}
           </div>
 
-          {/* Feed actions + Load more */}
-          <div className="flex items-center justify-between pt-4">
+          {/* Infinite scroll trigger */}
+          {hasMore && <InfiniteScrollTrigger onVisible={handleLoadMore} />}
+
+          {/* Feed actions */}
+          <div className="flex items-center justify-center pt-4">
             <FeedActions visibleArticles={visibleArticles} />
-            {hasMore && (
-              <button
-                onClick={handleLoadMore}
-                className="min-h-[44px] rounded-lg border border-border bg-card px-6 text-sm font-medium text-card-foreground transition-colors hover:bg-muted"
-              >
-                Show more ({filteredArticles.length - visibleCount} remaining)
-              </button>
-            )}
           </div>
         </>
       ) : (
@@ -427,6 +422,27 @@ function EmptyState({ onClear }: { onClear: () => void }) {
       >
         Clear all filters
       </button>
+    </div>
+  );
+}
+
+function InfiniteScrollTrigger({ onVisible }: { onVisible: () => void }) {
+  const triggerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = triggerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry?.isIntersecting) onVisible(); },
+      { rootMargin: "200px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [onVisible]);
+
+  return (
+    <div ref={triggerRef} className="flex justify-center py-4">
+      <div className="h-8 w-8 animate-spin rounded-full border-2 border-muted border-t-primary" />
     </div>
   );
 }
