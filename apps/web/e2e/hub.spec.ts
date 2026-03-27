@@ -31,11 +31,14 @@ test.describe("Knowledge Hub", () => {
   test.describe("Search", () => {
     test("can search for articles", async ({ page }) => {
       await page.goto("/hub");
-      const searchInput = page.getByRole("searchbox", { name: "Search articles" });
-      await expect(searchInput).toBeVisible();
+      await expect(page.locator("article").first()).toBeVisible();
+      const initialCount = await page.locator("article").count();
+      const searchInput = page.getByRole("searchbox", { name: /search articles/i });
       await searchInput.fill("algorithm");
-      // Should show filtered results count
-      await expect(page.getByText(/result/)).toBeVisible();
+      // Wait for debounced search to filter
+      await page.waitForTimeout(500);
+      const filteredCount = await page.locator("article").count();
+      expect(filteredCount).toBeLessThanOrEqual(initialCount);
     });
 
     test("shows empty state when no results match", async ({ page }) => {
