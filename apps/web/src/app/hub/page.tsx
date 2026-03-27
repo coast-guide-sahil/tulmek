@@ -8,6 +8,7 @@ import { FeedLayout } from "@/components/hub/feed-layout";
 import { FeedSkeleton } from "@/components/hub/feed-skeleton";
 import { FeaturedPicks } from "@/components/hub/featured-picks";
 import { CompensationHighlights } from "@/components/hub/compensation-highlights";
+import { ForYou } from "@/components/hub/for-you";
 import { SourceDiversity } from "@/components/hub/source-diversity";
 import { PrepPulse } from "@/components/hub/prep-pulse";
 import { StatsBanner } from "@/components/hub/stats-banner";
@@ -68,6 +69,9 @@ export default function HubPage() {
 
       {/* Featured Picks */}
       <FeaturedPicks articles={articles} nowMs={BUILD_TIME} />
+
+      {/* Personalized Recommendations */}
+      <ForYou articles={articles} />
 
       {/* Compensation & Interview Experience Highlights */}
       <CompensationHighlights articles={articles} />
