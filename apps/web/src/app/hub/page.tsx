@@ -5,6 +5,7 @@ import type { FeedMetadata } from "@tulmek/core/domain";
 import feedData from "@/content/hub/feed.json";
 import metadataJson from "@/content/hub/metadata.json";
 import { FeedLayout } from "@/components/hub/feed-layout";
+import { WhatsNewBanner } from "@/components/hub/whats-new-banner";
 import { FeedSkeleton } from "@/components/hub/feed-skeleton";
 import { FeaturedPicks } from "@/components/hub/featured-picks";
 import { CompensationHighlights } from "@/components/hub/compensation-highlights";
@@ -60,6 +61,9 @@ export default function HubPage() {
         articles={articles}
         lastRefreshedAt={feedMeta.lastRefreshedAt}
       />
+
+      {/* What's New Banner */}
+      <WhatsNewBanner articles={articles} />
 
       {/* Prep Pulse — latest from each source */}
       <PrepPulse articles={articles} />
