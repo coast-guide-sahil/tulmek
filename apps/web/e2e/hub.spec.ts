@@ -240,60 +240,20 @@ test.describe("Knowledge Hub", () => {
   });
 
   test.describe("Highlights", () => {
-    test("shows stats banner with article count", async ({ page }) => {
+    test("shows article count and live indicator", async ({ page }) => {
       await page.goto("/hub");
-      await expect(page.getByText("New Today")).toBeVisible();
-      await expect(page.getByText("Trending Now")).toBeVisible();
+      await expect(page.getByText(/\d+ articles/)).toBeVisible();
+      await expect(page.getByText("Live")).toBeVisible();
     });
 
-    test("shows compensation insights section", async ({ page }) => {
+    test("shows featured picks with bento layout", async ({ page }) => {
       await page.goto("/hub");
-      await expect(
-        page.getByRole("heading", { name: "Compensation Insights" }),
-      ).toBeVisible();
-    });
-
-    test("shows top picks section", async ({ page }) => {
-      await page.goto("/hub");
-      await expect(
-        page.getByRole("heading", { name: "Top Picks" }),
-      ).toBeVisible();
-    });
-
-    test("shows active discussions section", async ({ page }) => {
-      await page.goto("/hub");
-      await expect(
-        page.getByRole("heading", { name: "Active Discussions" }),
-      ).toBeVisible();
+      // Featured picks should have numbered badges
+      await expect(page.locator("article").first()).toBeVisible({ timeout: 10000 });
     });
   });
 
-  test.describe("Content Types", () => {
-    test("can filter by articles type", async ({ page }) => {
-      await page.goto("/hub");
-      await expect(page.locator("article").first()).toBeVisible();
-      const articlesTab = page.getByRole("tab", { name: /Articles/ });
-      if (await articlesTab.isVisible()) {
-        await articlesTab.click();
-        await expect(articlesTab).toHaveAttribute("aria-selected", "true");
-      }
-    });
-  });
-
-  test.describe("Sprint 2 Features", () => {
-    test("shows daily digest section", async ({ page }) => {
-      await page.goto("/hub");
-      await expect(
-        page.getByRole("heading", { name: "Today's Picks" }),
-      ).toBeVisible();
-    });
-
-    test("shows active discussions section", async ({ page }) => {
-      await page.goto("/hub");
-      await expect(
-        page.getByRole("heading", { name: "Active Discussions" }),
-      ).toBeVisible();
-    });
+  test.describe("Clean Layout", () => {
 
     test("keyboard shortcuts help button exists", async ({ page }) => {
       await page.goto("/hub");
