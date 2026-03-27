@@ -27,7 +27,7 @@ export function CompensationHighlights({ articles }: CompensationHighlightsProps
     <div className="space-y-4">
       {/* Compensation */}
       {compArticles.length > 0 && (
-        <div className="rounded-xl border border-yellow-500/20 bg-yellow-500/5 p-4 sm:p-5">
+        <div className="section-enter rounded-xl border border-yellow-500/20 bg-yellow-500/5 p-4 sm:p-5">
           <div className="flex items-center gap-2">
             <h2 className="text-sm font-semibold text-foreground">Compensation Insights</h2>
             <span className="rounded-full bg-yellow-500/10 px-2 py-0.5 text-xs font-medium text-yellow-700 dark:text-yellow-400">
@@ -47,7 +47,7 @@ export function CompensationHighlights({ articles }: CompensationHighlightsProps
 
       {/* Interview Experiences */}
       {expArticles.length > 0 && (
-        <div className="rounded-xl border border-cyan-500/20 bg-cyan-500/5 p-4 sm:p-5">
+        <div className="section-enter rounded-xl border border-cyan-500/20 bg-cyan-500/5 p-4 sm:p-5">
           <div className="flex items-center gap-2">
             <h2 className="text-sm font-semibold text-foreground">Interview Experiences</h2>
             <span className="rounded-full bg-cyan-500/10 px-2 py-0.5 text-xs font-medium text-cyan-700 dark:text-cyan-400">

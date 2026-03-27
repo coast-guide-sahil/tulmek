@@ -29,7 +29,7 @@ export function PrepPulse({ articles }: PrepPulseProps) {
   return (
     <div className="flex items-center gap-3 overflow-x-auto text-xs text-muted-foreground">
       <span className="flex shrink-0 items-center gap-1.5 font-medium">
-        <span className="h-2 w-2 animate-pulse rounded-full bg-success" />
+        <span className="h-2 w-2 live-pulse rounded-full bg-success" />
         Latest:
       </span>
       {latest.map((a) => (

@@ -68,9 +68,9 @@ function StatCard({
   small?: boolean;
 }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-3 sm:p-4">
+    <div className="section-enter rounded-xl border border-border bg-card p-3 transition-all hover:border-primary/30 hover:shadow-sm sm:p-4">
       <p className="text-xs font-medium text-muted-foreground">{label}</p>
-      <p className={`mt-1 font-bold text-card-foreground ${small ? "text-sm" : "text-xl sm:text-2xl"}`}>
+      <p className={`number-pop mt-1 font-bold text-card-foreground ${small ? "text-sm" : "text-xl sm:text-2xl"}`}>
         {value}
       </p>
       <p className="mt-0.5 text-xs text-muted-foreground">{detail}</p>
