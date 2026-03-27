@@ -24,10 +24,21 @@ const articles = feedData as FeedArticle[];
 const feedMeta = metadataJson as FeedMetadata;
 const BUILD_TIME = new Date(feedMeta.lastRefreshedAt).getTime();
 
+const ogDescription = `${feedMeta.totalArticles} interview prep articles from ${Object.keys(feedMeta.sourceBreakdown).length} sources across ${Object.keys(feedMeta.categoryBreakdown).length} categories. DSA, System Design, AI/ML, Compensation & more. Refreshed daily.`;
+
 export const metadata: Metadata = {
   title: `Knowledge Hub — ${APP_NAME}`,
-  description:
-    "Stay current with the latest interview prep content aggregated from HackerNews, Reddit, dev.to, YouTube and more. Updated daily.",
+  description: ogDescription,
+  openGraph: {
+    title: `${APP_NAME} Knowledge Hub — Interview Prep Content Aggregator`,
+    description: ogDescription,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${APP_NAME} Knowledge Hub`,
+    description: ogDescription,
+  },
   alternates: {
     canonical: "/hub",
   },
