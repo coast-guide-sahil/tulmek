@@ -1,0 +1,36 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nicely-cooked/tauri/v2/crates/tauri-cli/schema.json",
+  "productName": "TULMEK",
+  "version": "0.1.0",
+  "identifier": "com.tulmek.app",
+  "build": {
+    "frontendDist": "../../web/.next",
+    "devUrl": "http://localhost:3000",
+    "beforeDevCommand": "cd ../web && pnpm dev",
+    "beforeBuildCommand": "cd ../web && pnpm build"
+  },
+  "app": {
+    "title": "TULMEK — Knowledge Hub",
+    "windows": [
+      {
+        "title": "TULMEK — Knowledge Hub",
+        "width": 1280,
+        "height": 900,
+        "resizable": true,
+        "fullscreen": false,
+        "minWidth": 800,
+        "minHeight": 600
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/icon.png"
+    ]
+  }
+}

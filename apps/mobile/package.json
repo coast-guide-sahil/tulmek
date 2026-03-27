@@ -1,0 +1,26 @@
+{
+  "name": "@tulmek/mobile",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.ts",
+  "scripts": {
+    "dev": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "build": "expo export",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@tulmek/core": "workspace:*",
+    "@tulmek/config": "workspace:*",
+    "expo": "~52.0.0",
+    "expo-router": "~4.0.0",
+    "react": "19.2.4",
+    "react-native": "0.79.0",
+    "react-native-web": "~0.19.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "typescript": "^6"
+  }
+}
