@@ -382,12 +382,20 @@ async function fetchYouTube(): Promise<RawArticle[]> {
   console.log("  Fetching YouTube...");
   const articles: RawArticle[] = [];
 
-  // Well-known interview prep channels
+  // Interview prep & tech career YouTube channels
   const channels: Record<string, string> = {
     "UCnxrdFPXJMeLlRY7BbHqjEQ": "Neetcode",
     "UC0RhatS1pyxInC00YKjjBqQ": "Gaurav Sen",
     "UCZLJf_R2sWyUtXSKiKDNINQ": "ByteByteGo",
     "UCWN3xxRkmTPphYnPVaKY9Jg": "NeetCodeIO",
+    "UCRPMAqdtSgd0Ipeef7ber0Q": "Fireship",
+    "UC8butISFwT-Wl7EV0hUK0BQ": "freeCodeCamp",
+    "UCW5YeuERMmlnqo4oq8vwUpg": "The Net Ninja",
+    "UC-8QAzbLcRglXeN_MY9blyw": "Ben Awad",
+    "UCsBjURrPoezykLs9EqgamOA": "Fireship",
+    "UCvjgXvBlCQM1_MNPhlegFuA": "Clement Mihailescu",
+    "UC59K-uG2A5ogFAoYnTkLLhQ": "Telusko",
+    "UCMHXTmzNepBYaXzYh-Y9Kfg": "Tech with Tim",
   };
 
   for (const [channelId, channelName] of Object.entries(channels)) {
