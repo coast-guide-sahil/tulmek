@@ -52,6 +52,12 @@ export const ContentCard = memo(function ContentCard({
   const levelMatch = article.title.match(/\b(L[3-7]|E[3-7]|SDE\s?[1-3]|ICT[3-6]|SSE|Staff|Principal|Senior|Junior)\b/i);
   const level = levelMatch ? levelMatch[1]!.toUpperCase() : null;
 
+  // Extract location from pipe-separated titles (last segment often is location)
+  const segments = article.title.split("|").map((s) => s.trim());
+  const lastSeg = segments.length >= 3 ? segments[segments.length - 1] : null;
+  const locationKeywords = /\b(bangalore|bengaluru|hyderabad|mumbai|delhi|pune|gurgaon|noida|chennai|seattle|san francisco|new york|london|berlin|singapore|tokyo|remote|india|usa|uk|germany|canada)\b/i;
+  const location = lastSeg && locationKeywords.test(lastSeg) ? lastSeg : null;
+
   const cardStateClass = isRead ? "hub-card-read" : "hub-card-unread";
 
   if (layout === "list") {
@@ -192,6 +198,15 @@ export const ContentCard = memo(function ContentCard({
         {level && (
           <span className="rounded bg-muted px-1.5 py-0.5 text-xs font-bold text-card-foreground">
             {level}
+          </span>
+        )}
+        {location && (
+          <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
+            <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+            </svg>
+            {location}
           </span>
         )}
         {article.score > 0 && (
