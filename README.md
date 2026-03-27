@@ -167,38 +167,15 @@ Content sources: Reddit, Hacker News, dev.to, LeetCode Discuss, Medium, GitHub, 
 | `NEXT_PUBLIC_APP_URL` | Public app URL | No |
 | `ANDROID_HOME` | Android SDK path (mobile dev) | Mobile only |
 
-## Install (End Users)
-
-### Web
-Visit [tulmek.com](https://tulmek.com) — no installation needed.
-
-### Desktop
-Download from [GitHub Releases](https://github.com/coast-guide-sahil/tulmek/releases):
-
-| Platform | Format |
-|----------|--------|
-| macOS (Apple Silicon) | `.dmg` |
-| macOS (Intel) | `.dmg` |
-| Windows | `.exe` installer |
-| Linux | `.AppImage` / `.deb` |
-
-### Mobile
-
-| Platform | Link |
-|----------|------|
-| Android | [Google Play Store](https://play.google.com/store/apps/details?id=com.tulmek.app) |
-| Android (APK) | [GitHub Releases](https://github.com/coast-guide-sahil/tulmek/releases) |
-| iOS | Coming soon |
-
 ## CI/CD
 
-| Platform | Trigger | Pipeline |
-|----------|---------|----------|
-| **Web** | Push to `main` | Vercel auto-deploy |
-| **Web CI** | Every PR | GitHub Actions: lint, typecheck, test, build, e2e (47 Playwright tests) |
-| **Desktop** | Tag `desktop-v*` | GitHub Actions: Tauri multi-platform build (Linux/macOS/Windows) |
-| **Mobile** | Tag `mobile-v*` | GitHub Actions: EAS Build (Android local, iOS cloud) |
-| **Content** | Every 3 hours | GitHub Actions: fetch from 8 sources |
+| Pipeline | Trigger | What it does |
+|----------|---------|-------------|
+| **CI** | Every PR | Lint, typecheck, unit tests, build, E2E (47+ Playwright tests), accessibility |
+| **Web deploy** | Merge to `main` | Vercel auto-deploy |
+| **Desktop release** | Tag `desktop-v*` | Tauri multi-platform builds (Linux/macOS/Windows) via GitHub Actions |
+| **Mobile release** | Tag `mobile-v*` | EAS Build (Android APK local, iOS cloud) via GitHub Actions |
+| **Content refresh** | Every 3 hours | Fetch from 8 sources, dedup, rank, commit |
 
 ## License
 
