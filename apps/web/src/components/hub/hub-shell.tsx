@@ -6,16 +6,18 @@ import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ScrollToTop } from "./scroll-to-top";
 import { ReadingStreak } from "./reading-streak";
+import { useHub } from "@/lib/hub/provider";
 import { APP_NAME } from "@tulmek/config/constants";
 
 const NAV_ITEMS = [
-  { href: "/hub", label: "Feed", exact: true },
-  { href: "/hub/saved", label: "Saved", exact: true },
-  { href: "/progress", label: "Practice", exact: false },
+  { href: "/hub", label: "Feed", exact: true, showBadge: false },
+  { href: "/hub/saved", label: "Saved", exact: true, showBadge: true },
+  { href: "/progress", label: "Practice", exact: false, showBadge: false },
 ] as const;
 
 export function HubShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const bookmarkCount = useHub((s) => Object.keys(s.bookmarks).length);
 
   return (
     <div className="flex min-h-dvh flex-col bg-background">
@@ -45,7 +47,7 @@ export function HubShell({ children }: { children: ReactNode }) {
           className="mx-auto max-w-7xl overflow-x-auto px-4 sm:px-6"
         >
           <div className="flex gap-1 pb-2">
-            {NAV_ITEMS.map(({ href, label, exact }) => {
+            {NAV_ITEMS.map(({ href, label, exact, showBadge }) => {
               const isActive = exact
                 ? pathname === href
                 : pathname.startsWith(href);
@@ -54,7 +56,7 @@ export function HubShell({ children }: { children: ReactNode }) {
                 <Link
                   key={href}
                   href={href}
-                  className={`flex min-h-[44px] items-center whitespace-nowrap rounded-lg px-3 text-sm font-medium transition-colors sm:px-4 ${
+                  className={`flex min-h-[44px] items-center gap-1.5 whitespace-nowrap rounded-lg px-3 text-sm font-medium transition-colors sm:px-4 ${
                     isActive
                       ? "bg-primary text-primary-foreground"
                       : "text-muted-foreground hover:bg-muted hover:text-foreground"
@@ -62,6 +64,15 @@ export function HubShell({ children }: { children: ReactNode }) {
                   aria-current={isActive ? "page" : undefined}
                 >
                   {label}
+                  {showBadge && bookmarkCount > 0 && (
+                    <span className={`rounded-full px-1.5 py-0.5 text-xs ${
+                      isActive
+                        ? "bg-primary-foreground/20 text-primary-foreground"
+                        : "bg-muted text-muted-foreground"
+                    }`}>
+                      {bookmarkCount}
+                    </span>
+                  )}
                 </Link>
               );
             })}
