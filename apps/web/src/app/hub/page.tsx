@@ -9,6 +9,7 @@ import { FeedSkeleton } from "@/components/hub/feed-skeleton";
 import { FeaturedPicks } from "@/components/hub/featured-picks";
 import { WhatsNewBanner } from "@/components/hub/whats-new-banner";
 import { WelcomeBack } from "@/components/hub/welcome-back";
+import { FirstVisit } from "@/components/hub/first-visit";
 import { APP_NAME } from "@tulmek/config/constants";
 
 const articles = feedData as FeedArticle[];
@@ -71,6 +72,9 @@ export default function HubPage() {
         <WelcomeBack />
         <WhatsNewBanner articles={articles} />
       </div>
+
+      {/* First visit onboarding */}
+      <FirstVisit articleCount={feedMeta.totalArticles} sourceCount={Object.keys(feedMeta.sourceBreakdown).length} />
 
       {/* 2. Featured Picks — bento layout, the ONE curated section */}
       <FeaturedPicks articles={articles} nowMs={BUILD_TIME} />
