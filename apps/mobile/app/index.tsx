@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useRef } from "react";
 import {
   View,
   Text,
@@ -147,11 +147,47 @@ function CategoryFilter({
   );
 }
 
+// ── Sort Mode ──
+type SortMode = "for-you" | "latest" | "rising" | "popular";
+
+const SORT_OPTIONS: { id: SortMode; label: string }[] = [
+  { id: "for-you", label: "For You" },
+  { id: "latest", label: "Latest" },
+  { id: "rising", label: "Rising" },
+  { id: "popular", label: "Popular" },
+];
+
+function SortPicker({ value, onChange }: { value: SortMode; onChange: (v: SortMode) => void }) {
+  return (
+    <FlatList
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      data={SORT_OPTIONS}
+      keyExtractor={(item) => item.id}
+      contentContainerStyle={styles.sortList}
+      renderItem={({ item }) => (
+        <Pressable
+          style={[styles.sortChip, value === item.id && styles.sortChipActive]}
+          onPress={() => onChange(item.id)}
+          accessibilityRole="button"
+          accessibilityState={{ selected: value === item.id }}
+        >
+          <Text style={[styles.sortChipText, value === item.id && styles.sortChipTextActive]}>
+            {item.label}
+          </Text>
+        </Pressable>
+      )}
+    />
+  );
+}
+
 // ── Main Screen ──
 export default function HomeScreen() {
   const [nowMs] = useState(() => Date.now());
   const [activeCategory, setActiveCategory] = useState<HubCategory | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortMode, setSortMode] = useState<SortMode>("for-you");
+  const listRef = useRef<FlatList>(null);
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -178,9 +214,25 @@ export default function HomeScreen() {
       );
     }
 
-    // Apply TCRA ranking (shared from @tulmek/core)
-    return tulmekRank(result, nowMs, new Set(), {});
-  }, [activeCategory, searchQuery, nowMs]);
+    // Sort based on selected mode
+    switch (sortMode) {
+      case "for-you":
+        return tulmekRank(result, nowMs, new Set(), {});
+      case "latest":
+        result.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+        return result;
+      case "rising":
+        result.sort((a, b) => {
+          const ageA = Math.max(1, (nowMs - new Date(a.publishedAt).getTime()) / 3600000);
+          const ageB = Math.max(1, (nowMs - new Date(b.publishedAt).getTime()) / 3600000);
+          return (b.score + b.commentCount * 3) / ageB - (a.score + a.commentCount * 3) / ageA;
+        });
+        return result;
+      case "popular":
+        result.sort((a, b) => b.score - a.score);
+        return result;
+    }
+  }, [activeCategory, searchQuery, sortMode, nowMs]);
 
   const renderItem = useCallback(
     ({ item }: ListRenderItemInfo<FeedArticle>) => <ArticleCard article={item} />,
@@ -192,6 +244,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <FlatList
+        ref={listRef}
         data={filteredArticles}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
@@ -230,6 +283,9 @@ export default function HomeScreen() {
               onSelect={setActiveCategory}
               counts={categoryCounts}
             />
+
+            {/* Sort */}
+            <SortPicker value={sortMode} onChange={setSortMode} />
 
             {/* Results count */}
             <Text style={styles.resultCount}>
@@ -292,6 +348,20 @@ const styles = StyleSheet.create({
   countBadgeActive: { backgroundColor: "#09090b20" },
   countText: { fontSize: 11, fontWeight: "700", color: "#71717a" },
   countTextActive: { color: "#09090b" },
+
+  // Sort picker
+  sortList: { paddingHorizontal: 12, paddingVertical: 4, gap: 6 },
+  sortChip: {
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 8,
+    backgroundColor: "#18181b",
+    minHeight: 36,
+    justifyContent: "center" as const,
+  },
+  sortChipActive: { backgroundColor: "#3b82f6" },
+  sortChipText: { fontSize: 13, fontWeight: "600" as const, color: "#71717a" },
+  sortChipTextActive: { color: "#ffffff" },
 
   // Results
   resultCount: { fontSize: 13, color: "#71717a", paddingHorizontal: 16, paddingBottom: 8 },
