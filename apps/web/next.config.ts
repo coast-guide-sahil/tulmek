@@ -29,7 +29,7 @@ const nextConfig: NextConfig = {
               "default-src 'self'",
               `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
               "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: blob:",
+              "img-src 'self' data: blob: https://www.google.com",
               "font-src 'self'",
               `connect-src 'self'${isDev ? " ws://localhost:* http://localhost:*" : ""}`,
               "frame-ancestors 'none'",
