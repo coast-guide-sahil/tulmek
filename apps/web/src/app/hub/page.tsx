@@ -72,7 +72,7 @@ export default function HubPage() {
               Knowledge Hub
             </h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              {feedMeta.totalArticles} articles from {Object.keys(feedMeta.sourceBreakdown).length} sources — refreshed daily
+              {feedMeta.totalArticles} articles from {Object.keys(feedMeta.sourceBreakdown).length} sources — refreshed every 3 hours
             </p>
             <WelcomeBack />
           </div>
