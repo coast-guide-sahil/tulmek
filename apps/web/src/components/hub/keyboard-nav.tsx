@@ -70,6 +70,30 @@ export function KeyboardNav() {
         return;
       }
 
+      // N = jump to next unread article (skip read ones)
+      if (e.key === "n") {
+        e.preventDefault();
+        const unreadArticles = articles.filter((a) => !a.classList.contains("hub-card-read"));
+        if (unreadArticles.length === 0) return;
+
+        // Find next unread after current position
+        const scrollY = window.scrollY + window.innerHeight / 3;
+        let nextUnread = unreadArticles[0];
+        for (const a of unreadArticles) {
+          if (a.getBoundingClientRect().top + window.scrollY > scrollY + 50) {
+            nextUnread = a;
+            break;
+          }
+        }
+        if (nextUnread) {
+          nextUnread.classList.add("keyboard-focused");
+          nextUnread.scrollIntoView({ behavior: "smooth", block: "center" });
+          const link = nextUnread.querySelector("a");
+          link?.focus({ preventScroll: true });
+        }
+        return;
+      }
+
       // J/K = navigate articles with visual highlight
       if (e.key === "j" || e.key === "k") {
         e.preventDefault();

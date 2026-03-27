@@ -6,6 +6,7 @@ const SHORTCUTS = [
   { key: "/ or ⌘K", desc: "Focus search" },
   { key: "Esc", desc: "Clear search & blur" },
   { key: "j/k", desc: "Next/previous article" },
+  { key: "n", desc: "Next unread article" },
   { key: "o", desc: "Open article in new tab" },
   { key: "b", desc: "Toggle bookmark" },
   { key: "s", desc: "Share article" },
