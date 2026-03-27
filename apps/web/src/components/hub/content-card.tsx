@@ -267,7 +267,7 @@ function BookmarkButton({ isBookmarked, onClick }: { isBookmarked: boolean; onCl
   return (
     <button
       onClick={onClick}
-      className={`flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground ${isBookmarked ? "bookmark-active" : ""}`}
+      className={`relative flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground ${isBookmarked ? "bookmark-active" : ""}`}
       aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
       aria-pressed={isBookmarked}
     >
