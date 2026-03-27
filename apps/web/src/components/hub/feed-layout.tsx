@@ -15,6 +15,7 @@ import { TrendingTopics } from "./trending-topics";
 // AutoTopics removed per UX redesign — TrendingTopics is sufficient
 // ContentTypeFilter removed — simplified per UX feedback
 // ReadingTimeFilter removed — too many filter dimensions (QA feedback)
+import { CompanyFilter, extractCompany } from "./company-filter";
 import { CopyFeedLink } from "./copy-feed-link";
 import { FocusSuggestion } from "./focus-suggestion";
 import { FeedActions } from "./feed-actions";
@@ -55,6 +56,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
   }, { shallow: true });
 
   const activeCategory = params.category;
+  const [activeCompany, setActiveCompany] = useState<string | null>(null);
   const searchQuery = params.q;
   const sourceFilter = params.source;
   const sortMode = params.sort;
@@ -172,6 +174,15 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
       result = result.filter((a) => a.source === sourceFilter);
     }
 
+    // Company filter
+    if (activeCompany) {
+      const companyLower = activeCompany.toLowerCase();
+      result = result.filter((a) => {
+        const extracted = extractCompany(a.title);
+        return extracted?.toLowerCase() === companyLower;
+      });
+    }
+
     // Time range filter
     if (timeRange !== "all") {
       const cutoff = nowMs - TIME_RANGE_MS[timeRange];
@@ -226,15 +237,16 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     }
 
     return result;
-  }, [articles, dismissedIds, activeCategory, sourceFilter, timeRange, debouncedQuery, sortMode, searchResults, nowMs, readIds, bookmarks]);
+  }, [articles, dismissedIds, activeCategory, activeCompany, sourceFilter, timeRange, debouncedQuery, sortMode, searchResults, nowMs, readIds, bookmarks]);
 
   const handleClearFilters = useCallback(() => {
     setParams({ category: null, source: null, q: null, time: null });
+    setActiveCompany(null);
   }, [setParams]);
 
   const [visibleCount, setVisibleCount] = useState(24);
 
-  const hasActiveFilters = activeCategory !== null || sourceFilter !== null || timeRange !== "all" || searchQuery.trim() !== "";
+  const hasActiveFilters = activeCategory !== null || activeCompany !== null || sourceFilter !== null || timeRange !== "all" || searchQuery.trim() !== "";
   const visibleArticles = filteredArticles.slice(0, visibleCount);
   const hasMore = visibleCount < filteredArticles.length;
 
@@ -302,6 +314,13 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
           )}
         </div>
       </div>
+
+      {/* Company filter — auto-extracted from article titles */}
+      <CompanyFilter
+        articles={articles}
+        activeCompany={activeCompany}
+        onCompanyClick={setActiveCompany}
+      />
 
       {/* Screen reader announcement for filter results */}
       <div className="sr-only" aria-live="polite" role="status">
