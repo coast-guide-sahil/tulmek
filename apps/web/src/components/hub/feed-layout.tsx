@@ -304,11 +304,12 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
       {filteredArticles.length > 0 ? (
         <>
           <div
-            className={
+            key={`${activeCategory}-${sourceFilter}-${contentType}-${sortMode}`}
+            className={`section-enter ${
               layout === "grid"
                 ? "grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
                 : "space-y-3"
-            }
+            }`}
           >
             {visibleArticles.map((article) => (
               <ContentCard
