@@ -6,9 +6,19 @@ export function ScrollToTop() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const handler = () => setVisible(window.scrollY > 600);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
+    const scrollHandler = () => setVisible(window.scrollY > 600);
+    const keyHandler = (e: KeyboardEvent) => {
+      if (e.key === "Home" && !e.ctrlKey && document.activeElement?.tagName !== "INPUT") {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    };
+    window.addEventListener("scroll", scrollHandler, { passive: true });
+    window.addEventListener("keydown", keyHandler);
+    return () => {
+      window.removeEventListener("scroll", scrollHandler);
+      window.removeEventListener("keydown", keyHandler);
+    };
   }, []);
 
   if (!visible) return null;
