@@ -191,6 +191,7 @@ async function fetchHackerNews(): Promise<RawArticle[]> {
     "algorithm", "data structure", "ai engineer",
     "interview experience", "compensation", "salary tech",
     "offer negotiation", "total compensation",
+    "who is hiring", "ask hn hiring",
   ];
 
   for (const query of queries) {
@@ -326,7 +327,8 @@ async function fetchDevTo(): Promise<RawArticle[]> {
   const tags = [
     "interview", "algorithms", "systemdesign", "career",
     "machinelearning", "ai", "programming", "webdev",
-    "datastructures", "leetcode",
+    "datastructures", "leetcode", "salary", "jobs",
+    "hiring", "resume", "softwareengineering",
   ];
 
   for (const tag of tags) {
