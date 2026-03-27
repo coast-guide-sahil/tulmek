@@ -2,6 +2,8 @@
 
 Monorepo: Turborepo + pnpm workspaces. Clean architecture (ports/adapters). Offline-first — no server, no auth, no DB.
 
+**Knowledge Hub** — AI-powered interview prep content aggregator. 750+ articles from 7 sources (Reddit, HN, dev.to, LeetCode, Medium, GitHub, YouTube). 8 categories. TCRA proprietary ranking algorithm. Refreshed every 3 hours via GitHub Actions.
+
 ## Commands
 - `pnpm dev` — Start dev server (Turbopack)
 - `pnpm build` — Build all packages + apps
@@ -10,6 +12,7 @@ Monorepo: Turborepo + pnpm workspaces. Clean architecture (ports/adapters). Offl
 - `pnpm test` — Unit tests (Vitest)
 - `pnpm e2e` — E2E tests (Playwright, from `apps/web`)
 - `cd apps/web && pnpm validate-content` — Validate content JSON against Zod schemas
+- `cd apps/web && pnpm fetch-hub-content` — Fetch fresh content from 7 sources
 
 ## NEVER
 - Edit `CLAUDE.md` directly — it symlinks to `AGENTS.md`
