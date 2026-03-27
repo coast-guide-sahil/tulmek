@@ -1,4 +1,5 @@
 /** Knowledge Hub domain types — zero dependencies */
+import type { ArticleId, ISOTimestamp } from "./branded";
 
 /** Content source identifiers */
 export type FeedSourceId =
@@ -25,7 +26,7 @@ export type HubCategory =
 /** A single aggregated article/post from any source */
 export interface FeedArticle {
   /** Unique identifier (source:originalId) */
-  readonly id: string;
+  readonly id: ArticleId;
   readonly title: string;
   readonly url: string;
   readonly source: FeedSourceId;
@@ -41,9 +42,9 @@ export interface FeedArticle {
   /** Brief excerpt or AI summary */
   readonly excerpt: string;
   /** ISO timestamp when published/posted */
-  readonly publishedAt: string;
+  readonly publishedAt: ISOTimestamp;
   /** ISO timestamp when aggregated into the hub */
-  readonly aggregatedAt: string;
+  readonly aggregatedAt: ISOTimestamp;
   /** Engagement score from source (upvotes, likes, etc.) */
   readonly score: number;
   /** Number of comments/discussion on source */
@@ -56,8 +57,8 @@ export interface FeedArticle {
 
 /** A bookmark saved by the user */
 export interface Bookmark {
-  readonly articleId: string;
-  readonly savedAt: string;
+  readonly articleId: ArticleId;
+  readonly savedAt: ISOTimestamp;
 }
 
 /** Map of article ID → bookmark */
@@ -83,7 +84,7 @@ export interface HubFacetCount {
 
 /** Feed metadata for a content refresh */
 export interface FeedMetadata {
-  readonly lastRefreshedAt: string;
+  readonly lastRefreshedAt: ISOTimestamp;
   readonly totalArticles: number;
   readonly sourceBreakdown: Record<string, number>;
   readonly categoryBreakdown: Record<string, number>;

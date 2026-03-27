@@ -13,8 +13,8 @@ import { WelcomeBack } from "@/components/hub/welcome-back";
 import { FirstVisit } from "@/components/hub/first-visit";
 import { APP_NAME } from "@tulmek/config/constants";
 
-const articles = feedData as FeedArticle[];
-const feedMeta = metadataJson as FeedMetadata;
+const articles = feedData as unknown as FeedArticle[];
+const feedMeta = metadataJson as unknown as FeedMetadata;
 const BUILD_TIME = new Date(feedMeta.lastRefreshedAt).getTime();
 
 const ogDescription = `${feedMeta.totalArticles} interview prep articles from ${Object.keys(feedMeta.sourceBreakdown).length} sources across ${Object.keys(feedMeta.categoryBreakdown).length} categories. DSA, System Design, AI/ML, Compensation & more. Refreshed every 3 hours.`;

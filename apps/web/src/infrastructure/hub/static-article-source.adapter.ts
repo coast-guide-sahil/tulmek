@@ -10,8 +10,8 @@ import metadataData from "@tulmek/content/hub/metadata";
  * Swap this for an API-backed adapter when scaling beyond static content.
  */
 export class StaticArticleSource implements ArticleSource {
-  private articles: FeedArticle[] = feedData as FeedArticle[];
-  private metadata: FeedMetadata = metadataData as FeedMetadata;
+  private articles: FeedArticle[] = feedData as unknown as FeedArticle[];
+  private metadata: FeedMetadata = metadataData as unknown as FeedMetadata;
 
   async getArticles(category?: HubCategory): Promise<FeedArticle[]> {
     if (!category) return this.articles;

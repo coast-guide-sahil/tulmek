@@ -23,6 +23,8 @@ export type {
   FeedMetadata,
 } from "./article";
 
+export type { ArticleId, ItemSlug, ISOTimestamp } from "./branded";
+
 export {
   tulmekRank,
 } from "./ranking";

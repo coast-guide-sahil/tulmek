@@ -23,7 +23,7 @@ import {
 import feedData from "@tulmek/content/hub/feed";
 import metadataJson from "@tulmek/content/hub/metadata";
 
-const articles = feedData as FeedArticle[];
+const articles = feedData as unknown as FeedArticle[];
 const totalArticles = metadataJson.totalArticles;
 const sourceCount = Object.keys(metadataJson.sourceBreakdown).length;
 

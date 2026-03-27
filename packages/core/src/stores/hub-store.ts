@@ -8,7 +8,7 @@
 
 import { create } from "zustand";
 import type { BookmarkStore, HubSearchEngine, HubSearchParams, SetStorage } from "../ports";
-import type { BookmarkMap, FeedArticle, HubFacetedResult } from "../domain";
+import type { Bookmark, BookmarkMap, FeedArticle, HubFacetedResult } from "../domain";
 
 export interface HubState {
   bookmarks: BookmarkMap;
@@ -82,7 +82,7 @@ export function createHubStore(deps: HubStoreDeps) {
         set({
           bookmarks: {
             ...previousBookmarks,
-            [articleId]: { articleId, savedAt: new Date().toISOString() },
+            [articleId]: { articleId, savedAt: new Date().toISOString() } as unknown as Bookmark,
           },
         });
       }

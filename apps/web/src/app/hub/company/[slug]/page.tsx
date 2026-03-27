@@ -5,7 +5,7 @@ import { APP_NAME, TRENDING_SCORE_THRESHOLD } from "@tulmek/config/constants";
 import feedData from "@tulmek/content/hub/feed";
 import Link from "next/link";
 
-const articles = feedData as FeedArticle[];
+const articles = feedData as unknown as FeedArticle[];
 
 // Known companies with display names
 const COMPANY_DISPLAY: Record<string, string> = {
