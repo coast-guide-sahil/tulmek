@@ -7,6 +7,7 @@ import metadataJson from "@/content/hub/metadata.json";
 import { FeedLayout } from "@/components/hub/feed-layout";
 import { FeedSkeleton } from "@/components/hub/feed-skeleton";
 import { FeaturedPicks } from "@/components/hub/featured-picks";
+import { CompensationHighlights } from "@/components/hub/compensation-highlights";
 import { StatsBanner } from "@/components/hub/stats-banner";
 import { APP_NAME } from "@tulmek/config/constants";
 
@@ -59,6 +60,9 @@ export default function HubPage() {
 
       {/* Featured Picks */}
       <FeaturedPicks articles={articles} nowMs={BUILD_TIME} />
+
+      {/* Compensation & Interview Experience Highlights */}
+      <CompensationHighlights articles={articles} />
 
       {/* Feed — wrapped in Suspense for nuqs URL state */}
       <Suspense fallback={<FeedSkeleton />}>
