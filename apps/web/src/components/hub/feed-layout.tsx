@@ -29,7 +29,7 @@ interface FeedLayoutProps {
 
 type SortMode = "for-you" | "latest" | "rising" | "popular" | "most-discussed";
 type TimeRange = "today" | "week" | "month" | "all";
-const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
+import { NEW_ARTICLE_WINDOW_MS } from "@tulmek/config/constants";
 const TIME_RANGE_MS: Record<TimeRange, number> = {
   today: 24 * 60 * 60 * 1000,
   week: 7 * 24 * 60 * 60 * 1000,
@@ -356,7 +356,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
                 onArticleClick={markAsRead}
                 onDismiss={dismiss}
                 layout={layout}
-                isNew={nowMs - new Date(article.publishedAt).getTime() < SIX_HOURS_MS}
+                isNew={nowMs - new Date(article.publishedAt).getTime() < NEW_ARTICLE_WINDOW_MS}
                 isRead={readIds.has(article.id)}
               />
             ))}

@@ -2,6 +2,7 @@
 
 import { memo } from "react";
 import type { FeedArticle } from "@tulmek/core/domain";
+import { TRENDING_SCORE_THRESHOLD, HOT_DISCUSSION_THRESHOLD } from "@tulmek/config/constants";
 import { formatRelativeTime, getCategoryConfig } from "./hub-utils";
 
 interface ContentCardProps {
@@ -15,9 +16,6 @@ interface ContentCardProps {
   readonly isRead?: boolean;
 }
 
-const TRENDING_THRESHOLD = 500;
-const HOT_DISCUSSION_THRESHOLD = 100;
-
 export const ContentCard = memo(function ContentCard({
   article,
   isBookmarked,
@@ -30,7 +28,7 @@ export const ContentCard = memo(function ContentCard({
 }: ContentCardProps) {
   const categoryConfig = getCategoryConfig(article.category);
   const relativeTime = formatRelativeTime(article.publishedAt);
-  const isTrending = article.score >= TRENDING_THRESHOLD;
+  const isTrending = article.score >= TRENDING_SCORE_THRESHOLD;
   const isHotDiscussion = article.commentCount >= HOT_DISCUSSION_THRESHOLD;
   // Quality tier: engagement + discussion depth
   const qualityScore = article.score + article.commentCount * 3;

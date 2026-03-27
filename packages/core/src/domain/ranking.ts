@@ -14,6 +14,11 @@
 
 import type { FeedArticle } from "./article";
 
+// Time conversion constants (avoid magic numbers)
+const MS_PER_HOUR = 3_600_000;
+const DIVERSITY_WINDOW = 12;
+const TRENDING_WINDOW_HOURS = 168; // 7 days
+
 // ── Category weights: how relevant is this category to interview prep ──
 
 const CATEGORY_WEIGHT: Record<string, number> = {
@@ -155,7 +160,7 @@ function computeCRS(
 
 function freshnessDecay(article: FeedArticle, nowMs: number): number {
   const ageHours =
-    (nowMs - new Date(article.publishedAt).getTime()) / 3600000;
+    (nowMs - new Date(article.publishedAt).getTime()) / MS_PER_HOUR;
   let halfLife = HALF_LIVES[article.category] ?? 14 * 24;
   const floor = DECAY_FLOORS[article.category] ?? 0.05;
 
@@ -179,7 +184,7 @@ function trendingBonus(
   nowMs: number,
 ): number {
   const ageHours =
-    (nowMs - new Date(article.publishedAt).getTime()) / 3600000;
+    (nowMs - new Date(article.publishedAt).getTime()) / MS_PER_HOUR;
   if (ageHours > 72) return 0;
 
   const velocity = article.score / Math.max(1, ageHours);
@@ -249,7 +254,7 @@ function personalizationBoost(
 
 // ── 5. Source Diversity ──
 
-function diverseRerank(articles: FeedArticle[], windowSize = 12): FeedArticle[] {
+function diverseRerank(articles: FeedArticle[], windowSize = DIVERSITY_WINDOW): FeedArticle[] {
   if (articles.length <= windowSize) return articles;
 
   // Compute sqrt-proportional quotas
@@ -361,12 +366,12 @@ export function tulmekRank(
     const velocities = arts
       .filter(
         (a) =>
-          (nowMs - new Date(a.publishedAt).getTime()) / 3600000 <= 168,
+          (nowMs - new Date(a.publishedAt).getTime()) / MS_PER_HOUR <= TRENDING_WINDOW_HOURS,
       )
       .map(
         (a) =>
           a.score /
-          Math.max(1, (nowMs - new Date(a.publishedAt).getTime()) / 3600000),
+          Math.max(1, (nowMs - new Date(a.publishedAt).getTime()) / MS_PER_HOUR),
       );
     sourceMedianVelocities.set(source, median(velocities));
   }
