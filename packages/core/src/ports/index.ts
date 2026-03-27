@@ -16,3 +16,7 @@ export type {
   HubSearchEngine,
   HubSearchParams,
 } from "./hub-search-engine.port";
+export type {
+  ContentCategorizer,
+  CategorizationInput,
+} from "./content-categorizer.port";
