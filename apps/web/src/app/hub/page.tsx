@@ -9,6 +9,7 @@ import { FeedSkeleton } from "@/components/hub/feed-skeleton";
 import { FeaturedPicks } from "@/components/hub/featured-picks";
 import { CompensationHighlights } from "@/components/hub/compensation-highlights";
 import { SourceDiversity } from "@/components/hub/source-diversity";
+import { PrepPulse } from "@/components/hub/prep-pulse";
 import { StatsBanner } from "@/components/hub/stats-banner";
 import { APP_NAME } from "@tulmek/config/constants";
 
@@ -58,6 +59,9 @@ export default function HubPage() {
         articles={articles}
         lastRefreshedAt={feedMeta.lastRefreshedAt}
       />
+
+      {/* Prep Pulse — latest from each source */}
+      <PrepPulse articles={articles} />
 
       {/* Source Diversity Bar */}
       <SourceDiversity articles={articles} />
