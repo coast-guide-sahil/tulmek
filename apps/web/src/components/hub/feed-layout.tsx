@@ -11,6 +11,7 @@ import { ViewToggle } from "./view-toggle";
 import { FeedSkeleton } from "./feed-skeleton";
 import { getSourceLabel } from "./hub-utils";
 import { TrendingTopics } from "./trending-topics";
+import { CompanyPulse } from "./company-pulse";
 
 interface FeedLayoutProps {
   readonly articles: FeedArticle[];
@@ -204,9 +205,12 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
         categoryCounts={categoryCounts}
       />
 
-      {/* Trending Topics */}
+      {/* Trending Topics + Company Pulse */}
       {!hasActiveFilters && (
-        <TrendingTopics articles={articles} onTopicClick={setSearchQuery} />
+        <>
+          <TrendingTopics articles={articles} onTopicClick={setSearchQuery} />
+          <CompanyPulse articles={articles} onCompanyClick={setSearchQuery} />
+        </>
       )}
 
       {/* Sort + Source Filter */}
