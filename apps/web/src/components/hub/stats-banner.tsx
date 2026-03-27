@@ -37,10 +37,9 @@ export function StatsBanner({ articles, lastRefreshedAt }: StatsBannerProps) {
         detail={`From ${sourceCount} sources`}
       />
       <StatCard
-        label="Top Topics"
-        value={topCategories.map(([cat]) => getCategoryConfig(cat).label).join(", ")}
-        detail="By volume"
-        small
+        label="Categories"
+        value={String(Object.keys(categoryCounts).length)}
+        detail={topCategories.slice(0, 2).map(([cat]) => getCategoryConfig(cat).label).join(", ") + " & more"}
       />
       <StatCard
         label="Last Refresh"
