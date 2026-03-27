@@ -344,4 +344,12 @@ test.describe("Knowledge Hub", () => {
       await expect(jsonLd).toBeAttached();
     });
   });
+
+  test.describe("Error Handling", () => {
+    test("shows 404 page for invalid hub routes", async ({ page }) => {
+      const response = await page.goto("/hub/nonexistent-page");
+      // Should get 404 status
+      expect(response?.status()).toBe(404);
+    });
+  });
 });
