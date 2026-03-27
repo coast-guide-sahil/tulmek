@@ -204,4 +204,50 @@ test.describe("Knowledge Hub", () => {
       await expect(cards.first()).toBeVisible();
     });
   });
+
+  test.describe("URL State", () => {
+    test("filter state persists in URL", async ({ page }) => {
+      await page.goto("/hub");
+      await expect(page.locator("article").first()).toBeVisible();
+
+      // Click DSA category
+      const dsaButton = page.getByRole("button", { name: /DSA/ });
+      await dsaButton.click();
+
+      // URL should contain category param
+      await expect(page).toHaveURL(/category=dsa/);
+    });
+
+    test("URL params restore filter state on load", async ({ page }) => {
+      await page.goto("/hub?category=dsa&sort=latest&view=list");
+      await expect(page.locator("article").first()).toBeVisible({ timeout: 10000 });
+
+      // DSA should be active
+      const dsaButton = page.getByRole("button", { name: /DSA/ });
+      await expect(dsaButton).toHaveAttribute("aria-pressed", "true");
+
+      // Latest sort should be active
+      const latestTab = page.getByRole("tab", { name: "Latest" });
+      await expect(latestTab).toHaveAttribute("aria-selected", "true");
+
+      // List view should be active
+      const listButton = page.getByRole("radio", { name: "List view" });
+      await expect(listButton).toHaveAttribute("aria-checked", "true");
+    });
+  });
+
+  test.describe("Highlights", () => {
+    test("shows stats banner with article count", async ({ page }) => {
+      await page.goto("/hub");
+      await expect(page.getByText("Total Articles")).toBeVisible();
+      await expect(page.getByText("Trending Now")).toBeVisible();
+    });
+
+    test("shows compensation insights section", async ({ page }) => {
+      await page.goto("/hub");
+      await expect(
+        page.getByRole("heading", { name: "Compensation Insights" }),
+      ).toBeVisible();
+    });
+  });
 });
