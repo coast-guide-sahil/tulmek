@@ -1,99 +1,180 @@
-# tulmek
+# TULMEK
 
-Offline-first interview prep tracker with progress tracking, notes, and search. Monorepo architecture for sharing business logic across web and future mobile apps.
+AI-powered interview prep Knowledge Hub. 750+ articles from 7 sources, ranked by our proprietary TCRA algorithm. Refreshed every 3 hours.
 
-## Stack
+Cross-platform: **Web** (Next.js 16) + **Desktop** (Tauri v2) + **Mobile** (Expo SDK 55 / React Native).
 
-- **Framework**: Next.js 16.2.1 (App Router, Turbopack)
-- **Styling**: Tailwind CSS v4 (dark/light/system theme via next-themes)
-- **Storage**: Browser-local (localStorage + IndexedDB)
-- **Search**: Orama (client-side full-text search)
-- **Monorepo**: Turborepo + pnpm workspaces
-- **CI**: GitHub Actions (lint, typecheck, build, E2E)
-- **Deployment**: Vercel (auto-deploy from GitHub main)
-- **Containerization**: Docker (dev with hot reload + production via turbo prune)
+## Platforms
 
-## Getting Started
+| Platform | Stack | Status |
+|----------|-------|--------|
+| [Web](apps/web/) | Next.js 16, Tailwind CSS v4, Orama search | Production |
+| [Desktop](apps/desktop/) | Tauri v2 (WebView of web app) | Development |
+| [Mobile](apps/mobile/) | Expo SDK 55, React Native 0.83 | Development |
 
-### Prerequisites
-
-- Node.js 24+
-- pnpm 10+ (enable with `corepack enable`)
-- Docker (optional)
-
-### Local Development
+## Quick Start
 
 ```bash
 corepack enable
 pnpm install
-pnpm dev                           # start all apps at http://localhost:3000
+pnpm dev              # web at http://localhost:3000
 ```
 
-### Docker Development (hot reload)
+### Web
 
 ```bash
-cp .env.example .env
-docker compose --profile dev up --build
+pnpm dev                                    # http://localhost:3000
+pnpm --filter @tulmek/web build             # production build
+pnpm --filter @tulmek/web e2e               # 47 Playwright tests
 ```
 
-### Docker Production
+### Desktop
+
+Requires: [Rust 1.94+](https://rustup.rs/), system deps (see [Desktop setup](#desktop-setup))
 
 ```bash
-docker compose --profile prod up --build
+cd apps/desktop && pnpm dev                 # launches native window → localhost:3000
+cd apps/desktop && pnpm tauri:build         # production binary
 ```
 
-## Project Structure
+### Mobile
+
+Requires: [Android SDK](https://developer.android.com/studio/command-line) or physical device with [Expo Go](https://expo.dev/go)
+
+```bash
+cd apps/mobile && pnpm dev                  # start Metro bundler
+cd apps/mobile && pnpm android              # run on Android emulator
+```
+
+## Architecture
 
 ```
+tulmek/
 ├── apps/
-│   └── web/                    # Next.js 16 application
-│       ├── src/
-│       │   ├── app/            # Pages, layouts, API routes (thin)
-│       │   ├── components/     # React UI components
-│       │   ├── infrastructure/ # Adapters (search, storage)
-│       │   └── lib/            # Progress provider, content, utilities
-│       ├── Dockerfile          # Multi-stage with turbo prune
-│       └── next.config.ts
+│   ├── web/                  # Next.js 16 — primary platform
+│   │   ├── src/app/          # Pages + layouts (App Router)
+│   │   ├── src/components/   # 30 hub components, progress tracker
+│   │   ├── src/infrastructure/ # Adapters (Orama, localStorage)
+│   │   ├── src/lib/          # Providers, stores (Zustand)
+│   │   ├── src/content/hub/  # 750+ articles (feed.json)
+│   │   └── scripts/          # Content fetcher (7 sources)
+│   ├── desktop/              # Tauri v2 — native desktop shell
+│   │   └── src-tauri/        # Rust backend + config
+│   └── mobile/               # Expo SDK 55 — React Native
+│       ├── app/              # Expo Router screens
+│       └── src/content/hub/  # Same feed data as web
 ├── packages/
-│   ├── core/                   # Zero-dep domain logic
+│   ├── core/                 # Zero-dep shared domain logic
 │   │   └── src/
-│   │       ├── domain/         # Entities and types
-│   │       └── ports/          # Interface contracts
-│   ├── config/                 # Shared constants + env validation
-│   ├── typescript-config/      # Shared tsconfig bases
-│   └── eslint-config/          # Shared ESLint configs
+│   │       ├── domain/       # Types, TCRA ranking, hub utils
+│   │       └── ports/        # Interface contracts (8 ports)
+│   ├── config/               # APP_NAME, env validation
+│   ├── ui/                   # Theme tokens (colors, accents)
+│   ├── typescript-config/    # Shared tsconfig bases
+│   └── eslint-config/        # Shared ESLint rules
 ├── docs/
-│   ├── decisions/              # Architecture Decision Records
-│   └── guides/                 # Deployment, setup, swapping providers
-├── turbo.json                  # Task pipeline config
-├── pnpm-workspace.yaml
-└── docker-compose.yml
+│   ├── decisions/            # Architecture Decision Records
+│   └── guides/               # Provider swapping, deployment
+└── turbo.json                # Task pipeline
 ```
+
+### Code Sharing
+
+| Layer | Package | Shared by |
+|-------|---------|-----------|
+| Domain types | `@tulmek/core/domain` | All 3 platforms |
+| TCRA ranking | `@tulmek/core/domain` | All 3 platforms |
+| Hub utilities | `@tulmek/core/domain` | All 3 platforms |
+| Port interfaces | `@tulmek/core/ports` | All 3 platforms |
+| Constants | `@tulmek/config/constants` | All 3 platforms |
+| Theme tokens | `@tulmek/ui` | All 3 platforms |
+| Adapters | `apps/*/infrastructure/` | Platform-specific |
+| UI components | `apps/*/components/` | Platform-specific |
+
+### Clean Architecture
+
+```
+UI (React/RN) → Ports (interfaces in core) → Adapters (platform-specific)
+```
+
+Swap any adapter by creating a new implementation of the port interface. See [docs/guides/swapping-providers.md](docs/guides/swapping-providers.md).
+
+## Developer Setup
+
+### Prerequisites (all platforms)
+
+- **Node.js 24+** — `node -v`
+- **pnpm 10+** — `corepack enable`
+- **Git** — `git --version`
+
+### Web setup
+
+No additional requirements. `pnpm install && pnpm dev` works out of the box.
+
+### Desktop setup
+
+1. Install Rust: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+2. Install system dependencies (Ubuntu/Debian):
+   ```bash
+   sudo apt install libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev patchelf libssl-dev libgtk-3-dev
+   ```
+3. Start web dev server first: `pnpm dev`
+4. In a separate terminal: `cd apps/desktop && pnpm dev`
+
+### Mobile setup
+
+1. Install Android SDK (CLI-only, ~2GB):
+   ```bash
+   mkdir -p ~/android-sdk/cmdline-tools
+   # Download from https://developer.android.com/studio#command-line-tools-only
+   export ANDROID_HOME=~/android-sdk
+   export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH
+   sdkmanager "platform-tools" "emulator" "platforms;android-34" "system-images;android-34;google_apis;x86_64"
+   ```
+2. Create emulator: `avdmanager create avd -n test -k "system-images;android-34;google_apis;x86_64" -d pixel_6`
+3. Increase inotify watchers: `sudo sysctl -w fs.inotify.max_user_watches=524288`
+4. Launch emulator: `emulator -avd test -gpu host`
+5. Set up port forwarding: `adb reverse tcp:8081 tcp:8081`
+6. Start app: `cd apps/mobile && pnpm dev`, then open via `adb shell am start -a android.intent.action.VIEW -d 'exp://localhost:8081' host.exp.exponent`
+
+### Content management
+
+```bash
+cd apps/web
+pnpm fetch-hub-content       # fetch fresh articles from 7 sources
+pnpm validate-content        # validate all JSON against Zod schemas
+```
+
+Content sources: Reddit, Hacker News, dev.to, LeetCode Discuss, Medium, GitHub, YouTube.
+
+## Commands
+
+| Command | Scope | Description |
+|---------|-------|-------------|
+| `pnpm dev` | All | Start web dev server (Turbopack) |
+| `pnpm build` | All | Build all packages + apps |
+| `pnpm lint` | All | ESLint across all packages |
+| `pnpm typecheck` | All | TypeScript checking |
+| `pnpm test` | All | Unit tests (Vitest) |
+| `pnpm e2e` | Web | 47 Playwright E2E tests |
+| `pnpm fetch-hub-content` | Web | Fetch articles from 7 sources |
+| `pnpm validate-content` | Web | Validate content JSON |
 
 ## Environment Variables
 
 | Variable | Description | Required |
 |----------|-------------|----------|
 | `NEXT_PUBLIC_APP_URL` | Public app URL | No |
-
-## Swapping Providers
-
-The clean architecture makes provider swaps trivial — see [docs/guides/swapping-providers.md](docs/guides/swapping-providers.md).
-
-| Swap | Steps |
-|------|-------|
-| localStorage → cloud DB | Create new adapter implementing `ProgressStore`. Update `deps` in `ProgressProvider`. |
-| IndexedDB → cloud storage | Create new adapter implementing `NoteStore`. Update `deps` in `ProgressProvider`. |
-| Orama → server search | Create new adapter implementing `SearchEngine`. Update `deps` in `ProgressProvider`. |
-| Add mobile app | Create `apps/mobile/`. Import `@tulmek/core`. Create mobile-specific adapters. |
+| `ANDROID_HOME` | Android SDK path (mobile dev) | Mobile only |
 
 ## Deployment
 
-See **[DEPLOYMENT.md](DEPLOYMENT.md)** for the complete deployment guide.
+- **Web**: Vercel — auto-deploy from `main` branch
+- **Desktop**: `cd apps/desktop && pnpm tauri:build` produces native binaries
+- **Mobile**: `eas build --platform android` for APK via Expo EAS
 
-## Security
+See [DEPLOYMENT.md](DEPLOYMENT.md) for full deployment guide.
 
-- Content Security Policy (no unsafe-eval in production)
-- HSTS, X-Frame-Options: DENY, X-Content-Type-Options: nosniff
-- Non-root Docker user in production
-- Read-only filesystem + no-new-privileges in Docker
+## License
+
+Private
