@@ -176,11 +176,29 @@ function estimateReadingTime(text: string): number {
   return Math.max(1, Math.round(wordCount / 200));
 }
 
+/** Normalize URL for dedup — strip tracking params, www, trailing slash, protocol */
+function normalizeUrl(url: string): string {
+  try {
+    const u = new URL(url);
+    // Strip tracking/analytics params
+    for (const p of ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "ref", "source", "si", "feature", "fbclid", "gclid"]) {
+      u.searchParams.delete(p);
+    }
+    // Normalize: remove www, trailing slash, lowercase
+    const host = u.hostname.replace(/^www\./, "");
+    const path = u.pathname.replace(/\/$/, "");
+    const search = u.search === "?" ? "" : u.search;
+    return `${host}${path}${search}`.toLowerCase();
+  } catch {
+    return url.replace(/\/$/, "").toLowerCase();
+  }
+}
+
 function deduplicateByUrl(articles: RawArticle[]): RawArticle[] {
   const seenUrls = new Set<string>();
   const seenIds = new Set<string>();
   return articles.filter((a) => {
-    const urlKey = a.url.replace(/\/$/, "").toLowerCase();
+    const urlKey = normalizeUrl(a.url);
     if (seenUrls.has(urlKey) || seenIds.has(a.id)) return false;
     seenUrls.add(urlKey);
     seenIds.add(a.id);
