@@ -1,50 +1,129 @@
 "use client";
 
+import { useState, useEffect, useSyncExternalStore } from "react";
 import { useHub } from "@/lib/hub/provider";
 
+const STREAK_KEY = "tulmek:hub:streak";
+const emptySubscribe = () => () => {};
+
+interface StreakData {
+  currentStreak: number;
+  lastActiveDate: string; // YYYY-MM-DD
+  freezesRemaining: number;
+  totalReads: number;
+}
+
+function loadStreak(): StreakData {
+  if (typeof window === "undefined") return { currentStreak: 0, lastActiveDate: "", freezesRemaining: 2, totalReads: 0 };
+  try {
+    const raw = localStorage.getItem(STREAK_KEY);
+    return raw ? JSON.parse(raw) as StreakData : { currentStreak: 0, lastActiveDate: "", freezesRemaining: 2, totalReads: 0 };
+  } catch {
+    return { currentStreak: 0, lastActiveDate: "", freezesRemaining: 2, totalReads: 0 };
+  }
+}
+
+function getToday(): string {
+  return new Date().toISOString().split("T")[0]!;
+}
+
+function getYesterday(): string {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  return d.toISOString().split("T")[0]!;
+}
+
 /**
- * Reading streak counter — tracks consecutive days the user
- * has read at least one article. Based on Duolingo's streak model
- * which increases 30-day retention by 3.6x at the 7-day mark.
+ * True date-based reading streak with ethical safeguards.
+ * Based on Duolingo streak model (3.6x retention at 7-day mark).
  *
- * Loss aversion (Kahneman & Tversky): losing a streak feels 2x
- * worse than building one, creating powerful return motivation.
+ * - Tracks consecutive days with at least 1 article read
+ * - Awards 2 streak freezes per 7-day milestone
+ * - Gentle framing: "you've built something" not "you'll lose something"
  */
 export function ReadingStreak() {
   const readIds = useHub((s) => s.readIds);
-  const readCount = readIds.size;
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
+  const [streak, setStreak] = useState<StreakData>(loadStreak);
 
-  if (readCount === 0) return null;
+  // Update streak when reads change
+  useEffect(() => {
+    if (!mounted || readIds.size === 0) return;
 
-  // Simple streak based on total reads (full date-based tracking would need store changes)
-  const milestone = readCount >= 50 ? "Expert" : readCount >= 20 ? "Dedicated" : readCount >= 5 ? "Explorer" : "Starter";
-  const nextMilestone = readCount >= 50 ? null : readCount >= 20 ? 50 : readCount >= 5 ? 20 : 5;
-  const progress = nextMilestone ? Math.round((readCount / nextMilestone) * 100) : 100;
+    const today = getToday();
+    const yesterday = getYesterday();
+    const current = loadStreak();
+
+    if (current.lastActiveDate === today) {
+      // Already active today — just update total
+      if (readIds.size > current.totalReads) {
+        const updated = { ...current, totalReads: readIds.size };
+        localStorage.setItem(STREAK_KEY, JSON.stringify(updated));
+        requestAnimationFrame(() => setStreak(updated));
+      }
+      return;
+    }
+
+    let newStreak: StreakData;
+
+    if (current.lastActiveDate === yesterday) {
+      // Consecutive day — extend streak
+      const newStreakDays = current.currentStreak + 1;
+      const bonusFreezes = newStreakDays % 7 === 0 ? 2 : 0; // Award 2 freezes per 7-day milestone
+      newStreak = {
+        currentStreak: newStreakDays,
+        lastActiveDate: today,
+        freezesRemaining: Math.min(5, current.freezesRemaining + bonusFreezes),
+        totalReads: readIds.size,
+      };
+    } else if (current.lastActiveDate && current.lastActiveDate !== today) {
+      // Missed day(s) — check freezes
+      if (current.freezesRemaining > 0 && current.currentStreak > 0) {
+        newStreak = {
+          currentStreak: current.currentStreak + 1,
+          lastActiveDate: today,
+          freezesRemaining: current.freezesRemaining - 1,
+          totalReads: readIds.size,
+        };
+      } else {
+        // Streak broken — reset to 1
+        newStreak = {
+          currentStreak: 1,
+          lastActiveDate: today,
+          freezesRemaining: 2,
+          totalReads: readIds.size,
+        };
+      }
+    } else {
+      // First ever read
+      newStreak = {
+        currentStreak: 1,
+        lastActiveDate: today,
+        freezesRemaining: 2,
+        totalReads: readIds.size,
+      };
+    }
+
+    localStorage.setItem(STREAK_KEY, JSON.stringify(newStreak));
+    requestAnimationFrame(() => setStreak(newStreak));
+  }, [readIds.size, mounted]);
+
+  if (!mounted || streak.currentStreak === 0) return null;
+
+  const flame = streak.currentStreak >= 30 ? "🏆" : streak.currentStreak >= 14 ? "🔥" : streak.currentStreak >= 7 ? "✨" : streak.currentStreak >= 3 ? "📖" : "👋";
 
   return (
-    <div className="flex items-center gap-3 rounded-lg border border-border bg-card px-3 py-2">
-      <div className="flex items-center gap-1.5">
-        <span className="text-lg" role="img" aria-label="Reading">
-          {readCount >= 50 ? "🏆" : readCount >= 20 ? "🔥" : readCount >= 5 ? "📖" : "👋"}
-        </span>
-        <div>
-          <p className="text-xs font-semibold text-card-foreground">
-            {readCount} read · {milestone}
+    <div className="flex items-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-1.5">
+      <span className="text-base" role="img" aria-label="Streak">{flame}</span>
+      <div>
+        <p className="text-xs font-bold text-card-foreground">
+          {streak.currentStreak}d streak
+        </p>
+        {streak.freezesRemaining > 0 && (
+          <p className="text-xs text-muted-foreground">
+            {streak.freezesRemaining} freeze{streak.freezesRemaining !== 1 ? "s" : ""}
           </p>
-          {nextMilestone && (
-            <div className="mt-0.5 flex items-center gap-1.5">
-              <div className="h-1 w-16 overflow-hidden rounded-full bg-muted">
-                <div
-                  className="h-full rounded-full bg-primary transition-all"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-              <span className="text-xs text-muted-foreground">
-                {nextMilestone - readCount} to next
-              </span>
-            </div>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );
