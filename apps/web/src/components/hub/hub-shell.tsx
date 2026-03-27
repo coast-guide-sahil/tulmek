@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ScrollToTop } from "./scroll-to-top";
+import { ReadingStreak } from "./reading-streak";
 import { APP_NAME } from "@tulmek/config/constants";
 
 const NAV_ITEMS = [
@@ -32,7 +33,10 @@ export function HubShell({ children }: { children: ReactNode }) {
               Knowledge Hub
             </span>
           </div>
-          <ThemeToggle />
+          <div className="flex items-center gap-2">
+            <ReadingStreak />
+            <ThemeToggle />
+          </div>
         </div>
 
         {/* Navigation */}
