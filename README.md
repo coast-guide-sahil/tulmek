@@ -4,7 +4,9 @@
 
 ### AI-Powered Interview Prep Knowledge Hub
 
-**700+ articles from 8 sources, ranked by TCRA. Refreshed every 3 hours. Zero backend.**
+**1,192 articles from 12+ sources, ranked by AI. Refreshed every 3 hours. Zero backend.**
+
+<img src="docs/tulmek-demo.gif" alt="TULMEK Demo" width="700" />
 
 [![CI](https://github.com/coast-guide-sahil/tulmek/actions/workflows/ci.yml/badge.svg)](https://github.com/coast-guide-sahil/tulmek/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/github/license/coast-guide-sahil/tulmek?color=blue)](LICENSE)
@@ -23,7 +25,7 @@
 
 TULMEK aggregates interview-prep content from across the internet into one fast, searchable feed. No sign-up. No server. Everything runs client-side.
 
-- **8 sources** -- Reddit, Hacker News, DEV Community, LeetCode, Medium, GitHub, YouTube, Newsletters
+- **12+ sources** -- Reddit, Hacker News (+ Who's Hiring), DEV Community, LeetCode (+ Daily Challenge), Medium, GitHub, YouTube, Glassdoor, Newsletters (ByteByteGo, Pragmatic Engineer, Hello Interview, and more)
 - **8 categories** -- DSA, System Design, AI/ML, Behavioral, Career, Interview Experiences, Compensation, General
 - **TCRA ranking** -- multi-signal algorithm (relevance, freshness decay, source credibility, trending detection, personalization)
 - **Cross-platform** -- Web, Desktop (Linux/macOS/Windows), and Mobile (Android)
