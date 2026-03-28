@@ -14,6 +14,13 @@ import { PrepCountdown } from "./prep-countdown";
 import { UserStats } from "./user-stats";
 import { useHub } from "@/lib/hub/provider";
 import { APP_NAME } from "@tulmek/config/constants";
+import type { FeedMetadata } from "@tulmek/core/domain";
+import { formatRelativeTime } from "./hub-utils";
+import metadataRaw from "@tulmek/content/hub/metadata";
+import hiringRaw from "@tulmek/content/hub/hiring";
+
+const feedMeta = metadataRaw as unknown as FeedMetadata;
+const companiesTracked = Object.keys(hiringRaw as Record<string, number>).length;
 
 const NAV_ITEMS = [
   { href: "/hub", label: "Feed", exact: true, showBadge: false },
@@ -27,6 +34,8 @@ export function HubShell({ children }: { children: ReactNode }) {
   const bookmarkCount = useHub((s) => Object.keys(s.bookmarks).length);
   const [headerHidden, setHeaderHidden] = useState(false);
   const lastScrollY = useRef(0);
+  // Compute once at mount — avoids Date.now() in render (React compiler strict mode)
+  const [refreshedAt] = useState(() => formatRelativeTime(feedMeta.lastRefreshedAt));
 
   useEffect(() => {
     const handler = () => {
@@ -145,6 +154,15 @@ export function HubShell({ children }: { children: ReactNode }) {
             </div>
           </div>
           <div className="mt-3 flex flex-col items-center gap-2">
+            <div className="flex flex-wrap justify-center gap-4 text-xs text-muted-foreground">
+              <span>{feedMeta.totalArticles} articles</span>
+              <span>·</span>
+              <span>{Object.keys(feedMeta.sourceBreakdown).length} sources</span>
+              <span>·</span>
+              <span>{companiesTracked} companies tracked</span>
+              <span>·</span>
+              <span>Updated {refreshedAt}</span>
+            </div>
             <UserStats />
             <p className="text-center text-xs text-muted-foreground">
               Content refreshed every 3 hours from 8 sources. All bookmarks saved locally — no account required.
