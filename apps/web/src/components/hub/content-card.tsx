@@ -77,7 +77,7 @@ export const ContentCard = memo(function ContentCard({
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <SourceBadge sourceName={article.sourceName} domain={article.domain} />
-            <span aria-label="Published">{relativeTime}</span>
+            <span>{relativeTime}</span>
             {isNew && <NewBadge />}
             {isTrending && <TrendingBadge />}
           </div>
@@ -136,7 +136,7 @@ export const ContentCard = memo(function ContentCard({
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <QualityDot tier={qualityTier} />
           <SourceBadge sourceName={article.sourceName} domain={article.domain} />
-          <span aria-label="Published">{relativeTime}</span>
+          <span>{relativeTime}</span>
         </div>
         <div className="flex items-center gap-0.5">
           {isNew && <NewBadge />}
@@ -211,12 +211,12 @@ export const ContentCard = memo(function ContentCard({
           </span>
         )}
         {salary && (
-          <span className="rounded bg-yellow-500/15 px-1.5 py-0.5 text-xs font-bold text-yellow-700 dark:text-yellow-300" aria-label={`Compensation: ${salary}`}>
+          <span className="rounded bg-yellow-500/15 px-1.5 py-0.5 text-xs font-bold text-yellow-700 dark:text-yellow-300">
             {salary}
           </span>
         )}
         {location && (
-          <span className="flex items-center gap-0.5 text-xs text-muted-foreground" aria-label={`Location: ${location}`}>
+          <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
             <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
               <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
@@ -360,6 +360,7 @@ function QualityDot({ tier }: { tier: "high" | "medium" | "low" }) {
   return (
     <span
       className={`h-2 w-2 shrink-0 rounded-full ${colors[tier]}`}
+      role="img"
       title={labels[tier]}
       aria-label={labels[tier]}
     />
