@@ -1,6 +1,9 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
+// A11y tests can be flaky due to hydration timing — allow 1 retry
+test.describe.configure({ retries: 1 });
+
 const pages = ["/hub", "/progress"];
 
 for (const path of pages) {

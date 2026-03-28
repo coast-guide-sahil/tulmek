@@ -73,6 +73,31 @@ export default async function CompanyPage({ params }: Props) {
     srcCounts[a.source] = (srcCounts[a.source] ?? 0) + 1;
   }
 
+  // Hiring signal detection from recent articles
+  const recentTexts = companyArticles
+    .filter((a) => nowMs - new Date(a.publishedAt).getTime() < 30 * 24 * 60 * 60 * 1000)
+    .map((a) => `${a.title} ${a.excerpt}`.toLowerCase());
+  const allText = recentTexts.join(" ");
+
+  const layoffSignals = /layoff|laid off|let go|rif|reduction in force|cut.*jobs/i.test(allText);
+  const freezeSignals = /hiring freeze|freeze.*hiring|not hiring|paused hiring|headcount freeze/i.test(allText);
+  const hiringSignals = /hiring|open role|we.re looking|join.*team|new position|actively recruiting/i.test(allText);
+  const interviewSignals = companyArticles.filter((a) =>
+    a.category === "interview-experience" &&
+    nowMs - new Date(a.publishedAt).getTime() < 14 * 24 * 60 * 60 * 1000
+  ).length;
+
+  type HiringStatus = "hiring" | "freeze" | "layoffs" | "unknown";
+  const hiringStatus: HiringStatus = layoffSignals ? "layoffs" : freezeSignals ? "freeze" : (hiringSignals || interviewSignals >= 2) ? "hiring" : "unknown";
+
+  const statusConfig: Record<HiringStatus, { label: string; color: string; bg: string }> = {
+    hiring: { label: "Actively Hiring", color: "text-success", bg: "bg-success/10" },
+    freeze: { label: "Hiring Freeze Reported", color: "text-amber-500", bg: "bg-amber-500/10" },
+    layoffs: { label: "Recent Layoffs", color: "text-destructive", bg: "bg-destructive/10" },
+    unknown: { label: "Status Unknown", color: "text-muted-foreground", bg: "bg-muted" },
+  };
+  const status = statusConfig[hiringStatus];
+
   return (
     <div className="space-y-6">
       {/* Breadcrumb */}
@@ -82,11 +107,18 @@ export default async function CompanyPage({ params }: Props) {
         <span className="text-foreground">{name}</span>
       </nav>
 
-      {/* Company header */}
+      {/* Company header + hiring signal */}
       <div>
-        <h1 className="text-2xl font-extrabold text-foreground sm:text-3xl">
-          {name} Interview Prep
-        </h1>
+        <div className="flex items-center gap-3">
+          <h1 className="text-2xl font-extrabold text-foreground sm:text-3xl">
+            {name} Interview Prep
+          </h1>
+          {hiringStatus !== "unknown" && (
+            <span className={`rounded-full px-3 py-1 text-xs font-bold ${status.color} ${status.bg}`}>
+              {status.label}
+            </span>
+          )}
+        </div>
         <p className="mt-1 text-sm text-muted-foreground">
           {companyArticles.length} articles from {Object.keys(srcCounts).length} sources
         </p>
