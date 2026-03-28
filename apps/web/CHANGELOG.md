@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.3.0](https://github.com/coast-guide-sahil/tulmek/compare/web-v1.2.0...web-v1.3.0) (2026-03-28)
+
+
+### Features
+
+* add 3 content sources + expand keywords for 2026 landscape ([#217](https://github.com/coast-guide-sahil/tulmek/issues/217)) ([49e2651](https://github.com/coast-guide-sahil/tulmek/commit/49e26510f5b0a13de6bd713a50baa99945105981))
+* add hn who's hiring parser + 4 newsletter sources ([#222](https://github.com/coast-guide-sahil/tulmek/issues/222)) ([66d8c35](https://github.com/coast-guide-sahil/tulmek/commit/66d8c35a9edc18955a03df5d32b0b8ec0ed14d1f))
+* company interview format tracker ([#221](https://github.com/coast-guide-sahil/tulmek/issues/221)) ([8d1e053](https://github.com/coast-guide-sahil/tulmek/commit/8d1e053d75ffe23e0c7520a97278a3369ea8deb8))
+* content refresh — 1192 articles from 12+ sources ([#225](https://github.com/coast-guide-sahil/tulmek/issues/225)) ([4ae651a](https://github.com/coast-guide-sahil/tulmek/commit/4ae651a45cd8000de1d018e263350e765763d569))
+* cross-source corroboration badges ([#224](https://github.com/coast-guide-sahil/tulmek/issues/224)) ([57a8547](https://github.com/coast-guide-sahil/tulmek/commit/57a8547fd71f8e69e207c0b725a4932a8f82c35a))
+* new since last visit counter — engagement loop ([#220](https://github.com/coast-guide-sahil/tulmek/issues/220)) ([43eedd8](https://github.com/coast-guide-sahil/tulmek/commit/43eedd8670e5b7cdaae7073f36b755500bead585))
+* prep coverage rings — per-category progress ([#223](https://github.com/coast-guide-sahil/tulmek/issues/223)) ([589f42c](https://github.com/coast-guide-sahil/tulmek/commit/589f42cd84468eb1d7f95e88e0873dd127dc64fd))
+
+
+### Bug Fixes
+
+* stronger read vs unread card visual differentiation ([#219](https://github.com/coast-guide-sahil/tulmek/issues/219)) ([6693efc](https://github.com/coast-guide-sahil/tulmek/commit/6693efce9b5bc1c74c674b394a5d1ae27c3fd848))
+* wcag 2.2 aa touch targets + compare table mobile scroll ([#215](https://github.com/coast-guide-sahil/tulmek/issues/215)) ([795fc64](https://github.com/coast-guide-sahil/tulmek/commit/795fc649054677b4b6f64632638d868aac769736))
+
 ## [1.2.0](https://github.com/coast-guide-sahil/tulmek/compare/web-v1.1.0...web-v1.2.0) (2026-03-28)
 
 
