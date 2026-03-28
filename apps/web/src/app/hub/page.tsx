@@ -32,7 +32,10 @@ export const metadata: Metadata = {
     title: `${APP_NAME} Knowledge Hub`,
     description: ogDescription,
   },
-  alternates: { canonical: "/hub" },
+  alternates: {
+    canonical: "/hub",
+    types: { "application/rss+xml": "/hub/feed.xml" },
+  },
 };
 
 const jsonLd = {
