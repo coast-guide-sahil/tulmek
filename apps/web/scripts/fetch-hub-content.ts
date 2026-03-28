@@ -71,11 +71,18 @@ const CATEGORY_KEYWORDS: Record<string, string[]> = {
     "tensorflow", "hugging face", "diffusion", "generative ai",
     "ml interview", "ml system design", "mlops", "feature engineering",
     "model deployment", "ai infrastructure",
+    "ai-enabled interview", "ai-assisted coding", "coderpad ai",
+    "ai code review", "ai pair programming", "ai screening",
   ],
   behavioral: [
-    "behavioral interview", "star method", "leadership", "conflict resolution",
-    "teamwork", "communication", "amazon leadership", "culture fit",
+    "behavioral interview", "star method", "soar method", "car method",
+    "leadership", "conflict resolution", "teamwork", "communication",
+    "amazon leadership", "culture fit", "emotional intelligence",
     "tell me about a time", "strengths", "weaknesses", "career goal",
+    "behavioral simulation", "situational interview", "role play interview",
+    "soft skills interview", "people management", "cross-functional",
+    "stakeholder management", "difficult conversation", "feedback",
+    "why do you want to work", "biggest challenge", "failure example",
   ],
   "interview-experience": [
     "interview experience", "interview process", "interview loop",
@@ -102,7 +109,11 @@ const CATEGORY_KEYWORDS: Record<string, string[]> = {
     "career", "job search", "resume", "portfolio", "networking",
     "remote work", "freelance", "promotion", "career switch",
     "tech industry", "layoff", "hiring", "recruiter", "job market",
-    "onboarding", "career advice", "mentor",
+    "onboarding", "career advice", "mentor", "return to office",
+    "hiring freeze", "job hopping", "visa sponsorship", "h1b",
+    "bootcamp", "self-taught", "career transition", "manager track",
+    "staff engineer path", "principal engineer", "ic vs manager",
+    "startup vs big tech", "work life balance", "burnout",
   ],
 };
 
@@ -1176,6 +1187,9 @@ async function fetchNewsletters(): Promise<RawArticle[]> {
     "https://newsletter.systemdesigncodex.com/feed": "System Design Codex",
     "https://newsletter.systemdesignclassroom.com/feed": "System Design Classroom",
     "https://feed.infoq.com/presentations/": "InfoQ Presentations",
+    "https://www.hellointerview.com/blog/rss.xml": "Hello Interview",
+    "https://interviewing.io/blog/feed": "interviewing.io",
+    "https://www.levels.fyi/blog/rss.xml": "Levels.fyi Blog",
   };
 
   for (const [feedUrl, name] of Object.entries(feeds)) {
