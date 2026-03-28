@@ -39,6 +39,30 @@ export default function PulsePage() {
     .slice(0, 6)
     .map(([cat, count]) => ({ ...getCategoryMeta(cat), count }));
 
+  // Category trends (this week vs last week)
+  const categoryTrends = (() => {
+    const catThisWeek = new Map<string, number>();
+    const catLastWeek = new Map<string, number>();
+
+    for (const a of articles) {
+      const age = nowMs - new Date(a.publishedAt).getTime();
+      if (age < weekMs) {
+        catThisWeek.set(a.category, (catThisWeek.get(a.category) ?? 0) + 1);
+      } else if (age < weekMs * 2) {
+        catLastWeek.set(a.category, (catLastWeek.get(a.category) ?? 0) + 1);
+      }
+    }
+
+    return [...new Set([...catThisWeek.keys(), ...catLastWeek.keys()])]
+      .map((category) => ({
+        category,
+        thisWeek: catThisWeek.get(category) ?? 0,
+        lastWeek: catLastWeek.get(category) ?? 0,
+        trend: (catThisWeek.get(category) ?? 0) - (catLastWeek.get(category) ?? 0),
+      }))
+      .sort((a, b) => b.thisWeek - a.thisWeek);
+  })();
+
   // Source breakdown
   const srcCounts: Record<string, number> = {};
   for (const a of thisWeek) {
@@ -157,6 +181,37 @@ export default function PulsePage() {
           ))}
         </div>
       </section>
+
+      {/* Category Trends */}
+      {categoryTrends.length > 0 && (
+        <section>
+          <h2 className="text-lg font-bold text-foreground mb-3">Category Trends</h2>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {categoryTrends.map(({ category, thisWeek, lastWeek, trend }) => {
+              const meta = getCategoryMeta(category);
+              const trendIcon = trend > 0 ? "↑" : trend < 0 ? "↓" : "→";
+              const trendColor =
+                trend > 0
+                  ? "text-emerald-500"
+                  : trend < 0
+                    ? "text-red-500"
+                    : "text-muted-foreground";
+              return (
+                <div key={category} className="rounded-lg border border-border bg-card p-3">
+                  <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                    {meta.emoji} {meta.label}
+                  </span>
+                  <div className="mt-2 flex items-baseline gap-1">
+                    <span className="text-xl font-bold text-foreground">{thisWeek}</span>
+                    <span className={`text-sm font-medium ${trendColor}`}>{trendIcon}</span>
+                  </div>
+                  <span className="text-xs text-muted-foreground">{lastWeek} last week</span>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {/* Top 5 articles */}
       <section>
