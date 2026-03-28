@@ -125,3 +125,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 209 | #249 | Mobile questions tab — AI-extracted question bank |
 | 210 | #250 | Mobile haptic feedback on bookmarks, filters, sort |
 | 211 | #251 | TCRA v3 — semantic richness + MMR diversity reranking |
+| 212 | #252 | Topic-level trend detection + getTrendingTopics |
