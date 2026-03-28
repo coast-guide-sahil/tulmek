@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
-import type { FeedArticle } from "@tulmek/core/domain";
+import type { FeedArticle, InterviewQuestion } from "@tulmek/core/domain";
 import { tulmekRank, getCategoryMeta, formatRelativeTime, getSourceLabel, COMPANY_SLUGS, getCompanyName } from "@tulmek/core/domain";
 import { APP_NAME, TRENDING_SCORE_THRESHOLD, MIN_ARTICLES_FOR_LANDING_PAGE } from "@tulmek/config/constants";
 import feedData from "@tulmek/content/hub/feed";
+import questionsRaw from "@tulmek/content/hub/questions";
 import Link from "next/link";
 import { SharePrep } from "@/components/hub/share-prep";
 
 const articles = feedData as unknown as FeedArticle[];
+const allQuestionsData = questionsRaw as unknown as InterviewQuestion[];
 
 // FAQ item type
 interface FaqItem {
@@ -210,6 +212,11 @@ export default async function CompanyPage({ params }: Props) {
   // Build FAQ items — used for JSON-LD FAQPage and visual "People Also Ask" section
   const faqItems = buildFaqItems(name, companyArticles, topRounds, topLevels);
 
+  // Filter IQI questions by company slug
+  const companyQuestions = allQuestionsData.filter((q) =>
+    q.companies.some((c) => c.slug === slug || c.name.toLowerCase() === slug)
+  );
+
   // Collect extracted interview questions from articles
   const allQuestions: string[] = [];
   const seenQuestions = new Set<string>();
@@ -246,6 +253,7 @@ export default async function CompanyPage({ params }: Props) {
           description: `${companyArticles.length} interview prep articles about ${name} from ${Object.keys(srcCounts).length} sources.`,
           url: `https://tulmek.vercel.app/hub/company/${slug}`,
           numberOfItems: companyArticles.length,
+          ...(companyQuestions.length > 0 ? { interactionStatistic: { "@type": "InteractionCounter", interactionType: "https://schema.org/AskAction", userInteractionCount: companyQuestions.length } } : {}),
           breadcrumb: {
             "@type": "BreadcrumbList",
             itemListElement: [
@@ -401,6 +409,45 @@ export default async function CompanyPage({ params }: Props) {
               </span>
             ))}
           </div>
+        </section>
+      )}
+
+      {/* Recent Interview Questions (IQI) */}
+      {companyQuestions.length > 0 && (
+        <section className="mt-6">
+          <h2 className="text-lg font-bold text-foreground mb-3">
+            Recent Interview Questions ({companyQuestions.length})
+          </h2>
+          <div className="space-y-2">
+            {companyQuestions.slice(0, 10).map((q) => (
+              <div key={q.id} className="rounded-lg border border-border bg-card p-3">
+                <div className="flex items-start justify-between gap-2">
+                  <p className="text-sm text-card-foreground">{q.question}</p>
+                  <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${
+                    q.difficulty === "easy" ? "bg-emerald-500/10 text-emerald-800 dark:text-emerald-300"
+                    : q.difficulty === "medium" ? "bg-amber-500/10 text-amber-800 dark:text-amber-300"
+                    : q.difficulty === "hard" ? "bg-red-500/10 text-red-800 dark:text-red-300"
+                    : "bg-muted text-muted-foreground"
+                  }`}>
+                    {q.difficulty}
+                  </span>
+                </div>
+                <div className="mt-2 flex flex-wrap gap-1">
+                  <span className="rounded-full bg-blue-500/10 px-2 py-0.5 text-xs text-blue-800 dark:text-blue-300">
+                    {q.format.replace(/-/g, " ")}
+                  </span>
+                  {q.topics.slice(0, 3).map((t) => (
+                    <span key={t} className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">{t}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          {companyQuestions.length > 10 && (
+            <a href="/hub/questions" className="mt-3 inline-block min-h-[44px] text-sm text-primary hover:underline">
+              View all {companyQuestions.length} questions →
+            </a>
+          )}
         </section>
       )}
 
