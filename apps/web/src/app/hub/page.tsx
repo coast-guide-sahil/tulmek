@@ -12,6 +12,7 @@ import { NewSinceVisit } from "@/components/hub/new-since-visit";
 import { WelcomeBack } from "@/components/hub/welcome-back";
 import { FirstVisit } from "@/components/hub/first-visit";
 import { PrepCoverage } from "@/components/hub/prep-coverage";
+import { TrendingTopics } from "@/components/hub/trending-topics";
 import { APP_NAME } from "@tulmek/config/constants";
 
 const articles = feedData as unknown as FeedArticle[];
@@ -87,10 +88,13 @@ export default function HubPage() {
       {/* 3. Prep Coverage — category progress rings (only shown when user has reads) */}
       <PrepCoverage articles={articles} />
 
-      {/* 4. Featured Picks — bento layout, the ONE curated section */}
+      {/* 4. Trending Topics — hottest topics across sources in last 48h */}
+      <TrendingTopics articles={articles} />
+
+      {/* 5. Featured Picks — bento layout, the ONE curated section */}
       <FeaturedPicks articles={articles} nowMs={BUILD_TIME} />
 
-      {/* 5. The Feed — search, categories, sort, infinite scroll */}
+      {/* 6. The Feed — search, categories, sort, infinite scroll */}
       <Suspense fallback={<FeedSkeleton />}>
         <FeedLayout articles={articles} />
       </Suspense>
