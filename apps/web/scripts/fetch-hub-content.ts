@@ -1487,7 +1487,7 @@ async function fetchRemoteOK(): Promise<RawArticle[]> {
         sourceIcon: "https://remoteok.com/favicon.ico",
         domain: "remoteok.com",
         category: "career",
-        tags: [...(job.tags ?? []).slice(0, 5), "remote", "hiring"],
+        tags: [...(job.tags ?? []).flat().map(String).slice(0, 5), "remote", "hiring"],
         excerpt: (job.description ?? "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 300),
         publishedAt: job.date ?? new Date().toISOString(),
         score: 10,
@@ -1851,9 +1851,11 @@ async function main() {
     console.log(`\n📋 Detected interview formats in ${articlesWithFormats} articles`);
   }
 
-  // Add aggregatedAt timestamp and ensure interviewQuestions/interviewFormats/sourceCorroboration are always present
+  // Add aggregatedAt timestamp and sanitize all fields
   const articles = all.map((a) => ({
     ...a,
+    tags: (a.tags ?? []).flat().map(String).filter(Boolean),
+    publishedAt: typeof a.publishedAt === "string" ? a.publishedAt : new Date(a.publishedAt).toISOString(),
     interviewQuestions: a.interviewQuestions ?? [],
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     interviewFormats: (a as any).interviewFormats ?? [],
