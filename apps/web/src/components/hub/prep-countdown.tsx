@@ -7,6 +7,22 @@ const COUNTDOWN_KEY = STORAGE_KEYS.hubInterviewDate;
 const emptySubscribe = () => () => {};
 
 /**
+ * Returns a contextual daily tip based on how many days remain until
+ * the interview. Tip cadence follows spaced-repetition research: broad
+ * fundamentals early, targeted polish in the final days.
+ */
+function getDailyTip(daysLeft: number): string {
+  if (daysLeft > 30) return "Start with fundamentals — review core data structures and algorithms.";
+  if (daysLeft > 21) return "Focus on system design patterns — practice drawing architecture diagrams.";
+  if (daysLeft > 14) return "Mock interviews! Practice explaining your thought process out loud.";
+  if (daysLeft > 7) return "Review company-specific questions — check the company intelligence page.";
+  if (daysLeft > 3) return "Polish behavioral stories — prepare 5 STAR method responses.";
+  if (daysLeft > 1) return "Light review only — get good sleep. Confidence matters more than cramming.";
+  if (daysLeft === 1) return "Tomorrow's the day! Review your notes, prepare questions for the interviewer.";
+  return "Good luck today! You've prepared well. Trust your preparation.";
+}
+
+/**
  * Interview countdown timer — creates urgency and daily motivation.
  * Based on Goal Gradient Effect: effort accelerates as deadline approaches.
  */
@@ -74,25 +90,32 @@ export function PrepCountdown() {
   ));
   const isPast = daysLeft === 0 && new Date(targetDate).getTime() < nowMs;
 
+  const tip = getDailyTip(daysLeft);
+
   return (
-    <div className={`flex items-center gap-2 rounded-lg border px-3 py-2 ${
+    <div className={`flex flex-col gap-1.5 rounded-lg border px-3 py-2 ${
       daysLeft <= 3 ? "border-destructive/30 bg-destructive/5" :
       daysLeft <= 7 ? "border-amber-500/30 bg-amber-500/5" :
       "border-border bg-card"
     }`}>
-      <span className="text-sm font-bold text-foreground">
-        {isPast ? "Interview day!" : `${daysLeft}d`}
-      </span>
-      <span className="text-xs text-muted-foreground">
-        {isPast ? "Good luck!" : daysLeft <= 3 ? "Crunch time!" : daysLeft <= 7 ? "Final prep" : "until interview"}
-      </span>
-      <button
-        onClick={handleClear}
-        className="ml-auto text-xs text-muted-foreground hover:text-foreground"
-        aria-label="Remove interview date"
-      >
-        ✕
-      </button>
+      <div className="flex items-center gap-2">
+        <span className="text-sm font-bold text-foreground">
+          {isPast ? "Interview day!" : `${daysLeft}d`}
+        </span>
+        <span className="text-xs text-muted-foreground">
+          {isPast ? "Good luck!" : daysLeft <= 3 ? "Crunch time!" : daysLeft <= 7 ? "Final prep" : "until interview"}
+        </span>
+        <button
+          onClick={handleClear}
+          className="ml-auto text-xs text-muted-foreground hover:text-foreground"
+          aria-label="Remove interview date"
+        >
+          ✕
+        </button>
+      </div>
+      <p className="text-xs text-muted-foreground/80 leading-snug">
+        {tip}
+      </p>
     </div>
   );
 }
