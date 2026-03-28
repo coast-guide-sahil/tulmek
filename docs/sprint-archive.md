@@ -82,3 +82,7 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 164 | #201 | Expand sitemap with all missing hub pages |
 | 166 | #204 | AI classification cache — reduce Gemini costs ~70% |
 | 167 | #203 | Content refresh — 737 articles from 8 sources |
+| 163 | #207 | Deduplicate COMPANY_DISPLAY — single source of truth |
+| 165 | #206 | TCRA ranking unit tests (38 tests) |
+| 168 | #205 | Plausible analytics (privacy-friendly) |
+| 169 | #208 | Shareable company prep cards + social sharing |
