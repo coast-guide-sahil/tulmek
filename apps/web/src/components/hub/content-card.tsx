@@ -131,6 +131,19 @@ export const ContentCard = memo(function ContentCard({
               {article.readingTime} min read
             </span>
           </div>
+
+          {article.topics.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-1">
+              {article.topics.slice(0, 3).map(topic => (
+                <span
+                  key={topic}
+                  className="rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground"
+                >
+                  {topic}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
         <BookmarkButton
@@ -200,6 +213,20 @@ export const ContentCard = memo(function ContentCard({
         <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted-foreground/80">
           {article.excerpt}
         </p>
+      )}
+
+      {/* Topic pills — AI-extracted sub-topics */}
+      {article.topics.length > 0 && (
+        <div className="mt-2 flex flex-wrap gap-1">
+          {article.topics.slice(0, 3).map(topic => (
+            <span
+              key={topic}
+              className="rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground"
+            >
+              {topic}
+            </span>
+          ))}
+        </div>
       )}
 
       {/* Tags — extract company from pipe-separated titles like "Google | L4 | Offer" */}
