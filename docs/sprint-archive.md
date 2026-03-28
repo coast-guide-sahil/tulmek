@@ -136,3 +136,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 220 | #260 | Keyboard shortcut help overlay (press ?) |
 | 221 | #261 | Stack Overflow — interview-relevant tech questions |
 | 222 | #262 | arXiv CS/ML research papers + visual baseline update |
+| 223 | #263 | Content refresh — 931 unique articles from 23+ sources |
