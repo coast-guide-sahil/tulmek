@@ -13,7 +13,7 @@ import { useThemeColors } from "../../src/hooks/useThemeColors";
 import type { ThemeColors } from "../../src/hooks/useThemeColors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Link } from "expo-router";
-import { APP_NAME, TRENDING_SCORE_THRESHOLD, NEW_ARTICLE_WINDOW_MS } from "@tulmek/config/constants";
+import { APP_NAME, TRENDING_SCORE_THRESHOLD, NEW_ARTICLE_WINDOW_MS, STORAGE_KEYS } from "@tulmek/config/constants";
 import type { FeedArticle, HubCategory } from "@tulmek/core/domain";
 import {
   tulmekRank,
@@ -47,13 +47,11 @@ function getCategoryColor(category: string): string {
 }
 
 // ── Bookmark Hook (AsyncStorage) ──
-const BOOKMARKS_KEY = "tulmek:hub:bookmarks";
-
 function useBookmarks() {
   const [bookmarks, setBookmarks] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    AsyncStorage.getItem(BOOKMARKS_KEY).then((raw) => {
+    AsyncStorage.getItem(STORAGE_KEYS.hubBookmarks).then((raw) => {
       if (raw) setBookmarks(new Set(JSON.parse(raw) as string[]));
     });
   }, []);
@@ -68,12 +66,50 @@ function useBookmarks() {
         next.add(id);
         void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
       }
-      AsyncStorage.setItem(BOOKMARKS_KEY, JSON.stringify([...next]));
+      AsyncStorage.setItem(STORAGE_KEYS.hubBookmarks, JSON.stringify([...next]));
       return next;
     });
   }, []);
 
   return { bookmarks, toggle };
+}
+
+// ── Prep Summary Hook (AsyncStorage) ──
+interface PrepSummary {
+  readCount: number;
+  streakDays: number;
+  topCategories: [string, number][];
+}
+
+function usePrepSummary(): PrepSummary {
+  const [readIds, setReadIds] = useState<Set<string>>(new Set());
+  const [streakDays, setStreakDays] = useState(0);
+
+  useEffect(() => {
+    AsyncStorage.getItem(STORAGE_KEYS.hubRead).then((raw) => {
+      if (raw) setReadIds(new Set(JSON.parse(raw) as string[]));
+    });
+    AsyncStorage.getItem(STORAGE_KEYS.hubStreak).then((raw) => {
+      if (raw) {
+        try {
+          setStreakDays((JSON.parse(raw) as { currentStreak: number }).currentStreak);
+        } catch { /* ignore */ }
+      }
+    });
+  }, []);
+
+  const topCategories = useMemo((): [string, number][] => {
+    if (readIds.size === 0) return [];
+    const catBreakdown = new Map<string, number>();
+    for (const a of articles) {
+      if (readIds.has(a.id)) {
+        catBreakdown.set(a.category, (catBreakdown.get(a.category) ?? 0) + 1);
+      }
+    }
+    return [...catBreakdown.entries()].sort(([, a], [, b]) => b - a).slice(0, 3);
+  }, [readIds]);
+
+  return { readCount: readIds.size, streakDays, topCategories };
 }
 
 // ── Article Card ──
@@ -342,6 +378,7 @@ export default function HomeScreen() {
   const [sortMode, setSortMode] = useState<SortMode>("for-you");
   const listRef = useRef<FlashListRef<FeedArticle>>(null);
   const { bookmarks, toggle: toggleBookmark } = useBookmarks();
+  const { readCount, streakDays, topCategories } = usePrepSummary();
   const t = useThemeColors();
 
   const categoryCounts = useMemo(() => {
@@ -459,6 +496,41 @@ export default function HomeScreen() {
               />
             </View>
 
+            {/* Weekly Prep Summary */}
+            {readCount >= 3 && (
+              <View style={[styles.summaryCard, { backgroundColor: t.card, borderColor: t.cardBorder }]}>
+                <Text style={[styles.summaryTitle, { color: t.text }]}>Your Prep Summary</Text>
+                <View style={styles.summaryStats}>
+                  <View style={styles.summaryStat}>
+                    <Text style={[styles.summaryNumber, { color: t.text }]}>{readCount}</Text>
+                    <Text style={[styles.summaryLabel, { color: t.textMuted }]}>read</Text>
+                  </View>
+                  <View style={styles.summaryStat}>
+                    <Text style={[styles.summaryNumber, { color: t.text }]}>{bookmarks.size}</Text>
+                    <Text style={[styles.summaryLabel, { color: t.textMuted }]}>saved</Text>
+                  </View>
+                  <View style={styles.summaryStat}>
+                    <Text style={[styles.summaryNumber, { color: t.text }]}>{streakDays}d</Text>
+                    <Text style={[styles.summaryLabel, { color: t.textMuted }]}>streak</Text>
+                  </View>
+                </View>
+                {topCategories.length > 0 && (
+                  <View style={[styles.summaryCategories, { borderTopColor: t.cardBorder }]}>
+                    {topCategories.map(([cat, count]) => (
+                      <View
+                        key={cat}
+                        style={[styles.summaryCategoryChip, { backgroundColor: getCategoryColor(cat) + "20" }]}
+                      >
+                        <Text style={[styles.summaryCategoryText, { color: getCategoryColor(cat) }]}>
+                          {getCategoryMeta(cat).label} ({count})
+                        </Text>
+                      </View>
+                    ))}
+                  </View>
+                )}
+              </View>
+            )}
+
             {/* Categories */}
             <CategoryFilter
               active={activeCategory}
@@ -560,6 +632,31 @@ const styles = StyleSheet.create({
     justifyContent: "center" as const,
   },
   sortChipText: { fontSize: 13, fontWeight: "600" as const },
+
+  // Weekly Prep Summary
+  summaryCard: {
+    marginHorizontal: 16,
+    marginBottom: 8,
+    borderRadius: 14,
+    padding: 16,
+    borderWidth: 1,
+  },
+  summaryTitle: { fontSize: 14, fontWeight: "700" as const, marginBottom: 12 },
+  summaryStats: { flexDirection: "row" as const, justifyContent: "space-around" as const },
+  summaryStat: { alignItems: "center" as const },
+  summaryNumber: { fontSize: 24, fontWeight: "800" as const },
+  summaryLabel: { fontSize: 12, marginTop: 2 },
+  summaryCategories: {
+    flexDirection: "row" as const,
+    flexWrap: "wrap" as const,
+    gap: 6,
+    marginTop: 12,
+    paddingTop: 12,
+    borderTopWidth: 1,
+    borderTopColor: "transparent",
+  },
+  summaryCategoryChip: { borderRadius: 20, paddingHorizontal: 10, paddingVertical: 4 },
+  summaryCategoryText: { fontSize: 12, fontWeight: "600" as const },
 
   // Results
   resultCount: { fontSize: 13, paddingHorizontal: 16, paddingBottom: 8 },
