@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     "./hub/feed": "./src/hub/feed.json",
-    "./hub/metadata": "./src/hub/metadata.json"
+    "./hub/metadata": "./src/hub/metadata.json",
+    "./hub/questions": "./src/hub/questions.json"
   }
 }
