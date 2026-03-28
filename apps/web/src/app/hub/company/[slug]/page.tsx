@@ -311,6 +311,24 @@ export default async function CompanyPage({ params }: Props) {
           </div>
         )}
       </div>
+      {/* Related companies — internal cross-linking for SEO */}
+      <div className="rounded-xl border border-border bg-card p-4">
+        <h2 className="text-sm font-bold text-card-foreground">Other Companies</h2>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {Object.keys(COMPANY_DISPLAY)
+            .filter((s) => s !== slug)
+            .slice(0, 8)
+            .map((s) => (
+              <Link
+                key={s}
+                href={`/hub/company/${s}`}
+                className="rounded-md bg-muted px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary"
+              >
+                {COMPANY_DISPLAY[s]}
+              </Link>
+            ))}
+        </div>
+      </div>
     </div>
   );
 }

@@ -49,4 +49,7 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 127 | #166 | RSS feed at /hub/feed.xml |
 | 128 | #167 | Interview Market Report — linkable data asset |
 | 129 | #168 | Epsilon-greedy exploration in TCRA |
+| 130 | #169 | UX audit fixes — bar scaling, company names, cross-nav |
+| 131 | #170 | Dwell time tracking for personalization |
+| 132 | #171 | Source and category muting |
 | 111 | #150 | SimHash title dedup — cross-source near-duplicates |

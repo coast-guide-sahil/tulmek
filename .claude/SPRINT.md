@@ -5,13 +5,13 @@
 
 ## Backlog (prioritized)
 
-1. [ ] Expand sitemap + add category landing pages (SEO: 36 company pages + categories not indexed) `#seo` `#critical`
-2. [ ] JSON-LD structured data + FAQ schema on company pages `#seo` `#high`
-3. [ ] AI content classification at fetch time (Gemini Flash-Lite free tier) `#data-quality` `#high`
-4. [ ] RSS feed at /hub/feed.xml (top 10 TCRA articles weekly) `#distribution` `#medium`
-5. [ ] Linkable data asset: "Interview Market Report" page `#seo` `#medium`
-6. [ ] Epsilon-greedy exploration in TCRA `#ranking` `#low`
-7. [ ] Dwell time tracking `#personalization` `#low`
-8. [ ] Source/category mute `#ux` `#low`
-9. [ ] Turborepo Boundaries in turbo.json `#architecture` `#low`
-10. [ ] Show HN launch prep (after SEO items are live) `#growth` `#low`
+1. [ ] AI content classification at fetch time (Gemini Flash-Lite free tier) `#data-quality` `#high`
+2. [ ] Turborepo Boundaries enforcement in turbo.json `#architecture` `#medium`
+3. [ ] Show HN launch prep (write post, optimize landing) `#growth` `#medium`
+4. [ ] Mobile: company pages (React Native version) `#mobile` `#medium`
+5. [ ] Mobile: pulse/report pages `#mobile` `#medium`
+6. [ ] Desktop: auto-updater config (Tauri updater plugin) `#desktop` `#low`
+7. [ ] Content: add Glassdoor interview reviews scraping `#data-quality` `#low`
+8. [ ] Internal cross-linking between company pages `#seo` `#low`
+9. [ ] Visual regression tests with Playwright toHaveScreenshot `#testing` `#low`
+10. [ ] Lighthouse CI in GitHub Actions `#performance` `#low`
