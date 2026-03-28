@@ -15,6 +15,7 @@ import { UserStats } from "./user-stats";
 import { useHub } from "@/lib/hub/provider";
 import { APP_NAME } from "@tulmek/config/constants";
 import type { FeedMetadata } from "@tulmek/core/domain";
+import { COMPANY_SLUGS, getCompanyName } from "@tulmek/core/domain";
 import { formatRelativeTime } from "./hub-utils";
 import metadataRaw from "@tulmek/content/hub/metadata";
 import hiringRaw from "@tulmek/content/hub/hiring";
@@ -115,6 +116,22 @@ export function HubShell({ children }: { children: ReactNode }) {
           </div>
         </nav>
       </header>
+
+      {/* Company quick-access links */}
+      <div className="overflow-x-auto border-b border-border">
+        <div className="flex gap-1 px-4 py-1.5">
+          <span className="shrink-0 text-xs text-muted-foreground flex items-center">Top:</span>
+          {COMPANY_SLUGS.slice(0, 10).map(slug => (
+            <Link
+              key={slug}
+              href={`/hub/company/${slug}`}
+              className="shrink-0 rounded-md px-2 py-1 text-xs text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            >
+              {getCompanyName(slug)}
+            </Link>
+          ))}
+        </div>
+      </div>
 
       {/* Main content */}
       <main id="main-content" className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-8">
