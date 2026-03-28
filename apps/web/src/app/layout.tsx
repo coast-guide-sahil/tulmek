@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { APP_NAME } from "@tulmek/config/constants";
@@ -94,6 +95,16 @@ export default function RootLayout({
         </a>
         <ThemeProvider>{children}</ThemeProvider>
         <SpeedInsights />
+        {process.env.NODE_ENV === "production" && (
+          <Script
+            defer
+            data-domain={
+              process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN ?? "tulmek.vercel.app"
+            }
+            src="https://plausible.io/js/script.js"
+            strategy="afterInteractive"
+          />
+        )}
       </body>
     </html>
   );
