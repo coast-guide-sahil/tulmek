@@ -112,3 +112,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 196 | #236 | README update — 1,358 articles, 17+ sources, all features |
 | 197 | #237 | Gemini embeddings + story clustering (ADR-003 Sprint B) |
 | 198 | #238 | Critical duplicate fix + dead code cleanup (901 unique articles) |
+| 199 | #239 | Interview Question Intelligence — data model + extraction pipeline |
