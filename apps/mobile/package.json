@@ -20,6 +20,7 @@
     "@tulmek/core": "workspace:*",
     "expo": "~55.0.9",
     "expo-constants": "~55.0.9",
+    "expo-haptics": "55.0.10-canary-20260328-2049187",
     "expo-linking": "~55.0.9",
     "expo-router": "~55.0.8",
     "metro-runtime": "^0.84.2",
