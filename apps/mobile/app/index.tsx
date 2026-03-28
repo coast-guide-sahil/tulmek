@@ -10,6 +10,7 @@ import {
   type ListRenderItemInfo,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Link } from "expo-router";
 import { APP_NAME, TRENDING_SCORE_THRESHOLD, NEW_ARTICLE_WINDOW_MS } from "@tulmek/config/constants";
 import type { FeedArticle, HubCategory } from "@tulmek/core/domain";
 import {
@@ -317,10 +318,16 @@ export default function HomeScreen() {
                   <Text style={styles.liveText}>Live</Text>
                 </View>
               </View>
-              <Text style={styles.heroStats}>
-                {totalArticles} articles · {sourceCount} sources
-                {bookmarks.size > 0 ? ` · ${bookmarks.size} saved` : ""}
-              </Text>
+              <View style={styles.heroStatsRow}>
+                <Text style={styles.heroStats}>
+                  {totalArticles} articles · {sourceCount} sources
+                </Text>
+                {bookmarks.size > 0 && (
+                  <Link href="/saved" style={styles.savedLink}>
+                    <Text style={styles.savedLinkText}>★ {bookmarks.size} saved</Text>
+                  </Link>
+                )}
+              </View>
             </View>
 
             {/* Search */}
@@ -369,7 +376,10 @@ const styles = StyleSheet.create({
   hero: { paddingHorizontal: 16, paddingTop: 16, paddingBottom: 8 },
   heroRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
   heroTitle: { fontSize: 22, fontWeight: "800", color: "#fafafa" },
-  heroStats: { fontSize: 13, color: "#71717a", marginTop: 2 },
+  heroStatsRow: { flexDirection: "row" as const, alignItems: "center" as const, justifyContent: "space-between" as const, marginTop: 2 },
+  heroStats: { fontSize: 13, color: "#71717a" },
+  savedLink: { paddingVertical: 4, paddingHorizontal: 8 },
+  savedLinkText: { fontSize: 13, color: "#3b82f6", fontWeight: "600" as const },
   liveBadge: { flexDirection: "row", alignItems: "center", gap: 4 },
   liveDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: "#22c55e" },
   liveText: { fontSize: 12, color: "#22c55e", fontWeight: "600" },
