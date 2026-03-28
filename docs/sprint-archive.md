@@ -148,3 +148,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 232 | #272 | Final content refresh — 939 articles, 27+ sources, 112 companies |
 | 233 | #273 | Search suggestions from trending topics |
 | 234 | #274 | Mobile prep plan section on company pages |
+| 235 | #275 | Improved podcast RSS parsing (enclosure, itunes, duration) |
