@@ -130,3 +130,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 214 | #254 | H1B visa sponsorship jobs from daily GitHub tracker |
 | 215 | #255 | Content refresh — 914 unique articles, 20+ sources |
 | 216 | #256 | Fix desktop builds — remove api/subscribe static export conflict |
+| 217 | #257 | Daily Question widget — one interview question per day |
