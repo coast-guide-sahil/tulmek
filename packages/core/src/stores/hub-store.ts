@@ -10,6 +10,25 @@ import { create } from "zustand";
 import type { BookmarkStore, HubSearchEngine, HubSearchParams, SetStorage } from "../ports";
 import type { Bookmark, BookmarkMap, FeedArticle, HubFacetedResult } from "../domain";
 
+/** EMA-based implicit engagement signals for personalization */
+export interface ImplicitSignals {
+  categoryEngagement: Record<string, number>;
+  sourceEngagement: Record<string, number>;
+  sessionCount: number;
+}
+
+const DEFAULT_SIGNALS: ImplicitSignals = {
+  categoryEngagement: {},
+  sourceEngagement: {},
+  sessionCount: 0,
+};
+
+const EMA_ALPHA = 0.3; // Recent actions matter ~3x more than older ones
+
+function updateEMA(current: number, signal: number): number {
+  return EMA_ALPHA * signal + (1 - EMA_ALPHA) * current;
+}
+
 export interface HubState {
   bookmarks: BookmarkMap;
   hydrated: boolean;
@@ -17,6 +36,7 @@ export interface HubState {
   searching: boolean;
   readIds: Set<string>;
   dismissedIds: Set<string>;
+  signals: ImplicitSignals;
 }
 
 export interface HubActions {
@@ -29,6 +49,8 @@ export interface HubActions {
   markAsRead: (articleId: string) => void;
   isRead: (articleId: string) => boolean;
   dismiss: (articleId: string) => void;
+  /** Record implicit engagement signal (call on article click/read) */
+  recordEngagement: (category: string, source: string) => void;
 }
 
 export type HubStoreState = HubState & HubActions;
@@ -37,8 +59,8 @@ export interface HubStoreDeps {
   bookmarkStore: BookmarkStore;
   searchEngine: HubSearchEngine;
   setStorage: SetStorage;
-  /** Storage keys for read/dismissed persistence — injected from @tulmek/config */
-  storageKeys: { readKey: string; dismissedKey: string };
+  /** Storage keys for persistence — injected from @tulmek/config */
+  storageKeys: { readKey: string; dismissedKey: string; signalsKey: string };
 }
 
 export function createHubStore(deps: HubStoreDeps) {
@@ -48,6 +70,7 @@ export function createHubStore(deps: HubStoreDeps) {
     searchResults: null,
     searching: false,
     readIds: new Set<string>(),
+    signals: DEFAULT_SIGNALS,
     dismissedIds: new Set<string>(),
 
     hydrate: async () => {
@@ -56,7 +79,17 @@ export function createHubStore(deps: HubStoreDeps) {
         deps.setStorage.load(deps.storageKeys.readKey),
         deps.setStorage.load(deps.storageKeys.dismissedKey),
       ]);
-      set({ bookmarks, readIds, dismissedIds, hydrated: true });
+
+      // Load implicit signals
+      let signals = DEFAULT_SIGNALS;
+      try {
+        const signalSet = await deps.setStorage.load(deps.storageKeys.signalsKey);
+        const raw = [...signalSet][0]; // Stored as single JSON string in a Set
+        if (raw) signals = JSON.parse(raw) as ImplicitSignals;
+      } catch { /* use defaults */ }
+      signals = { ...signals, sessionCount: signals.sessionCount + 1 };
+
+      set({ bookmarks, readIds, dismissedIds, signals, hydrated: true });
     },
 
     indexArticles: async (articles: FeedArticle[]) => {
@@ -118,6 +151,24 @@ export function createHubStore(deps: HubStoreDeps) {
       dismissedIds.add(articleId);
       set({ dismissedIds });
       void deps.setStorage.save(deps.storageKeys.dismissedKey, dismissedIds);
+    },
+
+    recordEngagement: (category: string, source: string) => {
+      const prev = get().signals;
+      const signals: ImplicitSignals = {
+        ...prev,
+        categoryEngagement: {
+          ...prev.categoryEngagement,
+          [category]: updateEMA(prev.categoryEngagement[category] ?? 0.5, 1.0),
+        },
+        sourceEngagement: {
+          ...prev.sourceEngagement,
+          [source]: updateEMA(prev.sourceEngagement[source] ?? 0.5, 1.0),
+        },
+      };
+      set({ signals });
+      // Persist as single JSON string inside a Set
+      void deps.setStorage.save(deps.storageKeys.signalsKey, new Set([JSON.stringify(signals)]));
     },
   }));
 }

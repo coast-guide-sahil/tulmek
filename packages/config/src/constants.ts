@@ -37,6 +37,7 @@ export const STORAGE_KEYS = {
   hubInterviewDate: "tulmek:hub:interviewDate",
   progress: "tulmek:progress",
   notes: "tulmek:notes",
+  hubSignals: "tulmek:hub:signals",
 } as const satisfies Record<string, `tulmek:${string}`>;
 
 export type StorageKey = typeof STORAGE_KEYS[keyof typeof STORAGE_KEYS];
