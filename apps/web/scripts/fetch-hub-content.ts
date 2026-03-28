@@ -2157,12 +2157,78 @@ async function fetchStackOverflow(): Promise<RawArticle[]> {
   return articles;
 }
 
+async function fetchArxiv(): Promise<RawArticle[]> {
+  console.log("  Fetching arXiv papers...");
+  const articles: RawArticle[] = [];
+
+  const queries = [
+    "cat:cs.DS+AND+ti:algorithm", // Data structures & algorithms
+    "cat:cs.DC+AND+ti:distributed+system", // Distributed computing
+    "cat:cs.AI+AND+ti:interview+OR+ti:hiring", // AI in hiring
+  ];
+
+  for (const query of queries) {
+    try {
+      const res = await fetch(
+        `http://export.arxiv.org/api/query?search_query=${query}&max_results=5&sortBy=submittedDate&sortOrder=descending`
+      );
+      if (!res.ok) continue;
+      const xml = await res.text();
+
+      const entries = xml.split("<entry>").slice(1);
+      for (const entry of entries) {
+        const titleMatch = entry.match(/<title>([\s\S]*?)<\/title>/);
+        const linkMatch = entry.match(/<id>(.*?)<\/id>/);
+        const summaryMatch = entry.match(/<summary>([\s\S]*?)<\/summary>/);
+        const publishedMatch = entry.match(/<published>(.*?)<\/published>/);
+        const categoryMatch = entry.match(/<arxiv:primary_category.*?term="(.*?)"/);
+
+        if (!titleMatch?.[1] || !linkMatch?.[1]) continue;
+
+        const title = titleMatch[1].replace(/\s+/g, " ").trim();
+        const url = linkMatch[1].trim();
+        const summary = (summaryMatch?.[1] ?? "")
+          .replace(/\s+/g, " ").trim().slice(0, 300);
+        const category = categoryMatch?.[1] ?? "cs.AI";
+
+        articles.push({
+          id: `arxiv:${url.split("/abs/")[1] ?? url.slice(-15)}`,
+          title: `[Paper] ${title}`,
+          url: url.replace("http://", "https://"),
+          source: "newsletter",
+          sourceName: "arXiv",
+          sourceIcon: "https://arxiv.org/favicon.ico",
+          domain: "arxiv.org",
+          category: category.startsWith("cs.DS") ? "dsa"
+                  : category.startsWith("cs.DC") ? "system-design"
+                  : "ai-ml",
+          tags: ["research", "paper", category],
+          excerpt: summary,
+          publishedAt: publishedMatch?.[1] ?? new Date().toISOString(),
+          score: 5,
+          commentCount: 0,
+          readingTime: 15,
+          discussionUrl: null,
+          interviewQuestions: [],
+          interviewFormats: [],
+        });
+      }
+    } catch (err) {
+      console.warn(`  Warning: arXiv query failed:`, (err as Error).message);
+    }
+    // Rate limit: 1 request per 3 seconds
+    await new Promise(r => setTimeout(r, 3000));
+  }
+
+  return articles;
+}
+
 // ── Main ──
 
 async function main() {
   console.log("🔄 Fetching hub content...\n");
 
-  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, githubTrending, youtube, newsletters, glassdoor, hnHiring, remoteok, jobicy, himalayas, greenhouse, lever, warnFirehose, h1bJobs, arbeitnow, stackoverflow] = await Promise.all([
+  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, githubTrending, youtube, newsletters, glassdoor, hnHiring, remoteok, jobicy, himalayas, greenhouse, lever, warnFirehose, h1bJobs, arbeitnow, stackoverflow, arxiv] = await Promise.all([
     fetchHackerNews(),
     fetchReddit(),
     fetchRedditSearch(),
@@ -2185,6 +2251,7 @@ async function main() {
     fetchH1BJobs(),
     fetchArbeitnow(),
     fetchStackOverflow(),
+    fetchArxiv(),
   ]);
 
   console.log(`\n  HackerNews: ${hn.length} articles`);
@@ -2209,8 +2276,9 @@ async function main() {
   console.log(`  H1B Jobs: ${h1bJobs.length} articles`);
   console.log(`  Arbeitnow: ${arbeitnow.length} articles`);
   console.log(`  Stack Overflow: ${stackoverflow.length} articles`);
+  console.log(`  arXiv: ${arxiv.length} articles`);
 
-  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...githubTrending, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas, ...greenhouse, ...lever, ...warnFirehose, ...h1bJobs, ...arbeitnow, ...stackoverflow];
+  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...githubTrending, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas, ...greenhouse, ...lever, ...warnFirehose, ...h1bJobs, ...arbeitnow, ...stackoverflow, ...arxiv];
 
   // ── Content staleness detection ──
   const sourceCounts: Record<string, number> = {};
