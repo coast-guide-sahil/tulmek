@@ -9,6 +9,7 @@ import { KeyboardShortcutsHelp } from "./keyboard-shortcuts-help";
 import { ReadingProgressBar } from "./reading-progress-bar";
 import { KeyboardNav } from "./keyboard-nav";
 import { ReadingStreak } from "./reading-streak";
+import { StreakCelebration } from "./streak-celebration";
 import { PrepCountdown } from "./prep-countdown";
 import { UserStats } from "./user-stats";
 import { useHub } from "@/lib/hub/provider";
@@ -42,6 +43,7 @@ export function HubShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-dvh flex-col bg-background">
+      <StreakCelebration />
       <ReadingProgressBar />
       <KeyboardNav />
       {/* Header */}
