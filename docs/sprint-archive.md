@@ -151,3 +151,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 235 | #275 | Improved podcast RSS parsing (enclosure, itunes, duration) |
 | 236 | #276 | Content refresh — 950 unique articles, 78 corroborated |
 | 237 | #277 | Difficulty filter (beginner/intermediate/advanced) |
+| 238 | #278 | Mobile difficulty filter (beginner/intermediate/advanced) |
