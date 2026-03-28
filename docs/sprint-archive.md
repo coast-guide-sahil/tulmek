@@ -116,3 +116,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 200 | #240 | /hub/questions — searchable interview question bank |
 | 201 | #241 | Company page interview questions + JSON-LD enrichment |
 | 202 | #242 | Show HN launch materials — post, maker comment, FAQ, strategy |
+| 203 | #243 | Mobile FlashList migration (5x scroll perf) + .expo gitignore |
