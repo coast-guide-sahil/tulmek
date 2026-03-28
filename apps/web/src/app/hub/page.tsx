@@ -11,6 +11,7 @@ import { TodaysBriefWrapper } from "@/components/hub/todays-brief-wrapper";
 import { WhatsNewBanner } from "@/components/hub/whats-new-banner";
 import { WelcomeBack } from "@/components/hub/welcome-back";
 import { FirstVisit } from "@/components/hub/first-visit";
+import { EmailSubscribe } from "@/components/hub/email-subscribe";
 import { APP_NAME } from "@tulmek/config/constants";
 
 const articles = feedData as unknown as FeedArticle[];
@@ -82,6 +83,9 @@ export default function HubPage() {
 
       {/* 2. Today's Brief — daily digest with per-category breakdown */}
       <TodaysBriefWrapper articles={articles} nowMs={BUILD_TIME} />
+
+      {/* 2.5. Email Digest Subscription */}
+      <EmailSubscribe />
 
       {/* 3. Featured Picks — bento layout, the ONE curated section */}
       <FeaturedPicks articles={articles} nowMs={BUILD_TIME} />
