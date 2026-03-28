@@ -99,6 +99,33 @@ export default async function CompanyPage({ params }: Props) {
   };
   const status = statusConfig[hiringStatus];
 
+  // Interview profile — extract round types and levels from articles
+  const roundTypes: Record<string, number> = {};
+  const levelMentions: Record<string, number> = {};
+  for (const a of companyArticles) {
+    const text = `${a.title} ${a.excerpt}`.toLowerCase();
+    // Round types
+    const rounds = [
+      ["Coding", /coding round|dsa round|leetcode|algorithm/],
+      ["System Design", /system design|hld|lld|architecture round/],
+      ["Behavioral", /behavioral|googlyness|leadership|star method/],
+      ["Phone Screen", /phone screen|screening|recruiter call/],
+      ["Onsite", /onsite|on-site|virtual onsite|loop/],
+      ["Take-Home", /take-home|take home|assignment|project/],
+    ] as const;
+    for (const [name, regex] of rounds) {
+      if (regex.test(text)) roundTypes[name] = (roundTypes[name] ?? 0) + 1;
+    }
+    // Levels
+    const levelMatch = text.match(/\b(l[3-7]|e[3-7]|sde\s?[1-3]|junior|senior|staff|principal)\b/i);
+    if (levelMatch) {
+      const level = levelMatch[1]!.toUpperCase();
+      levelMentions[level] = (levelMentions[level] ?? 0) + 1;
+    }
+  }
+  const topRounds = Object.entries(roundTypes).sort(([, a], [, b]) => b - a).slice(0, 4);
+  const topLevels = Object.entries(levelMentions).sort(([, a], [, b]) => b - a).slice(0, 4);
+
   return (
     <div className="space-y-6">
       {/* Breadcrumb */}
@@ -143,6 +170,47 @@ export default async function CompanyPage({ params }: Props) {
             );
           })}
       </div>
+
+      {/* Interview Profile */}
+      {(topRounds.length > 0 || topLevels.length > 0) && (
+        <div className="rounded-xl border border-border bg-card p-4">
+          <h2 className="text-sm font-bold text-card-foreground">Interview Profile</h2>
+          <p className="mt-0.5 text-xs text-muted-foreground">Extracted from recent articles</p>
+          <div className="mt-3 grid gap-4 sm:grid-cols-2">
+            {topRounds.length > 0 && (
+              <div>
+                <p className="text-xs font-medium text-muted-foreground">Common Round Types</p>
+                <div className="mt-1.5 space-y-1">
+                  {topRounds.map(([round, count]) => (
+                    <div key={round} className="flex items-center gap-2">
+                      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
+                        <div
+                          className="h-full rounded-full bg-primary/60"
+                          style={{ width: `${(count / topRounds[0]![1]) * 100}%` }}
+                        />
+                      </div>
+                      <span className="w-20 text-xs text-card-foreground">{round}</span>
+                      <span className="w-6 text-right text-xs text-muted-foreground">{count}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {topLevels.length > 0 && (
+              <div>
+                <p className="text-xs font-medium text-muted-foreground">Levels Mentioned</p>
+                <div className="mt-1.5 flex flex-wrap gap-2">
+                  {topLevels.map(([level, count]) => (
+                    <span key={level} className="rounded-md bg-muted px-2 py-1 text-xs font-medium text-card-foreground">
+                      {level} <span className="text-muted-foreground">({count})</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Article list */}
       <div className="space-y-3">
