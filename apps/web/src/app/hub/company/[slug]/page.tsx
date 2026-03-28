@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import type { FeedArticle, HubCategory } from "@tulmek/core/domain";
+import type { FeedArticle } from "@tulmek/core/domain";
 import { tulmekRank, getCategoryMeta, formatRelativeTime, getSourceLabel } from "@tulmek/core/domain";
 import { APP_NAME, TRENDING_SCORE_THRESHOLD } from "@tulmek/config/constants";
 import feedData from "@tulmek/content/hub/feed";

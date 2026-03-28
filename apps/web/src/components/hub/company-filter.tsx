@@ -53,7 +53,6 @@ export function CompanyFilter({ articles, activeCompany, onCompanyClick }: Compa
       const company = extractCompany(a.title);
       if (company) {
         const normalized = company.toLowerCase();
-        const display = counts.has(normalized) ? normalized : company;
         counts.set(normalized, (counts.get(normalized) ?? 0) + 1);
         if (!counts.has(normalized + ":display")) {
           counts.set(normalized + ":display", 0);

@@ -1,37 +1,67 @@
 name: Desktop Release (Tauri v2)
 
+# Trigger: push a tag like "desktop-v0.1.0" OR dispatch manually.
+# Manual dispatch lets you test the pipeline without creating a tag.
 on:
   push:
     tags:
       - "desktop-v*"
   workflow_dispatch:
+    inputs:
+      draft:
+        description: "Create as draft release?"
+        type: boolean
+        default: true
 
 concurrency:
   group: desktop-release-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false # Never cancel a release in progress
 
 permissions:
   contents: write
 
 jobs:
+  # ─── PREFLIGHT: ensure signing secrets exist ────────────────
+  preflight:
+    name: Preflight Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify signing secrets are configured
+        env:
+          HAS_SIGNING_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY != '' }}
+        run: |
+          if [ "$HAS_SIGNING_KEY" != "true" ]; then
+            echo "::error::TAURI_SIGNING_PRIVATE_KEY secret is not configured."
+            echo "::error::Generate keys with: npx tauri signer generate -w ~/.tauri/tulmek.key"
+            echo "::error::Then add TAURI_SIGNING_PRIVATE_KEY and TAURI_SIGNING_PRIVATE_KEY_PASSWORD as repository secrets."
+            echo "::error::Also set the pubkey in apps/desktop/src-tauri/tauri.conf.json plugins.updater.pubkey"
+            exit 1
+          fi
+
+  # ─── BUILD + RELEASE on all 4 targets ──────────────────────
   build-and-release:
     name: Build (${{ matrix.label }})
+    needs: [preflight]
     strategy:
       fail-fast: false
       matrix:
         include:
+          # ---- Linux x64 ----
           - platform: ubuntu-22.04
             target: x86_64-unknown-linux-gnu
             label: Linux-x64
             args: ""
+          # ---- macOS Apple Silicon ----
           - platform: macos-latest
             target: aarch64-apple-darwin
             label: macOS-arm64
             args: "--target aarch64-apple-darwin"
+          # ---- macOS Intel ----
           - platform: macos-latest
             target: x86_64-apple-darwin
             label: macOS-x64
             args: "--target x86_64-apple-darwin"
+          # ---- Windows x64 ----
           - platform: windows-latest
             target: x86_64-pc-windows-msvc
             label: Windows-x64
@@ -40,9 +70,11 @@ jobs:
     runs-on: ${{ matrix.platform }}
 
     steps:
+      # ─── Checkout ──────────────────────────────────────────
       - name: Checkout
         uses: actions/checkout@v6
 
+      # ─── Toolchain ─────────────────────────────────────────
       - name: Setup pnpm
         uses: pnpm/action-setup@v5
 
@@ -55,6 +87,7 @@ jobs:
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
         with:
+          # macOS needs both targets for cross-compilation
           targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
 
       - name: Rust cache
@@ -63,31 +96,83 @@ jobs:
           workspaces: "apps/desktop/src-tauri -> target"
           cache-on-failure: true
 
+      # ─── Linux system deps ─────────────────────────────────
       - name: Install Linux dependencies
         if: contains(matrix.platform, 'ubuntu')
         run: |
           sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libappindicator3-dev \
+            librsvg2-dev \
+            patchelf
 
+      # ─── Frontend build (static export for Tauri) ──────────
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build web frontend (static export)
         run: pnpm --filter @tulmek/web build
         env:
+          # CRITICAL: Tauri needs static HTML files in web/out/, not a
+          # Node.js server. This env var switches next.config.ts output.
+          NEXT_OUTPUT: export
           NEXT_PUBLIC_APP_URL: https://tulmek.com
 
+      - name: Verify static export exists
+        shell: bash
+        run: |
+          if [ ! -f "apps/web/out/index.html" ]; then
+            echo "::error::apps/web/out/index.html not found. Static export failed."
+            echo "::error::Ensure NEXT_OUTPUT=export is set and next.config.ts reads it."
+            exit 1
+          fi
+          echo "Static export verified: $(find apps/web/out -name '*.html' | wc -l) HTML files"
+
+      # ─── Build + Release via tauri-action ──────────────────
+      # tauri-action runs `tauri build`, collects artifacts (.dmg, .msi,
+      # .AppImage, .deb, etc.), creates/updates a GitHub Release, and
+      # uploads a latest.json for the auto-updater plugin.
       - name: Build & release Tauri app
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # ── Updater signing ──
+          # Generates .sig files alongside each artifact. Required for
+          # tauri-plugin-updater to verify downloads before installing.
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+          # ── macOS code signing (optional — uncomment when you have certs) ──
+          # APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          # APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          # APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          # APPLE_ID: ${{ secrets.APPLE_ID }}
+          # APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          # APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         with:
           projectPath: apps/desktop
+          tauriScript: pnpm tauri
           tagName: desktop-v__VERSION__
           releaseName: "TULMEK Desktop v__VERSION__"
-          releaseBody: "Download the installer for your platform below."
-          releaseDraft: true
+          releaseBody: |
+            ## TULMEK Desktop v__VERSION__
+
+            Download the installer for your platform below.
+
+            ### Installation
+
+            | Platform | File | Install instructions |
+            |----------|------|---------------------|
+            | **Windows** | `.exe` (NSIS installer) | Run the installer. If SmartScreen warns, click **More info** then **Run anyway**. |
+            | **macOS (Apple Silicon)** | `.dmg` (arm64) | Open the DMG, drag to Applications. On first launch: **right-click** the app, choose **Open**, then click **Open** in the dialog. |
+            | **macOS (Intel)** | `.dmg` (x64) | Same as above. |
+            | **Linux** | `.AppImage` | `chmod +x TULMEK_*.AppImage && ./TULMEK_*.AppImage` |
+            | **Linux** | `.deb` | `sudo dpkg -i tulmek_*.deb` |
+
+            > **Note:** This release is not code-signed with platform certificates.
+            > macOS and Windows will show security prompts on first launch.
+            > This is safe — the updater artifacts are cryptographically signed
+            > with our Tauri signing key to verify integrity.
+          releaseDraft: ${{ inputs.draft == true || inputs.draft == '' }}
           prerelease: false
           args: ${{ matrix.args }}

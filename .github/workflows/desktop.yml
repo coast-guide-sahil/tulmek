@@ -15,17 +15,20 @@ concurrency:
 
 jobs:
   build:
-    name: Build Desktop (${{ matrix.platform }})
+    name: Build Desktop (${{ matrix.label }})
     strategy:
       fail-fast: false
       matrix:
         include:
           - platform: ubuntu-latest
             target: x86_64-unknown-linux-gnu
+            label: Linux-x64
           - platform: macos-latest
             target: aarch64-apple-darwin
+            label: macOS-arm64
           - platform: windows-latest
             target: x86_64-pc-windows-msvc
+            label: Windows-x64
     runs-on: ${{ matrix.platform }}
 
     steps:
@@ -41,8 +44,14 @@ jobs:
           node-version: "24"
           cache: "pnpm"
 
-      - name: Install Rust
+      - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: "apps/desktop/src-tauri -> target"
+          cache-on-failure: true
 
       - name: Install Linux deps
         if: runner.os == 'Linux'
@@ -53,20 +62,35 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build web frontend (required for Tauri frontendDist)
+      - name: Build web frontend (static export for Tauri frontendDist)
         run: pnpm --filter @tulmek/web build
         env:
+          NEXT_OUTPUT: export
           NEXT_PUBLIC_APP_URL: http://localhost:3000
 
-      - name: Build desktop app
+      # CI builds verify compilation succeeds without signing.
+      # Signing keys are only required for the release workflow.
+      - name: Build desktop app (unsigned CI check)
         run: pnpm --filter @tulmek/desktop tauri:build
         env:
-          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
-        continue-on-error: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY == '' }}
+          # Explicitly no signing key — CI validates the build compiles.
+          # The release workflow (desktop-release.yml) handles signed builds.
+          CI: true
+
+      - name: Verify binary was produced
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            ls -la apps/desktop/src-tauri/target/release/bundle/deb/ || ls -la apps/desktop/src-tauri/target/release/bundle/appimage/
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+            ls -la apps/desktop/src-tauri/target/release/bundle/macos/
+          elif [ "$RUNNER_OS" == "Windows" ]; then
+            ls -la apps/desktop/src-tauri/target/release/bundle/msi/ || ls -la apps/desktop/src-tauri/target/release/bundle/nsis/
+          fi
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
-          name: desktop-${{ matrix.platform }}
+          name: desktop-${{ matrix.label }}
           path: apps/desktop/src-tauri/target/release/bundle/
           retention-days: 7
