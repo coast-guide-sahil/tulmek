@@ -66,7 +66,7 @@ export function CategoryNav({
         {visibleCategories.map(({ id, config }) => (
           <CategoryButton
             key={id}
-            label={config.label}
+            label={`${config.emoji} ${config.label}`}
             count={categoryCounts[id] ?? 0}
             readCount={readCounts ? (readCounts[id] ?? 0) : undefined}
             isActive={activeCategory === id}
