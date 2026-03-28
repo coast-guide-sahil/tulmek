@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { View, Text, StyleSheet, ScrollView, Pressable, Linking } from "react-native";
+import * as Haptics from "expo-haptics";
 import type { FeedArticle } from "@tulmek/core/domain";
 import { tulmekRank, getCategoryMeta, getSourceLabel, formatRelativeTime } from "@tulmek/core/domain";
 import { TRENDING_SCORE_THRESHOLD } from "@tulmek/config/constants";
@@ -107,7 +108,10 @@ export default function PulsePage() {
               { backgroundColor: t.card, borderColor: t.cardBorder },
               pressed && styles.pressed,
             ]}
-            onPress={() => Linking.openURL(a.url)}
+            onPress={() => {
+              void Haptics.selectionAsync();
+              void Linking.openURL(a.url);
+            }}
           >
             <View style={styles.rankBadge}>
               <Text style={[styles.rankText, { color: t.primary }]}>{i + 1}</Text>

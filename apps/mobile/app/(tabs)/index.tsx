@@ -8,6 +8,7 @@ import {
   Linking,
   TextInput,
 } from "react-native";
+import * as Haptics from "expo-haptics";
 import { useThemeColors } from "../../src/hooks/useThemeColors";
 import type { ThemeColors } from "../../src/hooks/useThemeColors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -60,8 +61,13 @@ function useBookmarks() {
   const toggle = useCallback((id: string) => {
     setBookmarks((prev) => {
       const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
+      if (next.has(id)) {
+        next.delete(id);
+        void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+      } else {
+        next.add(id);
+        void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+      }
       AsyncStorage.setItem(BOOKMARKS_KEY, JSON.stringify([...next]));
       return next;
     });
@@ -184,7 +190,10 @@ function CategoryFilter({
               styles.categoryChip,
               { backgroundColor: isActive ? t.chipActiveBg : t.chipBg },
             ]}
-            onPress={() => onSelect(isActive ? null : item.id)}
+            onPress={() => {
+              void Haptics.selectionAsync();
+              onSelect(isActive ? null : item.id);
+            }}
             accessibilityRole="button"
             accessibilityState={{ selected: isActive }}
           >
@@ -240,7 +249,10 @@ function SortPicker({ value, onChange, t }: { value: SortMode; onChange: (v: Sor
               styles.sortChip,
               { backgroundColor: isActive ? t.primary : t.chipBg },
             ]}
-            onPress={() => onChange(item.id)}
+            onPress={() => {
+              void Haptics.selectionAsync();
+              onChange(item.id);
+            }}
             accessibilityRole="button"
             accessibilityState={{ selected: isActive }}
           >

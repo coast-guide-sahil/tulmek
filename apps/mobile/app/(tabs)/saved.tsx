@@ -7,6 +7,7 @@ import {
   Pressable,
   Linking,
 } from "react-native";
+import * as Haptics from "expo-haptics";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { FeedArticle } from "@tulmek/core/domain";
 import { getCategoryMeta, getSourceLabel, formatRelativeTime } from "@tulmek/core/domain";
@@ -36,6 +37,7 @@ export default function SavedPage() {
   const savedArticles = articles.filter((a) => bookmarkedIds.has(a.id));
 
   const removeBookmark = useCallback((id: string) => {
+    void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setBookmarkedIds((prev) => {
       const next = new Set(prev);
       next.delete(id);
