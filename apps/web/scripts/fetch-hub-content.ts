@@ -39,6 +39,10 @@ interface RawArticle {
   interviewQuestions?: string[];
   interviewFormats?: string[];
   sourceCorroboration?: number;
+  topics?: string[];
+  difficulty?: string;
+  sentiment?: string;
+  actionability?: number;
 }
 
 // ── Category keywords ──
@@ -350,6 +354,167 @@ async function summarizeWithAI(
 
   // Keep original excerpt for failed/null summaries
   return results.map((summary, i) => summary ?? articles[i]!.excerpt);
+}
+
+// ── Unified AI Enrichment (ADR-003 Sprint A) ──
+
+interface EnrichmentResult {
+  enrichments: Array<{
+    index: number;
+    category: string;
+    summary: string;
+    topics: string[];
+    difficulty: string;
+    sentiment: string;
+    actionability: number;
+  }>;
+}
+
+interface EnrichedFields {
+  category: string;
+  summary: string;
+  topics: string[];
+  difficulty: string;
+  sentiment: string;
+  actionability: number;
+}
+
+async function enrichBatchWithGemini(
+  articles: { title: string; tags: string[]; excerpt: string; source: string }[]
+): Promise<(EnrichedFields | null)[]> {
+  if (!GEMINI_API_KEY) return articles.map(() => null);
+
+  const { GoogleGenAI } = await import("@google/genai");
+  const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+
+  const prompt = articles
+    .map(
+      (a, i) =>
+        `[${i}] Title: ${a.title}\nSource: ${a.source}\nTags: ${a.tags.join(", ") || "none"}\nExcerpt: ${a.excerpt.slice(0, 300)}`
+    )
+    .join("\n\n");
+
+  const systemPrompt = `Analyze each article for interview prep value.
+
+Categories: dsa, system-design, ai-ml, behavioral, career, interview-experience, compensation, general
+
+${CATEGORIES_DESCRIPTION}
+
+For each article return:
+- category: best-fit category from the list above
+- summary: 2-3 sentence summary focused on interview prep value
+- topics: 2-3 specific sub-topics (e.g., "binary search", "rate limiting", "TC negotiation")
+- difficulty: beginner, intermediate, or advanced
+- sentiment: positive, negative, or neutral (about the interview/career topic)
+- actionability: 0.0-1.0 how actionable is the advice (1.0 = step-by-step guide, 0.0 = purely theoretical)`;
+
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash-lite",
+      contents: `${systemPrompt}\n\nArticles:\n${prompt}`,
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: "object" as const,
+          properties: {
+            enrichments: {
+              type: "array" as const,
+              items: {
+                type: "object" as const,
+                properties: {
+                  index: { type: "number" as const },
+                  category: {
+                    type: "string" as const,
+                    enum: ["dsa", "system-design", "ai-ml", "behavioral", "career", "interview-experience", "compensation", "general"] as const,
+                  },
+                  summary: { type: "string" as const },
+                  topics: {
+                    type: "array" as const,
+                    items: { type: "string" as const },
+                  },
+                  difficulty: {
+                    type: "string" as const,
+                    enum: ["beginner", "intermediate", "advanced"] as const,
+                  },
+                  sentiment: {
+                    type: "string" as const,
+                    enum: ["positive", "negative", "neutral"] as const,
+                  },
+                  actionability: { type: "number" as const },
+                },
+                required: ["index", "category", "summary", "topics", "difficulty", "sentiment", "actionability"],
+              },
+            },
+          },
+          required: ["enrichments"],
+        },
+      },
+    });
+
+    const text = response.text ?? "";
+    const result: EnrichmentResult = JSON.parse(text);
+
+    const enrichments: (EnrichedFields | null)[] = articles.map(() => null);
+    for (const e of result.enrichments) {
+      if (e.index >= 0 && e.index < articles.length) {
+        enrichments[e.index] = {
+          category: e.category,
+          summary: e.summary,
+          topics: Array.isArray(e.topics) ? e.topics.slice(0, 3) : [],
+          difficulty: e.difficulty,
+          sentiment: e.sentiment,
+          actionability: typeof e.actionability === "number" ? Math.max(0, Math.min(1, e.actionability)) : 0,
+        };
+      }
+    }
+    return enrichments;
+  } catch (err) {
+    console.warn("Gemini enrichment failed, falling back to keyword classification:", (err as Error).message);
+    return articles.map(() => null);
+  }
+}
+
+async function enrichWithAI(
+  articles: { title: string; tags: string[]; excerpt: string; source: string }[]
+): Promise<EnrichedFields[]> {
+  const BATCH_SIZE = 20;
+  const results: (EnrichedFields | null)[] = new Array(articles.length).fill(null);
+
+  const batches: number[][] = [];
+  for (let i = 0; i < articles.length; i += BATCH_SIZE) {
+    batches.push(Array.from({ length: Math.min(BATCH_SIZE, articles.length - i) }, (_, j) => i + j));
+  }
+
+  const CONCURRENCY = 5;
+  for (let i = 0; i < batches.length; i += CONCURRENCY) {
+    const chunk = batches.slice(i, i + CONCURRENCY);
+    const batchResults = await Promise.all(
+      chunk.map(async (indices) => {
+        const batchArticles = indices.map((idx) => articles[idx]!);
+        const enrichments = await enrichBatchWithGemini(batchArticles);
+        return { indices, enrichments };
+      })
+    );
+    for (const { indices, enrichments } of batchResults) {
+      for (let j = 0; j < indices.length; j++) {
+        results[indices[j]!] = enrichments[j] ?? null;
+      }
+    }
+  }
+
+  // Fall back to keyword classification for failed/null results
+  return results.map((enriched, i) => {
+    if (enriched) return enriched;
+    const a = articles[i]!;
+    return {
+      category: categorize(a.title, a.tags),
+      summary: a.excerpt,
+      topics: [],
+      difficulty: "",
+      sentiment: "",
+      actionability: 0,
+    };
+  });
 }
 
 // ── Utility functions ──
@@ -1731,10 +1896,19 @@ async function main() {
 
   mkdirSync(outputDir, { recursive: true });
 
-  // ── AI classification cache ──
-  // Avoid re-classifying articles whose titles haven't changed since last run.
+  // ── AI enrichment cache ──
+  // Avoid re-enriching articles whose titles haven't changed since last run.
 
-  type AICacheEntry = { titleHash: string; category: string; summary: string; cachedAt: string };
+  type AICacheEntry = {
+    titleHash: string;
+    category: string;
+    summary: string;
+    topics: string[];
+    difficulty: string;
+    sentiment: string;
+    actionability: number;
+    cachedAt: string;
+  };
   const CACHE_PATH = join(outputDir, ".ai-cache.json");
   let aiCache: Record<string, AICacheEntry> = {};
   try {
@@ -1751,7 +1925,15 @@ async function main() {
     const article = all[i]!;
     const cached = aiCache[article.id];
     if (cached && cached.titleHash === titleHash(article.title)) {
-      all[i] = { ...article, category: cached.category, excerpt: cached.summary || article.excerpt };
+      all[i] = {
+        ...article,
+        category: cached.category,
+        excerpt: cached.summary || article.excerpt,
+        topics: cached.topics ?? [],
+        difficulty: cached.difficulty ?? "",
+        sentiment: cached.sentiment ?? "",
+        actionability: cached.actionability ?? 0,
+      };
       cacheHits++;
     } else {
       uncachedIndices.push(i);
@@ -1761,44 +1943,47 @@ async function main() {
   const cacheMisses = uncachedIndices.length;
   const cacheRate = all.length > 0 ? Math.round((cacheHits / all.length) * 100) : 0;
 
-  // AI classification step — reclassifies only uncached articles using Gemini
+  // AI enrichment step — single unified call replaces separate classify + summarize
   if (GEMINI_API_KEY) {
-    console.log(`\n🤖 AI classification with Gemini Flash-Lite...`);
+    console.log(`\n🤖 AI enrichment with Gemini Flash-Lite (unified pipeline)...`);
     console.log(`  Cache: ${cacheHits} hits, ${cacheMisses} misses (${cacheRate}% cache rate)`);
 
     if (uncachedIndices.length > 0) {
       const uncachedArticles = uncachedIndices.map((i) => all[i]!);
 
-      // Classify uncached articles
-      console.log(`  Classifying ${uncachedArticles.length} articles...`);
-      const aiCategories = await classifyWithAI(
-        uncachedArticles.map((a) => ({ title: a.title, tags: a.tags, excerpt: a.excerpt }))
+      // Unified enrich: category + summary + topics + difficulty + sentiment + actionability
+      console.log(`  Enriching ${uncachedArticles.length} articles...`);
+      const enriched = await enrichWithAI(
+        uncachedArticles.map((a) => ({ title: a.title, tags: a.tags, excerpt: a.excerpt, source: a.source }))
       );
-      const aiCount = aiCategories.filter((c, j) => c !== categorize(uncachedArticles[j]!.title, uncachedArticles[j]!.tags)).length;
-      console.log(`  AI reclassified ${aiCount} articles vs keyword baseline`);
 
-      for (let j = 0; j < uncachedIndices.length; j++) {
-        const idx = uncachedIndices[j]!;
-        all[idx] = { ...all[idx]!, category: aiCategories[j]! };
-      }
-
-      // Summarize uncached articles
-      console.log(`  Generating AI summaries for ${uncachedArticles.length} articles...`);
-      const aiSummaries = await summarizeWithAI(
-        uncachedArticles.map((a) => ({ title: a.title, excerpt: a.excerpt, source: a.source }))
-      );
+      const aiReclassified = enriched.filter((e, j) => e.category !== categorize(uncachedArticles[j]!.title, uncachedArticles[j]!.tags)).length;
+      console.log(`  AI reclassified ${aiReclassified} articles vs keyword baseline`);
+      console.log(`  Enrichment stats: topics=${enriched.filter(e => e.topics.length > 0).length}, difficulty=${enriched.filter(e => e.difficulty).length}, sentiment=${enriched.filter(e => e.sentiment).length}`);
 
       for (let j = 0; j < uncachedIndices.length; j++) {
         const idx = uncachedIndices[j]!;
         const article = all[idx]!;
-        const summary = aiSummaries[j]!;
-        all[idx] = { ...article, excerpt: summary };
+        const e = enriched[j]!;
+        all[idx] = {
+          ...article,
+          category: e.category,
+          excerpt: e.summary || article.excerpt,
+          topics: e.topics,
+          difficulty: e.difficulty,
+          sentiment: e.sentiment,
+          actionability: e.actionability,
+        };
 
-        // Update cache with fresh AI results
+        // Update cache with fresh enrichment results
         aiCache[article.id] = {
           titleHash: titleHash(article.title),
-          category: aiCategories[j]!,
-          summary,
+          category: e.category,
+          summary: e.summary || article.excerpt,
+          topics: e.topics,
+          difficulty: e.difficulty,
+          sentiment: e.sentiment,
+          actionability: e.actionability,
           cachedAt: new Date().toISOString(),
         };
       }
@@ -1809,7 +1994,7 @@ async function main() {
     // Persist updated cache
     writeFileSync(CACHE_PATH, JSON.stringify(aiCache, null, 2));
   } else {
-    console.log("\n📝 Using keyword classification (set GEMINI_API_KEY for AI)");
+    console.log("\n📝 Using keyword classification (set GEMINI_API_KEY for AI enrichment)");
   }
 
   const now = new Date().toISOString();
@@ -1860,6 +2045,10 @@ async function main() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     interviewFormats: (a as any).interviewFormats ?? [],
     sourceCorroboration: a.sourceCorroboration ?? 0,
+    topics: a.topics ?? [],
+    difficulty: a.difficulty ?? "",
+    sentiment: a.sentiment ?? "",
+    actionability: a.actionability ?? 0,
     aggregatedAt: now,
   }));
 

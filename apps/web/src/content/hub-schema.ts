@@ -28,6 +28,10 @@ export const feedArticleSchema = z.object({
   interviewQuestions: z.array(z.string()).default([]),
   interviewFormats: z.array(z.string()).default([]),
   sourceCorroboration: z.number().default(0),
+  topics: z.array(z.string()).default([]),
+  difficulty: z.string().default(""),
+  sentiment: z.string().default(""),
+  actionability: z.number().default(0),
 });
 
 /** Schema for the full feed file (array of articles) */
