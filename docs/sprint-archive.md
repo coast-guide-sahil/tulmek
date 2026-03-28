@@ -110,3 +110,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 194 | #234 | Content refresh — 1,358 articles from 17+ sources (75% increase) |
 | 195 | #235 | First-visit preference quiz — instant personalization |
 | 196 | #236 | README update — 1,358 articles, 17+ sources, all features |
+| 197 | #237 | Gemini embeddings + story clustering (ADR-003 Sprint B) |
