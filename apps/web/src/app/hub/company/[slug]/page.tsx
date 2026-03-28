@@ -452,6 +452,76 @@ export default async function CompanyPage({ params }: Props) {
         </section>
       )}
 
+      {/* Prep Plan */}
+      {(() => {
+        const catCountsMap = new Map<string, number>();
+        for (const a of companyArticles) {
+          catCountsMap.set(a.category, (catCountsMap.get(a.category) ?? 0) + 1);
+        }
+        const totalCat = [...catCountsMap.values()].reduce((s, v) => s + v, 0);
+        const topCategories = [...catCountsMap.entries()]
+          .map(([category, count]) => ({ category, count, percentage: Math.round((count / totalCat) * 100) }))
+          .sort((a, b) => b.count - a.count)
+          .slice(0, 5);
+
+        if (topCategories.length === 0) return null;
+
+        return (
+          <section className="mt-8 rounded-xl border border-primary/20 bg-primary/5 p-4 sm:p-5">
+            <h2 className="text-lg font-bold text-foreground mb-1">Prep Plan for {name}</h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              Based on {companyArticles.length} articles and {companyQuestions.length} reported questions
+            </p>
+
+            {/* Focus areas with time allocation */}
+            <div className="space-y-3">
+              <h3 className="text-sm font-semibold text-foreground">Focus Areas</h3>
+              {topCategories.map(({ category, percentage }) => (
+                <div key={category} className="flex items-center gap-3">
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-sm text-foreground">{getCategoryMeta(category).label}</span>
+                      <span className="text-xs text-muted-foreground">{percentage}% of prep time</span>
+                    </div>
+                    <div className="h-2 rounded-full bg-muted overflow-hidden">
+                      <div
+                        className="h-full rounded-full transition-all"
+                        style={{ width: `${percentage}%`, backgroundColor: `var(--accent-${category})` }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Interview format checklist */}
+            {formats.length > 0 && (
+              <div className="mt-4">
+                <h3 className="text-sm font-semibold text-foreground mb-2">Practice Checklist</h3>
+                <div className="space-y-1.5">
+                  {formats.map(({ format }) => (
+                    <label key={format} className="flex items-center gap-2 text-sm text-foreground">
+                      <input type="checkbox" className="rounded border-border" />
+                      Practice {format} interviews
+                    </label>
+                  ))}
+                  <label className="flex items-center gap-2 text-sm text-foreground">
+                    <input type="checkbox" className="rounded border-border" />
+                    Review {companyArticles.length} {name} articles
+                  </label>
+                  {companyQuestions.length > 0 && (
+                    <label className="flex items-center gap-2 text-sm text-foreground">
+                      <input type="checkbox" className="rounded border-border" />
+                      Study {companyQuestions.length} reported questions
+                    </label>
+                  )}
+                </div>
+              </div>
+            )}
+          </section>
+        );
+      })()}
+
       {/* Recent Interview Questions (IQI) */}
       {companyQuestions.length > 0 && (
         <section className="mt-6">
