@@ -1252,8 +1252,57 @@ async function main() {
   console.log(`  Newsletters: ${newsletters.length} articles`);
   console.log(`  Glassdoor: ${glassdoor.length} articles`);
 
-  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...github, ...youtube, ...newsletters, ...glassdoor];
-  all = deduplicateByUrl(all);
+  const raw = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...github, ...youtube, ...newsletters, ...glassdoor];
+
+  // Write output to shared @tulmek/content package (single source of truth)
+  const outputDir = join(__dirname, "..", "..", "..", "packages", "content", "src", "hub");
+  mkdirSync(outputDir, { recursive: true });
+
+  // ── Content staleness detection ──
+  const sourceCounts: Record<string, number> = {};
+  for (const a of raw) {
+    sourceCounts[a.source] = (sourceCounts[a.source] ?? 0) + 1;
+  }
+
+  const EXPECTED_SOURCES = ["hackernews", "reddit", "devto", "medium", "leetcode", "github", "youtube", "newsletter"];
+  const stalenessWarnings: string[] = [];
+
+  for (const source of EXPECTED_SOURCES) {
+    const count = sourceCounts[source] ?? 0;
+    if (count === 0) {
+      stalenessWarnings.push(`⚠️ ALERT: ${source} returned 0 articles — source may be broken`);
+    } else if (count < 5) {
+      stalenessWarnings.push(`⚠️ WARNING: ${source} only returned ${count} articles (unusually low)`);
+    }
+  }
+
+  if (stalenessWarnings.length > 0) {
+    console.error("\n🚨 Content Staleness Alerts:");
+    for (const w of stalenessWarnings) console.error(`  ${w}`);
+    // Exit with non-zero if critical sources are completely missing
+    const criticalMissing = EXPECTED_SOURCES.filter(s => (sourceCounts[s] ?? 0) === 0);
+    if (criticalMissing.length >= 3) {
+      console.error(`\n❌ ${criticalMissing.length} sources completely failed — aborting to prevent data loss`);
+      process.exit(1);
+    }
+  }
+
+  // ── Total article count guard: abort if count dropped below 50% of previous ──
+  const METADATA_PATH = join(outputDir, "metadata.json");
+  try {
+    const prevMeta = JSON.parse(readFileSync(METADATA_PATH, "utf-8")) as { totalArticles: number };
+    const prevTotal = prevMeta.totalArticles;
+    if (prevTotal > 0 && raw.length < prevTotal * 0.5) {
+      console.error(
+        `\n❌ Article count dropped from ${prevTotal} to ${raw.length} (${Math.round((raw.length / prevTotal) * 100)}% of previous) — aborting to prevent data loss`
+      );
+      process.exit(1);
+    }
+  } catch {
+    // No previous metadata — first run or missing file, skip guard
+  }
+
+  let all = deduplicateByUrl(raw);
 
   // Layer 2: SimHash near-duplicate title detection
   const beforeTitle = all.length;
@@ -1269,10 +1318,6 @@ async function main() {
     if (scoreDiff !== 0) return scoreDiff;
     return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
   });
-
-  // Write output to shared @tulmek/content package (single source of truth)
-  const outputDir = join(__dirname, "..", "..", "..", "packages", "content", "src", "hub");
-  mkdirSync(outputDir, { recursive: true });
 
   // ── AI classification cache ──
   // Avoid re-classifying articles whose titles haven't changed since last run.
