@@ -37,6 +37,7 @@ interface RawArticle {
   readingTime: number;
   discussionUrl: string | null;
   interviewQuestions?: string[];
+  interviewFormats?: string[];
 }
 
 // ── Category keywords ──
@@ -1203,6 +1204,11 @@ async function fetchNewsletters(): Promise<RawArticle[]> {
     "https://www.hellointerview.com/blog/rss.xml": "Hello Interview",
     "https://interviewing.io/blog/feed": "interviewing.io",
     "https://www.levels.fyi/blog/rss.xml": "Levels.fyi Blog",
+    // AI & Career focused
+    "https://www.lennysnewsletter.com/feed": "Lenny's Newsletter",
+    "https://hellointerview.substack.com/feed": "Hello Interview Newsletter",
+    "https://blog.tryexponent.com/rss/": "Exponent Blog",
+    "https://www.techinterviewhandbook.org/blog/rss.xml": "Tech Interview Handbook",
   };
 
   for (const [feedUrl, name] of Object.entries(feeds)) {
@@ -1263,6 +1269,80 @@ async function fetchNewsletters(): Promise<RawArticle[]> {
     } catch (err) {
       console.warn(`  Warning: Newsletter ${name} failed:`, (err as Error).message);
     }
+  }
+
+  return articles;
+}
+
+// ── HN "Who's Hiring" thread parser ──
+
+async function fetchHNHiring(): Promise<RawArticle[]> {
+  console.log("  Fetching HN Who's Hiring...");
+  const articles: RawArticle[] = [];
+
+  try {
+    // Search for the latest "Who is hiring" thread
+    const res = await fetch(
+      "https://hn.algolia.com/api/v1/search?query=%22who%20is%20hiring%22&tags=ask_hn&hitsPerPage=1"
+    );
+    if (!res.ok) return articles;
+    const data = await res.json() as { hits: Array<{ objectID: string; title: string; created_at: string; num_comments: number; points: number }> };
+
+    const thread = data.hits[0];
+    if (!thread) return articles;
+
+    // Fetch top-level comments (job postings)
+    const commentsRes = await fetch(
+      `https://hn.algolia.com/api/v1/items/${thread.objectID}`
+    );
+    if (!commentsRes.ok) return articles;
+    const threadData = await commentsRes.json() as {
+      children: Array<{
+        id: number;
+        text: string;
+        created_at: string;
+        author: string;
+      }>;
+    };
+
+    // Each top-level comment is a job posting
+    for (const comment of (threadData.children ?? []).slice(0, 50)) {
+      if (!comment.text || comment.text.length < 50) continue;
+
+      // Extract company name from first line (usually "Company Name | Location | ...")
+      const firstLine = comment.text.replace(/<[^>]+>/g, "").split("\n")[0] ?? "";
+      const companyMatch = firstLine.match(/^([^|]+)/);
+      const company = companyMatch?.[1]?.trim() ?? "Unknown";
+
+      // Clean HTML from text
+      const cleanText = comment.text
+        .replace(/<[^>]+>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, 500);
+
+      articles.push({
+        id: `hackernews:hiring-${comment.id}`,
+        title: `${company} is hiring — HN Who's Hiring`,
+        url: `https://news.ycombinator.com/item?id=${comment.id}`,
+        source: "hackernews",
+        sourceName: "HN Who's Hiring",
+        sourceIcon: SOURCE_ICONS.hackernews,
+        domain: "news.ycombinator.com",
+        category: "career",
+        tags: ["hiring", "job-posting", company.toLowerCase()],
+        excerpt: cleanText,
+        publishedAt: comment.created_at ?? new Date().toISOString(),
+        score: 10,
+        commentCount: 0,
+        readingTime: 1,
+        discussionUrl: `https://news.ycombinator.com/item?id=${thread.objectID}`,
+        interviewQuestions: [],
+        interviewFormats: [],
+      });
+    }
+  } catch (err) {
+    console.warn("  Warning: HN Who's Hiring failed:", (err as Error).message);
   }
 
   return articles;
@@ -1377,7 +1457,7 @@ async function fetchGlassdoor(): Promise<RawArticle[]> {
 async function main() {
   console.log("🔄 Fetching hub content...\n");
 
-  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, youtube, newsletters, glassdoor] = await Promise.all([
+  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, youtube, newsletters, glassdoor, hnHiring] = await Promise.all([
     fetchHackerNews(),
     fetchReddit(),
     fetchRedditSearch(),
@@ -1389,6 +1469,7 @@ async function main() {
     fetchYouTube(),
     fetchNewsletters(),
     fetchGlassdoor(),
+    fetchHNHiring(),
   ]);
 
   console.log(`\n  HackerNews: ${hn.length} articles`);
@@ -1402,8 +1483,9 @@ async function main() {
   console.log(`  YouTube: ${youtube.length} articles`);
   console.log(`  Newsletters: ${newsletters.length} articles`);
   console.log(`  Glassdoor: ${glassdoor.length} articles`);
+  console.log(`  HN Who's Hiring: ${hnHiring.length} articles`);
 
-  const all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...youtube, ...newsletters, ...glassdoor];
+  const all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...youtube, ...newsletters, ...glassdoor, ...hnHiring];
 
   // ── Content staleness detection ──
   const sourceCounts: Record<string, number> = {};
