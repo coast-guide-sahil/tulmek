@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/coast-guide-sahil/tulmek/compare/web-v1.1.0...web-v1.2.0) (2026-03-28)
+
+
+### Features
+
+* leetcode daily challenge integration ([#210](https://github.com/coast-guide-sahil/tulmek/issues/210)) ([bb1fcd4](https://github.com/coast-guide-sahil/tulmek/commit/bb1fcd4d77acf472dbe922e130d2d6eab4848c0e))
+
 ## [1.1.0](https://github.com/coast-guide-sahil/tulmek/compare/web-v1.0.0...web-v1.1.0) (2026-03-28)
 
 
