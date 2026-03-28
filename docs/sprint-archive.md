@@ -113,3 +113,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 197 | #237 | Gemini embeddings + story clustering (ADR-003 Sprint B) |
 | 198 | #238 | Critical duplicate fix + dead code cleanup (901 unique articles) |
 | 199 | #239 | Interview Question Intelligence — data model + extraction pipeline |
+| 200 | #240 | /hub/questions — searchable interview question bank |
