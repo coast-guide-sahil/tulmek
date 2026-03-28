@@ -9,22 +9,27 @@
 
 ## Backlog (prioritized)
 
-### AI Curation (ADR-003 Sprint C)
-1. [ ] TCRA v3 — semantic richness via embeddings, MMR diversity, Thompson Sampling `#ai` `#high`
-2. [ ] Trend detection — topic velocity + burst detection `#ai` `#medium`
+### Launch (ready to execute)
+1. [ ] Show HN launch — materials at docs/launch/, needs final review + posting `#growth` `#critical`
+2. [ ] Product Hunt launch — needs assets (screenshots, video, tagline) `#growth` `#high`
+3. [ ] Reddit campaign — r/cscareerquestions, r/leetcode, r/InternetIsBeautiful `#growth` `#high`
+4. [ ] Twitter/X launch thread (pre-write 8-10 tweets) `#growth` `#medium`
+5. [ ] DEV.to article: "How I Built an AI-Powered Ranking Algorithm" `#growth` `#medium`
 
 ### Platform Polish
-3. [ ] Mobile: swipe-to-bookmark + haptic feedback `#mobile` `#medium`
-4. [ ] Mobile: /questions tab on mobile app `#mobile` `#medium`
-5. [ ] H1B/LCA visa data — USCIS + DOL government data `#data-quality` `#medium`
+6. [ ] Fix desktop builds (turbo.json files causing failures) `#ci` `#high`
+7. [ ] "Daily Question" widget on hub homepage — AI-selected from IQI bank `#engagement` `#medium`
+8. [ ] Company "hiring status" live badge (hiring/freezing/laying off) from WARN + job APIs `#data-quality` `#medium`
+9. [ ] Keyboard shortcut help overlay — show all shortcuts on "?" press `#ux` `#low`
 
-### Launch
-6. [ ] Show HN launch — materials ready at docs/launch/ `#growth` `#high`
-7. [ ] Product Hunt launch `#growth` `#medium`
-8. [ ] Reddit campaign `#growth` `#medium`
+### Data Expansion
+10. [ ] Arbeitnow API — European jobs + visa sponsorship filter `#data-quality` `#low`
+11. [ ] Stack Exchange API — technology trends from SO tag popularity `#data-quality` `#low`
+12. [ ] arXiv API — CS/ML interview research papers `#data-quality` `#low`
 
 ### Research (continuous — Opus 4.6 high thinking)
-- 19+ data sources operational
-- IQI pipeline complete (extraction + dedup + UI + company integration)
+- All AI curation features complete (ADR-003 Sprints A, B, C)
+- 20+ data sources, 914 unique articles
+- 66 TCRA unit tests, IQI pipeline complete
 - Show HN materials pre-written and verified
 - Zero lint warnings, zero console errors
