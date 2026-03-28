@@ -76,3 +76,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 154-157 | #196 | CI/CD pipeline audit + rewrite, WCAG 2 AA compliance |
 | 158 | #197 | AI content classification with Gemini 2.5 Flash-Lite |
 | 159 | #198 | Programmatic SEO — company x category pages + JSON-LD |
+| 160 | #199 | AI article summaries with Gemini 2.5 Flash-Lite |
