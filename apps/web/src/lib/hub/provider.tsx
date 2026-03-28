@@ -105,6 +105,8 @@ export function useHubActions() {
       isRead: s.isRead,
       dismiss: s.dismiss,
       recordEngagement: s.recordEngagement,
+      startDwellTimer: s.startDwellTimer,
+      stopDwellTimer: s.stopDwellTimer,
     })),
   );
 }

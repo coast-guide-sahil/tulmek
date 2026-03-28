@@ -15,12 +15,15 @@ export interface ImplicitSignals {
   categoryEngagement: Record<string, number>;
   sourceEngagement: Record<string, number>;
   sessionCount: number;
+  /** Average dwell time in seconds per category */
+  avgDwellTime: Record<string, number>;
 }
 
 const DEFAULT_SIGNALS: ImplicitSignals = {
   categoryEngagement: {},
   sourceEngagement: {},
   sessionCount: 0,
+  avgDwellTime: {},
 };
 
 const EMA_ALPHA = 0.3; // Recent actions matter ~3x more than older ones
@@ -51,6 +54,10 @@ export interface HubActions {
   dismiss: (articleId: string) => void;
   /** Record implicit engagement signal (call on article click/read) */
   recordEngagement: (category: string, source: string) => void;
+  /** Start dwell timer when user opens an article */
+  startDwellTimer: (articleId: string, category: string) => void;
+  /** Stop dwell timer when user returns (page becomes visible) */
+  stopDwellTimer: () => void;
 }
 
 export type HubStoreState = HubState & HubActions;
@@ -62,6 +69,10 @@ export interface HubStoreDeps {
   /** Storage keys for persistence — injected from @tulmek/config */
   storageKeys: { readKey: string; dismissedKey: string; signalsKey: string };
 }
+
+// Dwell timer state (not in Zustand to avoid re-renders)
+let dwellStart: number | null = null;
+let dwellCategory: string | null = null;
 
 export function createHubStore(deps: HubStoreDeps) {
   return create<HubStoreState>()((set, get) => ({
@@ -151,6 +162,32 @@ export function createHubStore(deps: HubStoreDeps) {
       dismissedIds.add(articleId);
       set({ dismissedIds });
       void deps.setStorage.save(deps.storageKeys.dismissedKey, dismissedIds);
+    },
+
+    startDwellTimer: (_articleId: string, category: string) => {
+      dwellStart = Date.now();
+      dwellCategory = category;
+    },
+
+    stopDwellTimer: () => {
+      if (!dwellStart || !dwellCategory) return;
+      const dwellSeconds = Math.round((Date.now() - dwellStart) / 1000);
+      const category = dwellCategory;
+      dwellStart = null;
+      dwellCategory = null;
+
+      // Ignore very short (<3s) or very long (>30min) dwell times
+      if (dwellSeconds < 3 || dwellSeconds > 1800) return;
+
+      const prev = get().signals;
+      const prevAvg = prev.avgDwellTime[category] ?? 30;
+      const newAvg = updateEMA(prevAvg, dwellSeconds);
+      const signals: ImplicitSignals = {
+        ...prev,
+        avgDwellTime: { ...prev.avgDwellTime, [category]: Math.round(newAvg) },
+      };
+      set({ signals });
+      void deps.setStorage.save(deps.storageKeys.signalsKey, new Set([JSON.stringify(signals)]));
     },
 
     recordEngagement: (category: string, source: string) => {
