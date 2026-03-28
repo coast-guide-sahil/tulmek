@@ -108,3 +108,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 192 | #232 | Discovery badges for unexplored categories |
 | 193 | #233 | Greenhouse + Lever public job board APIs (12 companies) |
 | 194 | #234 | Content refresh — 1,358 articles from 17+ sources (75% increase) |
+| 195 | #235 | First-visit preference quiz — instant personalization |
