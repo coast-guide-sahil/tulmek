@@ -103,3 +103,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 187 | #226 | Demo GIF + README stats update (1,192 articles) |
 | 188 | #227 | Add 3 job APIs (RemoteOK, Jobicy, Himalayas) + 4 newsletter feeds |
 | 189 | #229 | Content refresh — 1,292 articles from 15+ sources |
+| 190 | #230 | Unified AI enrichment pipeline (ADR-003 Sprint A) |
