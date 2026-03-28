@@ -10,6 +10,7 @@ import { FeaturedPicks } from "@/components/hub/featured-picks";
 import { TodaysBriefWrapper } from "@/components/hub/todays-brief-wrapper";
 import { NewSinceVisit } from "@/components/hub/new-since-visit";
 import { WelcomeBack } from "@/components/hub/welcome-back";
+import { WeeklySummary } from "@/components/hub/weekly-summary";
 import { FirstVisit } from "@/components/hub/first-visit";
 import { PrepCoverage } from "@/components/hub/prep-coverage";
 import { TrendingTopics } from "@/components/hub/trending-topics";
@@ -85,6 +86,9 @@ export default function HubPage() {
 
       {/* First visit onboarding */}
       <FirstVisit articleCount={feedMeta.totalArticles} sourceCount={Object.keys(feedMeta.sourceBreakdown).length} />
+
+      {/* Weekly Prep Summary — stats widget for returning users */}
+      <WeeklySummary articles={articles} />
 
       {/* 2. Today's Brief — daily digest with per-category breakdown */}
       <TodaysBriefWrapper articles={articles} nowMs={BUILD_TIME} />
