@@ -182,3 +182,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 266 | #305 | Mobile reading progress bar |
 | 267 | #306 | Content refresh + E2E fix + visual baseline — all platforms tested |
 | 268 | #307 | Hot badge for high-engagement articles (score >= 100) |
+| 269 | #308 | Mobile Hot + Fresh badges on article cards |
