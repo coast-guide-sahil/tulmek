@@ -5,16 +5,16 @@
 
 ## Active
 
-3. [x] Glassdoor interview reviews as 8th content source `#data-quality` `#high`
+- [ ] Sprint 163: Deduplicate COMPANY_DISPLAY `#tech-debt` (agent in progress)
+- [ ] Sprint 165: Unit tests for TCRA ranking `#testing` (agent in progress)
 
 ## Backlog (prioritized)
+1. [ ] Add Plausible analytics + Sentry error tracking `#observability` `#high`
+2. [ ] Shareable company prep cards — OG social cards for viral sharing `#growth` `#medium`
+3. [ ] Content staleness alerting — detect when sources fail silently `#reliability` `#medium`
 4. [ ] Mobile: company comparison page `#mobile` `#medium`
-5. [ ] Shareable company prep cards — OG social cards for viral sharing `#growth` `#medium`
-6. [ ] Email digest subscription (weekly top 10 per company) `#growth` `#retention` `#medium`
-7. [ ] Structured interview question extraction from articles `#data-quality` `#medium`
-8. [ ] FAQ schema + rich snippets on company pages `#seo` `#medium`
-9. [ ] Unit tests for TCRA ranking algorithm `#testing` `#medium`
-10. [ ] Add /hub/compare and /hub/settings to sitemap `#seo` `#low`
-11. [ ] Feed sharding + lazy Orama index (prep for 5K+ articles) `#performance` `#low`
-12. [ ] LeetCode daily problem integration `#data-quality` `#low`
-13. [ ] Show HN launch (Sunday, when ready) `#growth` `#blocked`
+5. [ ] Email digest subscription (weekly top 10 per company) `#growth` `#retention` `#medium`
+6. [ ] Structured interview question extraction from articles `#data-quality` `#medium`
+7. [ ] Feed sharding + lazy Orama index (prep for 5K+ articles) `#performance` `#low`
+8. [ ] LeetCode daily problem integration `#data-quality` `#low`
+9. [ ] Show HN launch (Sunday, when ready) `#growth` `#blocked`

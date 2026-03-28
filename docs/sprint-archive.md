@@ -78,3 +78,7 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 159 | #198 | Programmatic SEO — company x category pages + JSON-LD |
 | 160 | #199 | AI article summaries with Gemini 2.5 Flash-Lite |
 | 161 | #200 | Glassdoor interview reviews as 9th content source |
+| 162 | #202 | FAQ schema + People Also Ask on company pages |
+| 164 | #201 | Expand sitemap with all missing hub pages |
+| 166 | #204 | AI classification cache — reduce Gemini costs ~70% |
+| 167 | #203 | Content refresh — 737 articles from 8 sources |
