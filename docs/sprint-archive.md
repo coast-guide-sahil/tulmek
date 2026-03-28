@@ -86,3 +86,6 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 165 | #206 | TCRA ranking unit tests (38 tests) |
 | 168 | #205 | Plausible analytics (privacy-friendly) |
 | 169 | #208 | Shareable company prep cards + social sharing |
+| 171 | #209 | Mobile company comparison screen |
+| 172 | #210 | LeetCode daily challenge integration |
+| 175 | #214 | Interview question extraction from articles |
