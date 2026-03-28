@@ -6,7 +6,7 @@
         "http://localhost:3000/hub/company/google",
         "http://localhost:3000/hub/pulse"
       ],
-      "startServerCommand": "pnpm --filter @tulmek/web start",
+      "startServerCommand": "node apps/web/.next/standalone/apps/web/server.js",
       "startServerReadyPattern": "Ready",
       "numberOfRuns": 1
     },

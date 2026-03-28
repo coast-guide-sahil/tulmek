@@ -139,11 +139,15 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: web-build
-          path: apps/web/
-      - name: Wait for server to be ready
+          path: apps/web/.next/
+      - name: Start standalone server
         run: |
-          pnpm --filter @tulmek/web start &
+          # Copy static assets for standalone mode
+          cp -r apps/web/.next/static apps/web/.next/standalone/apps/web/.next/static 2>/dev/null || true
+          node apps/web/.next/standalone/apps/web/server.js &
           npx wait-on http://localhost:3000 --timeout 30000
+        env:
+          PORT: 3000
       - name: Run E2E tests (excluding a11y — runs in separate job)
         run: |
           pnpm --filter @tulmek/web exec playwright test \
@@ -192,11 +196,14 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: web-build
-          path: apps/web/
-      - name: Wait for server to be ready
+          path: apps/web/.next/
+      - name: Start standalone server
         run: |
-          pnpm --filter @tulmek/web start &
+          cp -r apps/web/.next/static apps/web/.next/standalone/apps/web/.next/static 2>/dev/null || true
+          node apps/web/.next/standalone/apps/web/server.js &
           npx wait-on http://localhost:3000 --timeout 30000
+        env:
+          PORT: 3000
       - name: Run accessibility tests
         run: pnpm --filter @tulmek/web exec playwright test accessibility.spec.ts
         env:
@@ -227,9 +234,14 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: web-build
-          path: apps/web/
+          path: apps/web/.next/
+      - name: Prepare standalone server for Lighthouse
+        run: |
+          cp -r apps/web/.next/static apps/web/.next/standalone/apps/web/.next/static 2>/dev/null || true
       - uses: treosh/lighthouse-ci-action@v12
         with:
           configPath: ./lighthouserc.json
           uploadArtifacts: true
           temporaryPublicStorage: true
+        env:
+          LHCI_BUILD_CONTEXT__CURRENT_HASH: ${{ github.sha }}
