@@ -164,3 +164,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 248 | #288 | Content refresh — 949 articles, all 3 platforms tested live |
 | 249 | #289 | Interview countdown daily tips (context-aware advice) |
 | 250 | #290 | Sprint 250 milestone — final sprint board refresh |
+| 251 | #291 | Fresh badge for articles < 6 hours old |
