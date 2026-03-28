@@ -51,6 +51,16 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="compare"
+        options={{
+          title: "Compare",
+          tabBarLabel: "Compare",
+          tabBarIcon: ({ color, size }) => (
+            <TabIcon name="compare" color={color} size={size} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }
@@ -61,6 +71,7 @@ function TabIcon({ name, color, size }: { name: string; color: string; size: num
     home: "🏠",
     pulse: "📊",
     saved: "★",
+    compare: "⇌",
   };
   return (
     <Text style={{ fontSize: size * 0.8, color }}>
