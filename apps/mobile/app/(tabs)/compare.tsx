@@ -5,13 +5,13 @@ import {
   StyleSheet,
   ScrollView,
   Pressable,
-  useColorScheme,
 } from "react-native";
 import { Link } from "expo-router";
 import type { FeedArticle } from "@tulmek/core/domain";
 import { COMPANY_DISPLAY } from "@tulmek/core/domain";
 import { TRENDING_SCORE_THRESHOLD } from "@tulmek/config/constants";
 import feedData from "@tulmek/content/hub/feed";
+import { useThemeColors } from "../../src/hooks/useThemeColors";
 
 const articles = feedData as unknown as FeedArticle[];
 
@@ -84,9 +84,18 @@ function getValue(row: CompanyRow, key: SortKey): number {
 }
 
 export default function CompareScreen() {
-  const rawScheme = useColorScheme();
-  const isDark = rawScheme !== "light";
-  const t = isDark ? dark : light;
+  const theme = useThemeColors();
+  // Map to local shape that this screen uses (surface/surfaceAlt/accent/textSecondary)
+  const t = {
+    bg: theme.bg,
+    surface: theme.card,
+    surfaceAlt: theme.bg,
+    border: theme.cardBorder,
+    text: theme.text,
+    textSecondary: theme.textSecondary,
+    muted: theme.textMuted,
+    accent: theme.primary,
+  };
 
   const [sortKey, setSortKey] = useState<SortKey>("articles");
 
@@ -183,7 +192,9 @@ export default function CompareScreen() {
   );
 }
 
-function NumCell({ value, highlighted, t }: { value: number; highlighted: boolean; t: typeof dark }) {
+type CompareTheme = { accent: string; muted: string; textSecondary: string };
+
+function NumCell({ value, highlighted, t }: { value: number; highlighted: boolean; t: CompareTheme }) {
   return (
     <Text
       style={[
@@ -197,29 +208,6 @@ function NumCell({ value, highlighted, t }: { value: number; highlighted: boolea
     </Text>
   );
 }
-
-// ── Theme tokens ──
-const dark = {
-  bg: "#09090b",
-  surface: "#18181b",
-  surfaceAlt: "#09090b",
-  border: "#27272a",
-  text: "#fafafa",
-  textSecondary: "#e4e4e7",
-  muted: "#71717a",
-  accent: "#3b82f6",
-};
-
-const light = {
-  bg: "#ffffff",
-  surface: "#f4f4f5",
-  surfaceAlt: "#ffffff",
-  border: "#e4e4e7",
-  text: "#09090b",
-  textSecondary: "#3f3f46",
-  muted: "#a1a1aa",
-  accent: "#2563eb",
-};
 
 const styles = StyleSheet.create({
   container: { flex: 1 },

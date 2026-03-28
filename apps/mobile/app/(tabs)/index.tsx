@@ -7,9 +7,9 @@ import {
   Pressable,
   Linking,
   TextInput,
-  useColorScheme,
 } from "react-native";
-import { themes, type ThemeColors } from "../../src/theme";
+import { useThemeColors } from "../../src/hooks/useThemeColors";
+import type { ThemeColors } from "../../src/hooks/useThemeColors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Link } from "expo-router";
 import { APP_NAME, TRENDING_SCORE_THRESHOLD, NEW_ARTICLE_WINDOW_MS } from "@tulmek/config/constants";
@@ -71,11 +71,12 @@ function useBookmarks() {
 }
 
 // ── Article Card ──
-function ArticleCard({ article, nowMs, isBookmarked, onToggleBookmark }: {
+function ArticleCard({ article, nowMs, isBookmarked, onToggleBookmark, t }: {
   article: FeedArticle;
   nowMs: number;
   isBookmarked: boolean;
   onToggleBookmark: (id: string) => void;
+  t: ThemeColors;
 }) {
   const meta = getCategoryMeta(article.category);
   const color = getCategoryColor(article.category);
@@ -86,7 +87,11 @@ function ArticleCard({ article, nowMs, isBookmarked, onToggleBookmark }: {
 
   return (
     <Pressable
-      style={({ pressed }) => [styles.card, { borderLeftColor: color }, pressed && styles.cardPressed]}
+      style={({ pressed }) => [
+        styles.card,
+        { backgroundColor: t.card, borderColor: t.cardBorder, borderLeftColor: color },
+        pressed && styles.cardPressed,
+      ]}
       onPress={() => Linking.openURL(article.url)}
       accessibilityRole="link"
       accessibilityLabel={`${article.title} from ${source}`}
@@ -96,20 +101,20 @@ function ArticleCard({ article, nowMs, isBookmarked, onToggleBookmark }: {
         <View style={[styles.categoryPill, { backgroundColor: color + "20" }]}>
           <Text style={[styles.categoryPillText, { color }]}>{meta.label}</Text>
         </View>
-        <Text style={styles.cardSource}>{source}</Text>
-        <Text style={styles.cardTime}>{relTime}</Text>
+        <Text style={[styles.cardSource, { color: t.textSecondary }]}>{source}</Text>
+        <Text style={[styles.cardTime, { color: t.textMuted }]}>{relTime}</Text>
         {isNew && <Text style={styles.newBadge}>NEW</Text>}
         {isTrending && <Text style={styles.trendingBadge}>TRENDING</Text>}
       </View>
 
       {/* Title */}
-      <Text style={styles.cardTitle} numberOfLines={3}>
+      <Text style={[styles.cardTitle, { color: t.text }]} numberOfLines={3}>
         {article.title}
       </Text>
 
       {/* Excerpt */}
       {article.excerpt !== article.title && (
-        <Text style={styles.cardExcerpt} numberOfLines={2}>
+        <Text style={[styles.cardExcerpt, { color: t.textMuted }]} numberOfLines={2}>
           {article.excerpt}
         </Text>
       )}
@@ -118,12 +123,12 @@ function ArticleCard({ article, nowMs, isBookmarked, onToggleBookmark }: {
       <View style={styles.cardFooter}>
         <View style={styles.cardStats}>
           {article.score > 0 && (
-            <Text style={styles.cardStat}>▲ {formatCount(article.score)}</Text>
+            <Text style={[styles.cardStat, { color: t.textMuted }]}>▲ {formatCount(article.score)}</Text>
           )}
           {article.commentCount > 0 && (
-            <Text style={styles.cardStat}>💬 {formatCount(article.commentCount)}</Text>
+            <Text style={[styles.cardStat, { color: t.textMuted }]}>💬 {formatCount(article.commentCount)}</Text>
           )}
-          <Text style={styles.cardStat}>{article.readingTime} min</Text>
+          <Text style={[styles.cardStat, { color: t.textMuted }]}>{article.readingTime} min</Text>
         </View>
         <Pressable
           onPress={(e) => { e.stopPropagation?.(); onToggleBookmark(article.id); }}
@@ -132,7 +137,7 @@ function ArticleCard({ article, nowMs, isBookmarked, onToggleBookmark }: {
           accessibilityLabel={isBookmarked ? "Remove bookmark" : "Add bookmark"}
           hitSlop={8}
         >
-          <Text style={[styles.bookmarkIcon, isBookmarked && styles.bookmarkIconActive]}>
+          <Text style={[styles.bookmarkIcon, { color: t.textMuted }, isBookmarked && styles.bookmarkIconActive]}>
             {isBookmarked ? "★" : "☆"}
           </Text>
         </Pressable>
@@ -151,10 +156,12 @@ function CategoryFilter({
   active,
   onSelect,
   counts,
+  t,
 }: {
   active: HubCategory | null;
   onSelect: (cat: HubCategory | null) => void;
   counts: Record<string, number>;
+  t: ThemeColors;
 }) {
   const total = Object.values(counts).reduce((a, b) => a + b, 0);
 
@@ -169,31 +176,40 @@ function CategoryFilter({
       }))].filter((c) => c.count > 0)}
       keyExtractor={(item) => item.id ?? "all"}
       contentContainerStyle={styles.categoryList}
-      renderItem={({ item }) => (
-        <Pressable
-          style={[
-            styles.categoryChip,
-            active === item.id && styles.categoryChipActive,
-          ]}
-          onPress={() => onSelect(active === item.id ? null : item.id)}
-          accessibilityRole="button"
-          accessibilityState={{ selected: active === item.id }}
-        >
-          <Text
+      renderItem={({ item }) => {
+        const isActive = active === item.id;
+        return (
+          <Pressable
             style={[
-              styles.categoryChipText,
-              active === item.id && styles.categoryChipTextActive,
+              styles.categoryChip,
+              { backgroundColor: isActive ? t.chipActiveBg : t.chipBg },
             ]}
+            onPress={() => onSelect(isActive ? null : item.id)}
+            accessibilityRole="button"
+            accessibilityState={{ selected: isActive }}
           >
-            {item.label}
-          </Text>
-          <View style={[styles.countBadge, active === item.id && styles.countBadgeActive]}>
-            <Text style={[styles.countText, active === item.id && styles.countTextActive]}>
-              {item.count}
+            <Text
+              style={[
+                styles.categoryChipText,
+                { color: isActive ? t.chipActiveText : t.textSecondary },
+              ]}
+            >
+              {item.label}
             </Text>
-          </View>
-        </Pressable>
-      )}
+            <View style={[
+              styles.countBadge,
+              { backgroundColor: isActive ? t.chipActiveText + "20" : t.cardBorder },
+            ]}>
+              <Text style={[
+                styles.countText,
+                { color: isActive ? t.chipActiveText : t.textMuted },
+              ]}>
+                {item.count}
+              </Text>
+            </View>
+          </Pressable>
+        );
+      }}
     />
   );
 }
@@ -208,7 +224,7 @@ const SORT_OPTIONS: { id: SortMode; label: string }[] = [
   { id: "popular", label: "Popular" },
 ];
 
-function SortPicker({ value, onChange }: { value: SortMode; onChange: (v: SortMode) => void }) {
+function SortPicker({ value, onChange, t }: { value: SortMode; onChange: (v: SortMode) => void; t: ThemeColors }) {
   return (
     <FlashList
       horizontal
@@ -216,18 +232,24 @@ function SortPicker({ value, onChange }: { value: SortMode; onChange: (v: SortMo
       data={SORT_OPTIONS}
       keyExtractor={(item) => item.id}
       contentContainerStyle={styles.sortList}
-      renderItem={({ item }) => (
-        <Pressable
-          style={[styles.sortChip, value === item.id && styles.sortChipActive]}
-          onPress={() => onChange(item.id)}
-          accessibilityRole="button"
-          accessibilityState={{ selected: value === item.id }}
-        >
-          <Text style={[styles.sortChipText, value === item.id && styles.sortChipTextActive]}>
-            {item.label}
-          </Text>
-        </Pressable>
-      )}
+      renderItem={({ item }) => {
+        const isActive = value === item.id;
+        return (
+          <Pressable
+            style={[
+              styles.sortChip,
+              { backgroundColor: isActive ? t.primary : t.chipBg },
+            ]}
+            onPress={() => onChange(item.id)}
+            accessibilityRole="button"
+            accessibilityState={{ selected: isActive }}
+          >
+            <Text style={[styles.sortChipText, { color: isActive ? "#ffffff" : t.textMuted }]}>
+              {item.label}
+            </Text>
+          </Pressable>
+        );
+      }}
     />
   );
 }
@@ -240,9 +262,7 @@ export default function HomeScreen() {
   const [sortMode, setSortMode] = useState<SortMode>("for-you");
   const listRef = useRef<FlashListRef<FeedArticle>>(null);
   const { bookmarks, toggle: toggleBookmark } = useBookmarks();
-  const rawScheme = useColorScheme();
-  const scheme = rawScheme === "light" ? "light" : "dark";
-  const t = themes[scheme];
+  const t = useThemeColors();
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -296,9 +316,10 @@ export default function HomeScreen() {
         nowMs={nowMs}
         isBookmarked={bookmarks.has(item.id)}
         onToggleBookmark={toggleBookmark}
+        t={t}
       />
     ),
-    [nowMs, bookmarks, toggleBookmark]
+    [nowMs, bookmarks, toggleBookmark, t]
   );
 
   const keyExtractor = useCallback((item: FeedArticle) => item.id, []);
@@ -316,23 +337,23 @@ export default function HomeScreen() {
             {/* Hero */}
             <View style={styles.hero}>
               <View style={styles.heroRow}>
-                <Text style={styles.heroTitle}>Knowledge Hub</Text>
+                <Text style={[styles.heroTitle, { color: t.text }]}>Knowledge Hub</Text>
                 <View style={styles.liveBadge}>
                   <View style={styles.liveDot} />
                   <Text style={styles.liveText}>Live</Text>
                 </View>
               </View>
               <View style={styles.heroStatsRow}>
-                <Text style={styles.heroStats}>
+                <Text style={[styles.heroStats, { color: t.textMuted }]}>
                   {totalArticles} articles · {sourceCount} sources
                 </Text>
                 <View style={styles.heroLinks}>
                   <Link href="/pulse" style={styles.savedLink}>
-                    <Text style={styles.savedLinkText}>Pulse</Text>
+                    <Text style={[styles.savedLinkText, { color: t.primary }]}>Pulse</Text>
                   </Link>
                   {bookmarks.size > 0 && (
                     <Link href="/saved" style={styles.savedLink}>
-                      <Text style={styles.savedLinkText}>★ {bookmarks.size}</Text>
+                      <Text style={[styles.savedLinkText, { color: t.primary }]}>★ {bookmarks.size}</Text>
                     </Link>
                   )}
                 </View>
@@ -342,9 +363,12 @@ export default function HomeScreen() {
             {/* Search */}
             <View style={styles.searchContainer}>
               <TextInput
-                style={styles.searchInput}
+                style={[
+                  styles.searchInput,
+                  { backgroundColor: t.searchBg, color: t.text, borderColor: t.searchBorder },
+                ]}
                 placeholder="Search articles..."
-                placeholderTextColor="#71717a"
+                placeholderTextColor={t.textMuted}
                 value={searchQuery}
                 onChangeText={setSearchQuery}
                 accessibilityLabel="Search articles"
@@ -356,13 +380,14 @@ export default function HomeScreen() {
               active={activeCategory}
               onSelect={setActiveCategory}
               counts={categoryCounts}
+              t={t}
             />
 
             {/* Sort */}
-            <SortPicker value={sortMode} onChange={setSortMode} />
+            <SortPicker value={sortMode} onChange={setSortMode} t={t} />
 
             {/* Results count */}
-            <Text style={styles.resultCount}>
+            <Text style={[styles.resultCount, { color: t.textMuted }]}>
               {filteredArticles.length} article{filteredArticles.length !== 1 ? "s" : ""}
               {activeCategory ? ` in ${getCategoryMeta(activeCategory).label}` : ""}
             </Text>
@@ -375,18 +400,18 @@ export default function HomeScreen() {
 
 // ── Styles ──
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#09090b" },
+  container: { flex: 1 },
   listContent: { paddingBottom: 32 },
 
   // Hero
   hero: { paddingHorizontal: 16, paddingTop: 16, paddingBottom: 8 },
   heroRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
-  heroTitle: { fontSize: 22, fontWeight: "800", color: "#fafafa" },
+  heroTitle: { fontSize: 22, fontWeight: "800" },
   heroStatsRow: { flexDirection: "row" as const, alignItems: "center" as const, justifyContent: "space-between" as const, marginTop: 2 },
-  heroStats: { fontSize: 13, color: "#71717a" },
+  heroStats: { fontSize: 13 },
   heroLinks: { flexDirection: "row" as const, gap: 8 },
   savedLink: { paddingVertical: 4, paddingHorizontal: 8 },
-  savedLinkText: { fontSize: 13, color: "#3b82f6", fontWeight: "600" as const },
+  savedLinkText: { fontSize: 13, fontWeight: "600" as const },
   liveBadge: { flexDirection: "row", alignItems: "center", gap: 4 },
   liveDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: "#22c55e" },
   liveText: { fontSize: 12, color: "#22c55e", fontWeight: "600" },
@@ -394,14 +419,11 @@ const styles = StyleSheet.create({
   // Search
   searchContainer: { paddingHorizontal: 16, paddingVertical: 8 },
   searchInput: {
-    backgroundColor: "#18181b",
     borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: 12,
     fontSize: 15,
-    color: "#fafafa",
     borderWidth: 1,
-    borderColor: "#27272a",
   },
 
   // Category filter
@@ -413,16 +435,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 10,
     borderRadius: 10,
-    backgroundColor: "#18181b",
     minHeight: 44,
   },
-  categoryChipActive: { backgroundColor: "#fafafa" },
-  categoryChipText: { fontSize: 13, fontWeight: "600", color: "#a1a1aa" },
-  categoryChipTextActive: { color: "#09090b" },
-  countBadge: { backgroundColor: "#27272a", borderRadius: 8, paddingHorizontal: 6, paddingVertical: 2 },
-  countBadgeActive: { backgroundColor: "#09090b20" },
-  countText: { fontSize: 11, fontWeight: "700", color: "#71717a" },
-  countTextActive: { color: "#09090b" },
+  categoryChipText: { fontSize: 13, fontWeight: "600" },
+  countBadge: { borderRadius: 8, paddingHorizontal: 6, paddingVertical: 2 },
+  countText: { fontSize: 11, fontWeight: "700" },
 
   // Sort picker
   sortList: { paddingHorizontal: 12, paddingVertical: 4, gap: 6 },
@@ -430,42 +447,37 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 8,
-    backgroundColor: "#18181b",
     minHeight: 36,
     justifyContent: "center" as const,
   },
-  sortChipActive: { backgroundColor: "#3b82f6" },
-  sortChipText: { fontSize: 13, fontWeight: "600" as const, color: "#71717a" },
-  sortChipTextActive: { color: "#ffffff" },
+  sortChipText: { fontSize: 13, fontWeight: "600" as const },
 
   // Results
-  resultCount: { fontSize: 13, color: "#71717a", paddingHorizontal: 16, paddingBottom: 8 },
+  resultCount: { fontSize: 13, paddingHorizontal: 16, paddingBottom: 8 },
 
   // Card
   card: {
     marginHorizontal: 16,
     marginBottom: 10,
-    backgroundColor: "#18181b",
     borderRadius: 14,
     padding: 16,
     borderWidth: 1,
-    borderColor: "#27272a",
     borderLeftWidth: 3,
   },
   cardPressed: { opacity: 0.8, transform: [{ scale: 0.98 }] },
   cardHeader: { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 8 },
   categoryPill: { borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3 },
   categoryPillText: { fontSize: 11, fontWeight: "700" },
-  cardSource: { fontSize: 12, fontWeight: "600" as const, color: "#a1a1aa" },
-  cardTime: { fontSize: 12, color: "#71717a" },
+  cardSource: { fontSize: 12, fontWeight: "600" as const },
+  cardTime: { fontSize: 12 },
   newBadge: { fontSize: 10, fontWeight: "700" as const, color: "#22c55e", backgroundColor: "#22c55e15", paddingHorizontal: 5, paddingVertical: 1, borderRadius: 4, overflow: "hidden" as const },
   trendingBadge: { fontSize: 10, fontWeight: "700" as const, color: "#ef4444", backgroundColor: "#ef444415", paddingHorizontal: 5, paddingVertical: 1, borderRadius: 4, overflow: "hidden" as const },
-  cardTitle: { fontSize: 15, fontWeight: "700", color: "#fafafa", lineHeight: 22 },
-  cardExcerpt: { fontSize: 13, color: "#71717a", marginTop: 6, lineHeight: 20 },
+  cardTitle: { fontSize: 15, fontWeight: "700", lineHeight: 22 },
+  cardExcerpt: { fontSize: 13, marginTop: 6, lineHeight: 20 },
   cardFooter: { flexDirection: "row" as const, alignItems: "center" as const, justifyContent: "space-between" as const, marginTop: 10 },
   cardStats: { flexDirection: "row" as const, gap: 12 },
-  cardStat: { fontSize: 12, color: "#71717a" },
+  cardStat: { fontSize: 12 },
   bookmarkBtn: { minWidth: 44, minHeight: 44, alignItems: "center" as const, justifyContent: "center" as const },
-  bookmarkIcon: { fontSize: 20, color: "#71717a" },
+  bookmarkIcon: { fontSize: 20 },
   bookmarkIconActive: { color: "#3b82f6" },
 });

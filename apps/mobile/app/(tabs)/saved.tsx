@@ -12,6 +12,7 @@ import type { FeedArticle } from "@tulmek/core/domain";
 import { getCategoryMeta, getSourceLabel, formatRelativeTime } from "@tulmek/core/domain";
 import feedData from "@tulmek/content/hub/feed";
 import { Link } from "expo-router";
+import { useThemeColors } from "../../src/hooks/useThemeColors";
 
 const articles = feedData as unknown as FeedArticle[];
 const BOOKMARKS_KEY = "tulmek:hub:bookmarks";
@@ -23,6 +24,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 export default function SavedPage() {
+  const t = useThemeColors();
   const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
@@ -48,19 +50,23 @@ export default function SavedPage() {
       const color = CATEGORY_COLORS[item.category] ?? "#6b7280";
       return (
         <Pressable
-          style={({ pressed }) => [styles.card, { borderLeftColor: color }, pressed && styles.cardPressed]}
+          style={({ pressed }) => [
+            styles.card,
+            { backgroundColor: t.card, borderColor: t.cardBorder, borderLeftColor: color },
+            pressed && styles.cardPressed,
+          ]}
           onPress={() => Linking.openURL(item.url)}
         >
           <View style={styles.cardHeader}>
             <View style={[styles.pill, { backgroundColor: color + "20" }]}>
               <Text style={[styles.pillText, { color }]}>{meta.label}</Text>
             </View>
-            <Text style={styles.source}>{getSourceLabel(item.source)}</Text>
-            <Text style={styles.time}>{formatRelativeTime(item.publishedAt)}</Text>
+            <Text style={[styles.source, { color: t.textSecondary }]}>{getSourceLabel(item.source)}</Text>
+            <Text style={[styles.time, { color: t.textMuted }]}>{formatRelativeTime(item.publishedAt)}</Text>
           </View>
-          <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
+          <Text style={[styles.title, { color: t.text }]} numberOfLines={2}>{item.title}</Text>
           <View style={styles.footer}>
-            <Text style={styles.stat}>{item.readingTime} min</Text>
+            <Text style={[styles.stat, { color: t.textMuted }]}>{item.readingTime} min</Text>
             <Pressable
               onPress={() => removeBookmark(item.id)}
               style={styles.removeBtn}
@@ -72,11 +78,11 @@ export default function SavedPage() {
         </Pressable>
       );
     },
-    [removeBookmark]
+    [removeBookmark, t]
   );
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: t.bg }]}>
       <FlashList
         data={savedArticles}
         renderItem={renderItem}
@@ -84,16 +90,16 @@ export default function SavedPage() {
         contentContainerStyle={styles.list}
         ListHeaderComponent={
           <View style={styles.header}>
-            <Text style={styles.heading}>Saved Articles</Text>
-            <Text style={styles.count}>{savedArticles.length} saved</Text>
+            <Text style={[styles.heading, { color: t.text }]}>Saved Articles</Text>
+            <Text style={[styles.count, { color: t.textMuted }]}>{savedArticles.length} saved</Text>
           </View>
         }
         ListEmptyComponent={
           <View style={styles.empty}>
-            <Text style={styles.emptyText}>No saved articles yet.</Text>
-            <Text style={styles.emptyHint}>Tap the bookmark icon on any article to save it.</Text>
+            <Text style={[styles.emptyText, { color: t.text }]}>No saved articles yet.</Text>
+            <Text style={[styles.emptyHint, { color: t.textMuted }]}>Tap the bookmark icon on any article to save it.</Text>
             <Link href="/" style={styles.backLink}>
-              <Text style={styles.backLinkText}>Browse articles</Text>
+              <Text style={[styles.backLinkText, { color: t.primary }]}>Browse articles</Text>
             </Link>
           </View>
         }
@@ -103,29 +109,29 @@ export default function SavedPage() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#09090b" },
+  container: { flex: 1 },
   list: { paddingBottom: 32 },
   header: { padding: 16, paddingTop: 8 },
-  heading: { fontSize: 22, fontWeight: "800" as const, color: "#fafafa" },
-  count: { fontSize: 13, color: "#71717a", marginTop: 2 },
+  heading: { fontSize: 22, fontWeight: "800" as const },
+  count: { fontSize: 13, marginTop: 2 },
   card: {
-    marginHorizontal: 16, marginBottom: 10, backgroundColor: "#18181b",
-    borderRadius: 14, padding: 16, borderWidth: 1, borderColor: "#27272a", borderLeftWidth: 3,
+    marginHorizontal: 16, marginBottom: 10,
+    borderRadius: 14, padding: 16, borderWidth: 1, borderLeftWidth: 3,
   },
   cardPressed: { opacity: 0.8, transform: [{ scale: 0.98 }] },
   cardHeader: { flexDirection: "row" as const, alignItems: "center" as const, gap: 8, marginBottom: 6 },
   pill: { borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3 },
   pillText: { fontSize: 11, fontWeight: "700" as const },
-  source: { fontSize: 12, fontWeight: "600" as const, color: "#a1a1aa" },
-  time: { fontSize: 12, color: "#71717a" },
-  title: { fontSize: 15, fontWeight: "700" as const, color: "#fafafa", lineHeight: 22 },
+  source: { fontSize: 12, fontWeight: "600" as const },
+  time: { fontSize: 12 },
+  title: { fontSize: 15, fontWeight: "700" as const, lineHeight: 22 },
   footer: { flexDirection: "row" as const, justifyContent: "space-between" as const, alignItems: "center" as const, marginTop: 10 },
-  stat: { fontSize: 12, color: "#71717a" },
+  stat: { fontSize: 12 },
   removeBtn: { minWidth: 44, minHeight: 44, justifyContent: "center" as const, alignItems: "center" as const },
   removeText: { fontSize: 12, color: "#ef4444", fontWeight: "600" as const },
   empty: { alignItems: "center" as const, paddingTop: 80, paddingHorizontal: 32 },
-  emptyText: { fontSize: 16, fontWeight: "600" as const, color: "#fafafa" },
-  emptyHint: { fontSize: 13, color: "#71717a", marginTop: 8, textAlign: "center" as const },
+  emptyText: { fontSize: 16, fontWeight: "600" as const },
+  emptyHint: { fontSize: 13, marginTop: 8, textAlign: "center" as const },
   backLink: { marginTop: 16 },
-  backLinkText: { fontSize: 14, color: "#3b82f6", fontWeight: "600" as const },
+  backLinkText: { fontSize: 14, fontWeight: "600" as const },
 });

@@ -1,21 +1,20 @@
 import { Stack } from "expo-router";
-import { useColorScheme } from "react-native";
+import { useThemeColors } from "../src/hooks/useThemeColors";
 
 /**
  * Root layout — Stack wrapping tab group + detail screens.
  * Tab screens live in (tabs)/, detail screens are at root level.
  */
 export default function RootLayout() {
-  const scheme = useColorScheme() ?? "dark";
-  const isDark = scheme === "dark";
+  const t = useThemeColors();
 
   return (
     <Stack
       screenOptions={{
-        headerStyle: { backgroundColor: isDark ? "#09090b" : "#ffffff" },
-        headerTintColor: isDark ? "#fafafa" : "#09090b",
+        headerStyle: { backgroundColor: t.bg },
+        headerTintColor: t.text,
         headerTitleStyle: { fontWeight: "bold" },
-        contentStyle: { backgroundColor: isDark ? "#09090b" : "#ffffff" },
+        contentStyle: { backgroundColor: t.bg },
       }}
     >
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
