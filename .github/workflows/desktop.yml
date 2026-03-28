@@ -53,10 +53,16 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build web frontend (required for Tauri frontendDist)
+        run: pnpm --filter @tulmek/web build
+        env:
+          NEXT_PUBLIC_APP_URL: http://localhost:3000
+
       - name: Build desktop app
         run: pnpm --filter @tulmek/desktop tauri:build
         env:
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+        continue-on-error: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY == '' }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

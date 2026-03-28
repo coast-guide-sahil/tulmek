@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { useColorScheme } from "react-native";
+import { useColorScheme, Text } from "react-native";
 
 export default function TabLayout() {
   const scheme = useColorScheme() ?? "dark";
@@ -63,8 +63,8 @@ function TabIcon({ name, color, size }: { name: string; color: string; size: num
     saved: "★",
   };
   return (
-    <span style={{ fontSize: size * 0.8, color }}>
+    <Text style={{ fontSize: size * 0.8, color }}>
       {icons[name] ?? "●"}
-    </span>
+    </Text>
   );
 }

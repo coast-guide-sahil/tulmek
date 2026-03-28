@@ -82,11 +82,11 @@ export interface HubStoreDeps {
   };
 }
 
-// Dwell timer state (not in Zustand to avoid re-renders)
-let dwellStart: number | null = null;
-let dwellCategory: string | null = null;
-
 export function createHubStore(deps: HubStoreDeps) {
+  // Dwell timer state scoped to this store instance (not module-level)
+  let dwellStart: number | null = null;
+  let dwellCategory: string | null = null;
+
   return create<HubStoreState>()((set, get) => ({
     bookmarks: {},
     hydrated: false,
