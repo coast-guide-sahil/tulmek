@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { FeedArticle } from "@tulmek/core/domain";
-import { tulmekRank, getCategoryMeta, formatRelativeTime, getSourceLabel } from "@tulmek/core/domain";
+import { tulmekRank, getCategoryMeta, formatRelativeTime, getSourceLabel, COMPANY_SLUGS, getCompanyName } from "@tulmek/core/domain";
 import { APP_NAME, TRENDING_SCORE_THRESHOLD, MIN_ARTICLES_FOR_LANDING_PAGE } from "@tulmek/config/constants";
 import feedData from "@tulmek/content/hub/feed";
 import Link from "next/link";
@@ -8,21 +8,102 @@ import { SharePrep } from "@/components/hub/share-prep";
 
 const articles = feedData as unknown as FeedArticle[];
 
-// Known companies with display names
-const COMPANY_DISPLAY: Record<string, string> = {
-  google: "Google", amazon: "Amazon", meta: "Meta", apple: "Apple",
-  microsoft: "Microsoft", netflix: "Netflix", uber: "Uber", airbnb: "Airbnb",
-  stripe: "Stripe", coinbase: "Coinbase", nvidia: "NVIDIA", tesla: "Tesla",
-  openai: "OpenAI", anthropic: "Anthropic", palantir: "Palantir",
-  databricks: "Databricks", snowflake: "Snowflake", linkedin: "LinkedIn",
-  salesforce: "Salesforce", oracle: "Oracle", adobe: "Adobe",
-  bloomberg: "Bloomberg", jpmorgan: "JPMorgan", goldman: "Goldman Sachs",
-  flipkart: "Flipkart", atlassian: "Atlassian", shopify: "Shopify",
-  spotify: "Spotify", dropbox: "Dropbox", doordash: "DoorDash",
-  pinterest: "Pinterest", samsung: "Samsung", ibm: "IBM",
-  paypal: "PayPal", cloudflare: "Cloudflare", datadog: "Datadog",
-  mongodb: "MongoDB", vercel: "Vercel", github: "GitHub",
-};
+// FAQ item type
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+// Build FAQ items from article data for a company.
+// Returns up to 5 question/answer pairs used for JSON-LD FAQPage and the
+// visual "People Also Ask" collapsible section.
+function buildFaqItems(
+  name: string,
+  companyArticles: FeedArticle[],
+  topRounds: [string, number][],
+  topLevels: [string, number][],
+): FaqItem[] {
+  const items: FaqItem[] = [];
+
+  // Q1: Interview rounds (only if data exists)
+  if (topRounds.length > 0) {
+    items.push({
+      question: `What interview rounds does ${name} have?`,
+      answer: `Based on ${companyArticles.length} recent articles, ${name} interviews commonly include: ${topRounds.map(([r]) => r).join(", ")}.`,
+    });
+  }
+
+  // Q2: Levels mentioned (only if data exists)
+  if (topLevels.length > 0) {
+    items.push({
+      question: `What levels does ${name} hire for?`,
+      answer: `Recent interview experiences mention levels: ${topLevels.map(([l]) => l).join(", ")}.`,
+    });
+  }
+
+  // Q3: How hard is the interview? — derived from difficulty signal counts
+  const allText = companyArticles
+    .map((a) => `${a.title} ${a.excerpt}`.toLowerCase())
+    .join(" ");
+  const hardCount = (allText.match(/\b(hard|difficult|challenging|tough)\b/g) ?? []).length;
+  const easyCount = (allText.match(/\b(easy|straightforward|simple)\b/g) ?? []).length;
+  const mediumCount = (allText.match(/\b(medium|moderate|average|standard)\b/g) ?? []).length;
+  let difficultyAssessment: string;
+  if (hardCount > easyCount + mediumCount) {
+    difficultyAssessment = `The ${name} interview is generally considered challenging. Articles describe it as hard or difficult more often than easy, suggesting rigorous technical and behavioral rounds.`;
+  } else if (easyCount > hardCount + mediumCount) {
+    difficultyAssessment = `The ${name} interview is generally considered approachable. Articles more often describe it as straightforward compared to difficult, though strong fundamentals are still expected.`;
+  } else if (companyArticles.length > 0) {
+    difficultyAssessment = `The ${name} interview has moderate difficulty based on ${companyArticles.length} articles. Preparation across coding, system design, and behavioral areas is recommended.`;
+  } else {
+    difficultyAssessment = `Difficulty data for ${name} interviews is limited. Preparing thoroughly across coding, system design, and behavioral areas is advised.`;
+  }
+  items.push({
+    question: `How hard is the ${name} interview?`,
+    answer: difficultyAssessment,
+  });
+
+  // Q4: What is the company known for asking? — derived from category distribution
+  const catCounts: Record<string, number> = {};
+  for (const a of companyArticles) {
+    catCounts[a.category] = (catCounts[a.category] ?? 0) + 1;
+  }
+  const total = companyArticles.length;
+  const topCats = Object.entries(catCounts)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 3);
+
+  let topicsAnswer: string;
+  if (topCats.length > 0 && total > 0) {
+    const catDescriptions = topCats.map(([cat, count]) => {
+      const pct = Math.round((count / total) * 100);
+      const label = cat
+        .split("-")
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" ");
+      return `${label} (${pct}% of articles)`;
+    });
+    topicsAnswer = `${name} interviews focus heavily on ${catDescriptions.join(", ")}. This breakdown is derived from ${total} curated articles.`;
+  } else {
+    topicsAnswer = `No topic breakdown is available for ${name} yet. Check back as content refreshes every 3 hours.`;
+  }
+  items.push({
+    question: `What is ${name} known for asking?`,
+    answer: topicsAnswer,
+  });
+
+  // Q5: How long does the interview process take?
+  const processAnswer =
+    companyArticles.length > 0
+      ? `The ${name} interview process typically takes 2-6 weeks from initial screen to offer. Based on ${companyArticles.length} articles, the process usually includes a recruiter screen, technical phone rounds, and an onsite or virtual loop (4-6 interviews). Timelines vary by role and team.`
+      : `The ${name} interview process typically takes 2-6 weeks. It usually includes a recruiter screen, technical phone rounds, and an onsite or virtual loop. Timelines vary by role and team.`;
+  items.push({
+    question: `How long does the ${name} interview process take?`,
+    answer: processAnswer,
+  });
+
+  return items;
+}
 
 function getCompanyArticles(slug: string): FeedArticle[] {
   const lower = slug.toLowerCase();
@@ -43,7 +124,7 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const name = COMPANY_DISPLAY[slug] ?? slug.charAt(0).toUpperCase() + slug.slice(1);
+  const name = getCompanyName(slug);
   const count = getCompanyArticles(slug).length;
   return {
     title: `${name} Interview Prep`,
@@ -52,12 +133,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  return Object.keys(COMPANY_DISPLAY).map((slug) => ({ slug }));
+  return COMPANY_SLUGS.map((slug) => ({ slug }));
 }
 
 export default async function CompanyPage({ params }: Props) {
   const { slug } = await params;
-  const name = COMPANY_DISPLAY[slug] ?? slug.charAt(0).toUpperCase() + slug.slice(1);
+  const name = getCompanyName(slug);
   const companyArticles = getCompanyArticles(slug);
   const nowMs = new Date(feedData[0]?.aggregatedAt ?? new Date().toISOString()).getTime();
   const ranked = tulmekRank(companyArticles, nowMs, new Set(), {});
@@ -113,8 +194,8 @@ export default async function CompanyPage({ params }: Props) {
       ["Onsite", /onsite|on-site|virtual onsite|loop/],
       ["Take-Home", /take-home|take home|assignment|project/],
     ] as const;
-    for (const [name, regex] of rounds) {
-      if (regex.test(text)) roundTypes[name] = (roundTypes[name] ?? 0) + 1;
+    for (const [roundName, regex] of rounds) {
+      if (regex.test(text)) roundTypes[roundName] = (roundTypes[roundName] ?? 0) + 1;
     }
     // Levels
     const levelMatch = text.match(/\b(l[3-7]|e[3-7]|sde\s?[1-3]|junior|senior|staff|principal)\b/i);
@@ -125,6 +206,9 @@ export default async function CompanyPage({ params }: Props) {
   }
   const topRounds = Object.entries(roundTypes).sort(([, a], [, b]) => b - a).slice(0, 4);
   const topLevels = Object.entries(levelMentions).sort(([, a], [, b]) => b - a).slice(0, 4);
+
+  // Build FAQ items — used for JSON-LD FAQPage and visual "People Also Ask" section
+  const faqItems = buildFaqItems(name, companyArticles, topRounds, topLevels);
 
   return (
     <div className="space-y-6">
@@ -145,27 +229,17 @@ export default async function CompanyPage({ params }: Props) {
               { "@type": "ListItem", position: 2, name: `${name} Interview Prep` },
             ],
           },
-          ...(topRounds.length > 0 ? {
+          ...(faqItems.length > 0 ? {
             mainEntity: {
               "@type": "FAQPage",
-              mainEntity: [
-                ...(topRounds.length > 0 ? [{
-                  "@type": "Question",
-                  name: `What interview rounds does ${name} have?`,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: `Based on ${companyArticles.length} recent articles, ${name} interviews commonly include: ${topRounds.map(([r]) => r).join(", ")}.`,
-                  },
-                }] : []),
-                ...(topLevels.length > 0 ? [{
-                  "@type": "Question",
-                  name: `What levels does ${name} hire for?`,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: `Recent interview experiences mention levels: ${topLevels.map(([l]) => l).join(", ")}.`,
-                  },
-                }] : []),
-              ],
+              mainEntity: faqItems.map((item) => ({
+                "@type": "Question",
+                name: item.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: item.answer,
+                },
+              })),
             },
           } : {}),
         }) }}
@@ -325,11 +399,31 @@ export default async function CompanyPage({ params }: Props) {
           </div>
         )}
       </div>
+
+      {/* People Also Ask */}
+      {faqItems.length > 0 && (
+        <section className="mt-8">
+          <h2 className="mb-4 text-lg font-bold text-foreground">People Also Ask</h2>
+          <div className="space-y-2">
+            {faqItems.map((item, i) => (
+              <details key={i} className="group rounded-lg border border-border bg-card">
+                <summary className="flex min-h-[44px] cursor-pointer items-center px-4 py-3 text-sm font-medium text-foreground">
+                  {item.question}
+                </summary>
+                <p className="px-4 pb-4 text-sm text-muted-foreground">
+                  {item.answer}
+                </p>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* Related companies — internal cross-linking for SEO */}
       <div className="rounded-xl border border-border bg-card p-4">
         <h2 className="text-sm font-bold text-card-foreground">Other Companies</h2>
         <div className="mt-2 flex flex-wrap gap-2">
-          {Object.keys(COMPANY_DISPLAY)
+          {COMPANY_SLUGS
             .filter((s) => s !== slug)
             .slice(0, 8)
             .map((s) => (
@@ -338,7 +432,7 @@ export default async function CompanyPage({ params }: Props) {
                 href={`/hub/company/${s}`}
                 className="rounded-md bg-muted px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary"
               >
-                {COMPANY_DISPLAY[s]}
+                {getCompanyName(s)}
               </Link>
             ))}
         </div>
