@@ -131,3 +131,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 215 | #255 | Content refresh — 914 unique articles, 20+ sources |
 | 216 | #256 | Fix desktop builds — remove api/subscribe static export conflict |
 | 217 | #257 | Daily Question widget — one interview question per day |
+| 218 | #258 | Enhanced hiring status badges from job API + WARN data |
