@@ -222,6 +222,95 @@ function trendingBonus(
   return Math.min(2.0, burstScore * recencyAmplifier * 0.3);
 }
 
+// Topic-level trending window: 48 hours
+const TOPIC_TRENDING_WINDOW = 48 * MS_PER_HOUR;
+
+/** Topic-level trending — detects when multiple sources cover the same topic */
+function topicTrendingBonus(
+  article: FeedArticle,
+  allArticles: FeedArticle[],
+  nowMs: number,
+): number {
+  if (!article.topics || article.topics.length === 0) return 0;
+
+  const recentArticles = allArticles.filter(
+    (a) => nowMs - new Date(a.publishedAt).getTime() < TOPIC_TRENDING_WINDOW,
+  );
+
+  // Build topic → source map (O(n) over recent articles)
+  const topicSources = new Map<string, Set<string>>();
+  const topicCounts = new Map<string, number>();
+
+  for (const a of recentArticles) {
+    if (!a.topics) continue;
+    for (const topic of a.topics) {
+      const lower = topic.toLowerCase();
+      if (!topicSources.has(lower)) topicSources.set(lower, new Set());
+      topicSources.get(lower)!.add(a.source);
+      topicCounts.set(lower, (topicCounts.get(lower) ?? 0) + 1);
+    }
+  }
+
+  // Find the strongest trending topic for this article
+  let maxBonus = 0;
+  for (const topic of article.topics) {
+    const lower = topic.toLowerCase();
+    const sourceCount = topicSources.get(lower)?.size ?? 0;
+    const articleCount = topicCounts.get(lower) ?? 0;
+
+    // Multi-source convergence is the strongest signal
+    const sourceSignal = Math.min(1.0, (sourceCount - 1) / 3); // 0 at 1 source, 1.0 at 4+ sources
+    const volumeSignal = Math.min(
+      1.0,
+      Math.log2(1 + articleCount) / Math.log2(1 + 10),
+    );
+
+    const bonus = 0.6 * sourceSignal + 0.4 * volumeSignal;
+    maxBonus = Math.max(maxBonus, bonus);
+  }
+
+  return maxBonus;
+}
+
+/**
+ * Returns the top trending topics across all articles in the last 48 hours.
+ * A topic qualifies if at least 2 distinct sources discuss it.
+ * Results are sorted by source count (desc), then article count (desc).
+ */
+export function getTrendingTopics(
+  articles: FeedArticle[],
+  nowMs: number,
+  limit = 5,
+): { topic: string; sourceCount: number; articleCount: number }[] {
+  const recent = articles.filter(
+    (a) => nowMs - new Date(a.publishedAt).getTime() < TOPIC_TRENDING_WINDOW,
+  );
+
+  const topicData = new Map<string, { sources: Set<string>; count: number }>();
+  for (const a of recent) {
+    if (!a.topics) continue;
+    for (const topic of a.topics) {
+      const lower = topic.toLowerCase();
+      if (!topicData.has(lower)) topicData.set(lower, { sources: new Set(), count: 0 });
+      const d = topicData.get(lower)!;
+      d.sources.add(a.source);
+      d.count++;
+    }
+  }
+
+  return [...topicData.entries()]
+    .map(([topic, { sources, count }]) => ({
+      topic,
+      sourceCount: sources.size,
+      articleCount: count,
+    }))
+    .filter((t) => t.sourceCount >= 2)
+    .sort(
+      (a, b) => b.sourceCount - a.sourceCount || b.articleCount - a.articleCount,
+    )
+    .slice(0, limit);
+}
+
 // ── 4. Personalization ──
 
 interface UserProfile {
@@ -521,10 +610,13 @@ export function tulmekRank(
   const scored = articles.map((article) => {
     const crs = computeCRS(article, sourcePercentiles);
     const freshness = freshnessDecay(article, nowMs);
-    const trending = trendingBonus(article, sourceMedianVelocities, nowMs);
+    // Combined trending: 60% article-level velocity + 40% topic-level convergence
+    const articleTrending = trendingBonus(article, sourceMedianVelocities, nowMs);
+    const topicTrending = topicTrendingBonus(article, articles, nowMs);
+    const combinedTrending = 0.6 * articleTrending + 0.4 * topicTrending;
     const personal = personalizationBoost(article, profile, readIds);
 
-    const tulmekScore = crs * freshness * (1 + trending) * personal;
+    const tulmekScore = crs * freshness * (1 + combinedTrending) * personal;
 
     return { article, score: tulmekScore };
   });
