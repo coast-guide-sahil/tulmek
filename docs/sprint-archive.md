@@ -95,3 +95,5 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 179 | #218 | Content refresh — 1,107 articles from 12 sources (+50%) |
 | 180 | #219 | Stronger read vs unread card visual differentiation |
 | 181 | #220 | "New since last visit" counter — engagement loop |
+| 182 | #221 | Company interview format tracker (8 format types) |
+| 183 | #222 | HN Who's Hiring parser + 4 newsletter sources |
