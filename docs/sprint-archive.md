@@ -180,3 +180,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 264 | #303 | Improved no-results empty state with context + clear CTA |
 | 265 | #304 | Reading progress bar (thin top bar, articles read/total) |
 | 266 | #305 | Mobile reading progress bar |
+| 267 | #306 | Content refresh + E2E fix + visual baseline — all platforms tested |
