@@ -1,9 +1,9 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useState } from "react";
 import type { FeedArticle } from "@tulmek/core/domain";
 import { getSourceTier } from "@tulmek/core/domain";
-import { TRENDING_SCORE_THRESHOLD, HOT_DISCUSSION_THRESHOLD } from "@tulmek/config/constants";
+import { TRENDING_SCORE_THRESHOLD, HOT_DISCUSSION_THRESHOLD, NEW_ARTICLE_WINDOW_MS } from "@tulmek/config/constants";
 import { formatRelativeTime, getCategoryConfig } from "./hub-utils";
 import { CardMenu } from "./card-menu";
 
@@ -30,10 +30,14 @@ export const ContentCard = memo(function ContentCard({
   isRead = false,
   isDiscovery = false,
 }: ContentCardProps) {
+  // Capture current time once at mount — avoids Date.now() in render (React compiler strict mode)
+  const [nowMs] = useState(() => Date.now());
+
   const categoryConfig = getCategoryConfig(article.category);
   const relativeTime = formatRelativeTime(article.publishedAt);
   const isTrending = article.score >= TRENDING_SCORE_THRESHOLD;
   const isHotDiscussion = article.commentCount >= HOT_DISCUSSION_THRESHOLD;
+  const isFresh = nowMs - new Date(article.publishedAt).getTime() < NEW_ARTICLE_WINDOW_MS;
   const sourceTier = getSourceTier(article.source);
   // Quality tier: engagement + discussion depth
   const qualityScore = article.score + article.commentCount * 3;
@@ -89,6 +93,7 @@ export const ContentCard = memo(function ContentCard({
               <span className="h-2 w-2 shrink-0 rounded-full bg-red-500" title="Negative experience" />
             )}
             <span>{relativeTime}</span>
+            {isFresh && <FreshBadge />}
             {isNew && <NewBadge />}
             {isTrending && <TrendingBadge />}
             {article.sourceCorroboration >= 3 && <CorroborationBadge count={article.sourceCorroboration} />}
@@ -171,6 +176,7 @@ export const ContentCard = memo(function ContentCard({
             <span className="h-2 w-2 shrink-0 rounded-full bg-red-500" title="Negative experience" />
           )}
           <span>{relativeTime}</span>
+          {isFresh && <FreshBadge />}
         </div>
         <div className="flex items-center gap-0.5">
           {isNew && <NewBadge />}
@@ -370,6 +376,14 @@ function SourceTierBadge({ tier, label }: { tier: number; label: string }) {
   return (
     <span className="rounded-full bg-zinc-500/10 px-1.5 py-0.5 text-[10px] font-medium text-zinc-600 dark:text-zinc-400">
       ✓ {label}
+    </span>
+  );
+}
+
+function FreshBadge() {
+  return (
+    <span className="rounded-full bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-medium text-emerald-700 dark:text-emerald-300">
+      Fresh
     </span>
   );
 }
