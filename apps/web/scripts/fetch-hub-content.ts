@@ -124,6 +124,19 @@ const INTERVIEW_KEYWORDS = [
   ...Object.values(CATEGORY_KEYWORDS).flat(),
 ];
 
+// ── Interview format patterns ──
+
+const FORMAT_PATTERNS: Record<string, RegExp[]> = {
+  "AI-Assisted Coding": [/ai[- ]?(enabled|assisted|powered)\s*(coding|interview)/i, /coderpad\s*ai/i, /ai\s*pair\s*programming/i],
+  "Online Assessment": [/online\s*assessment/i, /\boa\b/i, /hackerrank/i, /codesignal/i],
+  "Take-Home Project": [/take[- ]?home/i, /homework\s*assignment/i, /project[- ]?based/i],
+  "Whiteboard": [/whiteboard/i, /white\s*board/i],
+  "Live Coding": [/live\s*coding/i, /coderpad/i, /codility/i, /pair\s*programming/i],
+  "System Design": [/system\s*design\s*(round|interview)/i, /hld\s*(round|interview)/i],
+  "Behavioral": [/behavioral\s*(round|interview)/i, /culture\s*fit/i, /hiring\s*manager\s*round/i],
+  "Phone Screen": [/phone\s*screen/i, /recruiter\s*call/i, /initial\s*screen/i],
+};
+
 // ── Source icons (base64-free, use simple identifiers) ──
 
 const SOURCE_ICONS = {
@@ -1559,10 +1572,31 @@ async function main() {
     console.log(`\n📝 Extracted ${totalQuestions} interview questions from ${QUESTION_CATEGORIES.size} categories`);
   }
 
-  // Add aggregatedAt timestamp and ensure interviewQuestions is always present
+  // ── Interview Format Detection ──
+  for (let i = 0; i < all.length; i++) {
+    const a = all[i]!;
+    const text = `${a.title} ${a.excerpt}`;
+    const formats: string[] = [];
+    for (const [format, patterns] of Object.entries(FORMAT_PATTERNS)) {
+      if (patterns.some(p => p.test(text))) {
+        formats.push(format);
+      }
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (a as any).interviewFormats = formats;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const articlesWithFormats = all.filter(a => ((a as any).interviewFormats as string[]).length > 0).length;
+  if (articlesWithFormats > 0) {
+    console.log(`\n📋 Detected interview formats in ${articlesWithFormats} articles`);
+  }
+
+  // Add aggregatedAt timestamp and ensure interviewQuestions/interviewFormats are always present
   const articles = all.map((a) => ({
     ...a,
     interviewQuestions: a.interviewQuestions ?? [],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    interviewFormats: (a as any).interviewFormats ?? [],
     aggregatedAt: now,
   }));
 

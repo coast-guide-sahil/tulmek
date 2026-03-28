@@ -223,6 +223,17 @@ export default async function CompanyPage({ params }: Props) {
     }
   }
 
+  // Compute interview format counts across company articles
+  const formatCounts = new Map<string, number>();
+  for (const a of companyArticles) {
+    for (const f of a.interviewFormats ?? []) {
+      formatCounts.set(f, (formatCounts.get(f) ?? 0) + 1);
+    }
+  }
+  const formats = [...formatCounts.entries()]
+    .map(([format, count]) => ({ format, count }))
+    .sort((a, b) => b.count - a.count);
+
   return (
     <div className="space-y-6">
       {/* JSON-LD Structured Data */}
@@ -376,6 +387,21 @@ export default async function CompanyPage({ params }: Props) {
             )}
           </ul>
         </details>
+      )}
+
+      {/* Interview Formats */}
+      {formats.length > 0 && (
+        <section className="mt-6">
+          <h2 className="text-lg font-bold text-foreground mb-3">Interview Formats</h2>
+          <div className="flex flex-wrap gap-2">
+            {formats.map(({ format, count }) => (
+              <span key={format} className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm text-foreground">
+                {format}
+                <span className="rounded-full bg-muted px-1.5 py-0.5 text-xs text-muted-foreground">{count}</span>
+              </span>
+            ))}
+          </div>
+        </section>
       )}
 
       {/* Article list */}

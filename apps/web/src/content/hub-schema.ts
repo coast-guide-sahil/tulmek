@@ -26,6 +26,7 @@ export const feedArticleSchema = z.object({
   discussionUrl: safeUrlSchema.nullable(),
   aggregatedAt: z.string().datetime({ offset: true }).or(z.string().datetime()),
   interviewQuestions: z.array(z.string()).default([]),
+  interviewFormats: z.array(z.string()).default([]),
 });
 
 /** Schema for the full feed file (array of articles) */
