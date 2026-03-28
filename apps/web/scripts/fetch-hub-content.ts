@@ -2096,12 +2096,73 @@ async function fetchArbeitnow(): Promise<RawArticle[]> {
   return articles;
 }
 
+async function fetchStackOverflow(): Promise<RawArticle[]> {
+  console.log("  Fetching Stack Overflow...");
+  const articles: RawArticle[] = [];
+
+  const tags = ["interview", "system-design", "algorithms", "data-structures", "coding-interviews"];
+
+  for (const tag of tags) {
+    try {
+      const res = await fetch(
+        `https://api.stackexchange.com/2.3/questions?order=desc&sort=activity&tagged=${tag}&site=stackoverflow&filter=withbody&pagesize=5`,
+        { headers: { "Accept-Encoding": "gzip" } }
+      );
+      if (!res.ok) continue;
+      const data = await res.json() as { items?: Array<{
+        question_id?: number;
+        title?: string;
+        link?: string;
+        score?: number;
+        answer_count?: number;
+        tags?: string[];
+        creation_date?: number;
+        body?: string;
+      }> };
+
+      for (const q of data.items ?? []) {
+        if (!q.title || !q.link || (q.score ?? 0) < 5) continue;
+
+        const excerpt = (q.body ?? "")
+          .replace(/<[^>]+>/g, " ")
+          .replace(/\s+/g, " ")
+          .trim()
+          .slice(0, 300);
+
+        articles.push({
+          id: `stackoverflow:${q.question_id}`,
+          title: q.title.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&#39;/g, "'").replace(/&quot;/g, '"'),
+          url: q.link,
+          source: "newsletter",
+          sourceName: "Stack Overflow",
+          sourceIcon: "https://stackoverflow.com/favicon.ico",
+          domain: "stackoverflow.com",
+          category: categorize(q.title, q.tags ?? []),
+          tags: (q.tags ?? []).slice(0, 5),
+          excerpt: excerpt || q.title,
+          publishedAt: q.creation_date ? new Date(q.creation_date * 1000).toISOString() : new Date().toISOString(),
+          score: q.score ?? 0,
+          commentCount: q.answer_count ?? 0,
+          readingTime: 3,
+          discussionUrl: q.link,
+          interviewQuestions: [],
+          interviewFormats: [],
+        });
+      }
+    } catch (err) {
+      console.warn(`  Warning: SO tag "${tag}" failed:`, (err as Error).message);
+    }
+  }
+
+  return articles;
+}
+
 // ── Main ──
 
 async function main() {
   console.log("🔄 Fetching hub content...\n");
 
-  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, githubTrending, youtube, newsletters, glassdoor, hnHiring, remoteok, jobicy, himalayas, greenhouse, lever, warnFirehose, h1bJobs, arbeitnow] = await Promise.all([
+  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, githubTrending, youtube, newsletters, glassdoor, hnHiring, remoteok, jobicy, himalayas, greenhouse, lever, warnFirehose, h1bJobs, arbeitnow, stackoverflow] = await Promise.all([
     fetchHackerNews(),
     fetchReddit(),
     fetchRedditSearch(),
@@ -2123,6 +2184,7 @@ async function main() {
     fetchWarnFirehose(),
     fetchH1BJobs(),
     fetchArbeitnow(),
+    fetchStackOverflow(),
   ]);
 
   console.log(`\n  HackerNews: ${hn.length} articles`);
@@ -2146,8 +2208,9 @@ async function main() {
   console.log(`  WARN Firehose: ${warnFirehose.length} articles`);
   console.log(`  H1B Jobs: ${h1bJobs.length} articles`);
   console.log(`  Arbeitnow: ${arbeitnow.length} articles`);
+  console.log(`  Stack Overflow: ${stackoverflow.length} articles`);
 
-  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...githubTrending, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas, ...greenhouse, ...lever, ...warnFirehose, ...h1bJobs, ...arbeitnow];
+  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...githubTrending, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas, ...greenhouse, ...lever, ...warnFirehose, ...h1bJobs, ...arbeitnow, ...stackoverflow];
 
   // ── Content staleness detection ──
   const sourceCounts: Record<string, number> = {};
