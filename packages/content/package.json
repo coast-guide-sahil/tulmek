@@ -6,6 +6,7 @@
   "exports": {
     "./hub/feed": "./src/hub/feed.json",
     "./hub/metadata": "./src/hub/metadata.json",
-    "./hub/questions": "./src/hub/questions.json"
+    "./hub/questions": "./src/hub/questions.json",
+    "./hub/hiring": "./src/hub/hiring-data.json"
   }
 }

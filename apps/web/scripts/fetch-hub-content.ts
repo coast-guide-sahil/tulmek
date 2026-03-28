@@ -2707,6 +2707,22 @@ async function main() {
     console.log("\n📝 Skipping question extraction (set GEMINI_API_KEY)");
   }
 
+  // ── Company open role counts ──
+  const JOB_BOARD_SOURCE_NAMES = ["Greenhouse", "RemoteOK", "Jobicy", "Himalayas", "Arbeitnow", "HN Who's Hiring", "H1B Jobs"] as const;
+  const companyRoleCounts = new Map<string, number>();
+  for (const article of articles) {
+    if (JOB_BOARD_SOURCE_NAMES.some((s) => article.sourceName === s)) {
+      // Job board titles are pipe-separated: "Company | Role | Location"
+      const company = article.title.split("|")[0]?.trim().toLowerCase();
+      if (company) {
+        companyRoleCounts.set(company, (companyRoleCounts.get(company) ?? 0) + 1);
+      }
+    }
+  }
+  const hiringData = Object.fromEntries(companyRoleCounts);
+  writeFileSync(join(outputDir, "hiring-data.json"), JSON.stringify(hiringData, null, 2));
+  console.log(`\n💼 Wrote open role counts for ${companyRoleCounts.size} companies to packages/content/src/hub/hiring-data.json`);
+
   writeFileSync(
     join(outputDir, "feed.json"),
     JSON.stringify(articles, null, 2)
