@@ -166,3 +166,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 250 | #290 | Sprint 250 milestone — final sprint board refresh |
 | 251 | #291 | Fresh badge for articles < 6 hours old |
 | 252 | #292 | Source distribution chart on Market Pulse page |
+| 253 | #293 | Category trends on Market Pulse (this week vs last week) |
