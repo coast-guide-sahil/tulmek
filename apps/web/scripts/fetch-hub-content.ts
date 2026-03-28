@@ -121,6 +121,7 @@ const SOURCE_ICONS = {
   youtube: "https://www.youtube.com/favicon.ico",
   medium: "https://medium.com/favicon.ico",
   newsletter: "https://substack.com/favicon.ico",
+  glassdoor: "https://www.glassdoor.com/favicon.ico",
 } as const;
 
 // ── AI Classification (Gemini 2.5 Flash-Lite) ──
@@ -1118,12 +1119,116 @@ async function fetchNewsletters(): Promise<RawArticle[]> {
   return articles;
 }
 
+// ── Glassdoor interview reviews (via OpenWeb Ninja RapidAPI) ──
+
+const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY;
+
+// Top companies to fetch interview reviews for (IDs from Glassdoor)
+const GLASSDOOR_COMPANIES: { id: string; name: string }[] = [
+  { id: "E9079", name: "Google" },
+  { id: "E6036", name: "Amazon" },
+  { id: "E40772", name: "Meta" },
+  { id: "E1138", name: "Apple" },
+  { id: "E1651", name: "Microsoft" },
+  { id: "E432534", name: "OpenAI" },
+  { id: "E7671", name: "Uber" },
+  { id: "E497017", name: "Stripe" },
+  { id: "E1099726", name: "Anthropic" },
+  { id: "E2356", name: "Netflix" },
+];
+
+async function fetchGlassdoor(): Promise<RawArticle[]> {
+  if (!RAPIDAPI_KEY) {
+    console.log("  Skipping Glassdoor (no RAPIDAPI_KEY)");
+    return [];
+  }
+  console.log("  Fetching Glassdoor interviews...");
+  const articles: RawArticle[] = [];
+
+  // Fetch top 5 companies per cycle to stay under free tier (100 req/month)
+  const companies = GLASSDOOR_COMPANIES.slice(0, 5);
+
+  for (const company of companies) {
+    try {
+      const res = await fetch(
+        `https://real-time-glassdoor-data.p.rapidapi.com/company-interviews?company_id=${company.id}`,
+        {
+          headers: {
+            "x-rapidapi-key": RAPIDAPI_KEY,
+            "x-rapidapi-host": "real-time-glassdoor-data.p.rapidapi.com",
+          },
+        }
+      );
+      if (!res.ok) {
+        console.warn(`  Warning: Glassdoor ${company.name} returned ${res.status}`);
+        continue;
+      }
+
+      const data = await res.json() as {
+        interviews?: Array<{
+          interview_id?: string;
+          job_title?: string;
+          difficulty?: string;
+          experience?: string;
+          outcome?: string;
+          process_description?: string;
+          questions?: string[];
+          review_datetime?: string;
+          advice?: string;
+        }>;
+      };
+
+      if (!data.interviews) continue;
+
+      for (const interview of data.interviews) {
+        if (!interview.process_description || !interview.job_title) continue;
+
+        const title = `${company.name} | ${interview.job_title} | Interview Experience${interview.outcome ? ` (${interview.outcome})` : ""}`;
+        const tags = [
+          interview.difficulty ?? "",
+          interview.experience ?? "",
+          ...(interview.questions?.slice(0, 3) ?? []),
+        ].filter(Boolean);
+
+        const excerpt = [
+          interview.process_description.slice(0, 300),
+          interview.advice ? `Advice: ${interview.advice.slice(0, 100)}` : "",
+        ].filter(Boolean).join(" — ");
+
+        if (!isRelevant(title, tags)) continue;
+
+        articles.push({
+          id: `glassdoor:${interview.interview_id ?? `${company.id}-${articles.length}`}`,
+          title,
+          url: `https://www.glassdoor.com/Interview/${company.name.replace(/\s/g, "-")}-Interview-Questions-${company.id}.htm`,
+          source: "glassdoor",
+          sourceName: "Glassdoor",
+          sourceIcon: SOURCE_ICONS.glassdoor,
+          domain: "glassdoor.com",
+          category: categorize(title, tags),
+          tags,
+          excerpt,
+          publishedAt: interview.review_datetime ?? new Date().toISOString(),
+          score: interview.difficulty === "Hard" ? 50 : interview.difficulty === "Medium" ? 30 : 10,
+          commentCount: 0,
+          readingTime: 2,
+          discussionUrl: null,
+        });
+      }
+    } catch (err) {
+      console.warn(`  Warning: Glassdoor ${company.name} failed:`, (err as Error).message);
+    }
+  }
+
+  return articles;
+}
+
 // ── Main ──
 
 async function main() {
   console.log("🔄 Fetching hub content...\n");
 
-  const [hn, reddit, redditSearch, devto, medium, leetcode, github, youtube, newsletters] = await Promise.all([
+  const [hn, reddit, redditSearch, devto, medium, leetcode, github, youtube, newsletters, glassdoor] = await Promise.all([
     fetchHackerNews(),
     fetchReddit(),
     fetchRedditSearch(),
@@ -1133,6 +1238,7 @@ async function main() {
     fetchGitHub(),
     fetchYouTube(),
     fetchNewsletters(),
+    fetchGlassdoor(),
   ]);
 
   console.log(`\n  HackerNews: ${hn.length} articles`);
@@ -1144,8 +1250,9 @@ async function main() {
   console.log(`  GitHub: ${github.length} articles`);
   console.log(`  YouTube: ${youtube.length} articles`);
   console.log(`  Newsletters: ${newsletters.length} articles`);
+  console.log(`  Glassdoor: ${glassdoor.length} articles`);
 
-  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...github, ...youtube, ...newsletters];
+  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...github, ...youtube, ...newsletters, ...glassdoor];
   all = deduplicateByUrl(all);
 
   // Layer 2: SimHash near-duplicate title detection

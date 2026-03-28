@@ -67,6 +67,7 @@ const SOURCE_CREDIBILITY = {
   medium: 0.65,
   reddit: 0.6,
   newsletter: 0.88,
+  glassdoor: 0.82,
 } as const satisfies Record<FeedSourceId, number>;
 
 // ── Helper functions ──

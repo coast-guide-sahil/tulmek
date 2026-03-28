@@ -5,10 +5,9 @@
 
 ## Active
 
-(none — pick next from backlog)
+3. [x] Glassdoor interview reviews as 8th content source `#data-quality` `#high`
 
 ## Backlog (prioritized)
-3. [ ] Glassdoor interview reviews as 8th content source `#data-quality` `#high`
 4. [ ] Mobile: company comparison page `#mobile` `#medium`
 5. [ ] Shareable company prep cards — OG social cards for viral sharing `#growth` `#medium`
 6. [ ] Email digest subscription (weekly top 10 per company) `#growth` `#retention` `#medium`
