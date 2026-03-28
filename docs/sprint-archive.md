@@ -58,4 +58,7 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 136 | #175 | Branded error pages (not-found, global-error, root error) |
 | 137 | #176 | Privacy policy + terms of service |
 | 138 | #177 | Vercel Speed Insights + loading skeletons |
+| 139 | #178 | Mobile market pulse page |
+| 140 | #179 | Wire engagement tracking + sitemap expansion |
+| 141 | #180 | Three-dot card menu with mute actions |
 | 111 | #150 | SimHash title dedup — cross-source near-duplicates |
