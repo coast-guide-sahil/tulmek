@@ -449,6 +449,64 @@ function hammingDistance(a: number, b: number): number {
   return count;
 }
 
+// ── Question deduplication ──
+
+/** Jaccard similarity between two string arrays */
+function jaccardSimilarity(a: readonly string[], b: readonly string[]): number {
+  if (a.length === 0 && b.length === 0) return 1;
+  const setA = new Set(a.map(s => s.toLowerCase()));
+  const setB = new Set(b.map(s => s.toLowerCase()));
+  let intersection = 0;
+  for (const item of setA) {
+    if (setB.has(item)) intersection++;
+  }
+  const union = setA.size + setB.size - intersection;
+  return union === 0 ? 0 : intersection / union;
+}
+
+/** Deduplicate questions using SimHash on text + Jaccard on topics */
+function deduplicateQuestions(questions: import("@tulmek/core/domain").InterviewQuestion[]): import("@tulmek/core/domain").InterviewQuestion[] {
+  const kept: import("@tulmek/core/domain").InterviewQuestion[] = [];
+  const fingerprints: number[] = [];
+
+  for (const q of questions) {
+    const fp = simhash(q.question);
+
+    // Check against existing questions
+    let isDupe = false;
+    for (let i = 0; i < kept.length; i++) {
+      const textSimilar = hammingDistance(fp, fingerprints[i]!) < 6; // more lenient than article dedup
+      const topicSimilar = jaccardSimilarity(q.topics, kept[i]!.topics) > 0.5;
+
+      if (textSimilar || (topicSimilar && hammingDistance(fp, fingerprints[i]!) < 10)) {
+        // Merge: keep the one with more detail, combine sources
+        const existing = kept[i]!;
+        kept[i] = {
+          ...existing,
+          sourceArticleIds: [...new Set([...existing.sourceArticleIds, ...q.sourceArticleIds])],
+          reportCount: existing.reportCount + q.reportCount,
+          companies: [...existing.companies, ...q.companies.filter(
+            c => !existing.companies.some(ec => ec.slug === c.slug)
+          )],
+          topics: [...new Set([...existing.topics, ...q.topics])],
+          hints: [...new Set([...existing.hints, ...q.hints])],
+          lastReportedAt: q.lastReportedAt > existing.lastReportedAt ? q.lastReportedAt : existing.lastReportedAt,
+          firstReportedAt: q.firstReportedAt < existing.firstReportedAt ? q.firstReportedAt : existing.firstReportedAt,
+        };
+        isDupe = true;
+        break;
+      }
+    }
+
+    if (!isDupe) {
+      kept.push(q);
+      fingerprints.push(fp);
+    }
+  }
+
+  return kept;
+}
+
 /** Remove near-duplicate articles by title similarity (SimHash, Hamming distance < 4) */
 function deduplicateByTitle(articles: RawArticle[]): RawArticle[] {
   const kept: RawArticle[] = [];
@@ -2291,10 +2349,11 @@ async function main() {
       if (!article) continue;
 
       for (const q of questions) {
-        // Simple dedup by normalized question text
+        // Pre-filter: skip very short or exact-duplicate normalized text
         const normalized = q.question.toLowerCase().replace(/[^a-z0-9\s]/g, "").trim();
+        if (normalized.length < 10) continue;
         const key = normalized.slice(0, 100);
-        if (seen.has(key) || normalized.length < 10) continue;
+        if (seen.has(key)) continue;
         seen.add(key);
 
         questionBank.push({
@@ -2316,17 +2375,25 @@ async function main() {
       }
     }
 
-    console.log(`  Extracted ${questionBank.length} unique questions from ${questionMap.size} articles`);
+    // Layer 2: SimHash + Jaccard dedup for rephrased questions
+    const beforeDedup = questionBank.length;
+    const dedupedQuestions = deduplicateQuestions(questionBank);
+    const merged = beforeDedup - dedupedQuestions.length;
+    if (merged > 0) {
+      console.log(`  Deduplicated: ${merged} questions merged (${beforeDedup} → ${dedupedQuestions.length})`);
+    }
+
+    console.log(`  Extracted ${dedupedQuestions.length} unique questions from ${questionMap.size} articles`);
 
     // Write question bank
-    writeFileSync(join(outputDir, "questions.json"), JSON.stringify(questionBank, null, 2));
+    writeFileSync(join(outputDir, "questions.json"), JSON.stringify(dedupedQuestions, null, 2));
     writeFileSync(join(outputDir, "questions-metadata.json"), JSON.stringify({
       lastRefreshedAt: now,
-      totalQuestions: questionBank.length,
-      formatBreakdown: questionBank.reduce((acc, q) => { acc[q.format] = (acc[q.format] ?? 0) + 1; return acc; }, {} as Record<string, number>),
-      difficultyBreakdown: questionBank.reduce((acc, q) => { acc[q.difficulty] = (acc[q.difficulty] ?? 0) + 1; return acc; }, {} as Record<string, number>),
-      topCompanies: [...new Map(questionBank.flatMap(q => q.companies.map(c => [c.slug, c.name]))).entries()]
-        .map(([slug]) => ({ slug, count: questionBank.filter(q => q.companies.some(c => c.slug === slug)).length }))
+      totalQuestions: dedupedQuestions.length,
+      formatBreakdown: dedupedQuestions.reduce((acc, q) => { acc[q.format] = (acc[q.format] ?? 0) + 1; return acc; }, {} as Record<string, number>),
+      difficultyBreakdown: dedupedQuestions.reduce((acc, q) => { acc[q.difficulty] = (acc[q.difficulty] ?? 0) + 1; return acc; }, {} as Record<string, number>),
+      topCompanies: [...new Map(dedupedQuestions.flatMap(q => q.companies.map(c => [c.slug, c.name]))).entries()]
+        .map(([slug]) => ({ slug, count: dedupedQuestions.filter(q => q.companies.some(c => c.slug === slug)).length }))
         .sort((a, b) => b.count - a.count)
         .slice(0, 20),
     }, null, 2));
