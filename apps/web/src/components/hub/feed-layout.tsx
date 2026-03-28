@@ -59,6 +59,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
   const [activeCompany, setActiveCompany] = useState<string | null>(null);
   const [difficultyFilter, setDifficultyFilter] = useState<string | null>(null);
   const [actionableOnly, setActionableOnly] = useState(false);
+  const [sentimentFilter, setSentimentFilter] = useState<string | null>(null);
   const searchQuery = params.q;
   const sourceFilter = params.source;
   const sortMode = params.sort;
@@ -234,6 +235,11 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
       result = result.filter((a) => a.actionability >= 0.7);
     }
 
+    // Sentiment filter
+    if (sentimentFilter) {
+      result = result.filter((a) => a.sentiment === sentimentFilter);
+    }
+
     // Time range filter
     if (timeRange !== "all") {
       const cutoff = nowMs - TIME_RANGE_MS[timeRange];
@@ -288,18 +294,19 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     }
 
     return result;
-  }, [articles, dismissedIds, mutedSources, mutedCategories, activeCategory, activeCompany, difficultyFilter, actionableOnly, sourceFilter, timeRange, debouncedQuery, sortMode, searchResults, nowMs, readIds, bookmarks]);
+  }, [articles, dismissedIds, mutedSources, mutedCategories, activeCategory, activeCompany, difficultyFilter, actionableOnly, sentimentFilter, sourceFilter, timeRange, debouncedQuery, sortMode, searchResults, nowMs, readIds, bookmarks]);
 
   const handleClearFilters = useCallback(() => {
     setParams({ category: null, source: null, q: null, time: null });
     setActiveCompany(null);
     setDifficultyFilter(null);
     setActionableOnly(false);
+    setSentimentFilter(null);
   }, [setParams]);
 
   const [visibleCount, setVisibleCount] = useState(24);
 
-  const hasActiveFilters = activeCategory !== null || activeCompany !== null || difficultyFilter !== null || actionableOnly || sourceFilter !== null || timeRange !== "all" || searchQuery.trim() !== "";
+  const hasActiveFilters = activeCategory !== null || activeCompany !== null || difficultyFilter !== null || actionableOnly || sentimentFilter !== null || sourceFilter !== null || timeRange !== "all" || searchQuery.trim() !== "";
   const visibleArticles = filteredArticles.slice(0, visibleCount);
   const hasMore = visibleCount < filteredArticles.length;
 
@@ -396,6 +403,22 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
           }`}
         >
           ⚡ Actionable
+        </button>
+        <button
+          onClick={() => setSentimentFilter(sentimentFilter === "positive" ? null : "positive")}
+          className={`min-h-[44px] rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
+            sentimentFilter === "positive" ? "bg-emerald-500 text-white" : "bg-muted text-muted-foreground hover:bg-primary/10"
+          }`}
+        >
+          😊 Positive
+        </button>
+        <button
+          onClick={() => setSentimentFilter(sentimentFilter === "negative" ? null : "negative")}
+          className={`min-h-[44px] rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
+            sentimentFilter === "negative" ? "bg-red-500 text-white" : "bg-muted text-muted-foreground hover:bg-primary/10"
+          }`}
+        >
+          😟 Negative
         </button>
       </div>
 
