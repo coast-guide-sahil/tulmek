@@ -82,6 +82,12 @@ export const ContentCard = memo(function ContentCard({
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <SourceBadge sourceName={article.sourceName} domain={article.domain} />
             {sourceTier && <SourceTierBadge tier={sourceTier.tier} label={sourceTier.label} />}
+            {article.sentiment === "positive" && (
+              <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-500" title="Positive experience" />
+            )}
+            {article.sentiment === "negative" && (
+              <span className="h-2 w-2 shrink-0 rounded-full bg-red-500" title="Negative experience" />
+            )}
             <span>{relativeTime}</span>
             {isNew && <NewBadge />}
             {isTrending && <TrendingBadge />}
@@ -144,6 +150,12 @@ export const ContentCard = memo(function ContentCard({
           <QualityDot tier={qualityTier} />
           <SourceBadge sourceName={article.sourceName} domain={article.domain} />
           {sourceTier && <SourceTierBadge tier={sourceTier.tier} label={sourceTier.label} />}
+          {article.sentiment === "positive" && (
+            <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-500" title="Positive experience" />
+          )}
+          {article.sentiment === "negative" && (
+            <span className="h-2 w-2 shrink-0 rounded-full bg-red-500" title="Negative experience" />
+          )}
           <span>{relativeTime}</span>
         </div>
         <div className="flex items-center gap-0.5">
