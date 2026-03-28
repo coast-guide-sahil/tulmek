@@ -904,6 +904,73 @@ async function fetchLeetCode(): Promise<RawArticle[]> {
   return articles;
 }
 
+async function fetchLeetCodeDaily(): Promise<RawArticle[]> {
+  console.log("  Fetching LeetCode Daily Challenge...");
+  try {
+    const res = await fetch("https://leetcode.com/graphql/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Referer": "https://leetcode.com",
+      },
+      body: JSON.stringify({
+        query: "query questionOfToday { activeDailyCodingChallengeQuestion { date link question { questionId title titleSlug difficulty topicTags { name } } } }",
+      }),
+    });
+
+    if (!res.ok) {
+      console.warn(`  Warning: LeetCode Daily returned ${res.status}`);
+      return [];
+    }
+
+    const data = await res.json() as {
+      data: {
+        activeDailyCodingChallengeQuestion: {
+          date: string;
+          link: string;
+          question: {
+            questionId: string;
+            title: string;
+            titleSlug: string;
+            difficulty: string;
+            topicTags: Array<{ name: string }>;
+          };
+        };
+      };
+    };
+
+    const daily = data.data.activeDailyCodingChallengeQuestion;
+    if (!daily) return [];
+
+    const { date, link, question } = daily;
+    const tags = question.topicTags.map((t) => t.name);
+    const readingTime =
+      question.difficulty === "Hard" ? 45 :
+      question.difficulty === "Medium" ? 30 : 15;
+
+    return [{
+      id: `leetcode:daily-${date}`,
+      title: `LeetCode Daily | ${question.title} (${question.difficulty})`,
+      url: `https://leetcode.com${link}`,
+      source: "leetcode",
+      sourceName: "LeetCode Daily",
+      sourceIcon: "https://leetcode.com/favicon.ico",
+      domain: "leetcode.com",
+      category: "dsa",
+      tags,
+      excerpt: `Today's LeetCode daily challenge: ${question.title} — ${question.difficulty} difficulty. Topics: ${tags.join(", ") || "N/A"}.`,
+      publishedAt: new Date(date).toISOString(),
+      score: 100,
+      commentCount: 0,
+      readingTime,
+      discussionUrl: `https://leetcode.com${link}`,
+    }];
+  } catch (err) {
+    console.warn("  Warning: LeetCode Daily failed:", (err as Error).message);
+    return [];
+  }
+}
+
 async function fetchMedium(): Promise<RawArticle[]> {
   console.log("  Fetching Medium...");
   const articles: RawArticle[] = [];
@@ -1228,13 +1295,14 @@ async function fetchGlassdoor(): Promise<RawArticle[]> {
 async function main() {
   console.log("🔄 Fetching hub content...\n");
 
-  const [hn, reddit, redditSearch, devto, medium, leetcode, github, youtube, newsletters, glassdoor] = await Promise.all([
+  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, youtube, newsletters, glassdoor] = await Promise.all([
     fetchHackerNews(),
     fetchReddit(),
     fetchRedditSearch(),
     fetchDevTo(),
     fetchMedium(),
     fetchLeetCode(),
+    fetchLeetCodeDaily(),
     fetchGitHub(),
     fetchYouTube(),
     fetchNewsletters(),
@@ -1247,31 +1315,78 @@ async function main() {
   console.log(`  dev.to: ${devto.length} articles`);
   console.log(`  Medium: ${medium.length} articles`);
   console.log(`  LeetCode: ${leetcode.length} articles`);
+  console.log(`  LeetCode Daily: ${leetcodeDaily.length} article`);
   console.log(`  GitHub: ${github.length} articles`);
   console.log(`  YouTube: ${youtube.length} articles`);
   console.log(`  Newsletters: ${newsletters.length} articles`);
   console.log(`  Glassdoor: ${glassdoor.length} articles`);
 
-  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...github, ...youtube, ...newsletters, ...glassdoor];
-  all = deduplicateByUrl(all);
+  const all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...youtube, ...newsletters, ...glassdoor];
+
+  // ── Content staleness detection ──
+  const sourceCounts: Record<string, number> = {};
+  for (const a of all) {
+    sourceCounts[a.source] = (sourceCounts[a.source] ?? 0) + 1;
+  }
+
+  const EXPECTED_SOURCES = ["hackernews", "reddit", "devto", "medium", "leetcode", "github", "youtube", "newsletter"];
+  const warnings: string[] = [];
+
+  for (const source of EXPECTED_SOURCES) {
+    const count = sourceCounts[source] ?? 0;
+    if (count === 0) {
+      warnings.push(`⚠️ ALERT: ${source} returned 0 articles — source may be broken`);
+    } else if (count < 5) {
+      warnings.push(`⚠️ WARNING: ${source} only returned ${count} articles (unusually low)`);
+    }
+  }
+
+  if (warnings.length > 0) {
+    console.error("\n🚨 Content Staleness Alerts:");
+    for (const w of warnings) console.error(`  ${w}`);
+    // Exit with non-zero if critical sources are completely missing
+    const criticalMissing = EXPECTED_SOURCES.filter(s => (sourceCounts[s] ?? 0) === 0);
+    if (criticalMissing.length >= 3) {
+      console.error(`\n❌ ${criticalMissing.length} sources completely failed — aborting to prevent data loss`);
+      process.exit(1);
+    }
+  }
+
+  // Write output to shared @tulmek/content package (single source of truth)
+  const outputDir = join(__dirname, "..", "..", "..", "packages", "content", "src", "hub");
+
+  // ── Total article count guard: abort if count dropped below 50% of previous ──
+  const METADATA_PATH = join(outputDir, "metadata.json");
+  try {
+    const prevMeta = JSON.parse(readFileSync(METADATA_PATH, "utf-8")) as { totalArticles: number };
+    const prevTotal = prevMeta.totalArticles;
+    if (prevTotal > 0 && all.length < prevTotal * 0.5) {
+      console.error(
+        `\n❌ Article count dropped from ${prevTotal} to ${all.length} (${Math.round((all.length / prevTotal) * 100)}% of previous) — aborting to prevent data loss`
+      );
+      process.exit(1);
+    }
+  } catch {
+    // No previous metadata — first run or missing file, skip guard
+  }
+
+  let deduped = deduplicateByUrl(all);
 
   // Layer 2: SimHash near-duplicate title detection
-  const beforeTitle = all.length;
-  all = deduplicateByTitle(all);
-  const titleDupes = beforeTitle - all.length;
+  const beforeTitle = deduped.length;
+  deduped = deduplicateByTitle(deduped);
+  const titleDupes = beforeTitle - deduped.length;
   if (titleDupes > 0) {
     console.log(`  SimHash dedup removed ${titleDupes} near-duplicate titles`);
   }
 
   // Sort by score (engagement) descending, then by date
-  all.sort((a, b) => {
+  deduped.sort((a, b) => {
     const scoreDiff = b.score - a.score;
     if (scoreDiff !== 0) return scoreDiff;
     return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
   });
 
-  // Write output to shared @tulmek/content package (single source of truth)
-  const outputDir = join(__dirname, "..", "..", "..", "packages", "content", "src", "hub");
   mkdirSync(outputDir, { recursive: true });
 
   // ── AI classification cache ──
