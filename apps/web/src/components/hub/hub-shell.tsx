@@ -55,7 +55,7 @@ export function HubShell({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-dvh flex-col bg-background">
       <StreakCelebration />
-      <ReadingProgressBar />
+      <ReadingProgressBar totalArticles={feedMeta.totalArticles} />
       <KeyboardNav />
       {/* Header */}
       <header className={`header-auto-hide sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm ${headerHidden ? "header-hidden" : ""}`}>

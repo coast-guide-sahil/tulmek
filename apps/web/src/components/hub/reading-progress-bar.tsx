@@ -1,38 +1,37 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
+import { useHub } from "@/lib/hub/provider";
+
+const emptySubscribe = () => () => {};
+
+interface ReadingProgressBarProps {
+  totalArticles: number;
+}
 
 /**
- * Thin progress bar at the top of the page showing scroll depth.
- * Creates subconscious completion drive — users want to fill the bar.
- * Goal Gradient Effect: effort increases as completion approaches.
+ * Thin fixed bar at the very top of the page showing overall reading progress.
+ * Reads total articles read from the hub store vs the total feed size.
+ * Only renders after hydration and once at least one article has been read.
  */
-export function ReadingProgressBar() {
-  const [progress, setProgress] = useState(0);
+export function ReadingProgressBar({ totalArticles }: ReadingProgressBarProps) {
+  const readCount = useHub((s) => s.readIds.size);
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
 
-  useEffect(() => {
-    const handler = () => {
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (scrollHeight > 0) {
-        setProgress(Math.min(100, (window.scrollY / scrollHeight) * 100));
-      }
-    };
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
+  if (!mounted || readCount === 0) return null;
 
-  if (progress < 1) return null;
+  const progress = Math.min(100, Math.round((readCount / totalArticles) * 100));
 
   return (
-    <div className="fixed left-0 top-0 z-50 h-0.5 w-full bg-transparent">
+    <div className="fixed top-0 left-0 right-0 z-[60] h-0.5 bg-muted/50">
       <div
-        className="h-full bg-primary transition-[width] duration-150 ease-out"
+        className="h-full bg-primary transition-all duration-700 ease-out"
         style={{ width: `${progress}%` }}
         role="progressbar"
-        aria-valuenow={Math.round(progress)}
+        aria-valuenow={progress}
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-label="Page scroll progress"
+        aria-label={`Reading progress: ${readCount} of ${totalArticles} articles (${progress}%)`}
       />
     </div>
   );
