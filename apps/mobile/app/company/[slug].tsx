@@ -97,6 +97,48 @@ export default function CompanyPage() {
         ListEmptyComponent={
           <Text style={[styles.empty, { color: t.textMuted }]}>No articles found for {name}.</Text>
         }
+        ListFooterComponent={
+          companyArticles.length > 0 ? (() => {
+            const catCounts = new Map<string, number>();
+            for (const a of companyArticles) {
+              catCounts.set(a.category, (catCounts.get(a.category) ?? 0) + 1);
+            }
+            const total = [...catCounts.values()].reduce((s, v) => s + v, 0);
+            const topCats = [...catCounts.entries()]
+              .map(([cat, count]) => ({ cat, count, pct: Math.round((count / total) * 100) }))
+              .sort((a, b) => b.count - a.count)
+              .slice(0, 5);
+
+            return (
+              <View style={[styles.prepSection, { backgroundColor: t.card, borderColor: t.cardBorder }]}>
+                <Text style={[styles.prepTitle, { color: t.text }]}>
+                  Prep Plan for {name}
+                </Text>
+                <Text style={[styles.prepSub, { color: t.textMuted }]}>
+                  Based on {companyArticles.length} articles
+                </Text>
+                {topCats.map(({ cat, pct }) => (
+                  <View key={cat} style={styles.barRow}>
+                    <View style={styles.barLabel}>
+                      <Text style={[styles.barCatText, { color: t.text }]}>
+                        {getCategoryMeta(cat).label}
+                      </Text>
+                      <Text style={[styles.barPctText, { color: t.textMuted }]}>{pct}%</Text>
+                    </View>
+                    <View style={[styles.barTrack, { backgroundColor: t.cardBorder }]}>
+                      <View
+                        style={[
+                          styles.barFill,
+                          { width: `${pct}%`, backgroundColor: CATEGORY_COLORS[cat] ?? t.primary },
+                        ]}
+                      />
+                    </View>
+                  </View>
+                ))}
+              </View>
+            );
+          })() : null
+        }
       />
     </View>
   );
@@ -125,4 +167,13 @@ const styles = StyleSheet.create({
   footer: { flexDirection: "row" as const, gap: 10, marginTop: 8 },
   stat: { fontSize: 11 },
   empty: { fontSize: 14, textAlign: "center" as const, paddingTop: 40 },
+  prepSection: { margin: 16, marginTop: 8, borderRadius: 12, padding: 16, borderWidth: 1 },
+  prepTitle: { fontSize: 17, fontWeight: "800" as const, marginBottom: 4 },
+  prepSub: { fontSize: 13, marginBottom: 12 },
+  barRow: { marginBottom: 8 },
+  barLabel: { flexDirection: "row" as const, justifyContent: "space-between" as const, marginBottom: 4 },
+  barCatText: { fontSize: 13 },
+  barPctText: { fontSize: 12 },
+  barTrack: { height: 6, borderRadius: 3, overflow: "hidden" as const },
+  barFill: { height: "100%" as const, borderRadius: 3 },
 });
