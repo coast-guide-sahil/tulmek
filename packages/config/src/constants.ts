@@ -26,6 +26,10 @@ export const MIN_TOUCH_TARGET_PX = 44;
 export const DIVERSITY_WINDOW_SIZE = 12;
 export const TRENDING_VELOCITY_WINDOW_HOURS = 168; // 7 days
 
+/** Discovery badge — encourage exploration beyond comfort zone */
+export const DISCOVERY_MIN_TOTAL_READS = 5;
+export const DISCOVERY_MAX_CATEGORY_READS = 3;
+
 /** Programmatic SEO — company × category landing pages */
 export const MIN_ARTICLES_FOR_LANDING_PAGE = 2;
 /** Maximum cross-linked companies in "same category" section */

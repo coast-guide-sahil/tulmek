@@ -29,7 +29,7 @@ interface FeedLayoutProps {
 
 type SortMode = "for-you" | "latest" | "rising" | "popular" | "most-discussed";
 type TimeRange = "today" | "week" | "month" | "all";
-import { NEW_ARTICLE_WINDOW_MS } from "@tulmek/config/constants";
+import { NEW_ARTICLE_WINDOW_MS, DISCOVERY_MIN_TOTAL_READS, DISCOVERY_MAX_CATEGORY_READS } from "@tulmek/config/constants";
 const TIME_RANGE_MS: Record<TimeRange, number> = {
   today: 24 * 60 * 60 * 1000,
   week: 7 * 24 * 60 * 60 * 1000,
@@ -168,6 +168,20 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     }
     return counts;
   }, [articles, readIds]);
+
+  // Discovery categories — categories the user hasn't explored much yet
+  // Shown only once the user has a reading baseline (>= DISCOVERY_MIN_TOTAL_READS total)
+  const discoveryCategories = useMemo(() => {
+    const totalReads = readIds.size;
+    if (totalReads < DISCOVERY_MIN_TOTAL_READS) return new Set<string>();
+    const result = new Set<string>();
+    for (const a of articles) {
+      if (!result.has(a.category) && (categoryReadCounts[a.category] ?? 0) < DISCOVERY_MAX_CATEGORY_READS) {
+        result.add(a.category);
+      }
+    }
+    return result;
+  }, [articles, readIds, categoryReadCounts]);
 
   // Source counts
   const sourceCounts = useMemo(() => {
@@ -383,6 +397,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
                 layout={layout}
                 isNew={nowMs - new Date(article.publishedAt).getTime() < NEW_ARTICLE_WINDOW_MS}
                 isRead={readIds.has(article.id)}
+                isDiscovery={discoveryCategories.has(article.category)}
               />
             ))}
           </div>
