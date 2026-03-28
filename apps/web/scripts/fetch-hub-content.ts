@@ -123,6 +123,121 @@ const SOURCE_ICONS = {
   newsletter: "https://substack.com/favicon.ico",
 } as const;
 
+// ── AI Classification (Gemini 2.5 Flash-Lite) ──
+
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
+const CATEGORIES_DESCRIPTION = `Categories for interview prep content:
+- dsa: Data structures, algorithms, LeetCode, competitive programming, coding challenges
+- system-design: System design, distributed systems, architecture, infrastructure, DevOps, cloud
+- ai-ml: Machine learning, deep learning, LLMs, AI agents, ML system design, MLOps
+- behavioral: Behavioral interviews, STAR method, leadership, soft skills, culture fit
+- interview-experience: Interview experiences, process descriptions, rounds, feedback, outcomes
+- compensation: Salary, total comp, offers, negotiation, RSUs, equity, levels, pay bands
+- career: Job search, resume, career advice, promotions, job market, networking
+- general: Content that doesn't clearly fit other categories`;
+
+interface ClassificationResult {
+  classifications: { index: number; category: string; confidence: number }[];
+}
+
+async function classifyBatchWithGemini(
+  articles: { title: string; tags: string[]; excerpt: string }[]
+): Promise<(string | null)[]> {
+  if (!GEMINI_API_KEY) return articles.map(() => null);
+
+  const { GoogleGenAI } = await import("@google/genai");
+  const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+
+  const prompt = articles
+    .map((a, i) => `[${i}] Title: ${a.title}\nTags: ${a.tags.join(", ") || "none"}\nExcerpt: ${a.excerpt.slice(0, 150)}`)
+    .join("\n\n");
+
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash-lite",
+      contents: `Classify each article into exactly one category.\n\n${CATEGORIES_DESCRIPTION}\n\nArticles:\n${prompt}`,
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: "object" as const,
+          properties: {
+            classifications: {
+              type: "array" as const,
+              items: {
+                type: "object" as const,
+                properties: {
+                  index: { type: "number" as const },
+                  category: {
+                    type: "string" as const,
+                    enum: ["dsa", "system-design", "ai-ml", "behavioral", "career", "interview-experience", "compensation", "general"],
+                  },
+                  confidence: { type: "number" as const },
+                },
+                required: ["index", "category", "confidence"],
+              },
+            },
+          },
+          required: ["classifications"],
+        },
+      },
+    });
+
+    const text = response.text ?? "";
+    const result: ClassificationResult = JSON.parse(text);
+
+    // Map results back to article indices
+    const categories: (string | null)[] = articles.map(() => null);
+    for (const c of result.classifications) {
+      if (c.index >= 0 && c.index < articles.length && c.confidence >= 0.7) {
+        categories[c.index] = c.category;
+      }
+    }
+    return categories;
+  } catch (err) {
+    console.warn("Gemini classification failed, falling back to keywords:", (err as Error).message);
+    return articles.map(() => null);
+  }
+}
+
+async function classifyWithAI(
+  articles: { title: string; tags: string[]; excerpt: string }[]
+): Promise<string[]> {
+  const BATCH_SIZE = 20;
+  const results: (string | null)[] = new Array(articles.length).fill(null);
+
+  // Process in batches of 20
+  const batches: number[][] = [];
+  for (let i = 0; i < articles.length; i += BATCH_SIZE) {
+    batches.push(Array.from({ length: Math.min(BATCH_SIZE, articles.length - i) }, (_, j) => i + j));
+  }
+
+  // Process batches with concurrency limit of 5
+  const CONCURRENCY = 5;
+  for (let i = 0; i < batches.length; i += CONCURRENCY) {
+    const chunk = batches.slice(i, i + CONCURRENCY);
+    const batchResults = await Promise.all(
+      chunk.map(async (indices) => {
+        const batchArticles = indices.map((idx) => articles[idx]!);
+        const classifications = await classifyBatchWithGemini(batchArticles);
+        return { indices, classifications };
+      })
+    );
+    for (const { indices, classifications } of batchResults) {
+      for (let j = 0; j < indices.length; j++) {
+        results[indices[j]!] = classifications[j] ?? null;
+      }
+    }
+  }
+
+  // Fill in nulls (failed/low-confidence) with keyword fallback
+  return results.map((category, i) => {
+    if (category) return category;
+    const a = articles[i]!;
+    return categorize(a.title, a.tags);
+  });
+}
+
 // ── Utility functions ──
 
 function categorize(title: string, tags: string[] = []): string {
@@ -961,6 +1076,19 @@ async function main() {
     if (scoreDiff !== 0) return scoreDiff;
     return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
   });
+
+  // AI classification step — reclassifies articles using Gemini if API key is set
+  if (GEMINI_API_KEY) {
+    console.log(`\n🤖 AI classification with Gemini Flash-Lite (${all.length} articles)...`);
+    const aiCategories = await classifyWithAI(
+      all.map((a) => ({ title: a.title, tags: a.tags, excerpt: a.excerpt }))
+    );
+    const aiCount = aiCategories.filter((c, i) => c !== categorize(all[i]!.title, all[i]!.tags)).length;
+    all = all.map((a, i) => ({ ...a, category: aiCategories[i]! }));
+    console.log(`  AI reclassified ${aiCount} articles vs keyword baseline`);
+  } else {
+    console.log("\n📝 Using keyword classification (set GEMINI_API_KEY for AI)");
+  }
 
   const now = new Date().toISOString();
 
