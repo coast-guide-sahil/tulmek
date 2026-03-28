@@ -92,14 +92,20 @@ jobs:
           path: apps/web/.next/cache
           key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('apps/web/src/**') }}
           restore-keys: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
-      - run: pnpm turbo build
+      - run: pnpm turbo build --force
+      - name: Verify build output exists
+        run: |
+          if [ ! -d "apps/web/.next" ]; then
+            echo "::error::apps/web/.next not found after build"
+            exit 1
+          fi
+          echo "Build output verified: $(find apps/web/.next -name '*.js' | head -5 | wc -l) JS files found"
       - name: Upload build output for downstream jobs
         uses: actions/upload-artifact@v6
         with:
           name: web-build
           path: |
             apps/web/.next/
-            apps/web/out/
           retention-days: 1
 
   # ─── E2E TESTS (every PR) ───────────────────────
