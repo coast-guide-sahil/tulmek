@@ -2050,12 +2050,58 @@ async function fetchH1BJobs(): Promise<RawArticle[]> {
   return articles;
 }
 
+async function fetchArbeitnow(): Promise<RawArticle[]> {
+  console.log("  Fetching Arbeitnow (EU jobs)...");
+  const articles: RawArticle[] = [];
+  try {
+    const res = await fetch("https://www.arbeitnow.com/api/job-board-api", {
+      headers: { "User-Agent": "TULMEK Hub Content Aggregator" },
+    });
+    if (!res.ok) return articles;
+    const data = await res.json() as { data?: Array<{
+      slug?: string; title?: string; company_name?: string;
+      description?: string; created_at?: string; location?: string;
+      tags?: string[]; url?: string;
+    }> };
+
+    for (const job of (data.data ?? []).slice(0, 25)) {
+      if (!job.title || !job.company_name) continue;
+      // Filter to tech/engineering roles
+      const text = `${job.title} ${job.description ?? ""}`.toLowerCase();
+      if (!/engineer|developer|software|devops|data|ml|ai|backend|frontend|fullstack/i.test(text)) continue;
+
+      articles.push({
+        id: `arbeitnow:${job.slug ?? `${job.company_name}-${articles.length}`}`,
+        title: `${job.company_name} | ${job.title} | ${job.location ?? "Europe"}`,
+        url: job.url ?? `https://www.arbeitnow.com/view/${job.slug}`,
+        source: "newsletter",
+        sourceName: "Arbeitnow",
+        sourceIcon: "https://www.arbeitnow.com/favicon.ico",
+        domain: "arbeitnow.com",
+        category: "career",
+        tags: [...(job.tags ?? []).slice(0, 3), "europe", "hiring"].filter(Boolean),
+        excerpt: (job.description ?? "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 300),
+        publishedAt: job.created_at ? new Date(job.created_at).toISOString() : new Date().toISOString(),
+        score: 10,
+        commentCount: 0,
+        readingTime: 1,
+        discussionUrl: null,
+        interviewQuestions: [],
+        interviewFormats: [],
+      });
+    }
+  } catch (err) {
+    console.warn("  Warning: Arbeitnow failed:", (err as Error).message);
+  }
+  return articles;
+}
+
 // ── Main ──
 
 async function main() {
   console.log("🔄 Fetching hub content...\n");
 
-  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, githubTrending, youtube, newsletters, glassdoor, hnHiring, remoteok, jobicy, himalayas, greenhouse, lever, warnFirehose, h1bJobs] = await Promise.all([
+  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, githubTrending, youtube, newsletters, glassdoor, hnHiring, remoteok, jobicy, himalayas, greenhouse, lever, warnFirehose, h1bJobs, arbeitnow] = await Promise.all([
     fetchHackerNews(),
     fetchReddit(),
     fetchRedditSearch(),
@@ -2076,6 +2122,7 @@ async function main() {
     fetchLeverJobs(),
     fetchWarnFirehose(),
     fetchH1BJobs(),
+    fetchArbeitnow(),
   ]);
 
   console.log(`\n  HackerNews: ${hn.length} articles`);
@@ -2098,8 +2145,9 @@ async function main() {
   console.log(`  Lever: ${lever.length} articles`);
   console.log(`  WARN Firehose: ${warnFirehose.length} articles`);
   console.log(`  H1B Jobs: ${h1bJobs.length} articles`);
+  console.log(`  Arbeitnow: ${arbeitnow.length} articles`);
 
-  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...githubTrending, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas, ...greenhouse, ...lever, ...warnFirehose, ...h1bJobs];
+  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...githubTrending, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas, ...greenhouse, ...lever, ...warnFirehose, ...h1bJobs, ...arbeitnow];
 
   // ── Content staleness detection ──
   const sourceCounts: Record<string, number> = {};
