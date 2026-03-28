@@ -128,3 +128,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 212 | #252 | Topic-level trend detection + getTrendingTopics |
 | 213 | #253 | Trending Topics UI bar with live pulse indicator |
 | 214 | #254 | H1B visa sponsorship jobs from daily GitHub tracker |
+| 215 | #255 | Content refresh — 914 unique articles, 20+ sources |
