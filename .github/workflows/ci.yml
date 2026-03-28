@@ -32,6 +32,8 @@ jobs:
   unit-tests:
     name: Unit Tests
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - uses: actions/checkout@v6
       - uses: pnpm/action-setup@v5
@@ -41,10 +43,43 @@ jobs:
           cache: "pnpm"
       - uses: rharkor/caching-for-turbo@v2.3.11
       - run: pnpm install --frozen-lockfile
-      - run: pnpm turbo test
+      - name: Run tests with coverage
+        run: pnpm turbo test -- --coverage
+      - name: Upload coverage artifacts
+        uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: coverage-reports
+          path: |
+            packages/core/coverage/
+            apps/web/coverage/
+          retention-days: 7
+      - name: Coverage report (PR comment)
+        if: github.event_name == 'pull_request'
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          working-directory: packages/core
+          name: "Core Package Coverage"
 
-  build:
-    name: Build
+  content-validation:
+    name: Validate Content
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @tulmek/web validate-content
+
+  # ─── BUILD + E2E (every PR) ─────────────────────
+  # Each downstream job builds its own copy. Turbo's remote cache
+  # (via rharkor/caching-for-turbo) ensures the build is instant
+  # after the first run — no need for artifact sharing.
+  e2e:
+    name: E2E Tests
     runs-on: ubuntu-latest
     needs: [lint-typecheck]
     steps:
@@ -56,48 +91,45 @@ jobs:
           cache: "pnpm"
       - uses: rharkor/caching-for-turbo@v2.3.11
       - run: pnpm install --frozen-lockfile
-      - uses: actions/cache@v5
-        with:
-          path: apps/web/.next/cache
-          key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('apps/web/src/**') }}
-          restore-keys: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
-      - run: pnpm turbo build
-
-  # ─── E2E + A11Y (every PR) ───────────────────────
-  e2e:
-    name: E2E Tests
-    runs-on: ubuntu-latest
-    needs: [build]
-    steps:
-      - uses: actions/checkout@v6
-      - uses: pnpm/action-setup@v5
-      - uses: actions/setup-node@v6
-        with:
-          node-version: "24"
-          cache: "pnpm"
-      - uses: rharkor/caching-for-turbo@v2.3.11
-      - run: pnpm install --frozen-lockfile
-      - uses: actions/cache@v5
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v5
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-      - run: pnpm --filter @tulmek/web exec playwright install --with-deps chromium
-      - run: pnpm turbo build
-      - name: Run E2E + accessibility tests
-        run: pnpm --filter @tulmek/web e2e
-      - uses: actions/upload-artifact@v4
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm --filter @tulmek/web exec playwright install --with-deps chromium
+      - name: Install Playwright system deps
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm --filter @tulmek/web exec playwright install-deps chromium
+      - name: Build
+        run: pnpm turbo build
+      - name: Start server and run E2E tests
+        run: |
+          pnpm --filter @tulmek/web start &
+          npx wait-on http://localhost:3000 --timeout 30000
+          pnpm --filter @tulmek/web exec playwright test \
+            health.spec.ts \
+            navigation.spec.ts \
+            progress.spec.ts \
+            hub.spec.ts \
+            visual.spec.ts
+        env:
+          PLAYWRIGHT_BASE_URL: http://localhost:3000
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v6
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
           path: apps/web/playwright-report/
           retention-days: 14
 
-  # ─── LIGHTHOUSE (merge to main only) ────────────
-  lighthouse:
-    name: Lighthouse CI
-    if: github.ref == 'refs/heads/main'
+  # ─── ACCESSIBILITY (every PR, separate job for visibility) ──
+  accessibility:
+    name: Accessibility Tests
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: [lint-typecheck]
     steps:
       - uses: actions/checkout@v6
       - uses: pnpm/action-setup@v5
@@ -107,10 +139,53 @@ jobs:
           cache: "pnpm"
       - uses: rharkor/caching-for-turbo@v2.3.11
       - run: pnpm install --frozen-lockfile
-      - run: pnpm turbo build
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm --filter @tulmek/web exec playwright install --with-deps chromium
+      - name: Install Playwright system deps
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm --filter @tulmek/web exec playwright install-deps chromium
+      - name: Build
+        run: pnpm turbo build
+      - name: Start server and run a11y tests
+        run: |
+          pnpm --filter @tulmek/web start &
+          npx wait-on http://localhost:3000 --timeout 30000
+          pnpm --filter @tulmek/web exec playwright test accessibility.spec.ts
         env:
-          NEXT_PUBLIC_APP_URL: http://localhost:3000
+          PLAYWRIGHT_BASE_URL: http://localhost:3000
+      - name: Upload a11y report
+        uses: actions/upload-artifact@v6
+        if: ${{ !cancelled() }}
+        with:
+          name: a11y-report
+          path: apps/web/playwright-report/
+          retention-days: 14
+
+  # ─── LIGHTHOUSE (every PR + main) ───────────────
+  lighthouse:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    needs: [lint-typecheck]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: "pnpm"
+      - uses: rharkor/caching-for-turbo@v2.3.11
+      - run: pnpm install --frozen-lockfile
+      - name: Build
+        run: pnpm turbo build
       - uses: treosh/lighthouse-ci-action@v12
         with:
           configPath: ./lighthouserc.json
           uploadArtifacts: true
+          temporaryPublicStorage: true

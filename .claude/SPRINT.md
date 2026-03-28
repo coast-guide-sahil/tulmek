@@ -3,6 +3,10 @@
 > Claude reads this at session start. Keep it SHORT — only active + backlog.
 > Completed sprints go to `docs/sprint-archive.md` (not auto-loaded).
 
+## Active
+
+- [x] Sprint 157: CI/CD pipeline audit + rewrite (all 7 workflows, action version upgrades, lint fixes)
+
 ## Backlog (prioritized)
 
 1. [ ] AI content classification at fetch time (Gemini Flash-Lite) `#data-quality` `#high`

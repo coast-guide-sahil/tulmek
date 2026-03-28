@@ -6,7 +6,7 @@
     "frontendDist": "../../web/out",
     "devUrl": "http://localhost:3000",
     "beforeDevCommand": "",
-    "beforeBuildCommand": "echo 'Build web with output:export first'"
+    "beforeBuildCommand": "echo 'Build web with NEXT_OUTPUT=export first'"
   },
   "app": {
     "windows": [
@@ -27,12 +27,28 @@
   "bundle": {
     "active": true,
     "targets": "all",
+    "createUpdaterArtifacts": false,
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
-      "icons/128x128@2x.png"
-    ]
+      "icons/128x128@2x.png",
+      "icons/icon.ico"
+    ],
+    "macOS": {
+      "minimumSystemVersion": "10.15"
+    },
+    "windows": {
+      "nsis": {
+        "installMode": "both"
+      }
+    }
   },
-  "plugins": {}
-
+  "plugins": {
+    "updater": {
+      "endpoints": [
+        "https://github.com/coast-guide-sahil/tulmek/releases/latest/download/latest.json"
+      ],
+      "pubkey": ""
+    }
+  }
 }

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import type { FeedArticle } from "@tulmek/core/domain";
-import { getCategoryMeta } from "@tulmek/core/domain";
 import { APP_NAME } from "@tulmek/config/constants";
 import feedData from "@tulmek/content/hub/feed";
 import Link from "next/link";

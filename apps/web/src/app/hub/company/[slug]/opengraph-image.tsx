@@ -24,6 +24,10 @@ export const alt = "TULMEK Interview Prep";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+export async function generateStaticParams() {
+  return Object.keys(COMPANY_DISPLAY).map((slug) => ({ slug }));
+}
+
 function getCompanyArticles(slug: string): FeedArticle[] {
   const lower = slug.toLowerCase();
   return articles.filter((a) => {
@@ -61,63 +65,35 @@ export default async function OGImage({ params }: { params: Promise<{ slug: stri
     : 0;
   const freshnessText = hoursAgo < 1 ? "Updated just now" : hoursAgo < 24 ? `Updated ${hoursAgo}h ago` : `Updated ${Math.round(hoursAgo / 24)}d ago`;
 
+  // Build stats as a flat array to avoid conditional rendering issues with Satori
+  const stats: { value: string; label: string; color: string }[] = [
+    { value: String(companyArticles.length), label: "Articles", color: "#3b82f6" },
+    ...(sources.size > 0 ? [{ value: String(sources.size), label: "Sources", color: "#3b82f6" }] : []),
+    ...topCategories.map((cat) => ({ value: String(cat.count), label: cat.label, color: "#fafafa" })),
+  ];
+
   return new ImageResponse(
     (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          background: "linear-gradient(135deg, #09090b 0%, #18181b 50%, #09090b 100%)",
-          padding: "48px 56px",
-          fontFamily: "system-ui, sans-serif",
-        }}
-      >
-        {/* Header */}
+      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", background: "linear-gradient(135deg, #09090b 0%, #18181b 50%, #09090b 100%)", padding: "48px 56px", fontFamily: "system-ui, sans-serif" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <div style={{ fontSize: "24px", fontWeight: 800, color: "#fafafa" }}>TULMEK</div>
-            <div style={{ fontSize: "14px", color: "#71717a", background: "#27272a", padding: "4px 12px", borderRadius: "20px" }}>
-              Knowledge Hub
-            </div>
+            <div style={{ fontSize: "24px", fontWeight: 800, color: "#fafafa", display: "flex" }}>{"TULMEK"}</div>
+            <div style={{ fontSize: "14px", color: "#71717a", background: "#27272a", padding: "4px 12px", borderRadius: "20px", display: "flex" }}>{"Knowledge Hub"}</div>
           </div>
           <div style={{ fontSize: "14px", color: "#22c55e", display: "flex", alignItems: "center", gap: "6px" }}>
-            <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#22c55e" }} />
-            {freshnessText}
+            <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#22c55e", display: "flex" }} />
+            <div style={{ display: "flex" }}>{freshnessText}</div>
           </div>
         </div>
-
-        {/* Company name */}
         <div style={{ marginTop: "40px", display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: "56px", fontWeight: 800, color: "#fafafa", lineHeight: 1.1 }}>
-            {name}
-          </div>
-          <div style={{ fontSize: "24px", color: "#a1a1aa", marginTop: "8px" }}>
-            Interview Prep Intelligence
-          </div>
+          <div style={{ fontSize: "56px", fontWeight: 800, color: "#fafafa", lineHeight: 1.1, display: "flex" }}>{name}</div>
+          <div style={{ fontSize: "24px", color: "#a1a1aa", marginTop: "8px", display: "flex" }}>{"Interview Prep Intelligence"}</div>
         </div>
-
-        {/* Stats row */}
-        <div style={{ marginTop: "auto", display: "flex", gap: "32px" }}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ fontSize: "40px", fontWeight: 800, color: "#3b82f6" }}>
-              {companyArticles.length}
-            </div>
-            <div style={{ fontSize: "14px", color: "#71717a" }}>Articles</div>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ fontSize: "40px", fontWeight: 800, color: "#3b82f6" }}>
-              {sources.size}
-            </div>
-            <div style={{ fontSize: "14px", color: "#71717a" }}>Sources</div>
-          </div>
-          {topCategories.map((cat) => (
-            <div key={cat.label} style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ fontSize: "40px", fontWeight: 800, color: "#fafafa" }}>
-                {cat.count}
-              </div>
-              <div style={{ fontSize: "14px", color: "#71717a" }}>{cat.label}</div>
+        <div style={{ marginTop: "auto", display: "flex", gap: "32px", alignItems: "flex-end" }}>
+          {stats.map((s) => (
+            <div key={s.label} style={{ display: "flex", flexDirection: "column" }}>
+              <div style={{ fontSize: "40px", fontWeight: 800, color: s.color, display: "flex" }}>{s.value}</div>
+              <div style={{ fontSize: "14px", color: "#71717a", display: "flex" }}>{s.label}</div>
             </div>
           ))}
         </div>

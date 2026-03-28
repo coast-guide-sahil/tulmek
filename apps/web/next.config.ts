@@ -2,8 +2,15 @@ import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV === "development";
 
+// Tauri desktop builds require static export (output: "export") to produce
+// files in web/out/. The web deployment uses "standalone" for server-side
+// features. Set NEXT_OUTPUT=export when building for Tauri.
+const outputMode =
+  (process.env.NEXT_OUTPUT as "standalone" | "export" | undefined) ??
+  "standalone";
+
 const nextConfig: NextConfig = {
-  output: "standalone",
+  output: outputMode,
   poweredByHeader: false,
   transpilePackages: ["@tulmek/core", "@tulmek/config"],
   async headers() {

@@ -37,13 +37,19 @@ jobs:
       - name: Fetch hub content
         run: pnpm --filter @tulmek/web fetch-hub-content
 
+      - name: Validate fetched content
+        run: pnpm --filter @tulmek/web validate-content
+
       - name: Check for changes
         id: changes
         run: |
-          if git diff --quiet apps/web/src/content/hub/; then
+          if git diff --quiet packages/content/src/hub/; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No content changes detected."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Content changes detected:"
+            git diff --stat packages/content/src/hub/
           fi
 
       - name: Commit & push
@@ -51,6 +57,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add apps/web/src/content/hub/
+          git add packages/content/src/hub/
           git commit -m "chore: refresh hub content $(date -u +%Y-%m-%d)"
           git push

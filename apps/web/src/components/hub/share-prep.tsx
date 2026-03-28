@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { useHub } from "@/lib/hub/provider";
+
 
 interface SharePrepProps {
   readonly companyName: string;
@@ -14,8 +14,6 @@ interface SharePrepProps {
  * Drives organic acquisition: the shared link leads to the company page.
  */
 export function SharePrep({ companyName, companySlug, totalArticles }: SharePrepProps) {
-  const readCount = useHub((s) => s.readIds.size);
-  const bookmarkCount = useHub((s) => Object.keys(s.bookmarks).length);
   const [copied, setCopied] = useState(false);
 
   const handleShare = useCallback(async () => {

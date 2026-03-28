@@ -39,7 +39,7 @@ export function CardMenu({ articleId, source, category, onDismiss }: CardMenuPro
     <div ref={menuRef} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg text-muted-foreground/40 transition-colors hover:text-muted-foreground"
+        className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
         aria-label="More options"
         aria-expanded={open}
       >

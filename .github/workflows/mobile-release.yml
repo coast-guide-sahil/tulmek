@@ -1,4 +1,4 @@
-name: Mobile Release (Expo EAS)
+name: Mobile Release (Android APK)
 
 on:
   push:
@@ -8,12 +8,43 @@ on:
 
 concurrency:
   group: mobile-release-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false # Never cancel a release in progress
+
+permissions:
+  contents: write
+
+env:
+  NODE_VERSION: "24"
+  JAVA_VERSION: "17"
 
 jobs:
+  # ─── PREFLIGHT: verify build will succeed ───────
+  preflight:
+    name: Preflight Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck mobile package
+        run: pnpm --filter @tulmek/mobile exec tsc --noEmit
+
   build-android:
     name: Build Android APK
     runs-on: ubuntu-latest
+    needs: [preflight]
     defaults:
       run:
         working-directory: apps/mobile
@@ -28,67 +59,130 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: "24"
+          node-version: ${{ env.NODE_VERSION }}
           cache: "pnpm"
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
+      - name: Setup Java (JDK 17)
+        uses: actions/setup-java@v5
         with:
           distribution: "temurin"
-          java-version: "17"
+          java-version: ${{ env.JAVA_VERSION }}
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Setup Expo & EAS
-        uses: expo/expo-github-action@v8
-        with:
-          expo-version: latest
-          eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
-
-      - name: Install dependencies
+      - name: Install monorepo dependencies
         run: cd ../.. && pnpm install --frozen-lockfile
 
-      - name: Build Android (local)
-        run: eas build --platform android --profile preview --local --non-interactive --output ./build.apk
+      # --- Signing setup ---
+      - name: Decode keystore
+        if: env.ANDROID_KEYSTORE_BASE64 != ''
+        run: echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > android-release.keystore
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
+      # --- Generate native project (CNG) ---
+      - name: Expo prebuild (generate android/ directory)
+        run: npx expo prebuild --platform android --clean --no-install
+
+      # --- Inject signing config into gradle ---
+      - name: Configure release signing
+        if: env.ANDROID_KEYSTORE_BASE64 != ''
+        run: |
+          cat >> android/gradle.properties <<PROPS
+          TULMEK_UPLOAD_STORE_FILE=../../android-release.keystore
+          TULMEK_UPLOAD_KEY_ALIAS=${{ secrets.ANDROID_KEY_ALIAS }}
+          TULMEK_UPLOAD_STORE_PASSWORD=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          TULMEK_UPLOAD_KEY_PASSWORD=${{ secrets.ANDROID_KEY_PASSWORD }}
+          PROPS
+
+          # Patch app/build.gradle to use signing config
+          sed -i '/signingConfigs {/,/}/ {
+            /release {/,/}/ d
+          }' android/app/build.gradle || true
+
+          sed -i 's/signingConfigs {/signingConfigs {\n        release {\n            storeFile file(TULMEK_UPLOAD_STORE_FILE)\n            storePassword TULMEK_UPLOAD_STORE_PASSWORD\n            keyAlias TULMEK_UPLOAD_KEY_ALIAS\n            keyPassword TULMEK_UPLOAD_KEY_PASSWORD\n        }/' android/app/build.gradle
+
+          sed -i 's/signingConfig signingConfigs.debug/signingConfig signingConfigs.release/' android/app/build.gradle
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+
+      # --- Build ---
+      - name: Build release APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon --stacktrace
+
+      - name: Rename APK with version
+        run: |
+          VERSION="${GITHUB_REF_NAME#mobile-v}"
+          APK_SRC="android/app/build/outputs/apk/release/app-release.apk"
+          APK_DST="tulmek-${VERSION}-android.apk"
+          cp "$APK_SRC" "$APK_DST"
+          sha256sum "$APK_DST" > "$APK_DST.sha256"
+          echo "APK_PATH=$APK_DST" >> "$GITHUB_ENV"
+          echo "SHA_PATH=$APK_DST.sha256" >> "$GITHUB_ENV"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      # --- Upload artifact (always) ---
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v6
         with:
           name: android-apk
-          path: apps/mobile/build.apk
-          retention-days: 30
+          path: |
+            apps/mobile/tulmek-*-android.apk
+            apps/mobile/tulmek-*-android.apk.sha256
+          retention-days: 90
 
-  build-ios:
-    name: Build iOS (EAS Cloud)
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: apps/mobile
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v5
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      # --- GitHub Release (on tag push only) ---
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
         with:
-          node-version: "24"
-          cache: "pnpm"
+          name: "TULMEK Mobile v${{ env.VERSION }}"
+          body: |
+            ## TULMEK Mobile v${{ env.VERSION }}
 
-      - name: Setup Expo & EAS
-        uses: expo/expo-github-action@v8
-        with:
-          expo-version: latest
-          eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
+            ### Download
+            - **Android APK**: `tulmek-${{ env.VERSION }}-android.apk`
+            - Verify checksum: `sha256sum -c tulmek-${{ env.VERSION }}-android.apk.sha256`
 
-      - name: Install dependencies
-        run: cd ../.. && pnpm install --frozen-lockfile
+            ### Install
+            1. Download the APK file below
+            2. On your Android device, enable "Install from unknown sources" for your browser
+            3. Open the downloaded APK to install
 
-      - name: Build iOS (cloud — requires macOS + Xcode)
-        run: eas build --platform ios --profile production --non-interactive --no-wait
+            ### Auto-updates
+            Use [Obtainium](https://github.com/ImranR98/Obtainium) to get automatic update notifications from this GitHub repo.
+          files: |
+            apps/mobile/tulmek-*-android.apk
+            apps/mobile/tulmek-*-android.apk.sha256
+          draft: true
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # --- iOS (EAS Cloud — requires paid Apple Developer account) ---
+  # Uncomment when you have an Apple Developer account ($99/year)
+  # build-ios:
+  #   name: Build iOS (EAS Cloud)
+  #   runs-on: ubuntu-latest
+  #   needs: [build-android]
+  #   defaults:
+  #     run:
+  #       working-directory: apps/mobile
+  #   steps:
+  #     - uses: actions/checkout@v6
+  #     - uses: pnpm/action-setup@v5
+  #     - uses: actions/setup-node@v6
+  #       with:
+  #         node-version: ${{ env.NODE_VERSION }}
+  #         cache: "pnpm"
+  #     - uses: expo/expo-github-action@v8
+  #       with:
+  #         expo-version: latest
+  #         eas-version: latest
+  #         token: ${{ secrets.EXPO_TOKEN }}
+  #     - run: cd ../.. && pnpm install --frozen-lockfile
+  #     - run: eas build --platform ios --profile production --non-interactive --no-wait
