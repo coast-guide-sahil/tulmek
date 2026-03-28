@@ -118,3 +118,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 202 | #242 | Show HN launch materials — post, maker comment, FAQ, strategy |
 | 203 | #243 | Mobile FlashList migration (5x scroll perf) + .expo gitignore |
 | 204 | #244 | Mobile dark mode fix — theme-aware colors across all screens |
+| 205 | #245 | WARN Firehose — layoff and hiring freeze signals |
