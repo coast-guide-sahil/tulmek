@@ -1994,12 +1994,68 @@ async function fetchGitHubTrending(): Promise<RawArticle[]> {
   return articles;
 }
 
+async function fetchH1BJobs(): Promise<RawArticle[]> {
+  console.log("  Fetching H1B Jobs...");
+  const articles: RawArticle[] = [];
+
+  try {
+    const res = await fetch(
+      "https://raw.githubusercontent.com/jobright-ai/Daily-H1B-Jobs-In-Tech/main/README.md",
+      { headers: { "User-Agent": "TULMEK Hub Content Aggregator" } }
+    );
+    if (!res.ok) return articles;
+    const md = await res.text();
+
+    // Parse markdown table rows: | Company | Role | Location | Link | Date |
+    const rows = md.split("\n").filter(line => line.startsWith("| ") && !line.includes("---") && !line.includes("Company"));
+
+    for (const row of rows.slice(0, 30)) {
+      const cols = row.split("|").map(c => c.trim()).filter(Boolean);
+      if (cols.length < 4) continue;
+
+      const company = cols[0] ?? "";
+      const role = cols[1] ?? "";
+      const location = cols[2] ?? "";
+      // Extract URL from markdown link [text](url)
+      const linkMatch = (cols[3] ?? "").match(/\[.*?\]\((.*?)\)/);
+      const url = linkMatch?.[1] ?? "https://github.com/jobright-ai/Daily-H1B-Jobs-In-Tech";
+      const date = cols[4] ?? "";
+
+      if (!company || !role) continue;
+
+      articles.push({
+        id: `h1b:${Buffer.from(`${company}-${role}`).toString("base64").slice(0, 20)}`,
+        title: `${company} | ${role} | H1B Visa Sponsorship | ${location}`,
+        url,
+        source: "newsletter",
+        sourceName: "H1B Jobs",
+        sourceIcon: "https://github.com/favicon.ico",
+        domain: "github.com",
+        category: "career",
+        tags: ["h1b", "visa-sponsorship", "hiring", location.toLowerCase()].filter(Boolean),
+        excerpt: `${company} is hiring ${role} with H1B visa sponsorship in ${location}. ${date}`,
+        publishedAt: date ? new Date(date).toISOString() : new Date().toISOString(),
+        score: 15,
+        commentCount: 0,
+        readingTime: 1,
+        discussionUrl: null,
+        interviewQuestions: [],
+        interviewFormats: [],
+      });
+    }
+  } catch (err) {
+    console.warn("  Warning: H1B Jobs failed:", (err as Error).message);
+  }
+
+  return articles;
+}
+
 // ── Main ──
 
 async function main() {
   console.log("🔄 Fetching hub content...\n");
 
-  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, githubTrending, youtube, newsletters, glassdoor, hnHiring, remoteok, jobicy, himalayas, greenhouse, lever, warnFirehose] = await Promise.all([
+  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, githubTrending, youtube, newsletters, glassdoor, hnHiring, remoteok, jobicy, himalayas, greenhouse, lever, warnFirehose, h1bJobs] = await Promise.all([
     fetchHackerNews(),
     fetchReddit(),
     fetchRedditSearch(),
@@ -2019,6 +2075,7 @@ async function main() {
     fetchGreenhouseJobs(),
     fetchLeverJobs(),
     fetchWarnFirehose(),
+    fetchH1BJobs(),
   ]);
 
   console.log(`\n  HackerNews: ${hn.length} articles`);
@@ -2040,8 +2097,9 @@ async function main() {
   console.log(`  Greenhouse: ${greenhouse.length} articles`);
   console.log(`  Lever: ${lever.length} articles`);
   console.log(`  WARN Firehose: ${warnFirehose.length} articles`);
+  console.log(`  H1B Jobs: ${h1bJobs.length} articles`);
 
-  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...githubTrending, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas, ...greenhouse, ...lever, ...warnFirehose];
+  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...githubTrending, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas, ...greenhouse, ...lever, ...warnFirehose, ...h1bJobs];
 
   // ── Content staleness detection ──
   const sourceCounts: Record<string, number> = {};
