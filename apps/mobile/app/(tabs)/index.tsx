@@ -151,8 +151,16 @@ function ArticleCard({ article, nowMs, isBookmarked, onToggleBookmark, t }: {
           <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: "#ef4444" }} />
         )}
         <Text style={[styles.cardTime, { color: t.textMuted }]}>{relTime}</Text>
-        {isNew && <Text style={styles.newBadge}>NEW</Text>}
-        {isTrending && <Text style={styles.trendingBadge}>TRENDING</Text>}
+        {isTrending && (
+          <View style={styles.hotBadge}>
+            <Text style={styles.hotBadgeText}>🔥 Hot</Text>
+          </View>
+        )}
+        {isNew && (
+          <View style={styles.freshBadge}>
+            <Text style={styles.freshBadgeText}>Fresh</Text>
+          </View>
+        )}
       </View>
 
       {/* Title */}
@@ -789,8 +797,10 @@ const styles = StyleSheet.create({
   categoryPillText: { fontSize: 11, fontWeight: "700" },
   cardSource: { fontSize: 12, fontWeight: "600" as const },
   cardTime: { fontSize: 12 },
-  newBadge: { fontSize: 10, fontWeight: "700" as const, color: "#22c55e", backgroundColor: "#22c55e15", paddingHorizontal: 5, paddingVertical: 1, borderRadius: 4, overflow: "hidden" as const },
-  trendingBadge: { fontSize: 10, fontWeight: "700" as const, color: "#ef4444", backgroundColor: "#ef444415", paddingHorizontal: 5, paddingVertical: 1, borderRadius: 4, overflow: "hidden" as const },
+  hotBadge: { backgroundColor: "#f9731620", borderRadius: 8, paddingHorizontal: 6, paddingVertical: 2 },
+  hotBadgeText: { fontSize: 10, fontWeight: "600" as const, color: "#f97316" },
+  freshBadge: { backgroundColor: "#10b98120", borderRadius: 8, paddingHorizontal: 6, paddingVertical: 2 },
+  freshBadgeText: { fontSize: 10, fontWeight: "600" as const, color: "#10b981" },
   cardTitle: { fontSize: 15, fontWeight: "700", lineHeight: 22 },
   cardExcerpt: { fontSize: 13, marginTop: 6, lineHeight: 20 },
   cardFooter: { flexDirection: "row" as const, alignItems: "center" as const, justifyContent: "space-between" as const, marginTop: 10 },
