@@ -96,8 +96,27 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
   const mutedSources = useHub((s) => s.mutedSources);
   const mutedCategories = useHub((s) => s.mutedCategories);
   const searchResults = useHub((s) => s.searchResults);
-  const { toggleBookmark, markAsRead, dismiss, search: searchOrama } = useHubActions();
+  const { toggleBookmark, markAsRead, dismiss, search: searchOrama, recordEngagement, startDwellTimer, stopDwellTimer } = useHubActions();
   const showToast = useToast();
+
+  // Stop dwell timer when user returns to the page
+  useEffect(() => {
+    const handler = () => {
+      if (document.visibilityState === "visible") stopDwellTimer();
+    };
+    document.addEventListener("visibilitychange", handler);
+    return () => document.removeEventListener("visibilitychange", handler);
+  }, [stopDwellTimer]);
+
+  const handleArticleClick = useCallback((articleId: string) => {
+    markAsRead(articleId);
+    // Find the article to get category/source for engagement tracking
+    const article = articles.find((a) => a.id === articleId);
+    if (article) {
+      recordEngagement(article.category, article.source);
+      startDwellTimer(articleId, article.category);
+    }
+  }, [markAsRead, recordEngagement, startDwellTimer, articles]);
 
   const handleBookmark = useCallback((articleId: string) => {
     const wasBookmarked = articleId in bookmarks;
@@ -359,7 +378,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
                 article={article}
                 isBookmarked={article.id in bookmarks}
                 onToggleBookmark={handleBookmark}
-                onArticleClick={markAsRead}
+                onArticleClick={handleArticleClick}
                 onDismiss={dismiss}
                 layout={layout}
                 isNew={nowMs - new Date(article.publishedAt).getTime() < NEW_ARTICLE_WINDOW_MS}

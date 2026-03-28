@@ -5,13 +5,13 @@
 
 ## Backlog (prioritized)
 
-1. [ ] global-error.tsx + not-found.tsx + root error.tsx (branded error pages) `#launch` `#critical`
-2. [ ] Privacy policy + terms of service pages `#launch` `#critical`
-3. [ ] Analytics (Plausible or Vercel Analytics — privacy-friendly) `#launch` `#high`
-4. [ ] loading.tsx skeleton states for hub + progress routes `#ux` `#high`
-5. [ ] AI content classification at fetch time (Gemini Flash-Lite) `#data-quality` `#medium`
-6. [ ] Show HN launch post draft `#growth` `#medium`
-7. [ ] Mobile: pulse/report pages `#mobile` `#medium`
-8. [ ] Desktop: auto-updater config `#desktop` `#low`
-9. [ ] Visual regression tests `#testing` `#low`
-10. [ ] Lighthouse CI in GitHub Actions `#performance` `#low`
+1. [ ] AI content classification at fetch time (Gemini Flash-Lite) `#data-quality` `#high`
+2. [ ] Desktop: auto-updater config (Tauri updater plugin) `#desktop` `#medium`
+3. [ ] Visual regression tests with Playwright `#testing` `#medium`
+4. [ ] Lighthouse CI in GitHub Actions `#performance` `#medium`
+5. [ ] Mute UI: three-dot menu on cards + undo snackbar `#ux` `#medium`
+6. [ ] Wire recordEngagement + dwell timer into article clicks `#personalization` `#medium`
+7. [ ] Mobile: report page `#mobile` `#low`
+8. [ ] Content: add more newsletter sources `#data-quality` `#low`
+9. [ ] SEO: add /hub/pulse and /hub/report to sitemap `#seo` `#low`
+10. [ ] Show HN launch (Sunday morning, after all launch items done) `#growth` `#blocked`
