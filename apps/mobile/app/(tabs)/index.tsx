@@ -266,10 +266,61 @@ function SortPicker({ value, onChange, t }: { value: SortMode; onChange: (v: Sor
   );
 }
 
+// ── Difficulty Filter ──
+type DifficultyLevel = "beginner" | "intermediate" | "advanced";
+
+const DIFFICULTY_COLORS: Record<DifficultyLevel, string> = {
+  beginner: "#10b981",
+  intermediate: "#f59e0b",
+  advanced: "#ef4444",
+};
+
+const DIFFICULTY_LEVELS: DifficultyLevel[] = ["beginner", "intermediate", "advanced"];
+
+function DifficultyFilter({
+  active,
+  onSelect,
+  t,
+}: {
+  active: DifficultyLevel | null;
+  onSelect: (level: DifficultyLevel | null) => void;
+  t: ThemeColors;
+}) {
+  return (
+    <View style={styles.difficultyRow}>
+      {DIFFICULTY_LEVELS.map((level) => {
+        const isActive = active === level;
+        const color = DIFFICULTY_COLORS[level];
+        return (
+          <Pressable
+            key={level}
+            onPress={() => {
+              void Haptics.selectionAsync();
+              onSelect(isActive ? null : level);
+            }}
+            style={[
+              styles.difficultyChip,
+              { backgroundColor: isActive ? color : t.chipBg },
+            ]}
+            accessibilityRole="button"
+            accessibilityState={{ selected: isActive }}
+            accessibilityLabel={`Filter by ${level} difficulty`}
+          >
+            <Text style={[styles.difficultyChipText, { color: isActive ? "#ffffff" : t.textSecondary }]}>
+              {level.charAt(0).toUpperCase() + level.slice(1)}
+            </Text>
+          </Pressable>
+        );
+      })}
+    </View>
+  );
+}
+
 // ── Main Screen ──
 export default function HomeScreen() {
   const [nowMs] = useState(() => Date.now());
   const [activeCategory, setActiveCategory] = useState<HubCategory | null>(null);
+  const [difficultyFilter, setDifficultyFilter] = useState<DifficultyLevel | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortMode, setSortMode] = useState<SortMode>("for-you");
   const listRef = useRef<FlashListRef<FeedArticle>>(null);
@@ -289,6 +340,10 @@ export default function HomeScreen() {
 
     if (activeCategory) {
       result = result.filter((a) => a.category === activeCategory);
+    }
+
+    if (difficultyFilter) {
+      result = result.filter((a) => a.difficulty === difficultyFilter);
     }
 
     if (searchQuery.trim()) {
@@ -319,7 +374,7 @@ export default function HomeScreen() {
         result.sort((a, b) => b.score - a.score);
         return result;
     }
-  }, [activeCategory, searchQuery, sortMode, nowMs]);
+  }, [activeCategory, difficultyFilter, searchQuery, sortMode, nowMs]);
 
   const renderItem = useCallback(
     ({ item }: ListRenderItemInfo<FeedArticle>) => (
@@ -395,6 +450,13 @@ export default function HomeScreen() {
               t={t}
             />
 
+            {/* Difficulty */}
+            <DifficultyFilter
+              active={difficultyFilter}
+              onSelect={setDifficultyFilter}
+              t={t}
+            />
+
             {/* Sort */}
             <SortPicker value={sortMode} onChange={setSortMode} t={t} />
 
@@ -452,6 +514,24 @@ const styles = StyleSheet.create({
   categoryChipText: { fontSize: 13, fontWeight: "600" },
   countBadge: { borderRadius: 8, paddingHorizontal: 6, paddingVertical: 2 },
   countText: { fontSize: 11, fontWeight: "700" },
+
+  // Difficulty filter
+  difficultyRow: {
+    flexDirection: "row" as const,
+    gap: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+  },
+  difficultyChip: {
+    flex: 1,
+    alignItems: "center" as const,
+    justifyContent: "center" as const,
+    minHeight: 44,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 10,
+  },
+  difficultyChipText: { fontSize: 13, fontWeight: "600" as const },
 
   // Sort picker
   sortList: { paddingHorizontal: 12, paddingVertical: 4, gap: 6 },
