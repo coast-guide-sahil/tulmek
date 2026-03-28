@@ -108,6 +108,12 @@ function ArticleCard({ article, nowMs, isBookmarked, onToggleBookmark, t }: {
           <Text style={[styles.categoryPillText, { color }]}>{meta.label}</Text>
         </View>
         <Text style={[styles.cardSource, { color: t.textSecondary }]}>{source}</Text>
+        {article.sentiment === "positive" && (
+          <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: "#10b981" }} />
+        )}
+        {article.sentiment === "negative" && (
+          <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: "#ef4444" }} />
+        )}
         <Text style={[styles.cardTime, { color: t.textMuted }]}>{relTime}</Text>
         {isNew && <Text style={styles.newBadge}>NEW</Text>}
         {isTrending && <Text style={styles.trendingBadge}>TRENDING</Text>}
@@ -123,6 +129,17 @@ function ArticleCard({ article, nowMs, isBookmarked, onToggleBookmark, t }: {
         <Text style={[styles.cardExcerpt, { color: t.textMuted }]} numberOfLines={2}>
           {article.excerpt}
         </Text>
+      )}
+
+      {/* Topic pills */}
+      {article.topics && article.topics.length > 0 && (
+        <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 4, marginTop: 6 }}>
+          {article.topics.slice(0, 3).map((topic: string) => (
+            <View key={topic} style={{ backgroundColor: t.chipBg, borderRadius: 4, paddingHorizontal: 6, paddingVertical: 2 }}>
+              <Text style={{ fontSize: 10, color: t.textMuted }}>{topic}</Text>
+            </View>
+          ))}
+        </View>
       )}
 
       {/* Footer: stats + bookmark */}
