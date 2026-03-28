@@ -105,3 +105,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 189 | #229 | Content refresh — 1,292 articles from 15+ sources |
 | 190 | #230 | Unified AI enrichment pipeline (ADR-003 Sprint A) |
 | 191 | #231 | Streak milestone celebrations with confetti |
+| 192 | #232 | Discovery badges for unexplored categories |
