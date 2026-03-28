@@ -50,7 +50,7 @@ export function FirstVisit({ articleCount, sourceCount }: { articleCount: number
         </div>
         <button
           onClick={() => setDismissed(true)}
-          className="shrink-0 text-sm text-muted-foreground hover:text-foreground"
+          className="shrink-0 text-sm text-foreground hover:text-foreground"
           aria-label="Dismiss welcome"
         >
           Got it

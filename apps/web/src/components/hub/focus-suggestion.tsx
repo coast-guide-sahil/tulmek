@@ -46,7 +46,7 @@ export function FocusSuggestion({ onCategoryClick }: FocusSuggestionProps) {
         </span>
         <p className="text-sm text-foreground">
           <span className="font-medium">Focus suggestion:</span>{" "}
-          <span className="text-muted-foreground">{suggestion.reason}</span>
+          <span className="text-foreground">{suggestion.reason}</span>
         </p>
       </div>
       <div className="flex items-center gap-2">
@@ -58,7 +58,7 @@ export function FocusSuggestion({ onCategoryClick }: FocusSuggestionProps) {
         </button>
         <button
           onClick={() => setDismissed(true)}
-          className="min-h-[44px] rounded-md px-2 text-xs text-muted-foreground hover:text-foreground"
+          className="min-h-[44px] rounded-md px-2 text-xs text-foreground hover:text-foreground"
           aria-label="Dismiss"
         >
           ✕
