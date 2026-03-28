@@ -89,3 +89,6 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 171 | #209 | Mobile company comparison screen |
 | 172 | #210 | LeetCode daily challenge integration |
 | 175 | #214 | Interview question extraction from articles |
+| 176 | — | Content staleness alerting (already on main from parallel merge) |
+| 177 | #215 | WCAG 2.2 AA touch targets + compare table mobile scroll |
+| 178 | #217 | Add 3 content sources + expand keywords for 2026 landscape |
