@@ -4,7 +4,7 @@
 
 ### AI-Powered Interview Prep Knowledge Hub
 
-**1,192 articles from 12+ sources, ranked by AI. Refreshed every 3 hours. Zero backend.**
+**1,358 articles from 17+ sources, ranked by AI. Refreshed every 3 hours. Zero backend.**
 
 <img src="docs/tulmek-demo.gif" alt="TULMEK Demo" width="700" />
 
@@ -25,9 +25,12 @@
 
 TULMEK aggregates interview-prep content from across the internet into one fast, searchable feed. No sign-up. No server. Everything runs client-side.
 
-- **12+ sources** -- Reddit, Hacker News (+ Who's Hiring), DEV Community, LeetCode (+ Daily Challenge), Medium, GitHub, YouTube, Glassdoor, Newsletters (ByteByteGo, Pragmatic Engineer, Hello Interview, and more)
+- **17+ sources** -- Reddit, HN (+ Who's Hiring), DEV, LeetCode (+ Daily), Medium, GitHub, YouTube, Glassdoor, RemoteOK, Jobicy, Himalayas, Greenhouse, Lever, 20+ newsletters
 - **8 categories** -- DSA, System Design, AI/ML, Behavioral, Career, Interview Experiences, Compensation, General
-- **TCRA ranking** -- multi-signal algorithm (relevance, freshness decay, source credibility, trending detection, personalization)
+- **AI enrichment** -- Gemini 2.5 Flash-Lite for classification, summaries, topics, difficulty, sentiment
+- **TCRA ranking** -- multi-signal algorithm (relevance, freshness, credibility, trending, personalization)
+- **Company intelligence** -- interview formats, questions, hiring signals, FAQ, cross-source corroboration
+- **Engagement** -- reading streaks with celebrations, prep coverage rings, discovery badges, personalized onboarding
 - **Cross-platform** -- Web, Desktop (Linux/macOS/Windows), and Mobile (Android)
 - **Offline-first** -- all data stored locally, works without network after first load
 
