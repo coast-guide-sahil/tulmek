@@ -155,3 +155,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 239 | #279 | Weekly prep summary widget — reading stats dashboard |
 | 240 | #280 | Source credibility badges (Top Source / Trusted) |
 | 241 | #281 | Dynamic reading time estimates from content length |
+| 242 | #282 | Content refresh — 946 articles, all 3 platforms tested live |
