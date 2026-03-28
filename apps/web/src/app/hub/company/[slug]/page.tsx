@@ -4,11 +4,13 @@ import { tulmekRank, getCategoryMeta, formatRelativeTime, getSourceLabel, COMPAN
 import { APP_NAME, TRENDING_SCORE_THRESHOLD, MIN_ARTICLES_FOR_LANDING_PAGE } from "@tulmek/config/constants";
 import feedData from "@tulmek/content/hub/feed";
 import questionsRaw from "@tulmek/content/hub/questions";
+import hiringRaw from "@tulmek/content/hub/hiring";
 import Link from "next/link";
 import { SharePrep } from "@/components/hub/share-prep";
 
 const articles = feedData as unknown as FeedArticle[];
 const allQuestionsData = questionsRaw as unknown as InterviewQuestion[];
+const hiringData = hiringRaw as Record<string, number>;
 
 // FAQ item type
 interface FaqItem {
@@ -200,12 +202,23 @@ export default async function CompanyPage({ params }: Props) {
     hiringStatus = "unknown";
   }
 
+  const openRoles = hiringData[slug] ?? 0;
+
   const statusConfig: Record<HiringStatus, { label: string; className: string }> = {
-    "actively-hiring": { label: "Actively Hiring", className: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300" },
-    "hiring": { label: "Hiring", className: "bg-blue-500/10 text-blue-700 dark:text-blue-300" },
+    "actively-hiring": {
+      label: openRoles > 0 ? `Actively Hiring (${openRoles} roles)` : "Actively Hiring",
+      className: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
+    },
+    "hiring": {
+      label: openRoles > 0 ? `Hiring (${openRoles} roles)` : "Hiring",
+      className: "bg-blue-500/10 text-blue-700 dark:text-blue-300",
+    },
     "hiring-freeze": { label: "Hiring Freeze Reported", className: "bg-amber-500/10 text-amber-700 dark:text-amber-300" },
     "recent-layoffs": { label: "Recent Layoffs", className: "bg-red-500/10 text-red-700 dark:text-red-300" },
-    "unknown": { label: "Status Unknown", className: "bg-muted text-muted-foreground" },
+    "unknown": {
+      label: openRoles > 0 ? `Hiring (${openRoles} roles)` : "Status Unknown",
+      className: openRoles > 0 ? "bg-blue-500/10 text-blue-700 dark:text-blue-300" : "bg-muted text-muted-foreground",
+    },
   };
   const status = statusConfig[hiringStatus];
 
@@ -317,7 +330,7 @@ export default async function CompanyPage({ params }: Props) {
           <h1 className="text-2xl font-extrabold text-foreground sm:text-3xl">
             {name} Interview Prep
           </h1>
-          {hiringStatus !== "unknown" && (
+          {(hiringStatus !== "unknown" || openRoles > 0) && (
             <span className={`rounded-full px-3 py-1 text-xs font-bold ${status.className}`}>
               {status.label}
             </span>
