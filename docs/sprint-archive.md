@@ -167,3 +167,5 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 251 | #291 | Fresh badge for articles < 6 hours old |
 | 252 | #292 | Source distribution chart on Market Pulse page |
 | 253 | #293 | Category trends on Market Pulse (this week vs last week) |
+| 254 | #294 | Content refresh — 942 articles |
+| 255 | #295 | 100th PR milestone — README final stats update |
