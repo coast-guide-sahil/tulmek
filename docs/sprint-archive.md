@@ -127,3 +127,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 211 | #251 | TCRA v3 — semantic richness + MMR diversity reranking |
 | 212 | #252 | Topic-level trend detection + getTrendingTopics |
 | 213 | #253 | Trending Topics UI bar with live pulse indicator |
+| 214 | #254 | H1B visa sponsorship jobs from daily GitHub tracker |
