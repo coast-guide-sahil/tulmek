@@ -2227,12 +2227,69 @@ async function fetchArxiv(): Promise<RawArticle[]> {
   return articles;
 }
 
+async function fetchSimplifyJobs(): Promise<RawArticle[]> {
+  console.log("  Fetching SimplifyJobs internships...");
+  const articles: RawArticle[] = [];
+
+  try {
+    const res = await fetch(
+      "https://raw.githubusercontent.com/SimplifyJobs/Summer2026-Internships/dev/README.md",
+      { headers: { "User-Agent": "TULMEK Hub Content Aggregator" } }
+    );
+    if (!res.ok) return articles;
+    const md = await res.text();
+
+    // Parse markdown table: | Company | Role | Location | Application/Link | Date Posted |
+    const lines = md.split("\n").filter(line =>
+      line.startsWith("| ") && !line.includes("---") && !line.includes("Company")
+    );
+
+    for (const line of lines.slice(0, 30)) {
+      const cols = line.split("|").map(c => c.trim()).filter(Boolean);
+      if (cols.length < 4) continue;
+
+      const company = cols[0]?.replace(/\*\*/g, "").replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").trim() ?? "";
+      const role = cols[1]?.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").trim() ?? "";
+      const location = cols[2]?.trim() ?? "";
+      const linkMatch = (cols[3] ?? "").match(/\[.*?\]\((.*?)\)/);
+      const url = linkMatch?.[1] ?? "https://github.com/SimplifyJobs/Summer2026-Internships";
+      const date = cols[4]?.trim() ?? "";
+
+      if (!company || !role || company === "↳") continue;
+
+      articles.push({
+        id: `simplify:${Buffer.from(`${company}-${role}`).toString("base64").slice(0, 20)}`,
+        title: `${company} | ${role} | Internship | ${location}`,
+        url,
+        source: "newsletter",
+        sourceName: "SimplifyJobs",
+        sourceIcon: "https://github.com/favicon.ico",
+        domain: "github.com",
+        category: "career",
+        tags: ["internship", "new-grad", "hiring", "entry-level"],
+        excerpt: `${company} is hiring interns for ${role} in ${location}. ${date}`,
+        publishedAt: date ? new Date(date).toISOString() : new Date().toISOString(),
+        score: 10,
+        commentCount: 0,
+        readingTime: 1,
+        discussionUrl: "https://github.com/SimplifyJobs/Summer2026-Internships",
+        interviewQuestions: [],
+        interviewFormats: [],
+      });
+    }
+  } catch (err) {
+    console.warn("  Warning: SimplifyJobs failed:", (err as Error).message);
+  }
+
+  return articles;
+}
+
 // ── Main ──
 
 async function main() {
   console.log("🔄 Fetching hub content...\n");
 
-  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, githubTrending, youtube, newsletters, glassdoor, hnHiring, remoteok, jobicy, himalayas, greenhouse, lever, warnFirehose, h1bJobs, arbeitnow, stackoverflow, arxiv] = await Promise.all([
+  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, githubTrending, youtube, newsletters, glassdoor, hnHiring, remoteok, jobicy, himalayas, greenhouse, lever, warnFirehose, h1bJobs, arbeitnow, stackoverflow, arxiv, simplifyJobs] = await Promise.all([
     fetchHackerNews(),
     fetchReddit(),
     fetchRedditSearch(),
@@ -2256,6 +2313,7 @@ async function main() {
     fetchArbeitnow(),
     fetchStackOverflow(),
     fetchArxiv(),
+    fetchSimplifyJobs(),
   ]);
 
   console.log(`\n  HackerNews: ${hn.length} articles`);
@@ -2281,8 +2339,9 @@ async function main() {
   console.log(`  Arbeitnow: ${arbeitnow.length} articles`);
   console.log(`  Stack Overflow: ${stackoverflow.length} articles`);
   console.log(`  arXiv: ${arxiv.length} articles`);
+  console.log(`  SimplifyJobs: ${simplifyJobs.length} articles`);
 
-  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...githubTrending, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas, ...greenhouse, ...lever, ...warnFirehose, ...h1bJobs, ...arbeitnow, ...stackoverflow, ...arxiv];
+  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...githubTrending, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas, ...greenhouse, ...lever, ...warnFirehose, ...h1bJobs, ...arbeitnow, ...stackoverflow, ...arxiv, ...simplifyJobs];
 
   // ── Content staleness detection ──
   const sourceCounts: Record<string, number> = {};
