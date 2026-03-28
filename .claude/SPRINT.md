@@ -2,6 +2,7 @@
 
 > Claude reads this at session start. Keep it SHORT — only active + backlog.
 > Completed sprints go to `docs/sprint-archive.md` (not auto-loaded).
+> Research docs: `docs/decisions/`, `docs/research/`, `docs/launch/`
 
 ## Active
 
@@ -12,18 +13,23 @@
 ### Launch Execution (waiting for user timing)
 1. [ ] Show HN launch — docs/launch/show-hn-draft.md `#growth` `#critical`
 2. [ ] Product Hunt launch — docs/launch/product-hunt-draft.md `#growth` `#high`
-3. [ ] Reddit + Twitter + LinkedIn posts — docs/launch/social-media-drafts.md `#growth` `#high`
-4. [ ] DEV.to article publish — docs/launch/devto-article-draft.md `#growth` `#medium`
+3. [ ] Reddit + Twitter + LinkedIn + DEV.to — docs/launch/social-media-drafts.md `#growth` `#high`
 
-### Polish & Scale
-5. [ ] Orama vector search integration (use embeddings for semantic search) `#ai` `#medium`
-6. [ ] "Prep Me For [Company]" — personalized study plan generator `#ai` `#medium`
-7. [ ] Mobile: report screen + pulse screen dark mode audit `#mobile` `#low`
-8. [ ] Podcast episode RSS parsing improvements (handle enclosure tags) `#data-quality` `#low`
-9. [ ] SimplifyJobs intern/new-grad tracker integration `#data-quality` `#low`
+### Future Enhancements
+4. [ ] Orama vector search integration (semantic search from embeddings) `#ai` `#medium`
+5. [ ] "Prep Me For [Company]" AI study plan generator (Gemini) `#ai` `#medium`
+6. [ ] SimplifyJobs new-grad tracker (fix table parsing) `#data-quality` `#low`
+7. [ ] WARN Firehose (fix query params for tech companies) `#data-quality` `#low`
+8. [ ] H1B Jobs (fix README table parsing) `#data-quality` `#low`
 
-### Research (continuous — Opus 4.6 high thinking)
-- 26+ sources, 931 unique articles, 66+ unit tests
-- All AI curation (ADR-003 A/B/C), IQI, launch materials complete
-- Full launch kit: Show HN, PH, Twitter, LinkedIn, Reddit, DEV.to
-- Desktop static export fixed, visual regression baselines updated
+### Platform Stats (as of Sprint 250)
+- 949 unique articles from 27+ sources
+- 112 companies with hiring data
+- 66+ TCRA unit tests
+- TCRA v3: semantic richness + MMR diversity + topic trending
+- AI enrichment: category, summary, topics, difficulty, sentiment, actionability
+- Gemini embeddings (128-dim) + story clustering
+- IQI: question extraction + dedup + /questions page
+- 9 engagement systems active
+- Full launch kit: HN, PH, Twitter, LinkedIn, Reddit, DEV.to
+- Zero lint warnings, zero console errors
