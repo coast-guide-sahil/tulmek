@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 import type { FeedArticle } from "@tulmek/core/domain";
 import { tulmekRank, getSourceLabel, getCategoryMeta } from "@tulmek/core/domain";
 import { APP_NAME } from "@tulmek/config/constants";
