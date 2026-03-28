@@ -210,6 +210,19 @@ export default async function CompanyPage({ params }: Props) {
   // Build FAQ items — used for JSON-LD FAQPage and visual "People Also Ask" section
   const faqItems = buildFaqItems(name, companyArticles, topRounds, topLevels);
 
+  // Collect extracted interview questions from articles
+  const allQuestions: string[] = [];
+  const seenQuestions = new Set<string>();
+  for (const a of companyArticles) {
+    for (const q of a.interviewQuestions ?? []) {
+      const lower = q.toLowerCase();
+      if (!seenQuestions.has(lower)) {
+        seenQuestions.add(lower);
+        allQuestions.push(q);
+      }
+    }
+  }
+
   return (
     <div className="space-y-6">
       {/* JSON-LD Structured Data */}
@@ -341,6 +354,28 @@ export default async function CompanyPage({ params }: Props) {
             )}
           </div>
         </div>
+      )}
+
+      {/* Interview Questions */}
+      {allQuestions.length > 0 && (
+        <details className="rounded-xl border border-border bg-card">
+          <summary className="flex min-h-[44px] cursor-pointer items-center px-4 py-3 text-sm font-bold text-card-foreground">
+            Interview Questions ({allQuestions.length})
+          </summary>
+          <ul className="space-y-2 px-4 pb-4">
+            {allQuestions.slice(0, 20).map((q, i) => (
+              <li key={i} className="flex gap-2 text-sm text-muted-foreground">
+                <span className="mt-0.5 shrink-0 text-primary">Q</span>
+                <span>{q}</span>
+              </li>
+            ))}
+            {allQuestions.length > 20 && (
+              <li className="text-xs text-muted-foreground">
+                + {allQuestions.length - 20} more questions in articles below
+              </li>
+            )}
+          </ul>
+        </details>
       )}
 
       {/* Article list */}
