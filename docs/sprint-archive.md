@@ -106,3 +106,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 190 | #230 | Unified AI enrichment pipeline (ADR-003 Sprint A) |
 | 191 | #231 | Streak milestone celebrations with confetti |
 | 192 | #232 | Discovery badges for unexplored categories |
+| 193 | #233 | Greenhouse + Lever public job board APIs (12 companies) |
