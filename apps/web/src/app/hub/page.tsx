@@ -8,7 +8,7 @@ import { FeedLayout } from "@/components/hub/feed-layout";
 import { FeedSkeleton } from "@/components/hub/feed-skeleton";
 import { FeaturedPicks } from "@/components/hub/featured-picks";
 import { TodaysBriefWrapper } from "@/components/hub/todays-brief-wrapper";
-import { WhatsNewBanner } from "@/components/hub/whats-new-banner";
+import { NewSinceVisit } from "@/components/hub/new-since-visit";
 import { WelcomeBack } from "@/components/hub/welcome-back";
 import { FirstVisit } from "@/components/hub/first-visit";
 import { APP_NAME } from "@tulmek/config/constants";
@@ -74,7 +74,7 @@ export default function HubPage() {
           </div>
         </div>
         <WelcomeBack />
-        <WhatsNewBanner articles={articles} />
+        <NewSinceVisit articles={articles} />
       </div>
 
       {/* First visit onboarding */}
