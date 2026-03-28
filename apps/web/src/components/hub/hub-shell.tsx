@@ -18,6 +18,7 @@ import { APP_NAME } from "@tulmek/config/constants";
 const NAV_ITEMS = [
   { href: "/hub", label: "Feed", exact: true, showBadge: false },
   { href: "/hub/saved", label: "Saved", exact: true, showBadge: true },
+  { href: "/hub/questions", label: "Questions", exact: true, showBadge: false },
   { href: "/progress", label: "Practice", exact: false, showBadge: false },
 ] as const;
 
