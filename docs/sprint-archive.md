@@ -176,3 +176,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 260 | — | Century sprint: comprehensive 3-platform live test |
 | 261 | #300 | Sentiment filter toggles (positive/negative) — PR #300! |
 | 262 | #301 | Mobile sentiment filter (positive/negative toggles) |
+| 263 | #302 | Filtered category counts — badges update with active filters |
