@@ -157,28 +157,55 @@ export default async function CompanyPage({ params }: Props) {
     srcCounts[a.source] = (srcCounts[a.source] ?? 0) + 1;
   }
 
-  // Hiring signal detection from recent articles
-  const recentTexts = companyArticles
-    .filter((a) => nowMs - new Date(a.publishedAt).getTime() < 30 * 24 * 60 * 60 * 1000)
-    .map((a) => `${a.title} ${a.excerpt}`.toLowerCase());
-  const allText = recentTexts.join(" ");
+  // Hiring signal detection — combines job board sources, WARN/layoff tags, and text signals
+  const JOB_BOARD_SOURCES = ["Greenhouse", "RemoteOK", "Jobicy", "Himalayas", "H1B Jobs", "HN Who's Hiring"] as const;
+  const LAYOFF_TAGS = ["layoff", "warn-notice", "hiring-freeze"] as const;
 
-  const layoffSignals = /layoff|laid off|let go|rif|reduction in force|cut.*jobs/i.test(allText);
-  const freezeSignals = /hiring freeze|freeze.*hiring|not hiring|paused hiring|headcount freeze/i.test(allText);
-  const hiringSignals = /hiring|open role|we.re looking|join.*team|new position|actively recruiting/i.test(allText);
-  const interviewSignals = companyArticles.filter((a) =>
-    a.category === "interview-experience" &&
-    nowMs - new Date(a.publishedAt).getTime() < 14 * 24 * 60 * 60 * 1000
+  const jobPostings = companyArticles.filter((a) =>
+    JOB_BOARD_SOURCES.some((s) => a.sourceName === s || a.sourceName.includes(s))
+  );
+
+  const layoffArticles = companyArticles.filter((a) =>
+    a.tags.some((t) => LAYOFF_TAGS.includes(t as typeof LAYOFF_TAGS[number])) ||
+    /layoff|laid off|let go|rif|reduction in force|cut.*jobs|hiring freeze|headcount freeze/i.test(
+      `${a.title} ${a.excerpt}`
+    )
+  );
+
+  // Also consider recent interview-experience articles as a soft hiring signal
+  const recentInterviewArticles = companyArticles.filter(
+    (a) =>
+      a.category === "interview-experience" &&
+      nowMs - new Date(a.publishedAt).getTime() < 14 * 24 * 60 * 60 * 1000
   ).length;
 
-  type HiringStatus = "hiring" | "freeze" | "layoffs" | "unknown";
-  const hiringStatus: HiringStatus = layoffSignals ? "layoffs" : freezeSignals ? "freeze" : (hiringSignals || interviewSignals >= 2) ? "hiring" : "unknown";
+  const recentJobCount = jobPostings.length;
+  const recentLayoffCount = layoffArticles.length;
 
-  const statusConfig: Record<HiringStatus, { label: string; color: string; bg: string }> = {
-    hiring: { label: "Actively Hiring", color: "text-success", bg: "bg-success/10" },
-    freeze: { label: "Hiring Freeze Reported", color: "text-amber-500", bg: "bg-amber-500/10" },
-    layoffs: { label: "Recent Layoffs", color: "text-destructive", bg: "bg-destructive/10" },
-    unknown: { label: "Status Unknown", color: "text-muted-foreground", bg: "bg-muted" },
+  type HiringStatus = "actively-hiring" | "recent-layoffs" | "hiring-freeze" | "hiring" | "unknown";
+  let hiringStatus: HiringStatus;
+  if (recentLayoffCount > 0 && recentLayoffCount >= recentJobCount) {
+    // Determine freeze vs layoffs based on tag/text specifics
+    const hasFreezeSignal = layoffArticles.some(
+      (a) =>
+        a.tags.includes("hiring-freeze") ||
+        /hiring freeze|headcount freeze/i.test(`${a.title} ${a.excerpt}`)
+    );
+    hiringStatus = hasFreezeSignal ? "hiring-freeze" : "recent-layoffs";
+  } else if (recentJobCount >= 3) {
+    hiringStatus = "actively-hiring";
+  } else if (recentJobCount > 0 || recentInterviewArticles >= 2) {
+    hiringStatus = "hiring";
+  } else {
+    hiringStatus = "unknown";
+  }
+
+  const statusConfig: Record<HiringStatus, { label: string; className: string }> = {
+    "actively-hiring": { label: "Actively Hiring", className: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300" },
+    "hiring": { label: "Hiring", className: "bg-blue-500/10 text-blue-700 dark:text-blue-300" },
+    "hiring-freeze": { label: "Hiring Freeze Reported", className: "bg-amber-500/10 text-amber-700 dark:text-amber-300" },
+    "recent-layoffs": { label: "Recent Layoffs", className: "bg-red-500/10 text-red-700 dark:text-red-300" },
+    "unknown": { label: "Status Unknown", className: "bg-muted text-muted-foreground" },
   };
   const status = statusConfig[hiringStatus];
 
@@ -291,7 +318,7 @@ export default async function CompanyPage({ params }: Props) {
             {name} Interview Prep
           </h1>
           {hiringStatus !== "unknown" && (
-            <span className={`rounded-full px-3 py-1 text-xs font-bold ${status.color} ${status.bg}`}>
+            <span className={`rounded-full px-3 py-1 text-xs font-bold ${status.className}`}>
               {status.label}
             </span>
           )}
