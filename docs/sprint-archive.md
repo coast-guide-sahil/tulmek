@@ -159,3 +159,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 243 | #283 | Sentiment indicators (green/red dots) on article cards |
 | 244 | #284 | Topic pills on article cards (AI sub-topics) |
 | 245 | #285 | Mobile topic pills + sentiment dots on cards |
+| 246 | #286 | Actionability badge on high-value articles |
