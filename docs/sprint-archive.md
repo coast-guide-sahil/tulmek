@@ -173,3 +173,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 257 | #297 | Mobile actionable-only filter toggle |
 | 258 | #298 | Live platform stats in hub footer |
 | 259 | #299 | Company quick links bar in header |
+| 260 | — | Century sprint: comprehensive 3-platform live test |
