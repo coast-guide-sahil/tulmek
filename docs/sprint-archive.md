@@ -165,3 +165,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 249 | #289 | Interview countdown daily tips (context-aware advice) |
 | 250 | #290 | Sprint 250 milestone — final sprint board refresh |
 | 251 | #291 | Fresh badge for articles < 6 hours old |
+| 252 | #292 | Source distribution chart on Market Pulse page |
