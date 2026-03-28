@@ -4,6 +4,7 @@ import { tulmekRank, getCategoryMeta, formatRelativeTime, getSourceLabel } from 
 import { APP_NAME, TRENDING_SCORE_THRESHOLD } from "@tulmek/config/constants";
 import feedData from "@tulmek/content/hub/feed";
 import Link from "next/link";
+import { SharePrep } from "@/components/hub/share-prep";
 
 const articles = feedData as unknown as FeedArticle[];
 
@@ -119,9 +120,12 @@ export default async function CompanyPage({ params }: Props) {
             </span>
           )}
         </div>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {companyArticles.length} articles from {Object.keys(srcCounts).length} sources
-        </p>
+        <div className="mt-2 flex items-center gap-3">
+          <p className="text-sm text-muted-foreground">
+            {companyArticles.length} articles from {Object.keys(srcCounts).length} sources
+          </p>
+          <SharePrep companyName={name} companySlug={slug} totalArticles={companyArticles.length} />
+        </div>
       </div>
 
       {/* Stats cards */}
