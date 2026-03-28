@@ -7,8 +7,10 @@ import {
   Pressable,
   Linking,
   TextInput,
+  useColorScheme,
   type ListRenderItemInfo,
 } from "react-native";
+import { themes, type ThemeColors } from "../src/theme";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Link } from "expo-router";
 import { APP_NAME, TRENDING_SCORE_THRESHOLD, NEW_ARTICLE_WINDOW_MS } from "@tulmek/config/constants";
@@ -239,6 +241,8 @@ export default function HomeScreen() {
   const [sortMode, setSortMode] = useState<SortMode>("for-you");
   const listRef = useRef<FlatList>(null);
   const { bookmarks, toggle: toggleBookmark } = useBookmarks();
+  const scheme = useColorScheme() ?? "dark";
+  const t = themes[scheme];
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -300,7 +304,7 @@ export default function HomeScreen() {
   const keyExtractor = useCallback((item: FeedArticle) => item.id, []);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: t.bg }]}>
       <FlatList
         ref={listRef}
         data={filteredArticles}

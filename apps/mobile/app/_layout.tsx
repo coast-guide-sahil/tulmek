@@ -1,17 +1,26 @@
 import { Stack } from "expo-router";
+import { useColorScheme } from "react-native";
+
+const THEMES = {
+  dark: { bg: "#09090b", text: "#fafafa" },
+  light: { bg: "#ffffff", text: "#09090b" },
+};
 
 /**
- * Root layout for the TULMEK mobile app.
- * Uses Expo Router's file-based routing with Stack navigation.
+ * Root layout — respects system dark/light mode.
  * Shares @tulmek/core domain types and ports with web + desktop.
  */
 export default function RootLayout() {
+  const scheme = useColorScheme() ?? "dark";
+  const theme = THEMES[scheme];
+
   return (
     <Stack
       screenOptions={{
-        headerStyle: { backgroundColor: "#09090b" },
-        headerTintColor: "#fafafa",
+        headerStyle: { backgroundColor: theme.bg },
+        headerTintColor: theme.text,
         headerTitleStyle: { fontWeight: "bold" },
+        contentStyle: { backgroundColor: theme.bg },
       }}
     >
       <Stack.Screen name="index" options={{ title: "TULMEK" }} />
