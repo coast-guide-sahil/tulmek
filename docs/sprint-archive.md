@@ -121,3 +121,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 205 | #245 | WARN Firehose — layoff and hiring freeze signals |
 | 206 | #246 | IQI question dedup — SimHash + Jaccard similarity merging |
 | 207 | #247 | GitHub Trending RSS — skills demand tracking |
+| 208 | #248 | Content refresh — 908 unique articles from 19+ sources |
