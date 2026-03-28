@@ -5,11 +5,11 @@
 
 ## Active
 
-(none — pick next from backlog)
+- [ ] Sprint 159: Programmatic SEO — company x category pages + JSON-LD structured data `#seo` `#growth` `#high`
 
 ## Backlog (prioritized)
 
-1. [ ] Programmatic SEO: company x category pages with JSON-LD (300+ indexable pages) `#seo` `#growth` `#high`
+1. ~[ ] Programmatic SEO: company x category pages with JSON-LD (300+ indexable pages) `#seo` `#growth` `#high`~ (active)
 2. [ ] AI article summaries at fetch time (Gemini) — 2-3 sentence excerpts `#data-quality` `#ux` `#high`
 3. [ ] Glassdoor interview reviews as 8th content source `#data-quality` `#high`
 4. [ ] Mobile: company comparison page `#mobile` `#medium`

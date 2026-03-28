@@ -26,6 +26,11 @@ export const MIN_TOUCH_TARGET_PX = 44;
 export const DIVERSITY_WINDOW_SIZE = 12;
 export const TRENDING_VELOCITY_WINDOW_HOURS = 168; // 7 days
 
+/** Programmatic SEO — company × category landing pages */
+export const MIN_ARTICLES_FOR_LANDING_PAGE = 2;
+/** Maximum cross-linked companies in "same category" section */
+export const MAX_CROSS_LINKED_COMPANIES = 8;
+
 /** Storage keys — single source of truth for all localStorage/AsyncStorage keys */
 export const STORAGE_KEYS = {
   hubBookmarks: "tulmek:hub:bookmarks",

@@ -26,7 +26,7 @@ export async function GET() {
   );
   const top = tulmekRank(thisWeek, nowMs, new Set(), {}).slice(0, 20);
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://tulmek.com";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://tulmek.vercel.app";
   const buildDate = new Date().toUTCString();
 
   const items = top.map((a) => {
