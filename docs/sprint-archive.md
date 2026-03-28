@@ -129,3 +129,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 213 | #253 | Trending Topics UI bar with live pulse indicator |
 | 214 | #254 | H1B visa sponsorship jobs from daily GitHub tracker |
 | 215 | #255 | Content refresh — 914 unique articles, 20+ sources |
+| 216 | #256 | Fix desktop builds — remove api/subscribe static export conflict |
