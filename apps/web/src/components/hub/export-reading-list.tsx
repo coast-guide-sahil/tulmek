@@ -31,7 +31,7 @@ export function ExportReadingList({ articles }: ExportReadingListProps) {
       ),
       "",
       "---",
-      "*Created with [TULMEK Knowledge Hub](https://tulmek.com/hub)*",
+      "*Created with [TULMEK Knowledge Hub](https://tulmek.vercel.app/hub)*",
     ];
     const markdown = lines.join("\n");
 

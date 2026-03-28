@@ -13,7 +13,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-6.0-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/coast-guide-sahil/tulmek/pulls)
 
-[**Open Web App**](https://tulmek.com) &#183; [Download Desktop](https://github.com/coast-guide-sahil/tulmek/releases?q=desktop) &#183; [Download Android](https://github.com/coast-guide-sahil/tulmek/releases?q=mobile) &#183; [Report Bug](https://github.com/coast-guide-sahil/tulmek/issues)
+[**Open Web App**](https://tulmek.vercel.app) &#183; [Report Bug](https://github.com/coast-guide-sahil/tulmek/issues)
 
 </div>
 
@@ -33,9 +33,9 @@ TULMEK aggregates interview-prep content from across the internet into one fast,
 
 | Platform | How to access | Stack |
 |----------|---------------|-------|
-| **Web** | [tulmek.com](https://tulmek.com) | Next.js 16, Tailwind CSS v4, Orama search |
-| **Desktop** | [Download from Releases](https://github.com/coast-guide-sahil/tulmek/releases?q=desktop) | Tauri v2 (Rust + WebView) |
-| **Mobile** | [Download APK from Releases](https://github.com/coast-guide-sahil/tulmek/releases?q=mobile) | Expo SDK 55, React Native 0.83 |
+| **Web** | [tulmek.vercel.app](https://tulmek.vercel.app) | Next.js 16, Tailwind CSS v4, Orama search |
+| **Desktop** | Build from source (`cd apps/desktop && pnpm dev`) | Tauri v2 (Rust + WebView) |
+| **Mobile** | Build from source (`cd apps/mobile && pnpm dev`) | Expo SDK 55, React Native 0.83 |
 
 No account required. No tracking. Your data stays on your device.
 
@@ -258,7 +258,7 @@ The **TULMEK Core Ranking Algorithm** produces interview-prep-optimized content 
 |----------|---------|-------------|
 | **CI** | Every PR | Lint, typecheck, unit tests, build, E2E (51 Playwright tests), accessibility |
 | **Lighthouse** | Every PR | Performance, accessibility, SEO, best practices monitoring |
-| **Web deploy** | Merge to `main` | Vercel auto-deploy to [tulmek.com](https://tulmek.com) |
+| **Web deploy** | Merge to `main` | Vercel auto-deploy to [tulmek.vercel.app](https://tulmek.vercel.app) |
 | **Desktop release** | Tag `desktop-v*` | Tauri multi-platform builds (Linux/macOS/Windows) |
 | **Mobile release** | Tag `mobile-v*` | Android APK build via GitHub Actions |
 | **Content refresh** | Every 3 hours | Fetch from 8 sources, deduplicate, rank, commit |

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { FeedArticle } from "@tulmek/core/domain";
 import { tulmekRank, getCategoryMeta, formatRelativeTime, getSourceLabel } from "@tulmek/core/domain";
-import { APP_NAME, TRENDING_SCORE_THRESHOLD } from "@tulmek/config/constants";
+import { APP_NAME, TRENDING_SCORE_THRESHOLD, MIN_ARTICLES_FOR_LANDING_PAGE } from "@tulmek/config/constants";
 import feedData from "@tulmek/content/hub/feed";
 import Link from "next/link";
 import { SharePrep } from "@/components/hub/share-prep";
@@ -136,12 +136,12 @@ export default async function CompanyPage({ params }: Props) {
           "@type": "CollectionPage",
           name: `${name} Interview Prep`,
           description: `${companyArticles.length} interview prep articles about ${name} from ${Object.keys(srcCounts).length} sources.`,
-          url: `https://tulmek.com/hub/company/${slug}`,
+          url: `https://tulmek.vercel.app/hub/company/${slug}`,
           numberOfItems: companyArticles.length,
           breadcrumb: {
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Hub", item: "https://tulmek.com/hub" },
+              { "@type": "ListItem", position: 1, name: "Hub", item: "https://tulmek.vercel.app/hub" },
               { "@type": "ListItem", position: 2, name: `${name} Interview Prep` },
             ],
           },
@@ -205,10 +205,24 @@ export default async function CompanyPage({ params }: Props) {
           .slice(0, 4)
           .map(([cat, count]) => {
             const meta = getCategoryMeta(cat);
-            return (
-              <div key={cat} className="rounded-lg border border-border bg-card p-3">
+            const hasLandingPage = count >= MIN_ARTICLES_FOR_LANDING_PAGE;
+            const inner = (
+              <>
                 <p className="text-xs font-medium text-muted-foreground">{meta.label}</p>
                 <p className="mt-1 text-xl font-bold text-card-foreground">{count}</p>
+              </>
+            );
+            return hasLandingPage ? (
+              <Link
+                key={cat}
+                href={`/hub/company/${slug}/${cat}`}
+                className="rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary/30 hover:bg-card"
+              >
+                {inner}
+              </Link>
+            ) : (
+              <div key={cat} className="rounded-lg border border-border bg-card p-3">
+                {inner}
               </div>
             );
           })}

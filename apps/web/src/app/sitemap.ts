@@ -1,8 +1,13 @@
 import type { MetadataRoute } from "next";
+import type { FeedArticle } from "@tulmek/core/domain";
+import feedData from "@tulmek/content/hub/feed";
+import { MIN_ARTICLES_FOR_LANDING_PAGE } from "@tulmek/config/constants";
 
 export const dynamic = "force-static";
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://tulmek.com";
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://tulmek.vercel.app";
+
+const _articles = feedData as unknown as FeedArticle[];
 
 const COMPANIES = [
   "google", "amazon", "meta", "apple", "microsoft", "netflix", "uber", "airbnb",
@@ -17,6 +22,18 @@ const CATEGORIES = [
   "dsa", "system-design", "ai-ml", "behavioral",
   "interview-experience", "compensation", "career", "general",
 ];
+
+function getCompanyArticles(slug: string): FeedArticle[] {
+  const lower = slug.toLowerCase();
+  return _articles.filter((a) => {
+    const text = `${a.title} ${a.excerpt}`.toLowerCase();
+    if (a.title.includes("|")) {
+      const first = a.title.split("|")[0]!.trim().toLowerCase();
+      if (first === lower) return true;
+    }
+    return text.includes(lower);
+  });
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -53,5 +70,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...companyPages, ...categoryPages];
+  // Company × category landing pages — only combos with sufficient articles
+  const companyCategoryPages: MetadataRoute.Sitemap = [];
+  for (const slug of COMPANIES) {
+    const companyArticles = getCompanyArticles(slug);
+    for (const cat of CATEGORIES) {
+      const count = companyArticles.filter((a) => a.category === cat).length;
+      if (count >= MIN_ARTICLES_FOR_LANDING_PAGE) {
+        companyCategoryPages.push({
+          url: `${BASE_URL}/hub/company/${slug}/${cat}`,
+          lastModified: now,
+          changeFrequency: "daily" as const,
+          priority: 0.7,
+        });
+      }
+    }
+  }
+
+  return [...staticPages, ...companyPages, ...categoryPages, ...companyCategoryPages];
 }
