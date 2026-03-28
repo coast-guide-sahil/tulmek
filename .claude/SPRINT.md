@@ -9,22 +9,21 @@
 
 ## Backlog (prioritized)
 
-### Launch Execution
-1. [ ] Show HN launch — materials at docs/launch/, coordinate timing `#growth` `#critical`
-2. [ ] Product Hunt launch assets (5 screenshots, 30s video, tagline) `#growth` `#high`
-3. [ ] Reddit campaign posts — r/cscareerquestions, r/leetcode, r/InternetIsBeautiful `#growth` `#high`
-4. [ ] Twitter/X launch thread (8-10 tweets pre-written) `#growth` `#medium`
-5. [ ] DEV.to article: "How I Built an AI-Powered Ranking Algorithm" `#growth` `#medium`
+### Launch Execution (waiting for user timing)
+1. [ ] Show HN launch — docs/launch/show-hn-draft.md `#growth` `#critical`
+2. [ ] Product Hunt launch — docs/launch/product-hunt-draft.md `#growth` `#high`
+3. [ ] Reddit + Twitter + LinkedIn posts — docs/launch/social-media-drafts.md `#growth` `#high`
+4. [ ] DEV.to article publish — docs/launch/devto-article-draft.md `#growth` `#medium`
 
-### Platform Polish
-6. [ ] Company hiring status: integrate with live Greenhouse/Lever open role counts `#data-quality` `#medium`
-7. [ ] "Related Articles" section on article click (using embeddings similarity) `#ai` `#medium`
-8. [ ] Mobile: report screen dark mode consistency check `#mobile` `#low`
-9. [ ] Podcast RSS feeds (Software Engineering Radio, etc.) `#data-quality` `#low`
+### Polish & Scale
+5. [ ] Orama vector search integration (use embeddings for semantic search) `#ai` `#medium`
+6. [ ] "Prep Me For [Company]" — personalized study plan generator `#ai` `#medium`
+7. [ ] Mobile: report screen + pulse screen dark mode audit `#mobile` `#low`
+8. [ ] Podcast episode RSS parsing improvements (handle enclosure tags) `#data-quality` `#low`
+9. [ ] SimplifyJobs intern/new-grad tracker integration `#data-quality` `#low`
 
 ### Research (continuous — Opus 4.6 high thinking)
-- 23+ sources operational, 931 unique articles
-- All AI curation sprints (A, B, C) complete
-- IQI pipeline + UI + company integration complete
-- 66+ unit tests, visual regression baselines updated
-- Show HN materials verified against codebase
+- 26+ sources, 931 unique articles, 66+ unit tests
+- All AI curation (ADR-003 A/B/C), IQI, launch materials complete
+- Full launch kit: Show HN, PH, Twitter, LinkedIn, Reddit, DEV.to
+- Desktop static export fixed, visual regression baselines updated
