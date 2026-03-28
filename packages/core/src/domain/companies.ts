@@ -3,7 +3,7 @@
  * Used by web, mobile, and desktop for company pages, filters, and OG images.
  */
 
-export const COMPANY_DISPLAY: Record<string, string> = {
+export const COMPANY_DISPLAY = {
   google: "Google", amazon: "Amazon", meta: "Meta", apple: "Apple",
   microsoft: "Microsoft", netflix: "Netflix", uber: "Uber", airbnb: "Airbnb",
   stripe: "Stripe", coinbase: "Coinbase", nvidia: "NVIDIA", tesla: "Tesla",
@@ -16,12 +16,12 @@ export const COMPANY_DISPLAY: Record<string, string> = {
   pinterest: "Pinterest", samsung: "Samsung", ibm: "IBM",
   paypal: "PayPal", cloudflare: "Cloudflare", datadog: "Datadog",
   mongodb: "MongoDB", vercel: "Vercel", github: "GitHub",
-};
+} as const satisfies Record<string, string>;
 
 /** All company slugs */
-export const COMPANY_SLUGS = Object.keys(COMPANY_DISPLAY);
+export const COMPANY_SLUGS = Object.keys(COMPANY_DISPLAY) as string[];
 
-/** Get display name for a company slug */
+/** Get display name for a company slug, with title-case fallback for unknown slugs */
 export function getCompanyName(slug: string): string {
-  return COMPANY_DISPLAY[slug] ?? slug.charAt(0).toUpperCase() + slug.slice(1);
+  return (COMPANY_DISPLAY as Record<string, string>)[slug] ?? slug.charAt(0).toUpperCase() + slug.slice(1);
 }
