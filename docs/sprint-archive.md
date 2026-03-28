@@ -74,3 +74,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 152 | #191 | InfoQ presentations + archive |
 | 153 | #192 | Company comparison table page |
 | 154-157 | #196 | CI/CD pipeline audit + rewrite, WCAG 2 AA compliance |
+| 158 | #197 | AI content classification with Gemini 2.5 Flash-Lite |

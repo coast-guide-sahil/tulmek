@@ -5,7 +5,7 @@
 
 ## Active
 
-- [ ] Sprint 158: AI content classification at fetch time (Gemini 2.5 Flash-Lite) `#data-quality` `#high`
+(none — pick next from backlog)
 
 ## Backlog (prioritized)
 
