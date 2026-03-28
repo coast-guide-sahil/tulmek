@@ -152,3 +152,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 236 | #276 | Content refresh — 950 unique articles, 78 corroborated |
 | 237 | #277 | Difficulty filter (beginner/intermediate/advanced) |
 | 238 | #278 | Mobile difficulty filter (beginner/intermediate/advanced) |
+| 239 | #279 | Weekly prep summary widget — reading stats dashboard |
