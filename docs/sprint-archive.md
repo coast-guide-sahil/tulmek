@@ -138,3 +138,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 222 | #262 | arXiv CS/ML research papers + visual baseline update |
 | 223 | #263 | Content refresh — 931 unique articles from 23+ sources |
 | 224 | #264 | Product Hunt launch materials |
+| 225 | #265 | Social media launch drafts — Twitter, LinkedIn, Reddit |
