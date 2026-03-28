@@ -93,6 +93,7 @@ export const ContentCard = memo(function ContentCard({
             {isTrending && <TrendingBadge />}
             {article.sourceCorroboration >= 3 && <CorroborationBadge count={article.sourceCorroboration} />}
             {isDiscovery && <DiscoveryBadge />}
+            {article.actionability >= 0.7 && <ActionableBadge />}
           </div>
 
           <h3 className="mt-1 text-sm font-semibold leading-normal text-card-foreground group-hover:text-primary sm:text-base">
@@ -176,6 +177,7 @@ export const ContentCard = memo(function ContentCard({
           {isTrending && <TrendingBadge />}
           {article.sourceCorroboration >= 3 && <CorroborationBadge count={article.sourceCorroboration} />}
           {isDiscovery && <DiscoveryBadge />}
+          {article.actionability >= 0.7 && <ActionableBadge />}
           {outcome === "offer" && (
             <span className="rounded-full bg-success/15 px-1.5 py-0.5 text-xs font-medium text-success">OFFER</span>
           )}
@@ -401,6 +403,14 @@ function DiscoveryBadge() {
   return (
     <span className="inline-flex items-center gap-0.5 rounded-full bg-purple-500/10 px-1.5 py-0.5 text-[10px] font-medium text-purple-700 dark:bg-purple-500/20 dark:text-purple-300">
       ✦ Discovery
+    </span>
+  );
+}
+
+function ActionableBadge() {
+  return (
+    <span className="inline-flex items-center gap-0.5 rounded-full bg-cyan-500/10 px-1.5 py-0.5 text-[10px] font-medium text-cyan-700 dark:text-cyan-300">
+      ⚡ Actionable
     </span>
   );
 }
