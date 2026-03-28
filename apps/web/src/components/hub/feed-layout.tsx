@@ -93,6 +93,8 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
   const readIds = useHub((s) => s.readIds);
   const bookmarks = useHub((s) => s.bookmarks);
   const dismissedIds = useHub((s) => s.dismissedIds);
+  const mutedSources = useHub((s) => s.mutedSources);
+  const mutedCategories = useHub((s) => s.mutedCategories);
   const searchResults = useHub((s) => s.searchResults);
   const { toggleBookmark, markAsRead, dismiss, search: searchOrama } = useHubActions();
   const showToast = useToast();
@@ -162,7 +164,11 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
   // Filter + sort
   const filteredArticles = useMemo(() => {
     // Remove dismissed articles first
-    let result = articles.filter((a) => !dismissedIds.has(a.id));
+    let result = articles.filter((a) =>
+      !dismissedIds.has(a.id) &&
+      !mutedSources.has(a.source) &&
+      !mutedCategories.has(a.category)
+    );
 
     // Category filter
     if (activeCategory) {
@@ -237,7 +243,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     }
 
     return result;
-  }, [articles, dismissedIds, activeCategory, activeCompany, sourceFilter, timeRange, debouncedQuery, sortMode, searchResults, nowMs, readIds, bookmarks]);
+  }, [articles, dismissedIds, mutedSources, mutedCategories, activeCategory, activeCompany, sourceFilter, timeRange, debouncedQuery, sortMode, searchResults, nowMs, readIds, bookmarks]);
 
   const handleClearFilters = useCallback(() => {
     setParams({ category: null, source: null, q: null, time: null });

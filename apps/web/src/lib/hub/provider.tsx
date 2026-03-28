@@ -29,7 +29,13 @@ const defaultDeps: HubStoreDeps = {
   bookmarkStore: new LocalStorageBookmarkStore(),
   searchEngine: new OramaHubSearchEngine(),
   setStorage: new LocalStorageSetStorage(),
-  storageKeys: { readKey: STORAGE_KEYS.hubRead, dismissedKey: STORAGE_KEYS.hubDismissed, signalsKey: STORAGE_KEYS.hubSignals },
+  storageKeys: {
+    readKey: STORAGE_KEYS.hubRead,
+    dismissedKey: STORAGE_KEYS.hubDismissed,
+    signalsKey: STORAGE_KEYS.hubSignals,
+    mutedSourcesKey: STORAGE_KEYS.hubMutedSources,
+    mutedCategoriesKey: STORAGE_KEYS.hubMutedCategories,
+  },
 };
 
 interface HubProviderProps {
@@ -107,6 +113,8 @@ export function useHubActions() {
       recordEngagement: s.recordEngagement,
       startDwellTimer: s.startDwellTimer,
       stopDwellTimer: s.stopDwellTimer,
+      toggleMuteSource: s.toggleMuteSource,
+      toggleMuteCategory: s.toggleMuteCategory,
     })),
   );
 }

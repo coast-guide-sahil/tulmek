@@ -39,6 +39,8 @@ export interface HubState {
   searching: boolean;
   readIds: Set<string>;
   dismissedIds: Set<string>;
+  mutedSources: Set<string>;
+  mutedCategories: Set<string>;
   signals: ImplicitSignals;
 }
 
@@ -58,6 +60,10 @@ export interface HubActions {
   startDwellTimer: (articleId: string, category: string) => void;
   /** Stop dwell timer when user returns (page becomes visible) */
   stopDwellTimer: () => void;
+  /** Mute/unmute a source */
+  toggleMuteSource: (source: string) => void;
+  /** Mute/unmute a category */
+  toggleMuteCategory: (category: string) => void;
 }
 
 export type HubStoreState = HubState & HubActions;
@@ -67,7 +73,13 @@ export interface HubStoreDeps {
   searchEngine: HubSearchEngine;
   setStorage: SetStorage;
   /** Storage keys for persistence — injected from @tulmek/config */
-  storageKeys: { readKey: string; dismissedKey: string; signalsKey: string };
+  storageKeys: {
+    readKey: string;
+    dismissedKey: string;
+    signalsKey: string;
+    mutedSourcesKey: string;
+    mutedCategoriesKey: string;
+  };
 }
 
 // Dwell timer state (not in Zustand to avoid re-renders)
@@ -81,14 +93,18 @@ export function createHubStore(deps: HubStoreDeps) {
     searchResults: null,
     searching: false,
     readIds: new Set<string>(),
+    mutedSources: new Set<string>(),
+    mutedCategories: new Set<string>(),
     signals: DEFAULT_SIGNALS,
     dismissedIds: new Set<string>(),
 
     hydrate: async () => {
-      const [bookmarks, readIds, dismissedIds] = await Promise.all([
+      const [bookmarks, readIds, dismissedIds, mutedSources, mutedCategories] = await Promise.all([
         deps.bookmarkStore.getAll(),
         deps.setStorage.load(deps.storageKeys.readKey),
         deps.setStorage.load(deps.storageKeys.dismissedKey),
+        deps.setStorage.load(deps.storageKeys.mutedSourcesKey),
+        deps.setStorage.load(deps.storageKeys.mutedCategoriesKey),
       ]);
 
       // Load implicit signals
@@ -100,7 +116,7 @@ export function createHubStore(deps: HubStoreDeps) {
       } catch { /* use defaults */ }
       signals = { ...signals, sessionCount: signals.sessionCount + 1 };
 
-      set({ bookmarks, readIds, dismissedIds, signals, hydrated: true });
+      set({ bookmarks, readIds, dismissedIds, mutedSources, mutedCategories, signals, hydrated: true });
     },
 
     indexArticles: async (articles: FeedArticle[]) => {
@@ -162,6 +178,22 @@ export function createHubStore(deps: HubStoreDeps) {
       dismissedIds.add(articleId);
       set({ dismissedIds });
       void deps.setStorage.save(deps.storageKeys.dismissedKey, dismissedIds);
+    },
+
+    toggleMuteSource: (source: string) => {
+      const mutedSources = new Set(get().mutedSources);
+      if (mutedSources.has(source)) mutedSources.delete(source);
+      else mutedSources.add(source);
+      set({ mutedSources });
+      void deps.setStorage.save(deps.storageKeys.mutedSourcesKey, mutedSources);
+    },
+
+    toggleMuteCategory: (category: string) => {
+      const mutedCategories = new Set(get().mutedCategories);
+      if (mutedCategories.has(category)) mutedCategories.delete(category);
+      else mutedCategories.add(category);
+      set({ mutedCategories });
+      void deps.setStorage.save(deps.storageKeys.mutedCategoriesKey, mutedCategories);
     },
 
     startDwellTimer: (_articleId: string, category: string) => {
