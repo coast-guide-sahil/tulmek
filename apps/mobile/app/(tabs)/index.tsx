@@ -491,6 +491,18 @@ export default function HomeScreen() {
               </View>
             </View>
 
+            {/* Reading progress bar */}
+            {readCount > 0 && (
+              <View style={{ height: 3, backgroundColor: t.chipBg, marginBottom: 8, marginHorizontal: 16 }}>
+                <View style={{
+                  height: "100%",
+                  width: `${Math.min(100, Math.round((readCount / articles.length) * 100))}%`,
+                  backgroundColor: t.primary,
+                  borderRadius: 2,
+                }} />
+              </View>
+            )}
+
             {/* Search */}
             <View style={styles.searchContainer}>
               <TextInput
