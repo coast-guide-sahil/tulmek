@@ -10,7 +10,7 @@ import {
   useColorScheme,
   type ListRenderItemInfo,
 } from "react-native";
-import { themes, type ThemeColors } from "../src/theme";
+import { themes, type ThemeColors } from "../../src/theme";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Link } from "expo-router";
 import { APP_NAME, TRENDING_SCORE_THRESHOLD, NEW_ARTICLE_WINDOW_MS } from "@tulmek/config/constants";
@@ -241,7 +241,8 @@ export default function HomeScreen() {
   const [sortMode, setSortMode] = useState<SortMode>("for-you");
   const listRef = useRef<FlatList>(null);
   const { bookmarks, toggle: toggleBookmark } = useBookmarks();
-  const scheme = useColorScheme() ?? "dark";
+  const rawScheme = useColorScheme();
+  const scheme = rawScheme === "light" ? "light" : "dark";
   const t = themes[scheme];
 
   const categoryCounts = useMemo(() => {
