@@ -41,7 +41,7 @@ export function FilterChips({
             <button
               key={value}
               onClick={() => toggleValue(value)}
-              className={`inline-flex min-h-[32px] items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-medium transition-colors ${
+              className={`inline-flex min-h-[44px] items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-medium transition-colors ${
                 isActive
                   ? "bg-primary text-primary-foreground"
                   : "bg-muted text-muted-foreground hover:text-foreground"
@@ -91,7 +91,7 @@ export function StatusFilter({
         <button
           key={key}
           onClick={() => onChange(key)}
-          className={`inline-flex min-h-[32px] items-center gap-1 rounded-md px-3 py-1 text-xs font-medium transition-colors ${
+          className={`inline-flex min-h-[44px] items-center gap-1 rounded-md px-3 py-1 text-xs font-medium transition-colors ${
             value === key
               ? "bg-background text-foreground shadow-sm"
               : "text-muted-foreground hover:text-foreground"

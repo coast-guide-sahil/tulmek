@@ -59,7 +59,8 @@ export default function ComparePage() {
       </div>
 
       {/* Comparison table */}
-      <div className="overflow-x-auto">
+      <div className="relative">
+        <div className="overflow-x-auto">
         <table className="w-full min-w-[600px] text-sm">
           <thead>
             <tr className="border-b border-border">
@@ -90,6 +91,8 @@ export default function ComparePage() {
             ))}
           </tbody>
         </table>
+        </div>
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-background to-transparent sm:hidden" />
       </div>
 
       <p className="text-center text-xs text-muted-foreground">
