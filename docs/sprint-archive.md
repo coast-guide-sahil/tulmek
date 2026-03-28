@@ -153,3 +153,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 237 | #277 | Difficulty filter (beginner/intermediate/advanced) |
 | 238 | #278 | Mobile difficulty filter (beginner/intermediate/advanced) |
 | 239 | #279 | Weekly prep summary widget — reading stats dashboard |
+| 240 | #280 | Source credibility badges (Top Source / Trusted) |
