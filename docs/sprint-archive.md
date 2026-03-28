@@ -71,3 +71,5 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 149 | #188 | Lighthouse CI for performance monitoring |
 | 150 | #189 | Muted sources settings page |
 | 151 | #190 | Mobile bottom tab navigation |
+| 152 | #191 | InfoQ presentations + archive |
+| 153 | #192 | Company comparison table page |

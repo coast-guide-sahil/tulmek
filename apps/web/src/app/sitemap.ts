@@ -24,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/hub`, lastModified: now, changeFrequency: "daily", priority: 1 },
     { url: `${BASE_URL}/hub/pulse`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
     { url: `${BASE_URL}/hub/report`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
+    { url: `${BASE_URL}/hub/compare`, lastModified: now, changeFrequency: "daily", priority: 0.8 },
     { url: `${BASE_URL}/privacy`, lastModified: now, changeFrequency: "monthly", priority: 0.3 },
     { url: `${BASE_URL}/terms`, lastModified: now, changeFrequency: "monthly", priority: 0.3 },
     { url: `${BASE_URL}/hub/saved`, lastModified: now, changeFrequency: "weekly", priority: 0.5 },
