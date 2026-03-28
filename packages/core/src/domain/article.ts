@@ -58,6 +58,8 @@ export interface FeedArticle {
   readonly interviewQuestions: readonly string[];
   /** Interview formats detected from article title/excerpt */
   readonly interviewFormats: readonly string[];
+  /** Number of distinct sources that mention the same company as this article */
+  readonly sourceCorroboration: number;
 }
 
 /** A bookmark saved by the user */

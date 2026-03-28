@@ -27,6 +27,7 @@ export const feedArticleSchema = z.object({
   aggregatedAt: z.string().datetime({ offset: true }).or(z.string().datetime()),
   interviewQuestions: z.array(z.string()).default([]),
   interviewFormats: z.array(z.string()).default([]),
+  sourceCorroboration: z.number().default(0),
 });
 
 /** Schema for the full feed file (array of articles) */
