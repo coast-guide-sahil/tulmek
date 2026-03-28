@@ -49,6 +49,8 @@ export const STORAGE_KEYS = {
   hubSignals: "tulmek:hub:signals",
   hubMutedSources: "tulmek:hub:mutedSources",
   hubMutedCategories: "tulmek:hub:mutedCategories",
+  hubPreferredCategories: "tulmek:hub:preferredCategories",
+  hubPreferredCompanies: "tulmek:hub:preferredCompanies",
 } as const satisfies Record<string, `tulmek:${string}`>;
 
 export type StorageKey = typeof STORAGE_KEYS[keyof typeof STORAGE_KEYS];
