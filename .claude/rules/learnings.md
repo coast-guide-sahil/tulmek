@@ -64,6 +64,20 @@ like "Coming soon" or links to empty GitHub Releases pages are misleading.
 Only document what is LIVE and WORKING right now.
 Root-cause fix: N/A — this is a permanent principle.
 
+### 2026-03-28 | ci | EVERY CI failure must be fixed immediately
+NEVER dismiss CI failures as "expected" or "not our fault." Every red check
+is a problem. Fix it, disable the check, or make it pass — but never ignore it.
+Desktop build failures, mobile typecheck failures, rate limits — ALL must be
+addressed before merging. This includes failures in workflows that "only run
+on tags" but still show as PR checks.
+Root-cause fix: N/A — this is a permanent principle.
+
+### 2026-03-28 | git | Always stage file deletions when moving files
+When moving files (e.g., `app/index.tsx` → `app/(tabs)/index.tsx`), the
+deletions of the old files must be explicitly staged with `git add` or
+`git rm`. Unstaged deletions persist in git and CI checks the stale copies.
+Root-cause fix: N/A — permanent principle.
+
 ## Resolved (delete after 30 days)
 
 (none yet)
