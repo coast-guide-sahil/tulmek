@@ -115,3 +115,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 199 | #239 | Interview Question Intelligence — data model + extraction pipeline |
 | 200 | #240 | /hub/questions — searchable interview question bank |
 | 201 | #241 | Company page interview questions + JSON-LD enrichment |
+| 202 | #242 | Show HN launch materials — post, maker comment, FAQ, strategy |
