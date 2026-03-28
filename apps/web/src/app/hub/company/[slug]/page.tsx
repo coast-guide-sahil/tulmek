@@ -554,6 +554,54 @@ export default async function CompanyPage({ params }: Props) {
         </section>
       )}
 
+      {/* Related from other companies */}
+      {(() => {
+        // Derive the top categories from this company's articles
+        const topCategories = Object.entries(catCounts)
+          .sort(([, a], [, b]) => b - a)
+          .slice(0, 3)
+          .map(([cat]) => cat);
+
+        const relatedArticles = articles
+          .filter((a) => !companyArticles.some((ca) => ca.id === a.id))
+          .filter((a) => topCategories.some((tc) => a.category === tc))
+          .slice(0, 5);
+
+        if (relatedArticles.length === 0) return null;
+
+        return (
+          <section className="mt-8">
+            <h2 className="mb-3 text-lg font-bold text-foreground">
+              Related from Other Companies
+            </h2>
+            <div className="space-y-2">
+              {relatedArticles.map((a) => {
+                const catMeta = getCategoryMeta(a.category);
+                const source = getSourceLabel(a.source);
+                return (
+                  <a
+                    key={a.id}
+                    href={a.url}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className="block rounded-lg border border-border bg-card p-3 transition-colors hover:bg-muted/50"
+                  >
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <span>{catMeta.label}</span>
+                      <span>·</span>
+                      <span>{source}</span>
+                    </div>
+                    <p className="mt-1 line-clamp-2 text-sm text-card-foreground">
+                      {a.title}
+                    </p>
+                  </a>
+                );
+              })}
+            </div>
+          </section>
+        );
+      })()}
+
       {/* Related companies — internal cross-linking for SEO */}
       <div className="rounded-xl border border-border bg-card p-4">
         <h2 className="text-sm font-bold text-card-foreground">Other Companies</h2>
