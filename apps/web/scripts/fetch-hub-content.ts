@@ -1720,6 +1720,62 @@ async function fetchLeverJobs(): Promise<RawArticle[]> {
   return articles;
 }
 
+async function fetchWarnFirehose(): Promise<RawArticle[]> {
+  console.log("  Fetching WARN Firehose (layoff data)...");
+  const articles: RawArticle[] = [];
+
+  try {
+    const res = await fetch("https://warnfirehose.com/api/search?q=tech+software+engineer&limit=20", {
+      headers: { "User-Agent": "TULMEK Hub Content Aggregator" },
+    });
+    if (!res.ok) {
+      console.warn(`  Warning: WARN Firehose returned ${res.status}`);
+      return articles;
+    }
+
+    const data = await res.json() as { results?: Array<{
+      id?: string;
+      company_name?: string;
+      number_affected?: number;
+      notice_date?: string;
+      state?: string;
+      layoff_date?: string;
+      reason?: string;
+    }> };
+
+    for (const notice of (data.results ?? []).slice(0, 20)) {
+      if (!notice.company_name) continue;
+
+      const affected = notice.number_affected ? ` (${notice.number_affected} affected)` : "";
+      const state = notice.state ? ` — ${notice.state}` : "";
+
+      articles.push({
+        id: `warn:${notice.id ?? `${notice.company_name}-${articles.length}`}`,
+        title: `${notice.company_name} | WARN Notice${affected}${state}`,
+        url: `https://warnfirehose.com/search?q=${encodeURIComponent(notice.company_name)}`,
+        source: "newsletter",
+        sourceName: "WARN Firehose",
+        sourceIcon: "https://warnfirehose.com/favicon.ico",
+        domain: "warnfirehose.com",
+        category: "career",
+        tags: ["layoff", "warn-notice", "hiring-freeze", notice.state ?? ""].filter(Boolean),
+        excerpt: `WARN layoff notice: ${notice.company_name}${affected}. ${notice.reason ?? ""}. Notice date: ${notice.notice_date ?? "unknown"}.`.trim(),
+        publishedAt: notice.notice_date ? new Date(notice.notice_date).toISOString() : new Date().toISOString(),
+        score: 20,
+        commentCount: 0,
+        readingTime: 1,
+        discussionUrl: null,
+        interviewQuestions: [],
+        interviewFormats: [],
+      });
+    }
+  } catch (err) {
+    console.warn("  Warning: WARN Firehose failed:", (err as Error).message);
+  }
+
+  return articles;
+}
+
 // ── Interview Question Intelligence (IQI) — Gemini extraction ──
 
 interface ExtractedQuestion {
@@ -1822,7 +1878,7 @@ async function extractQuestionsWithGemini(
 async function main() {
   console.log("🔄 Fetching hub content...\n");
 
-  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, youtube, newsletters, glassdoor, hnHiring, remoteok, jobicy, himalayas, greenhouse, lever] = await Promise.all([
+  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, youtube, newsletters, glassdoor, hnHiring, remoteok, jobicy, himalayas, greenhouse, lever, warnFirehose] = await Promise.all([
     fetchHackerNews(),
     fetchReddit(),
     fetchRedditSearch(),
@@ -1840,6 +1896,7 @@ async function main() {
     fetchHimalayas(),
     fetchGreenhouseJobs(),
     fetchLeverJobs(),
+    fetchWarnFirehose(),
   ]);
 
   console.log(`\n  HackerNews: ${hn.length} articles`);
@@ -1859,8 +1916,9 @@ async function main() {
   console.log(`  Himalayas: ${himalayas.length} articles`);
   console.log(`  Greenhouse: ${greenhouse.length} articles`);
   console.log(`  Lever: ${lever.length} articles`);
+  console.log(`  WARN Firehose: ${warnFirehose.length} articles`);
 
-  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas, ...greenhouse, ...lever];
+  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas, ...greenhouse, ...lever, ...warnFirehose];
 
   // ── Content staleness detection ──
   const sourceCounts: Record<string, number> = {};
