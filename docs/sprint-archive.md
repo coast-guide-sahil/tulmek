@@ -77,3 +77,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 158 | #197 | AI content classification with Gemini 2.5 Flash-Lite |
 | 159 | #198 | Programmatic SEO — company x category pages + JSON-LD |
 | 160 | #199 | AI article summaries with Gemini 2.5 Flash-Lite |
+| 161 | #200 | Glassdoor interview reviews as 9th content source |
