@@ -13,10 +13,14 @@ import { WelcomeBack } from "@/components/hub/welcome-back";
 import { FirstVisit } from "@/components/hub/first-visit";
 import { PrepCoverage } from "@/components/hub/prep-coverage";
 import { TrendingTopics } from "@/components/hub/trending-topics";
+import { DailyQuestion } from "@/components/hub/daily-question";
 import { APP_NAME } from "@tulmek/config/constants";
+import questionsRaw from "@tulmek/content/hub/questions";
+import type { InterviewQuestion } from "@tulmek/core/domain";
 
 const articles = feedData as unknown as FeedArticle[];
 const feedMeta = metadataJson as unknown as FeedMetadata;
+const questionsData = questionsRaw as unknown as InterviewQuestion[];
 const BUILD_TIME = new Date(feedMeta.lastRefreshedAt).getTime();
 
 const ogDescription = `${feedMeta.totalArticles} interview prep articles from ${Object.keys(feedMeta.sourceBreakdown).length} sources across ${Object.keys(feedMeta.categoryBreakdown).length} categories. DSA, System Design, AI/ML, Compensation & more. Refreshed every 3 hours.`;
@@ -85,16 +89,19 @@ export default function HubPage() {
       {/* 2. Today's Brief — daily digest with per-category breakdown */}
       <TodaysBriefWrapper articles={articles} nowMs={BUILD_TIME} />
 
-      {/* 3. Prep Coverage — category progress rings (only shown when user has reads) */}
+      {/* 3. Daily Question — one interview question per day, changes at midnight */}
+      <DailyQuestion questions={questionsData} />
+
+      {/* 4. Prep Coverage — category progress rings (only shown when user has reads) */}
       <PrepCoverage articles={articles} />
 
-      {/* 4. Trending Topics — hottest topics across sources in last 48h */}
+      {/* 5. Trending Topics — hottest topics across sources in last 48h */}
       <TrendingTopics articles={articles} />
 
-      {/* 5. Featured Picks — bento layout, the ONE curated section */}
+      {/* 6. Featured Picks — bento layout, the ONE curated section */}
       <FeaturedPicks articles={articles} nowMs={BUILD_TIME} />
 
-      {/* 6. The Feed — search, categories, sort, infinite scroll */}
+      {/* 7. The Feed — search, categories, sort, infinite scroll */}
       <Suspense fallback={<FeedSkeleton />}>
         <FeedLayout articles={articles} />
       </Suspense>
