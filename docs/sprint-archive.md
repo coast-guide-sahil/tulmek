@@ -120,3 +120,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 204 | #244 | Mobile dark mode fix — theme-aware colors across all screens |
 | 205 | #245 | WARN Firehose — layoff and hiring freeze signals |
 | 206 | #246 | IQI question dedup — SimHash + Jaccard similarity merging |
+| 207 | #247 | GitHub Trending RSS — skills demand tracking |
