@@ -5,7 +5,7 @@
 
 ## Active
 
-- [x] Sprint 157: CI/CD pipeline audit + rewrite (all 7 workflows, action version upgrades, lint fixes)
+(none — pick next from backlog)
 
 ## Backlog (prioritized)
 

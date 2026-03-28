@@ -73,3 +73,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 151 | #190 | Mobile bottom tab navigation |
 | 152 | #191 | InfoQ presentations + archive |
 | 153 | #192 | Company comparison table page |
+| 154-157 | #196 | CI/CD pipeline audit + rewrite, WCAG 2 AA compliance |
