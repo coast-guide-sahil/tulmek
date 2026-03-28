@@ -54,6 +54,8 @@ export interface FeedArticle {
   readonly readingTime: number;
   /** URL to the discussion (HN comments, Reddit thread, etc.) */
   readonly discussionUrl: string | null;
+  /** Interview questions extracted from article title/excerpt */
+  readonly interviewQuestions: readonly string[];
 }
 
 /** A bookmark saved by the user */

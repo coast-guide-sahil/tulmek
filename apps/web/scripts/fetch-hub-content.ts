@@ -36,6 +36,7 @@ interface RawArticle {
   commentCount: number;
   readingTime: number;
   discussionUrl: string | null;
+  interviewQuestions?: string[];
 }
 
 // ── Category keywords ──
@@ -464,6 +465,60 @@ function deduplicateByTitle(articles: RawArticle[]): RawArticle[] {
   }
 
   return kept;
+}
+
+// ── Interview question extraction (regex-based) ──
+
+/** Extract interview questions from article title and excerpt using pattern matching */
+function extractInterviewQuestions(title: string, excerpt: string): string[] {
+  const text = `${title} ${excerpt}`;
+  const questions: string[] = [];
+  const seen = new Set<string>();
+
+  // Pattern 1: Sentences ending with "?"
+  const questionSentences = text.match(/[^.!?\n]*\?/g);
+  if (questionSentences) {
+    for (const q of questionSentences) {
+      const cleaned = q.replace(/^\s*[-–—•*]\s*/, "").trim();
+      // Skip very short or very long strings, or non-question noise
+      if (cleaned.length >= 15 && cleaned.length <= 300) {
+        const lower = cleaned.toLowerCase();
+        if (!seen.has(lower)) {
+          seen.add(lower);
+          questions.push(cleaned);
+        }
+      }
+    }
+  }
+
+  // Pattern 2: "asked about X" / "was asked to X" / "asked me X"
+  const askedPatterns = text.match(/(?:was\s+)?asked\s+(?:about|to|me|us|them)\s+[^.!?\n]{10,120}[.!?]?/gi);
+  if (askedPatterns) {
+    for (const match of askedPatterns) {
+      const cleaned = match.trim().replace(/[.!]$/, "");
+      const lower = cleaned.toLowerCase();
+      if (!seen.has(lower)) {
+        seen.add(lower);
+        questions.push(cleaned);
+      }
+    }
+  }
+
+  // Pattern 3: "interview question: X" / "interview question - X"
+  const labeledPatterns = text.match(/interview\s+questions?\s*[:–—-]\s*[^.!?\n]{10,200}[.!?]?/gi);
+  if (labeledPatterns) {
+    for (const match of labeledPatterns) {
+      const cleaned = match.replace(/^interview\s+questions?\s*[:–—-]\s*/i, "").trim();
+      const lower = cleaned.toLowerCase();
+      if (cleaned.length >= 10 && !seen.has(lower)) {
+        seen.add(lower);
+        questions.push(cleaned);
+      }
+    }
+  }
+
+  // Cap at 10 questions per article
+  return questions.slice(0, 10);
 }
 
 // ── Fetchers ──
@@ -1472,9 +1527,28 @@ async function main() {
 
   const now = new Date().toISOString();
 
-  // Add aggregatedAt timestamp
+  // ── Interview question extraction ──
+  // Extract questions from interview-experience and dsa articles only
+  const QUESTION_CATEGORIES = new Set(["interview-experience", "dsa"]);
+  let totalQuestions = 0;
+  for (let i = 0; i < all.length; i++) {
+    const a = all[i]!;
+    if (QUESTION_CATEGORIES.has(a.category)) {
+      const questions = extractInterviewQuestions(a.title, a.excerpt);
+      if (questions.length > 0) {
+        all[i] = { ...a, interviewQuestions: questions };
+        totalQuestions += questions.length;
+      }
+    }
+  }
+  if (totalQuestions > 0) {
+    console.log(`\n📝 Extracted ${totalQuestions} interview questions from ${QUESTION_CATEGORIES.size} categories`);
+  }
+
+  // Add aggregatedAt timestamp and ensure interviewQuestions is always present
   const articles = all.map((a) => ({
     ...a,
+    interviewQuestions: a.interviewQuestions ?? [],
     aggregatedAt: now,
   }));
 
