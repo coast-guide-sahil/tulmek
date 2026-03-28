@@ -9,27 +9,22 @@
 
 ## Backlog (prioritized)
 
-### Launch (ready to execute)
-1. [ ] Show HN launch — materials at docs/launch/, needs final review + posting `#growth` `#critical`
-2. [ ] Product Hunt launch — needs assets (screenshots, video, tagline) `#growth` `#high`
-3. [ ] Reddit campaign — r/cscareerquestions, r/leetcode, r/InternetIsBeautiful `#growth` `#high`
-4. [ ] Twitter/X launch thread (pre-write 8-10 tweets) `#growth` `#medium`
+### Launch Execution
+1. [ ] Show HN launch — materials at docs/launch/, coordinate timing `#growth` `#critical`
+2. [ ] Product Hunt launch assets (5 screenshots, 30s video, tagline) `#growth` `#high`
+3. [ ] Reddit campaign posts — r/cscareerquestions, r/leetcode, r/InternetIsBeautiful `#growth` `#high`
+4. [ ] Twitter/X launch thread (8-10 tweets pre-written) `#growth` `#medium`
 5. [ ] DEV.to article: "How I Built an AI-Powered Ranking Algorithm" `#growth` `#medium`
 
 ### Platform Polish
-6. [ ] Fix desktop builds (turbo.json files causing failures) `#ci` `#high`
-7. [ ] "Daily Question" widget on hub homepage — AI-selected from IQI bank `#engagement` `#medium`
-8. [ ] Company "hiring status" live badge (hiring/freezing/laying off) from WARN + job APIs `#data-quality` `#medium`
-9. [ ] Keyboard shortcut help overlay — show all shortcuts on "?" press `#ux` `#low`
-
-### Data Expansion
-10. [ ] Arbeitnow API — European jobs + visa sponsorship filter `#data-quality` `#low`
-11. [ ] Stack Exchange API — technology trends from SO tag popularity `#data-quality` `#low`
-12. [ ] arXiv API — CS/ML interview research papers `#data-quality` `#low`
+6. [ ] Company hiring status: integrate with live Greenhouse/Lever open role counts `#data-quality` `#medium`
+7. [ ] "Related Articles" section on article click (using embeddings similarity) `#ai` `#medium`
+8. [ ] Mobile: report screen dark mode consistency check `#mobile` `#low`
+9. [ ] Podcast RSS feeds (Software Engineering Radio, etc.) `#data-quality` `#low`
 
 ### Research (continuous — Opus 4.6 high thinking)
-- All AI curation features complete (ADR-003 Sprints A, B, C)
-- 20+ data sources, 914 unique articles
-- 66 TCRA unit tests, IQI pipeline complete
-- Show HN materials pre-written and verified
-- Zero lint warnings, zero console errors
+- 23+ sources operational, 931 unique articles
+- All AI curation sprints (A, B, C) complete
+- IQI pipeline + UI + company integration complete
+- 66+ unit tests, visual regression baselines updated
+- Show HN materials verified against codebase
