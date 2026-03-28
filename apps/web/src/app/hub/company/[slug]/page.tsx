@@ -128,6 +128,49 @@ export default async function CompanyPage({ params }: Props) {
 
   return (
     <div className="space-y-6">
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: `${name} Interview Prep`,
+          description: `${companyArticles.length} interview prep articles about ${name} from ${Object.keys(srcCounts).length} sources.`,
+          url: `https://tulmek.com/hub/company/${slug}`,
+          numberOfItems: companyArticles.length,
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Hub", item: "https://tulmek.com/hub" },
+              { "@type": "ListItem", position: 2, name: `${name} Interview Prep` },
+            ],
+          },
+          ...(topRounds.length > 0 ? {
+            mainEntity: {
+              "@type": "FAQPage",
+              mainEntity: [
+                ...(topRounds.length > 0 ? [{
+                  "@type": "Question",
+                  name: `What interview rounds does ${name} have?`,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: `Based on ${companyArticles.length} recent articles, ${name} interviews commonly include: ${topRounds.map(([r]) => r).join(", ")}.`,
+                  },
+                }] : []),
+                ...(topLevels.length > 0 ? [{
+                  "@type": "Question",
+                  name: `What levels does ${name} hire for?`,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: `Recent interview experiences mention levels: ${topLevels.map(([l]) => l).join(", ")}.`,
+                  },
+                }] : []),
+              ],
+            },
+          } : {}),
+        }) }}
+      />
+
       {/* Breadcrumb */}
       <nav className="text-sm text-muted-foreground">
         <Link href="/hub" className="hover:text-foreground">Hub</Link>
