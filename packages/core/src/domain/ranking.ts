@@ -336,6 +336,56 @@ function diverseRerank(articles: FeedArticle[], windowSize = DIVERSITY_WINDOW): 
   return result;
 }
 
+// ── 6. Epsilon-Greedy Exploration ──
+
+/**
+ * Injects exploration slots to prevent filter bubbles.
+ * Uses a seeded deterministic approach (no Math.random in render).
+ */
+function epsilonGreedyExplore(
+  articles: FeedArticle[],
+  profile: UserProfile,
+  epsilon: number,
+): FeedArticle[] {
+  if (articles.length <= 20 || profile.readCount < 5) return articles;
+
+  // Find underexplored categories (engagement < 0.3 average)
+  const avgWeight = 1 / Object.keys(CATEGORY_WEIGHT).length;
+  const underexplored = new Set(
+    Object.keys(CATEGORY_WEIGHT).filter(
+      (cat) => (profile.categoryWeights[cat] ?? avgWeight) < avgWeight * 0.7
+    )
+  );
+
+  if (underexplored.size === 0) return articles;
+
+  const result: FeedArticle[] = [];
+  const explorationPool = articles.filter((a) => underexplored.has(a.category));
+  let explorationIdx = 0;
+
+  for (let i = 0; i < articles.length; i++) {
+    // Every 1/epsilon slots, inject an exploration article
+    if (
+      i > 0 &&
+      i % Math.round(1 / epsilon) === 0 &&
+      explorationIdx < explorationPool.length
+    ) {
+      const exploreArticle = explorationPool[explorationIdx]!;
+      // Only inject if not already in result
+      if (!result.includes(exploreArticle)) {
+        result.push(exploreArticle);
+        explorationIdx++;
+      }
+    }
+    // Add the ranked article if not already added via exploration
+    if (!result.includes(articles[i]!)) {
+      result.push(articles[i]!);
+    }
+  }
+
+  return result;
+}
+
 // ── Master Ranking Function ──
 
 export function tulmekRank(
@@ -394,7 +444,11 @@ export function tulmekRank(
   // Sort by TulmekScore
   scored.sort((a, b) => b.score - a.score);
 
-  // Apply source diversity reranking
+  // Apply source + category diversity reranking
   const sorted = scored.map((s) => s.article);
-  return diverseRerank(sorted);
+  const reranked = diverseRerank(sorted);
+
+  // Epsilon-greedy exploration: 10% of slots go to underexplored categories
+  // Prevents filter bubbles and helps discover new content areas
+  return epsilonGreedyExplore(reranked, profile, 0.1);
 }
