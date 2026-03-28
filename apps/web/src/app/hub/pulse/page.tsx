@@ -48,6 +48,23 @@ export default function PulsePage() {
     .sort(([, a], [, b]) => b - a)
     .map(([src, count]) => ({ label: getSourceLabel(src), count }));
 
+  // Source distribution (all articles)
+  const sourceCounts = (() => {
+    const counts = new Map<string, number>();
+    for (const a of articles) {
+      counts.set(a.source, (counts.get(a.source) ?? 0) + 1);
+    }
+    const total = articles.length;
+    return [...counts.entries()]
+      .map(([source, count]) => ({
+        source,
+        label: getSourceLabel(source),
+        count,
+        percentage: Math.round((count / total) * 100),
+      }))
+      .sort((a, b) => b.count - a.count);
+  })();
+
   // Trending topics (most common tags)
   const tagCounts: Record<string, number> = {};
   for (const a of thisWeek) {
@@ -213,22 +230,26 @@ export default function PulsePage() {
         </section>
       )}
 
-      {/* Source distribution */}
+      {/* Source Distribution */}
       <section>
-        <h2 className="text-base font-bold text-foreground">Source Distribution</h2>
-        <div className="mt-2 space-y-1.5">
-          {topSources.map(({ label, count }) => (
-            <div key={label} className="flex items-center gap-2">
-              <span className="w-24 text-xs text-muted-foreground">{label}</span>
-              <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
-                <div
-                  className="h-full rounded-full bg-primary/60"
-                  style={{ width: `${(count / thisWeek.length) * 100}%` }}
-                />
+        <h2 className="text-lg font-bold text-foreground mb-3">Source Distribution</h2>
+        <div className="rounded-xl border border-border bg-card p-4">
+          <div className="space-y-3">
+            {sourceCounts.map(({ source, label, count, percentage }) => (
+              <div key={source}>
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-sm text-foreground">{label}</span>
+                  <span className="text-xs text-muted-foreground">{count} ({percentage}%)</span>
+                </div>
+                <div className="h-2 rounded-full bg-muted overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-primary transition-all"
+                    style={{ width: `${percentage}%` }}
+                  />
+                </div>
               </div>
-              <span className="w-8 text-right text-xs font-medium text-muted-foreground">{count}</span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
