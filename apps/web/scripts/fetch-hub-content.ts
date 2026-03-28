@@ -38,6 +38,7 @@ interface RawArticle {
   discussionUrl: string | null;
   interviewQuestions?: string[];
   interviewFormats?: string[];
+  sourceCorroboration?: number;
 }
 
 // ── Category keywords ──
@@ -1544,6 +1545,42 @@ async function main() {
     console.log(`  SimHash dedup removed ${titleDupes} near-duplicate titles`);
   }
 
+  // ── Cross-source corroboration ──
+  // When multiple sources discuss the same company, it's a stronger signal
+  const CORROBORATION_COMPANIES = [
+    "google", "amazon", "meta", "apple", "microsoft", "netflix",
+    "uber", "stripe", "openai", "nvidia", "anthropic", "coinbase",
+  ] as const;
+
+  const companyMentions = new Map<string, Set<string>>(); // company → set of source IDs
+  for (const article of deduped) {
+    const lower = (article.title + " " + article.excerpt).toLowerCase();
+    for (const company of CORROBORATION_COMPANIES) {
+      if (lower.includes(company)) {
+        const sources = companyMentions.get(company) ?? new Set();
+        sources.add(article.source);
+        companyMentions.set(company, sources);
+      }
+    }
+  }
+
+  for (const article of deduped) {
+    const lower = (article.title + " " + article.excerpt).toLowerCase();
+    let maxCorroboration = 0;
+    for (const company of CORROBORATION_COMPANIES) {
+      if (lower.includes(company)) {
+        const sourceCount = companyMentions.get(company)?.size ?? 0;
+        maxCorroboration = Math.max(maxCorroboration, sourceCount);
+      }
+    }
+    article.sourceCorroboration = maxCorroboration;
+  }
+
+  const corroboratedCount = deduped.filter(a => (a.sourceCorroboration ?? 0) >= 3).length;
+  if (corroboratedCount > 0) {
+    console.log(`\n🔗 Cross-source corroboration: ${corroboratedCount} articles verified by 3+ sources`);
+  }
+
   // Sort by score (engagement) descending, then by date
   deduped.sort((a, b) => {
     const scoreDiff = b.score - a.score;
@@ -1673,12 +1710,13 @@ async function main() {
     console.log(`\n📋 Detected interview formats in ${articlesWithFormats} articles`);
   }
 
-  // Add aggregatedAt timestamp and ensure interviewQuestions/interviewFormats are always present
+  // Add aggregatedAt timestamp and ensure interviewQuestions/interviewFormats/sourceCorroboration are always present
   const articles = all.map((a) => ({
     ...a,
     interviewQuestions: a.interviewQuestions ?? [],
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     interviewFormats: (a as any).interviewFormats ?? [],
+    sourceCorroboration: a.sourceCorroboration ?? 0,
     aggregatedAt: now,
   }));
 

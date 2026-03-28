@@ -23,6 +23,9 @@ function makeArticle(overrides: Partial<FeedArticle> & { id: string }): FeedArti
     commentCount: overrides.commentCount ?? 10,
     readingTime: overrides.readingTime ?? 5,
     discussionUrl: null,
+    interviewQuestions: overrides.interviewQuestions ?? [],
+    interviewFormats: overrides.interviewFormats ?? [],
+    sourceCorroboration: overrides.sourceCorroboration ?? 0,
   };
 }
 

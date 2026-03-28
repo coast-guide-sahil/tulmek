@@ -80,6 +80,7 @@ export const ContentCard = memo(function ContentCard({
             <span>{relativeTime}</span>
             {isNew && <NewBadge />}
             {isTrending && <TrendingBadge />}
+            {article.sourceCorroboration >= 3 && <CorroborationBadge count={article.sourceCorroboration} />}
           </div>
 
           <h3 className="mt-1 text-sm font-semibold leading-normal text-card-foreground group-hover:text-primary sm:text-base">
@@ -141,6 +142,7 @@ export const ContentCard = memo(function ContentCard({
         <div className="flex items-center gap-0.5">
           {isNew && <NewBadge />}
           {isTrending && <TrendingBadge />}
+          {article.sourceCorroboration >= 3 && <CorroborationBadge count={article.sourceCorroboration} />}
           {outcome === "offer" && (
             <span className="rounded-full bg-success/15 px-1.5 py-0.5 text-xs font-medium text-success">OFFER</span>
           )}
@@ -321,6 +323,14 @@ function TrendingBadge() {
   return (
     <span className="trending-badge inline-flex items-center gap-1 rounded-full bg-destructive/10 px-1.5 py-0.5 text-xs font-medium text-destructive">
       TRENDING
+    </span>
+  );
+}
+
+function CorroborationBadge({ count }: { count: number }) {
+  return (
+    <span className="inline-flex items-center gap-1 rounded-full bg-success/10 px-2 py-0.5 text-xs font-medium text-success">
+      ✓ {count} sources
     </span>
   );
 }
