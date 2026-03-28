@@ -374,6 +374,7 @@ export default function HomeScreen() {
   const [nowMs] = useState(() => Date.now());
   const [activeCategory, setActiveCategory] = useState<HubCategory | null>(null);
   const [difficultyFilter, setDifficultyFilter] = useState<DifficultyLevel | null>(null);
+  const [actionableOnly, setActionableOnly] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortMode, setSortMode] = useState<SortMode>("for-you");
   const listRef = useRef<FlashListRef<FeedArticle>>(null);
@@ -398,6 +399,10 @@ export default function HomeScreen() {
 
     if (difficultyFilter) {
       result = result.filter((a) => a.difficulty === difficultyFilter);
+    }
+
+    if (actionableOnly) {
+      result = result.filter((a) => a.actionability >= 0.7);
     }
 
     if (searchQuery.trim()) {
@@ -428,7 +433,7 @@ export default function HomeScreen() {
         result.sort((a, b) => b.score - a.score);
         return result;
     }
-  }, [activeCategory, difficultyFilter, searchQuery, sortMode, nowMs]);
+  }, [activeCategory, difficultyFilter, actionableOnly, searchQuery, sortMode, nowMs]);
 
   const renderItem = useCallback(
     ({ item }: ListRenderItemInfo<FeedArticle>) => (
@@ -546,6 +551,30 @@ export default function HomeScreen() {
               t={t}
             />
 
+            {/* Actionable filter */}
+            <View style={styles.actionableRow}>
+              <Pressable
+                onPress={() => {
+                  setActionableOnly(!actionableOnly);
+                  void Haptics.selectionAsync();
+                }}
+                style={[
+                  styles.actionableChip,
+                  { backgroundColor: actionableOnly ? "#06b6d4" : t.chipBg },
+                ]}
+                accessibilityRole="button"
+                accessibilityState={{ selected: actionableOnly }}
+                accessibilityLabel="Filter to actionable articles only"
+              >
+                <Text style={[
+                  styles.actionableChipText,
+                  { color: actionableOnly ? "#fff" : t.textMuted },
+                ]}>
+                  ⚡ Actionable
+                </Text>
+              </Pressable>
+            </View>
+
             {/* Sort */}
             <SortPicker value={sortMode} onChange={setSortMode} t={t} />
 
@@ -621,6 +650,21 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   difficultyChipText: { fontSize: 13, fontWeight: "600" as const },
+
+  // Actionable filter
+  actionableRow: {
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+  },
+  actionableChip: {
+    alignSelf: "flex-start" as const,
+    minHeight: 44,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: 20,
+    justifyContent: "center" as const,
+  },
+  actionableChipText: { fontSize: 13, fontWeight: "600" as const },
 
   // Sort picker
   sortList: { paddingHorizontal: 12, paddingVertical: 4, gap: 6 },
