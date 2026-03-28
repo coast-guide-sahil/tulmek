@@ -15,6 +15,7 @@ interface ContentCardProps {
   readonly layout: "grid" | "list";
   readonly isNew?: boolean;
   readonly isRead?: boolean;
+  readonly isDiscovery?: boolean;
 }
 
 export const ContentCard = memo(function ContentCard({
@@ -26,6 +27,7 @@ export const ContentCard = memo(function ContentCard({
   layout,
   isNew = false,
   isRead = false,
+  isDiscovery = false,
 }: ContentCardProps) {
   const categoryConfig = getCategoryConfig(article.category);
   const relativeTime = formatRelativeTime(article.publishedAt);
@@ -81,6 +83,7 @@ export const ContentCard = memo(function ContentCard({
             {isNew && <NewBadge />}
             {isTrending && <TrendingBadge />}
             {article.sourceCorroboration >= 3 && <CorroborationBadge count={article.sourceCorroboration} />}
+            {isDiscovery && <DiscoveryBadge />}
           </div>
 
           <h3 className="mt-1 text-sm font-semibold leading-normal text-card-foreground group-hover:text-primary sm:text-base">
@@ -143,6 +146,7 @@ export const ContentCard = memo(function ContentCard({
           {isNew && <NewBadge />}
           {isTrending && <TrendingBadge />}
           {article.sourceCorroboration >= 3 && <CorroborationBadge count={article.sourceCorroboration} />}
+          {isDiscovery && <DiscoveryBadge />}
           {outcome === "offer" && (
             <span className="rounded-full bg-success/15 px-1.5 py-0.5 text-xs font-medium text-success">OFFER</span>
           )}
@@ -331,6 +335,14 @@ function CorroborationBadge({ count }: { count: number }) {
   return (
     <span className="inline-flex items-center gap-1 rounded-full bg-success/10 px-2 py-0.5 text-xs font-medium text-success">
       ✓ {count} sources
+    </span>
+  );
+}
+
+function DiscoveryBadge() {
+  return (
+    <span className="inline-flex items-center gap-0.5 rounded-full bg-purple-500/10 px-1.5 py-0.5 text-[10px] font-medium text-purple-700 dark:bg-purple-500/20 dark:text-purple-300">
+      ✦ Discovery
     </span>
   );
 }
