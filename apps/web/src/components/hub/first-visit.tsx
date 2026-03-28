@@ -38,11 +38,11 @@ export function FirstVisit({ articleCount, sourceCount }: { articleCount: number
           <h2 className="text-base font-bold text-foreground sm:text-lg">
             Welcome to TULMEK
           </h2>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="mt-1 text-sm text-foreground">
             {articleCount} curated articles from {sourceCount} sources, ranked by our algorithm.
             No sign-up needed — bookmark, search, and explore freely.
           </p>
-          <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted-foreground">
+          <div className="mt-3 flex flex-wrap gap-2 text-xs text-foreground">
             <span className="rounded-full bg-muted px-2.5 py-1">Press <kbd className="font-mono font-bold">/</kbd> to search</span>
             <span className="rounded-full bg-muted px-2.5 py-1">Press <kbd className="font-mono font-bold">j</kbd>/<kbd className="font-mono font-bold">k</kbd> to navigate</span>
             <span className="rounded-full bg-muted px-2.5 py-1">Your feed gets smarter as you read</span>
