@@ -44,4 +44,9 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 122 | #161 | Share My Prep button on company pages |
 | 123 | #162 | Interview profile on company pages |
 | 124 | #163 | Mobile system theme support (dark/light) |
+| 125 | #164 | Expand sitemap 8→56 URLs (company + category pages) |
+| 126 | #165 | JSON-LD structured data on company pages |
+| 127 | #166 | RSS feed at /hub/feed.xml |
+| 128 | #167 | Interview Market Report — linkable data asset |
+| 129 | #168 | Epsilon-greedy exploration in TCRA |
 | 111 | #150 | SimHash title dedup — cross-source near-duplicates |

@@ -60,14 +60,19 @@ export default function PulsePage() {
     .slice(0, 8)
     .map(([tag, count]) => ({ tag, count }));
 
-  // Company mentions
+  // Company mentions with proper display names
+  const DISPLAY_NAMES: Record<string, string> = {
+    google: "Google", amazon: "Amazon", meta: "Meta", apple: "Apple",
+    microsoft: "Microsoft", netflix: "Netflix", uber: "Uber", stripe: "Stripe",
+    openai: "OpenAI", anthropic: "Anthropic", nvidia: "NVIDIA",
+  };
   const companyRegex = /\b(google|amazon|meta|apple|microsoft|netflix|uber|stripe|openai|anthropic|nvidia)\b/gi;
   const companyCounts: Record<string, number> = {};
   for (const a of thisWeek) {
     const matches = `${a.title} ${a.excerpt}`.match(companyRegex);
     if (matches) {
       for (const m of matches) {
-        const name = m.charAt(0).toUpperCase() + m.slice(1).toLowerCase();
+        const name = DISPLAY_NAMES[m.toLowerCase()] ?? m;
         companyCounts[name] = (companyCounts[name] ?? 0) + 1;
       }
     }
@@ -80,10 +85,13 @@ export default function PulsePage() {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <nav className="text-sm text-muted-foreground">
+        <nav className="flex items-center gap-3 text-sm text-muted-foreground">
           <Link href="/hub" className="hover:text-foreground">Hub</Link>
-          <span className="mx-2">&rsaquo;</span>
+          <span>&rsaquo;</span>
           <span className="text-foreground">Market Pulse</span>
+          <span className="ml-auto">
+            <Link href="/hub/report" className="text-xs font-medium text-primary hover:underline">View Full Report &rarr;</Link>
+          </span>
         </nav>
         <h1 className="mt-3 text-2xl font-extrabold text-foreground sm:text-3xl">
           Interview Market Pulse

@@ -34,12 +34,18 @@ export default function ReportPage() {
     .map(([src, count]) => ({ label: getSourceLabel(src), count, pct: Math.round((count / feedMeta.totalArticles) * 100) }));
 
   // Top companies
+  const DISPLAY_NAMES: Record<string, string> = {
+    google: "Google", amazon: "Amazon", meta: "Meta", apple: "Apple",
+    microsoft: "Microsoft", netflix: "Netflix", uber: "Uber", stripe: "Stripe",
+    openai: "OpenAI", anthropic: "Anthropic", nvidia: "NVIDIA",
+    flipkart: "Flipkart", atlassian: "Atlassian",
+  };
   const companyRegex = /\b(google|amazon|meta|apple|microsoft|netflix|uber|stripe|openai|anthropic|nvidia|flipkart|atlassian)\b/gi;
   const companyCounts: Record<string, number> = {};
   for (const a of thisWeek) {
     const matches = `${a.title} ${a.excerpt}`.match(companyRegex);
     if (matches) for (const m of matches) {
-      const name = m.charAt(0).toUpperCase() + m.slice(1).toLowerCase();
+      const name = DISPLAY_NAMES[m.toLowerCase()] ?? m;
       companyCounts[name] = (companyCounts[name] ?? 0) + 1;
     }
   }
@@ -56,10 +62,13 @@ export default function ReportPage() {
 
   return (
     <div className="space-y-8">
-      <nav className="text-sm text-muted-foreground">
+      <nav className="flex items-center gap-3 text-sm text-muted-foreground">
         <Link href="/hub" className="hover:text-foreground">Hub</Link>
-        <span className="mx-2">&rsaquo;</span>
+        <span>&rsaquo;</span>
         <span className="text-foreground">Market Report</span>
+        <span className="ml-auto">
+          <Link href="/hub/pulse" className="text-xs font-medium text-primary hover:underline">&larr; Weekly Pulse</Link>
+        </span>
       </nav>
 
       {/* Hero */}
@@ -107,7 +116,7 @@ export default function ReportPage() {
             <div key={cat.label} className="flex items-center gap-3">
               <span className="w-28 text-sm text-muted-foreground">{cat.label}</span>
               <div className="h-3 flex-1 overflow-hidden rounded-full bg-muted">
-                <div className="h-full rounded-full bg-primary/60" style={{ width: `${cat.pct}%` }} />
+                <div className="h-full rounded-full bg-primary/60" style={{ width: `${(cat.count / catDist[0]!.count) * 100}%` }} />
               </div>
               <span className="w-16 text-right text-sm font-medium text-card-foreground">{cat.count} ({cat.pct}%)</span>
             </div>
@@ -140,7 +149,7 @@ export default function ReportPage() {
             <div key={src.label} className="flex items-center gap-3">
               <span className="w-28 text-sm text-muted-foreground">{src.label}</span>
               <div className="h-3 flex-1 overflow-hidden rounded-full bg-muted">
-                <div className="h-full rounded-full bg-primary/40" style={{ width: `${src.pct}%` }} />
+                <div className="h-full rounded-full bg-primary/60" style={{ width: `${(src.count / srcDist[0]!.count) * 100}%` }} />
               </div>
               <span className="w-16 text-right text-sm font-medium text-card-foreground">{src.count} ({src.pct}%)</span>
             </div>
