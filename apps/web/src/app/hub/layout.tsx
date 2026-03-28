@@ -7,7 +7,7 @@ import { HubProvider } from "@/lib/hub/provider";
 import { ToastProvider } from "@/components/hub/toast";
 
 export default function HubLayout({ children }: { children: ReactNode }) {
-  const articles = feedData as FeedArticle[];
+  const articles = feedData as unknown as FeedArticle[];
 
   return (
     <NuqsAdapter>

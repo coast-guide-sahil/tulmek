@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default function SavedPage() {
-  const articles = feedData as FeedArticle[];
+  const articles = feedData as unknown as FeedArticle[];
 
   return <SavedFeed articles={articles} />;
 }

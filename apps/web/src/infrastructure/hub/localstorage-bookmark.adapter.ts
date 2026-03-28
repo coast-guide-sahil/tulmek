@@ -35,10 +35,10 @@ export class LocalStorageBookmarkStore implements BookmarkStore {
 
   async add(articleId: string): Promise<Bookmark> {
     const map = this.getMap();
-    const bookmark: Bookmark = {
+    const bookmark = {
       articleId,
       savedAt: new Date().toISOString(),
-    };
+    } as unknown as Bookmark;
     map[articleId] = bookmark;
     this.saveMap(map);
     return bookmark;
