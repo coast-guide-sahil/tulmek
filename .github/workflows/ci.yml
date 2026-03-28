@@ -106,6 +106,7 @@ jobs:
           name: web-build
           path: |
             apps/web/.next/
+          include-hidden-files: true
           retention-days: 1
 
   # ─── E2E TESTS (every PR) ───────────────────────
