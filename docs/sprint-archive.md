@@ -123,3 +123,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 207 | #247 | GitHub Trending RSS — skills demand tracking |
 | 208 | #248 | Content refresh — 908 unique articles from 19+ sources |
 | 209 | #249 | Mobile questions tab — AI-extracted question bank |
+| 210 | #250 | Mobile haptic feedback on bookmarks, filters, sort |
