@@ -126,3 +126,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 210 | #250 | Mobile haptic feedback on bookmarks, filters, sort |
 | 211 | #251 | TCRA v3 — semantic richness + MMR diversity reranking |
 | 212 | #252 | Topic-level trend detection + getTrendingTopics |
+| 213 | #253 | Trending Topics UI bar with live pulse indicator |
