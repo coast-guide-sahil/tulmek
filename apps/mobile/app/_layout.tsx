@@ -26,6 +26,7 @@ export default function RootLayout() {
       <Stack.Screen name="index" options={{ title: "TULMEK" }} />
       <Stack.Screen name="saved" options={{ title: "Saved" }} />
       <Stack.Screen name="company/[slug]" options={{ title: "Company" }} />
+      <Stack.Screen name="pulse" options={{ title: "Market Pulse" }} />
     </Stack>
   );
 }

@@ -326,11 +326,16 @@ export default function HomeScreen() {
                 <Text style={styles.heroStats}>
                   {totalArticles} articles · {sourceCount} sources
                 </Text>
-                {bookmarks.size > 0 && (
-                  <Link href="/saved" style={styles.savedLink}>
-                    <Text style={styles.savedLinkText}>★ {bookmarks.size} saved</Text>
+                <View style={styles.heroLinks}>
+                  <Link href="/pulse" style={styles.savedLink}>
+                    <Text style={styles.savedLinkText}>Pulse</Text>
                   </Link>
-                )}
+                  {bookmarks.size > 0 && (
+                    <Link href="/saved" style={styles.savedLink}>
+                      <Text style={styles.savedLinkText}>★ {bookmarks.size}</Text>
+                    </Link>
+                  )}
+                </View>
               </View>
             </View>
 
@@ -382,6 +387,7 @@ const styles = StyleSheet.create({
   heroTitle: { fontSize: 22, fontWeight: "800", color: "#fafafa" },
   heroStatsRow: { flexDirection: "row" as const, alignItems: "center" as const, justifyContent: "space-between" as const, marginTop: 2 },
   heroStats: { fontSize: 13, color: "#71717a" },
+  heroLinks: { flexDirection: "row" as const, gap: 8 },
   savedLink: { paddingVertical: 4, paddingHorizontal: 8 },
   savedLinkText: { fontSize: 13, color: "#3b82f6", fontWeight: "600" as const },
   liveBadge: { flexDirection: "row", alignItems: "center", gap: 4 },
