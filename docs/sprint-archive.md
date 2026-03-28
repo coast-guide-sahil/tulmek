@@ -62,4 +62,6 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 140 | #179 | Wire engagement tracking + sitemap expansion |
 | 141 | #180 | Three-dot card menu with mute actions |
 | 142 | #181 | Mobile market report page |
-| 111 | #150 | SimHash title dedup — cross-source near-duplicates |
+| 143 | #182 | Content refresh + archive update |
+| 144 | #183 | 4 new newsletters + 2 YouTube channels |
+| 145 | #184 | Desktop auto-updater (tauri-plugin-updater) |
