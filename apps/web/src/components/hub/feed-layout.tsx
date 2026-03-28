@@ -152,14 +152,68 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
   }, [searchQuery, activeCategory, sourceFilter, searchOrama]);
 
-  // Category counts
+  // Category counts — reflects all active non-category filters so tabs show
+  // how many articles exist in each category given the current filter context.
   const categoryCounts = useMemo(() => {
+    // Apply every filter except the category filter itself
+    let base = articles.filter(
+      (a) =>
+        !dismissedIds.has(a.id) &&
+        !mutedSources.has(a.source) &&
+        !mutedCategories.has(a.category)
+    );
+
+    if (sourceFilter) {
+      base = base.filter((a) => a.source === sourceFilter);
+    }
+
+    if (activeCompany) {
+      const companyLower = activeCompany.toLowerCase();
+      base = base.filter((a) => {
+        const extracted = extractCompany(a.title);
+        return extracted?.toLowerCase() === companyLower;
+      });
+    }
+
+    if (difficultyFilter) {
+      base = base.filter((a) => a.difficulty === difficultyFilter);
+    }
+
+    if (actionableOnly) {
+      base = base.filter((a) => a.actionability >= 0.7);
+    }
+
+    if (sentimentFilter) {
+      base = base.filter((a) => a.sentiment === sentimentFilter);
+    }
+
+    if (timeRange !== "all") {
+      const cutoff = nowMs - TIME_RANGE_MS[timeRange];
+      base = base.filter((a) => new Date(a.publishedAt).getTime() >= cutoff);
+    }
+
+    if (debouncedQuery.trim()) {
+      if (searchResults && searchResults.hits.length > 0) {
+        const matchIds = new Set(searchResults.hits.map((h) => h.article.id));
+        base = base.filter((a) => matchIds.has(a.id));
+      } else {
+        const q = debouncedQuery.toLowerCase();
+        base = base.filter(
+          (a) =>
+            a.title.toLowerCase().includes(q) ||
+            a.excerpt.toLowerCase().includes(q) ||
+            a.tags.some((t) => t.toLowerCase().includes(q)) ||
+            a.sourceName.toLowerCase().includes(q)
+        );
+      }
+    }
+
     const counts: Record<string, number> = {};
-    for (const a of articles) {
+    for (const a of base) {
       counts[a.category] = (counts[a.category] ?? 0) + 1;
     }
     return counts;
-  }, [articles]);
+  }, [articles, dismissedIds, mutedSources, mutedCategories, sourceFilter, activeCompany, difficultyFilter, actionableOnly, sentimentFilter, timeRange, debouncedQuery, searchResults, nowMs]);
 
   // Per-category read counts (for progress indicators)
   const categoryReadCounts = useMemo(() => {
