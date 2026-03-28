@@ -37,3 +37,9 @@ export {
 } from "./hub-utils";
 
 export type { CategoryMeta } from "./hub-utils";
+
+export {
+  COMPANY_DISPLAY,
+  COMPANY_SLUGS,
+  getCompanyName,
+} from "./companies";
