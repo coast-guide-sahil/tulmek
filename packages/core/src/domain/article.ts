@@ -56,6 +56,8 @@ export interface FeedArticle {
   readonly discussionUrl: string | null;
   /** Interview questions extracted from article title/excerpt */
   readonly interviewQuestions: readonly string[];
+  /** Interview formats detected from article title/excerpt */
+  readonly interviewFormats: readonly string[];
 }
 
 /** A bookmark saved by the user */

@@ -93,3 +93,5 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 177 | #215 | WCAG 2.2 AA touch targets + compare table mobile scroll |
 | 178 | #217 | Add 3 content sources + expand keywords for 2026 landscape |
 | 179 | #218 | Content refresh — 1,107 articles from 12 sources (+50%) |
+| 180 | #219 | Stronger read vs unread card visual differentiation |
+| 181 | #220 | "New since last visit" counter — engagement loop |
