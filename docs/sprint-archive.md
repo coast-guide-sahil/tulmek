@@ -171,3 +171,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 255 | #295 | 100th PR milestone — README final stats update |
 | 256 | #296 | Actionable-only filter toggle on hub feed |
 | 257 | #297 | Mobile actionable-only filter toggle |
+| 258 | #298 | Live platform stats in hub footer |
