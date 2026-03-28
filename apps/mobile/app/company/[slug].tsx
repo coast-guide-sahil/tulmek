@@ -1,18 +1,13 @@
 import { useLocalSearchParams } from "expo-router";
 import { View, Text, StyleSheet, FlatList, Pressable, Linking } from "react-native";
 import type { FeedArticle } from "@tulmek/core/domain";
-import { tulmekRank, getCategoryMeta, getSourceLabel, formatRelativeTime } from "@tulmek/core/domain";
+import { tulmekRank, getCategoryMeta, getSourceLabel, formatRelativeTime, getCompanyName } from "@tulmek/core/domain";
 import { TRENDING_SCORE_THRESHOLD } from "@tulmek/config/constants";
 import feedData from "@tulmek/content/hub/feed";
 import { useState } from "react";
 
 const articles = feedData as unknown as FeedArticle[];
 
-const COMPANY_DISPLAY: Record<string, string> = {
-  google: "Google", amazon: "Amazon", meta: "Meta", apple: "Apple",
-  microsoft: "Microsoft", netflix: "Netflix", uber: "Uber", airbnb: "Airbnb",
-  stripe: "Stripe", nvidia: "NVIDIA", openai: "OpenAI", anthropic: "Anthropic",
-};
 
 const CATEGORY_COLORS: Record<string, string> = {
   dsa: "#10b981", "system-design": "#3b82f6", "ai-ml": "#a855f7",
@@ -24,7 +19,7 @@ export default function CompanyPage() {
   const { slug } = useLocalSearchParams<{ slug: string }>();
   const [nowMs] = useState(() => Date.now());
 
-  const name = COMPANY_DISPLAY[slug ?? ""] ?? (slug ?? "").charAt(0).toUpperCase() + (slug ?? "").slice(1);
+  const name = getCompanyName(slug ?? "");
   const lower = (slug ?? "").toLowerCase();
 
   const companyArticles = articles.filter((a) => {

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { FeedArticle } from "@tulmek/core/domain";
-import { tulmekRank, getCategoryMeta, formatRelativeTime, getSourceLabel } from "@tulmek/core/domain";
+import { tulmekRank, getCategoryMeta, formatRelativeTime, getSourceLabel, COMPANY_SLUGS, getCompanyName } from "@tulmek/core/domain";
 import { APP_NAME, TRENDING_SCORE_THRESHOLD, MIN_ARTICLES_FOR_LANDING_PAGE, MAX_CROSS_LINKED_COMPANIES } from "@tulmek/config/constants";
 import feedData from "@tulmek/content/hub/feed";
 import Link from "next/link";
@@ -9,20 +9,6 @@ export const dynamic = "force-static";
 
 const articles = feedData as unknown as FeedArticle[];
 
-const COMPANY_DISPLAY: Record<string, string> = {
-  google: "Google", amazon: "Amazon", meta: "Meta", apple: "Apple",
-  microsoft: "Microsoft", netflix: "Netflix", uber: "Uber", airbnb: "Airbnb",
-  stripe: "Stripe", coinbase: "Coinbase", nvidia: "NVIDIA", tesla: "Tesla",
-  openai: "OpenAI", anthropic: "Anthropic", palantir: "Palantir",
-  databricks: "Databricks", snowflake: "Snowflake", linkedin: "LinkedIn",
-  salesforce: "Salesforce", oracle: "Oracle", adobe: "Adobe",
-  bloomberg: "Bloomberg", jpmorgan: "JPMorgan", goldman: "Goldman Sachs",
-  flipkart: "Flipkart", atlassian: "Atlassian", shopify: "Shopify",
-  spotify: "Spotify", dropbox: "Dropbox", doordash: "DoorDash",
-  pinterest: "Pinterest", samsung: "Samsung", ibm: "IBM",
-  paypal: "PayPal", cloudflare: "Cloudflare", datadog: "Datadog",
-  mongodb: "MongoDB", vercel: "Vercel", github: "GitHub",
-};
 
 const ALL_CATEGORIES = [
   "dsa", "system-design", "ai-ml", "behavioral",
@@ -47,7 +33,7 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, category } = await params;
-  const name = COMPANY_DISPLAY[slug] ?? slug.charAt(0).toUpperCase() + slug.slice(1);
+  const name = getCompanyName(slug);
   const catMeta = getCategoryMeta(category);
   const count = getCompanyArticles(slug).filter((a) => a.category === category).length;
   const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://tulmek.vercel.app";
@@ -64,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export async function generateStaticParams() {
   const params: { slug: string; category: string }[] = [];
 
-  for (const slug of Object.keys(COMPANY_DISPLAY)) {
+  for (const slug of COMPANY_SLUGS) {
     const companyArticles = getCompanyArticles(slug);
     for (const category of ALL_CATEGORIES) {
       const count = companyArticles.filter((a) => a.category === category).length;
@@ -80,7 +66,7 @@ export async function generateStaticParams() {
 export default async function CompanyCategoryPage({ params }: Props) {
   const { slug, category } = await params;
   const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://tulmek.vercel.app";
-  const name = COMPANY_DISPLAY[slug] ?? slug.charAt(0).toUpperCase() + slug.slice(1);
+  const name = getCompanyName(slug);
   const catMeta = getCategoryMeta(category);
 
   const companyArticles = getCompanyArticles(slug);
@@ -107,11 +93,11 @@ export default async function CompanyCategoryPage({ params }: Props) {
     .sort((a, b) => b.count - a.count);
 
   // Same category at other companies
-  const otherCompanies = Object.keys(COMPANY_DISPLAY)
+  const otherCompanies = COMPANY_SLUGS
     .filter((s) => s !== slug)
     .map((s) => ({
       slug: s,
-      name: COMPANY_DISPLAY[s]!,
+      name: getCompanyName(s),
       count: getCompanyArticles(s).filter((a) => a.category === category).length,
     }))
     .filter((c) => c.count >= MIN_ARTICLES_FOR_LANDING_PAGE)
