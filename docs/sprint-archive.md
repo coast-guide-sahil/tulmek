@@ -133,3 +133,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 217 | #257 | Daily Question widget — one interview question per day |
 | 218 | #258 | Enhanced hiring status badges from job API + WARN data |
 | 219 | #259 | Arbeitnow API — European tech jobs + visa sponsorship |
+| 220 | #260 | Keyboard shortcut help overlay (press ?) |
