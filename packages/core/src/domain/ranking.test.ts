@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { tulmekRank } from "./ranking";
+import { tulmekRank, getTrendingTopics } from "./ranking";
 import type { FeedArticle } from "./article";
 import type { ArticleId, ISOTimestamp } from "./branded";
 
@@ -732,6 +732,251 @@ describe("tulmekRank", () => {
       const single = makeArticle({ id: "only" });
       expect(tulmekRank([single], now, new Set(), {})).toHaveLength(1);
       expect(tulmekRank([], now, new Set(), {})).toHaveLength(0);
+    });
+  });
+
+  // ── Topic trending (TCRA v4) ──────────────────────────────────────────────────
+
+  describe("topic trending bonus", () => {
+    it("articles without topics receive no topic trending bonus", () => {
+      // Both articles identical; the one with topics should rank higher only because
+      // of semantic richness — so we isolate by also stripping enrichment fields.
+      // When topics are empty, topicTrendingBonus returns 0 with no errors.
+      const article = makeArticle({
+        id: "no-topics",
+        topics: [],
+        difficulty: "",
+        sentiment: "",
+        actionability: 0,
+      });
+      const result = tulmekRank([article], now, new Set(), {});
+      expect(result).toHaveLength(1);
+      expect(result[0]!.id).toBe("no-topics");
+    });
+
+    it("article in a multi-source trending topic ranks above an identical article not in that topic", () => {
+      // "binary search" is discussed by 4 distinct sources in the last 48 h.
+      // The article that covers it should receive a positive topicTrending boost.
+      const recentMs = now - 10 * 60 * 60 * 1000; // 10 h ago
+
+      // 4 supporting articles from different sources covering "binary search"
+      const supporters = (
+        [
+          "hackernews",
+          "reddit",
+          "leetcode",
+          "devto",
+        ] as FeedArticle["source"][]
+      ).map((source, i) =>
+        makeArticle({
+          id: `support-${i}`,
+          source,
+          topics: ["binary search"],
+          publishedAt: new Date(recentMs).toISOString() as ISOTimestamp,
+          score: 50,
+        }),
+      );
+
+      const trending = makeArticle({
+        id: "trending-topic",
+        source: "github",
+        topics: ["binary search"],
+        publishedAt: new Date(recentMs).toISOString() as ISOTimestamp,
+        score: 100,
+        difficulty: "",
+        sentiment: "",
+        actionability: 0,
+      });
+
+      const plain = makeArticle({
+        id: "plain-topic",
+        source: "github",
+        topics: ["radix sort"], // only 1 source → no trending signal
+        publishedAt: new Date(recentMs).toISOString() as ISOTimestamp,
+        score: 100,
+        difficulty: "",
+        sentiment: "",
+        actionability: 0,
+      });
+
+      const result = tulmekRank([plain, ...supporters, trending], now, new Set(), {});
+      const trendingPos = result.findIndex((a) => a.id === "trending-topic");
+      const plainPos = result.findIndex((a) => a.id === "plain-topic");
+      expect(trendingPos).toBeLessThan(plainPos);
+    });
+
+    it("topic trending degrades gracefully when all articles are older than 48 h", () => {
+      // Articles published 72 h ago should fall outside the 48 h window — no bonus.
+      const oldMs = now - 72 * 60 * 60 * 1000;
+      const articles = (["hackernews", "reddit", "leetcode"] as FeedArticle["source"][]).map(
+        (source, i) =>
+          makeArticle({
+            id: `old-${i}`,
+            source,
+            topics: ["hash map"],
+            publishedAt: new Date(oldMs).toISOString() as ISOTimestamp,
+            score: 100,
+          }),
+      );
+      // Should not throw and must return all articles
+      const result = tulmekRank(articles, now, new Set(), {});
+      expect(result).toHaveLength(3);
+    });
+
+    it("topic case-insensitivity — 'Hash Map' and 'hash map' are the same trend signal", () => {
+      const recentMs = now - 5 * 60 * 60 * 1000;
+      const articles = [
+        makeArticle({
+          id: "upper",
+          source: "hackernews",
+          topics: ["Hash Map"],
+          publishedAt: new Date(recentMs).toISOString() as ISOTimestamp,
+          score: 100,
+        }),
+        makeArticle({
+          id: "lower",
+          source: "reddit",
+          topics: ["hash map"],
+          publishedAt: new Date(recentMs).toISOString() as ISOTimestamp,
+          score: 100,
+        }),
+        makeArticle({
+          id: "mixed",
+          source: "leetcode",
+          topics: ["HASH MAP"],
+          publishedAt: new Date(recentMs).toISOString() as ISOTimestamp,
+          score: 100,
+        }),
+      ];
+      // getTrendingTopics should aggregate all three under a single canonical key
+      const trending = getTrendingTopics(articles, now, 10);
+      const hashMap = trending.find((t) => t.topic === "hash map");
+      expect(hashMap).toBeDefined();
+      expect(hashMap!.sourceCount).toBe(3);
+      expect(hashMap!.articleCount).toBe(3);
+    });
+  });
+
+  // ── getTrendingTopics ─────────────────────────────────────────────────────────
+
+  describe("getTrendingTopics", () => {
+    it("returns empty array when no articles have topics", () => {
+      const articles = [
+        makeArticle({ id: "a1", topics: [] }),
+        makeArticle({ id: "a2", topics: [] }),
+      ];
+      expect(getTrendingTopics(articles, now)).toEqual([]);
+    });
+
+    it("filters out topics discussed by only one source", () => {
+      const recentMs = now - 5 * 60 * 60 * 1000;
+      const articles = [
+        makeArticle({
+          id: "only-one",
+          source: "reddit",
+          topics: ["singleton topic"],
+          publishedAt: new Date(recentMs).toISOString() as ISOTimestamp,
+        }),
+      ];
+      expect(getTrendingTopics(articles, now)).toEqual([]);
+    });
+
+    it("includes topics discussed by 2+ sources", () => {
+      const recentMs = now - 5 * 60 * 60 * 1000;
+      const articles = [
+        makeArticle({
+          id: "a1",
+          source: "reddit",
+          topics: ["dynamic programming"],
+          publishedAt: new Date(recentMs).toISOString() as ISOTimestamp,
+        }),
+        makeArticle({
+          id: "a2",
+          source: "hackernews",
+          topics: ["dynamic programming"],
+          publishedAt: new Date(recentMs).toISOString() as ISOTimestamp,
+        }),
+      ];
+      const trending = getTrendingTopics(articles, now);
+      expect(trending).toHaveLength(1);
+      expect(trending[0]!.topic).toBe("dynamic programming");
+      expect(trending[0]!.sourceCount).toBe(2);
+      expect(trending[0]!.articleCount).toBe(2);
+    });
+
+    it("respects the limit parameter", () => {
+      const recentMs = now - 5 * 60 * 60 * 1000;
+      // Create 6 topics each covered by 2 sources
+      const sources = ["hackernews", "reddit"] as FeedArticle["source"][];
+      const topics = ["dp", "bfs", "dfs", "greedy", "backtracking", "sliding window"];
+      const articles = topics.flatMap((topic, i) =>
+        sources.map((source, j) =>
+          makeArticle({
+            id: `art-${i}-${j}`,
+            source,
+            topics: [topic],
+            publishedAt: new Date(recentMs).toISOString() as ISOTimestamp,
+            score: 100,
+          }),
+        ),
+      );
+      const trending = getTrendingTopics(articles, now, 3);
+      expect(trending).toHaveLength(3);
+    });
+
+    it("sorts by sourceCount descending then articleCount descending", () => {
+      const recentMs = now - 5 * 60 * 60 * 1000;
+      const makeSrc = (id: string, src: FeedArticle["source"], topic: string) =>
+        makeArticle({
+          id,
+          source: src,
+          topics: [topic],
+          publishedAt: new Date(recentMs).toISOString() as ISOTimestamp,
+          score: 100,
+        });
+      const articles = [
+        // "system design" covered by 3 sources
+        makeSrc("sd1", "reddit", "system design"),
+        makeSrc("sd2", "hackernews", "system design"),
+        makeSrc("sd3", "leetcode", "system design"),
+        // "graphs" covered by 2 sources but 4 articles
+        makeSrc("g1", "reddit", "graphs"),
+        makeSrc("g2", "hackernews", "graphs"),
+        makeSrc("g3", "reddit", "graphs"),
+        makeSrc("g4", "hackernews", "graphs"),
+        // "trees" covered by 2 sources and 2 articles
+        makeSrc("t1", "devto", "trees"),
+        makeSrc("t2", "youtube", "trees"),
+      ];
+      const trending = getTrendingTopics(articles, now, 10);
+      // system design (3 sources) should be first
+      expect(trending[0]!.topic).toBe("system design");
+      // graphs (2 sources, 4 articles) before trees (2 sources, 2 articles)
+      expect(trending[1]!.topic).toBe("graphs");
+      expect(trending[2]!.topic).toBe("trees");
+    });
+
+    it("excludes articles outside the 48-hour window", () => {
+      const oldMs = now - 50 * 60 * 60 * 1000; // 50 h ago
+      const articles = [
+        makeArticle({
+          id: "old1",
+          source: "reddit",
+          topics: ["stale topic"],
+          publishedAt: new Date(oldMs).toISOString() as ISOTimestamp,
+        }),
+        makeArticle({
+          id: "old2",
+          source: "hackernews",
+          topics: ["stale topic"],
+          publishedAt: new Date(oldMs).toISOString() as ISOTimestamp,
+        }),
+      ];
+      expect(getTrendingTopics(articles, now)).toEqual([]);
+    });
+
+    it("returns empty array when articles list is empty", () => {
+      expect(getTrendingTopics([], now)).toEqual([]);
     });
   });
 
