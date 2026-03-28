@@ -1931,12 +1931,75 @@ async function extractQuestionsWithGemini(
   return results;
 }
 
+async function fetchGitHubTrending(): Promise<RawArticle[]> {
+  console.log("  Fetching GitHub Trending...");
+  const articles: RawArticle[] = [];
+
+  try {
+    const res = await fetch("https://mshibanami.github.io/GitHubTrendingRSS/daily/all.xml", {
+      headers: { "User-Agent": "TULMEK Hub Content Aggregator" },
+    });
+    if (!res.ok) return articles;
+    const xml = await res.text();
+
+    const items = xml.split("<item>").slice(1, 16); // Top 15 trending
+    for (const item of items) {
+      const titleMatch = item.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/) ??
+                         item.match(/<title>(.*?)<\/title>/);
+      const linkMatch = item.match(/<link>(.*?)<\/link>/);
+      const descMatch = item.match(/<description><!\[CDATA\[(.*?)\]\]><\/description>/) ??
+                        item.match(/<description>(.*?)<\/description>/);
+      const pubDateMatch = item.match(/<pubDate>(.*?)<\/pubDate>/);
+
+      if (!titleMatch?.[1] || !linkMatch?.[1]) continue;
+
+      const title = titleMatch[1].replace(/<[^>]+>/g, "").trim();
+      const url = linkMatch[1].trim();
+      const excerpt = (descMatch?.[1] ?? "")
+        .replace(/<[^>]+>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, 300);
+
+      // Only include repos relevant to interview prep topics
+      const relevant = isRelevant(title, []) ||
+        /interview|algorithm|data.structure|system.design|leetcode|coding|ai|ml|distributed|database/i.test(title + " " + excerpt);
+
+      if (!relevant) continue;
+
+      articles.push({
+        id: `github-trending:${Buffer.from(url).toString("base64").slice(0, 20)}`,
+        title: `Trending: ${title}`,
+        url,
+        source: "github",
+        sourceName: "GitHub Trending",
+        sourceIcon: "https://github.com/favicon.ico",
+        domain: "github.com",
+        category: categorize(title + " " + excerpt),
+        tags: ["trending", "open-source", "skills-demand"],
+        excerpt: excerpt || title,
+        publishedAt: pubDateMatch?.[1] ? new Date(pubDateMatch[1]).toISOString() : new Date().toISOString(),
+        score: 50, // Trending repos get a baseline boost
+        commentCount: 0,
+        readingTime: 5,
+        discussionUrl: url,
+        interviewQuestions: [],
+        interviewFormats: [],
+      });
+    }
+  } catch (err) {
+    console.warn("  Warning: GitHub Trending failed:", (err as Error).message);
+  }
+
+  return articles;
+}
+
 // ── Main ──
 
 async function main() {
   console.log("🔄 Fetching hub content...\n");
 
-  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, youtube, newsletters, glassdoor, hnHiring, remoteok, jobicy, himalayas, greenhouse, lever, warnFirehose] = await Promise.all([
+  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, githubTrending, youtube, newsletters, glassdoor, hnHiring, remoteok, jobicy, himalayas, greenhouse, lever, warnFirehose] = await Promise.all([
     fetchHackerNews(),
     fetchReddit(),
     fetchRedditSearch(),
@@ -1945,6 +2008,7 @@ async function main() {
     fetchLeetCode(),
     fetchLeetCodeDaily(),
     fetchGitHub(),
+    fetchGitHubTrending(),
     fetchYouTube(),
     fetchNewsletters(),
     fetchGlassdoor(),
@@ -1965,6 +2029,7 @@ async function main() {
   console.log(`  LeetCode: ${leetcode.length} articles`);
   console.log(`  LeetCode Daily: ${leetcodeDaily.length} article`);
   console.log(`  GitHub: ${github.length} articles`);
+  console.log(`  GitHub Trending: ${githubTrending.length} articles`);
   console.log(`  YouTube: ${youtube.length} articles`);
   console.log(`  Newsletters: ${newsletters.length} articles`);
   console.log(`  Glassdoor: ${glassdoor.length} articles`);
@@ -1976,7 +2041,7 @@ async function main() {
   console.log(`  Lever: ${lever.length} articles`);
   console.log(`  WARN Firehose: ${warnFirehose.length} articles`);
 
-  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas, ...greenhouse, ...lever, ...warnFirehose];
+  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...githubTrending, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas, ...greenhouse, ...lever, ...warnFirehose];
 
   // ── Content staleness detection ──
   const sourceCounts: Record<string, number> = {};
