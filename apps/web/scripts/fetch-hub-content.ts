@@ -766,7 +766,9 @@ async function fetchYouTube(): Promise<RawArticle[]> {
   // Interview prep & tech career YouTube channels
   const channels: Record<string, string> = {
     "UCnxrdFPXJMeLlRY7BbHqjEQ": "Neetcode",
+    "UC_mYaQAE6-71rjSN6CeCA-g": "NeetCode Main",
     "UC0RhatS1pyxInC00YKjjBqQ": "Gaurav Sen",
+    "UCRPMAqdtSgd0Ipeef7iFsKw": "Gaurav Sen System Design",
     "UCZLJf_R2sWyUtXSKiKDNINQ": "ByteByteGo",
     "UCWN3xxRkmTPphYnPVaKY9Jg": "NeetCodeIO",
     "UCRPMAqdtSgd0Ipeef7ber0Q": "Fireship",
@@ -845,6 +847,10 @@ async function fetchNewsletters(): Promise<RawArticle[]> {
     "https://designgurus.substack.com/feed": "System Design Nuggets",
     "https://newsletter.systemdesign.one/feed": "System Design Newsletter",
     "https://newsletter.pragmaticengineer.com/feed": "Pragmatic Engineer",
+    "https://www.developing.dev/feed": "The Developing Dev",
+    "https://read.highgrowthengineer.com/feed": "High Growth Engineer",
+    "https://newsletter.systemdesigncodex.com/feed": "System Design Codex",
+    "https://newsletter.systemdesignclassroom.com/feed": "System Design Classroom",
   };
 
   for (const [feedUrl, name] of Object.entries(feeds)) {
