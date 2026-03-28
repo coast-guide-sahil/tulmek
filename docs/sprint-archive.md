@@ -158,3 +158,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 242 | #282 | Content refresh — 946 articles, all 3 platforms tested live |
 | 243 | #283 | Sentiment indicators (green/red dots) on article cards |
 | 244 | #284 | Topic pills on article cards (AI sub-topics) |
+| 245 | #285 | Mobile topic pills + sentiment dots on cards |
