@@ -9,7 +9,7 @@ import { CategoryNav } from "./category-nav";
 import { HubSearchBar } from "./hub-search-bar";
 import { ViewToggle } from "./view-toggle";
 import { FeedSkeleton } from "./feed-skeleton";
-import { getSourceLabel } from "./hub-utils";
+import { getSourceLabel, getCategoryMeta } from "./hub-utils";
 import { tulmekRank } from "@/lib/hub/ranking";
 import { TrendingTopics } from "./trending-topics";
 // AutoTopics removed per UX redesign — TrendingTopics is sufficient
@@ -533,7 +533,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
           </div>
         </>
       ) : (
-        <EmptyState onClear={handleClearFilters} />
+        <EmptyState onClear={handleClearFilters} activeCategory={activeCategory} />
       )}
 
       {/* Mobile filter bar */}
@@ -633,19 +633,18 @@ function TimeRangeFilter({ value, onChange }: { value: TimeRange; onChange: (v: 
   );
 }
 
-function EmptyState({ onClear }: { onClear: () => void }) {
+function EmptyState({ onClear, activeCategory }: { onClear: () => void; activeCategory: HubCategory | null }) {
   return (
     <div className="section-enter flex flex-col items-center justify-center rounded-xl border border-dashed border-border py-16 text-center">
-      <div className="text-4xl">🔍</div>
-      <h3 className="mt-3 text-base font-semibold text-foreground">
-        No articles found
-      </h3>
-      <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-        Try adjusting your filters, searching for something else, or exploring a different category.
+      <div className="mb-4 text-4xl">🔍</div>
+      <h3 className="text-lg font-bold text-foreground mb-2">No articles match your filters</h3>
+      <p className="text-sm text-muted-foreground max-w-md mb-4">
+        Try adjusting your filters or search query.
+        {activeCategory && ` The "${getCategoryMeta(activeCategory).label}" category may have fewer articles with these filters.`}
       </p>
       <button
         onClick={onClear}
-        className="mt-4 min-h-[44px] rounded-lg bg-primary px-5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+        className="min-h-[44px] rounded-lg bg-primary px-6 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
       >
         Clear all filters
       </button>
