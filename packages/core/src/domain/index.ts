@@ -43,3 +43,6 @@ export {
   COMPANY_SLUGS,
   getCompanyName,
 } from "./companies";
+
+export { cosineSimilarity } from "./embeddings";
+export type { EmbeddingIndex } from "./embeddings";
