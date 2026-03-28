@@ -57,6 +57,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
 
   const activeCategory = params.category;
   const [activeCompany, setActiveCompany] = useState<string | null>(null);
+  const [difficultyFilter, setDifficultyFilter] = useState<string | null>(null);
   const searchQuery = params.q;
   const sourceFilter = params.source;
   const sortMode = params.sort;
@@ -222,6 +223,11 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
       });
     }
 
+    // Difficulty filter
+    if (difficultyFilter) {
+      result = result.filter((a) => a.difficulty === difficultyFilter);
+    }
+
     // Time range filter
     if (timeRange !== "all") {
       const cutoff = nowMs - TIME_RANGE_MS[timeRange];
@@ -276,16 +282,17 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     }
 
     return result;
-  }, [articles, dismissedIds, mutedSources, mutedCategories, activeCategory, activeCompany, sourceFilter, timeRange, debouncedQuery, sortMode, searchResults, nowMs, readIds, bookmarks]);
+  }, [articles, dismissedIds, mutedSources, mutedCategories, activeCategory, activeCompany, difficultyFilter, sourceFilter, timeRange, debouncedQuery, sortMode, searchResults, nowMs, readIds, bookmarks]);
 
   const handleClearFilters = useCallback(() => {
     setParams({ category: null, source: null, q: null, time: null });
     setActiveCompany(null);
+    setDifficultyFilter(null);
   }, [setParams]);
 
   const [visibleCount, setVisibleCount] = useState(24);
 
-  const hasActiveFilters = activeCategory !== null || activeCompany !== null || sourceFilter !== null || timeRange !== "all" || searchQuery.trim() !== "";
+  const hasActiveFilters = activeCategory !== null || activeCompany !== null || difficultyFilter !== null || sourceFilter !== null || timeRange !== "all" || searchQuery.trim() !== "";
   const visibleArticles = filteredArticles.slice(0, visibleCount);
   const hasMore = visibleCount < filteredArticles.length;
 
@@ -353,6 +360,26 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
             </button>
           )}
         </div>
+      </div>
+
+      {/* Difficulty filter */}
+      <div className="flex items-center gap-2">
+        <span className="text-xs font-medium text-muted-foreground">Level:</span>
+        {(["beginner", "intermediate", "advanced"] as const).map(level => (
+          <button
+            key={level}
+            onClick={() => setDifficultyFilter(difficultyFilter === level ? null : level)}
+            className={`min-h-[44px] rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
+              difficultyFilter === level
+                ? level === "beginner" ? "bg-emerald-500 text-white"
+                : level === "intermediate" ? "bg-amber-500 text-white"
+                : "bg-red-500 text-white"
+                : "bg-muted text-muted-foreground hover:bg-primary/10"
+            }`}
+          >
+            {level.charAt(0).toUpperCase() + level.slice(1)}
+          </button>
+        ))}
       </div>
 
       {/* Company filter — auto-extracted from article titles */}
