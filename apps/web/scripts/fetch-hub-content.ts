@@ -2228,6 +2228,87 @@ async function main() {
     categoryBreakdown,
   };
 
+  // ── Embedding generation + near-duplicate clustering (ADR-003 Sprint B) ──
+  // Only runs when GEMINI_API_KEY is set. Writes embeddings.json alongside feed.json.
+  if (GEMINI_API_KEY) {
+    console.log(`\n🧠 Generating embeddings for ${articles.length} articles...`);
+
+    const { GoogleGenAI } = await import("@google/genai");
+    const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+
+    const embeddingIndex: Record<string, number[]> = {};
+    const EMBED_BATCH = 100;
+
+    for (let i = 0; i < articles.length; i += EMBED_BATCH) {
+      const batch = articles.slice(i, i + EMBED_BATCH);
+      try {
+        const texts = batch.map(
+          (a) => `${a.title}. ${a.excerpt.slice(0, 200)}. ${a.category}`
+        );
+        const result = await ai.models.embedContent({
+          model: "gemini-embedding-001",
+          contents: texts,
+          config: { outputDimensionality: 128 },
+        });
+
+        for (let j = 0; j < batch.length; j++) {
+          const embedding = result.embeddings?.[j];
+          if (embedding?.values && embedding.values.length > 0) {
+            embeddingIndex[batch[j]!.id] = embedding.values;
+          }
+        }
+      } catch (err) {
+        console.warn(
+          `  Embedding batch ${i}-${i + EMBED_BATCH} failed:`,
+          (err as Error).message
+        );
+      }
+    }
+
+    // Find near-duplicates (cosine similarity > 0.92) using Union-Find-like grouping
+    const { cosineSimilarity } = await import("@tulmek/core/domain");
+    const ids = Object.keys(embeddingIndex);
+    const nearDuplicates: Record<string, string[]> = {};
+    const assigned = new Set<string>();
+
+    for (let i = 0; i < ids.length; i++) {
+      const primaryId = ids[i]!;
+      if (assigned.has(primaryId)) continue;
+      const group: string[] = [];
+
+      for (let j = i + 1; j < ids.length; j++) {
+        const candidateId = ids[j]!;
+        if (assigned.has(candidateId)) continue;
+        const sim = cosineSimilarity(
+          embeddingIndex[primaryId]!,
+          embeddingIndex[candidateId]!
+        );
+        if (sim > 0.92) {
+          group.push(candidateId);
+          assigned.add(candidateId);
+        }
+      }
+
+      if (group.length > 0) {
+        nearDuplicates[primaryId] = group;
+        assigned.add(primaryId);
+      }
+    }
+
+    const dupCount = Object.values(nearDuplicates).reduce((s, g) => s + g.length, 0);
+    console.log(
+      `  Generated ${ids.length} embeddings, found ${dupCount} near-duplicates in ${Object.keys(nearDuplicates).length} groups`
+    );
+
+    const embeddingsPayload = { articles: embeddingIndex, nearDuplicates };
+    const embeddingsPath = join(outputDir, "embeddings.json");
+    writeFileSync(embeddingsPath, JSON.stringify(embeddingsPayload, null, 0));
+    const sizeKB = Math.round(
+      Buffer.byteLength(JSON.stringify(embeddingsPayload)) / 1024
+    );
+    console.log(`  Wrote embeddings to packages/content/src/hub/embeddings.json (${sizeKB}KB)`);
+  }
+
   writeFileSync(
     join(outputDir, "feed.json"),
     JSON.stringify(articles, null, 2)
