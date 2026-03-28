@@ -2,35 +2,48 @@
 
 > Claude reads this at session start. Keep it SHORT — only active + backlog.
 > Completed sprints go to `docs/sprint-archive.md` (not auto-loaded).
+> Research docs: `docs/decisions/003-ai-curation-architecture.md`, `docs/research/`
 
 ## Active
 
 (none — pick next from backlog)
 
-## Backlog (prioritized — informed by deep research 2026-03-28)
+## Backlog (prioritized — informed by 6 deep research reports 2026-03-28)
 
-### Critical — AI Curation Intelligence (the core differentiator)
-1. [ ] Design AI curation architecture — move beyond hardcoded JSON to dynamic, intelligent content pipeline `#architecture` `#critical`
-2. [ ] Implement real-time "New Since Last Visit" counter + variable reward loop `#engagement` `#critical`
-3. [ ] Company Interview Format Tracker — auto-detect which companies use what format (AI coding, take-home, etc.) `#data-quality` `#critical`
-4. [ ] Expand to 12+ content sources — add HN Who's Hiring, GitHub Trending, Himalayas API, Jobicy API `#data-quality` `#high`
-5. [ ] Level-aware feed profiles — Junior vs Senior feed optimization based on reading behavior `#personalization` `#high`
+### Phase 1: AI Curation Foundation (ADR-003 Sprint A-B)
+1. [ ] Unified enrichment pipeline — single Gemini call for category+summary+entities+topics+sentiment+difficulty `#ai` `#critical`
+2. [ ] Gemini embeddings + story clustering — 128-dim vectors, cosine similarity, near-duplicate grouping `#ai` `#critical`
+3. [ ] Add 3 free job APIs — RemoteOK, Jobicy, Himalayas (no auth, salary data) `#data-quality` `#high`
+4. [ ] Add 6 newsletter RSS feeds — Grokking, FANG Prep, Engineer's Codex, Level Up, etc. `#data-quality` `#high`
 
-### High — Engagement & Retention
-6. [ ] "Today's 5" AI-generated morning digest — replaces checking 6 platforms `#engagement` `#high`
-7. [ ] Category completion rings — visual progress toward "prep coverage" score `#engagement` `#high`
-8. [ ] Cross-source corroboration badges — "Verified by 3 sources" trust signal `#data-quality` `#high`
-9. [ ] Record 30-second demo GIF for README + social launch `#growth` `#high`
+### Phase 2: Intelligent Ranking (ADR-003 Sprint C)
+5. [ ] TCRA v3 — semantic richness, topic trending, MMR diversity, Thompson Sampling `#ai` `#high`
+6. [ ] Cold-start content ranking via kNN on embeddings `#ai` `#high`
+7. [ ] Trend detection — topic velocity + burst detection (Kleinberg-inspired) `#ai` `#high`
 
-### Medium — Platform & Growth
-10. [ ] Mobile: FlashList migration (5x scroll perf) `#mobile` `#performance` `#medium`
-11. [ ] Mobile: fix dark mode across all screens `#mobile` `#ux` `#medium`
-12. [ ] Show HN launch — pre-write post, coordinate with PH + Reddit `#growth` `#medium`
-13. [ ] Add Blind as content source `#data-quality` `#medium`
-14. [ ] Email digest (static-compatible — Buttondown/Resend) `#growth` `#medium`
+### Phase 3: Engagement Systems (from psychology research)
+8. [ ] Streak milestone celebrations — confetti at 7/14/30 days `#engagement` `#high`
+9. [ ] First-visit redesign — 30-second preference quiz that reorders feed instantly `#engagement` `#high`
+10. [ ] Discovery markers — "New topic for you" badge on unexplored categories `#engagement` `#medium`
+
+### Phase 4: Data Expansion
+11. [ ] Greenhouse + Lever + Ashby job board APIs (public, no auth) `#data-quality` `#medium`
+12. [ ] WARN Firehose — layoff/hiring freeze signals `#data-quality` `#medium`
+13. [ ] H1B/LCA visa data — USCIS + DOL government data `#data-quality` `#medium`
+14. [ ] GitHub Trending RSS + npm/PyPI download trends `#data-quality` `#low`
+
+### Phase 5: Launch
+15. [ ] Show HN — Tuesday 8-9 AM ET, coordinate with PH + Reddit `#growth` `#high`
+16. [ ] Product Hunt launch — Day 2 `#growth` `#medium`
+17. [ ] Reddit campaign — r/cscareerquestions, r/leetcode, r/InternetIsBeautiful `#growth` `#medium`
+
+### Mobile
+18. [ ] FlashList migration (5x scroll perf) `#mobile` `#medium`
+19. [ ] Fix dark mode across all screens `#mobile` `#medium`
+20. [ ] Swipe-to-bookmark + haptic feedback `#mobile` `#low`
 
 ### Research (continuous — Opus 4.6 high thinking, every sprint)
-- AI curation algorithms: RAG, semantic search, embedding-based ranking
-- User pain points: resource fragmentation, LeetCode burnout, senior prep gap
-- Market gaps: AI interview formats, behavioral depth, immigration/visa content
-- Engagement psychology: variable ratio reinforcement, loss aversion, FOMO
+- Completed reports in docs/research/ and docs/decisions/
+- Zero direct competitors confirmed — white space is real
+- daily.dev is the most dangerous potential pivot (25% probability)
+- 42 new data sources identified (see docs/research/)
