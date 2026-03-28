@@ -147,3 +147,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 231 | #271 | SimplifyJobs intern/new-grad tracker |
 | 232 | #272 | Final content refresh — 939 articles, 27+ sources, 112 companies |
 | 233 | #273 | Search suggestions from trending topics |
+| 234 | #274 | Mobile prep plan section on company pages |
