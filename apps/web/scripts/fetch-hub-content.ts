@@ -1753,12 +1753,166 @@ async function fetchHimalayas(): Promise<RawArticle[]> {
   return articles;
 }
 
+// ── Greenhouse public job board API ──
+
+const GREENHOUSE_BOARDS = {
+  cloudflare: "Cloudflare",
+  stripe: "Stripe",
+  airbnb: "Airbnb",
+  datadog: "Datadog",
+  notion: "Notion",
+  discord: "Discord",
+  figma: "Figma",
+  plaid: "Plaid",
+} as const satisfies Record<string, string>;
+
+const ENGINEERING_DEPT_PATTERN = /engineer|software|developer|sre|devops|infra|platform|data|machine learning|ml|ai|security|backend|frontend|fullstack|full-stack|mobile|cloud/i;
+
+async function fetchGreenhouseJobs(): Promise<RawArticle[]> {
+  console.log("  Fetching Greenhouse jobs...");
+  const articles: RawArticle[] = [];
+
+  for (const [boardToken, companyName] of Object.entries(GREENHOUSE_BOARDS)) {
+    try {
+      const res = await fetch(
+        `https://boards-api.greenhouse.io/v1/boards/${boardToken}/jobs`,
+        { headers: { "User-Agent": "TULMEK Hub Content Aggregator" } }
+      );
+      if (!res.ok) continue;
+      const data = await res.json() as {
+        jobs: Array<{
+          id: number;
+          title: string;
+          absolute_url: string;
+          location: { name: string };
+          departments: Array<{ name: string }>;
+          updated_at: string;
+        }>;
+      };
+
+      // Filter to engineering/software roles only
+      const engineeringJobs = (data.jobs ?? []).filter((job) => {
+        const dept = job.departments?.[0]?.name ?? "";
+        return ENGINEERING_DEPT_PATTERN.test(job.title) || ENGINEERING_DEPT_PATTERN.test(dept);
+      });
+
+      for (const job of engineeringJobs.slice(0, 10)) {
+        const department = job.departments?.[0]?.name ?? "";
+        const location = job.location?.name ?? "Remote";
+        const tags = ["hiring", "job-posting", ...(department ? [department.toLowerCase()] : [])];
+
+        articles.push({
+          id: `greenhouse:${boardToken}-${job.id}`,
+          title: `${companyName} | ${job.title} | ${location}`,
+          url: job.absolute_url,
+          source: "newsletter",
+          sourceName: "Greenhouse",
+          sourceIcon: "https://greenhouse.io/favicon.ico",
+          domain: "greenhouse.io",
+          category: "career",
+          tags,
+          excerpt: `${companyName} is hiring a ${job.title}${location ? ` in ${location}` : ""}${department ? ` (${department})` : ""}.`,
+          publishedAt: job.updated_at ?? new Date().toISOString(),
+          score: 10,
+          commentCount: 0,
+          readingTime: 1,
+          discussionUrl: null,
+          interviewQuestions: [],
+          interviewFormats: [],
+        });
+      }
+    } catch (err) {
+      console.warn(`  Warning: Greenhouse ${companyName} failed:`, (err as Error).message);
+    }
+  }
+
+  return articles;
+}
+
+// ── Lever public job board API ──
+
+const LEVER_COMPANIES = {
+  netflix: "Netflix",
+  vercel: "Vercel",
+  confluent: "Confluent",
+  netlify: "Netlify",
+} as const satisfies Record<string, string>;
+
+async function fetchLeverJobs(): Promise<RawArticle[]> {
+  console.log("  Fetching Lever jobs...");
+  const articles: RawArticle[] = [];
+
+  for (const [companySlug, companyName] of Object.entries(LEVER_COMPANIES)) {
+    try {
+      const res = await fetch(
+        `https://api.lever.co/v0/postings/${companySlug}?mode=json`,
+        { headers: { "User-Agent": "TULMEK Hub Content Aggregator" } }
+      );
+      if (!res.ok) continue;
+      const data = await res.json() as Array<{
+        id: string;
+        text: string;
+        hostedUrl: string;
+        applyUrl: string;
+        categories: {
+          commitment?: string;
+          department?: string;
+          location?: string;
+          team?: string;
+        };
+        createdAt: number;
+        updatedAt?: number;
+      }>;
+
+      // Filter to engineering/software roles only
+      const engineeringJobs = (data ?? []).filter((posting) => {
+        const dept = posting.categories?.department ?? "";
+        const team = posting.categories?.team ?? "";
+        return ENGINEERING_DEPT_PATTERN.test(posting.text) || ENGINEERING_DEPT_PATTERN.test(dept) || ENGINEERING_DEPT_PATTERN.test(team);
+      });
+
+      for (const posting of engineeringJobs.slice(0, 10)) {
+        const location = posting.categories?.location ?? "Remote";
+        const department = posting.categories?.department ?? posting.categories?.team ?? "";
+        const tags = ["hiring", "job-posting", ...(department ? [department.toLowerCase()] : [])];
+        const publishedAt = posting.createdAt
+          ? new Date(posting.createdAt).toISOString()
+          : new Date().toISOString();
+
+        articles.push({
+          id: `lever:${companySlug}-${posting.id}`,
+          title: `${companyName} | ${posting.text} | ${location}`,
+          url: posting.hostedUrl ?? posting.applyUrl,
+          source: "newsletter",
+          sourceName: "Lever",
+          sourceIcon: "https://lever.co/favicon.ico",
+          domain: "jobs.lever.co",
+          category: "career",
+          tags,
+          excerpt: `${companyName} is hiring a ${posting.text}${location ? ` in ${location}` : ""}${department ? ` (${department})` : ""}.`,
+          publishedAt,
+          score: 10,
+          commentCount: 0,
+          readingTime: 1,
+          discussionUrl: null,
+          interviewQuestions: [],
+          interviewFormats: [],
+        });
+      }
+    } catch (err) {
+      console.warn(`  Warning: Lever ${companyName} failed:`, (err as Error).message);
+    }
+  }
+
+  return articles;
+}
+
 // ── Main ──
 
 async function main() {
   console.log("🔄 Fetching hub content...\n");
 
-  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, youtube, newsletters, glassdoor, hnHiring, remoteok, jobicy, himalayas] = await Promise.all([
+  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, youtube, newsletters, glassdoor, hnHiring, remoteok, jobicy, himalayas, greenhouse, lever] = await Promise.all([
     fetchHackerNews(),
     fetchReddit(),
     fetchRedditSearch(),
@@ -1774,6 +1928,8 @@ async function main() {
     fetchRemoteOK(),
     fetchJobicy(),
     fetchHimalayas(),
+    fetchGreenhouseJobs(),
+    fetchLeverJobs(),
   ]);
 
   console.log(`\n  HackerNews: ${hn.length} articles`);
@@ -1791,8 +1947,10 @@ async function main() {
   console.log(`  RemoteOK: ${remoteok.length} articles`);
   console.log(`  Jobicy: ${jobicy.length} articles`);
   console.log(`  Himalayas: ${himalayas.length} articles`);
+  console.log(`  Greenhouse: ${greenhouse.length} articles`);
+  console.log(`  Lever: ${lever.length} articles`);
 
-  const all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas];
+  const all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas, ...greenhouse, ...lever];
 
   // ── Content staleness detection ──
   const sourceCounts: Record<string, number> = {};
