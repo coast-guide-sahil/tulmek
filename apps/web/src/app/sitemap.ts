@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import type { FeedArticle } from "@tulmek/core/domain";
+import { COMPANY_SLUGS } from "@tulmek/core/domain";
 import feedData from "@tulmek/content/hub/feed";
 import { MIN_ARTICLES_FOR_LANDING_PAGE } from "@tulmek/config/constants";
 
@@ -9,14 +10,6 @@ const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://tulmek.vercel.app";
 
 const _articles = feedData as unknown as FeedArticle[];
 
-const COMPANIES = [
-  "google", "amazon", "meta", "apple", "microsoft", "netflix", "uber", "airbnb",
-  "stripe", "coinbase", "nvidia", "tesla", "openai", "anthropic", "palantir",
-  "databricks", "snowflake", "linkedin", "salesforce", "oracle", "adobe",
-  "bloomberg", "jpmorgan", "goldman", "flipkart", "atlassian", "shopify",
-  "spotify", "dropbox", "doordash", "pinterest", "samsung", "ibm",
-  "paypal", "cloudflare", "datadog", "mongodb", "vercel", "github",
-];
 
 const CATEGORIES = [
   "dsa", "system-design", "ai-ml", "behavioral",
@@ -56,7 +49,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Company intelligence pages — each can rank for "[Company] interview prep"
-  const companyPages: MetadataRoute.Sitemap = COMPANIES.map((slug) => ({
+  const companyPages: MetadataRoute.Sitemap = COMPANY_SLUGS.map((slug) => ({
     url: `${BASE_URL}/hub/company/${slug}`,
     lastModified: now,
     changeFrequency: "daily" as const,
@@ -73,7 +66,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Company × category landing pages — only combos with sufficient articles
   const companyCategoryPages: MetadataRoute.Sitemap = [];
-  for (const slug of COMPANIES) {
+  for (const slug of COMPANY_SLUGS) {
     const companyArticles = getCompanyArticles(slug);
     for (const cat of CATEGORIES) {
       const count = companyArticles.filter((a) => a.category === cat).length;

@@ -1,31 +1,17 @@
 import { ImageResponse } from "next/og";
 import type { FeedArticle } from "@tulmek/core/domain";
-import { getCategoryMeta } from "@tulmek/core/domain";
+import { getCategoryMeta, COMPANY_SLUGS, getCompanyName } from "@tulmek/core/domain";
 import feedData from "@tulmek/content/hub/feed";
 
 const articles = feedData as unknown as FeedArticle[];
 
-const COMPANY_DISPLAY: Record<string, string> = {
-  google: "Google", amazon: "Amazon", meta: "Meta", apple: "Apple",
-  microsoft: "Microsoft", netflix: "Netflix", uber: "Uber", airbnb: "Airbnb",
-  stripe: "Stripe", coinbase: "Coinbase", nvidia: "NVIDIA", tesla: "Tesla",
-  openai: "OpenAI", anthropic: "Anthropic", palantir: "Palantir",
-  databricks: "Databricks", snowflake: "Snowflake", linkedin: "LinkedIn",
-  salesforce: "Salesforce", oracle: "Oracle", adobe: "Adobe",
-  bloomberg: "Bloomberg", jpmorgan: "JPMorgan", goldman: "Goldman Sachs",
-  flipkart: "Flipkart", atlassian: "Atlassian", shopify: "Shopify",
-  spotify: "Spotify", dropbox: "Dropbox", doordash: "DoorDash",
-  pinterest: "Pinterest", samsung: "Samsung", ibm: "IBM",
-  paypal: "PayPal", cloudflare: "Cloudflare", datadog: "Datadog",
-  mongodb: "MongoDB", vercel: "Vercel", github: "GitHub",
-};
 
 export const alt = "TULMEK Interview Prep";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export async function generateStaticParams() {
-  return Object.keys(COMPANY_DISPLAY).map((slug) => ({ slug }));
+  return COMPANY_SLUGS.map((slug) => ({ slug }));
 }
 
 function getCompanyArticles(slug: string): FeedArticle[] {
@@ -42,7 +28,7 @@ function getCompanyArticles(slug: string): FeedArticle[] {
 
 export default async function OGImage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const name = COMPANY_DISPLAY[slug] ?? slug.charAt(0).toUpperCase() + slug.slice(1);
+  const name = getCompanyName(slug);
   const companyArticles = getCompanyArticles(slug);
 
   // Category breakdown
