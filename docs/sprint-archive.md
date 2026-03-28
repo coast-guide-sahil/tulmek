@@ -52,4 +52,6 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 130 | #169 | UX audit fixes — bar scaling, company names, cross-nav |
 | 131 | #170 | Dwell time tracking for personalization |
 | 132 | #171 | Source and category muting |
+| 133 | #172 | Internal cross-linking between company pages |
+| 134 | #173 | Mobile company intelligence pages |
 | 111 | #150 | SimHash title dedup — cross-source near-duplicates |
