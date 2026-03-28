@@ -31,3 +31,9 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 109 | #148 | Link company chips to intelligence pages |
 | 110 | #149 | Persistent sprint tracker (.claude/SPRINT.md) |
 | 111 | #150 | SimHash title dedup — cross-source near-duplicates |
+| 112 | #151 | Extract hub store to @tulmek/core/stores/hub |
+| 113 | #152 | Migrate all storage keys to shared constants |
+| 114 | #153 | Production CI/CD for all 3 platforms |
+| 115 | #154 | Accessibility tests + improved CI pipeline |
+| 116 | #155 | Branded types — ArticleId, ItemSlug, ISOTimestamp |
+| 111 | #150 | SimHash title dedup — cross-source near-duplicates |
