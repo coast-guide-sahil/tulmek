@@ -378,9 +378,12 @@ function extractDomain(url: string): string {
   }
 }
 
+/** Estimate reading time in minutes from text content */
 function estimateReadingTime(text: string): number {
-  const wordCount = text.split(/\s+/).length;
-  return Math.max(1, Math.round(wordCount / 200));
+  // Average reading speed: 200-250 words per minute
+  const wordCount = text.split(/\s+/).filter(Boolean).length;
+  const minutes = Math.ceil(wordCount / 220);
+  return Math.max(1, Math.min(30, minutes)); // Clamp 1-30 minutes
 }
 
 /** Normalize URL for dedup — strip tracking params, www, trailing slash, protocol */
@@ -634,7 +637,7 @@ async function fetchHackerNews(): Promise<RawArticle[]> {
           publishedAt: hit.created_at,
           score: hit.points ?? 0,
           commentCount: hit.num_comments ?? 0,
-          readingTime: 5,
+          readingTime: estimateReadingTime(hit.title),
           discussionUrl: `https://news.ycombinator.com/item?id=${hit.objectID}`,
         });
       }
@@ -868,7 +871,7 @@ async function fetchDevTo(): Promise<RawArticle[]> {
           publishedAt: post.published_at,
           score: post.positive_reactions_count,
           commentCount: post.comments_count,
-          readingTime: post.reading_time_minutes || 5,
+          readingTime: post.reading_time_minutes || estimateReadingTime(post.description || post.title),
           discussionUrl: post.url,
         });
       }
@@ -927,7 +930,7 @@ async function fetchGitHub(): Promise<RawArticle[]> {
           publishedAt: repo.updated_at,
           score: repo.stargazers_count,
           commentCount: 0,
-          readingTime: 5,
+          readingTime: estimateReadingTime(repo.full_name + " " + repo.description),
           discussionUrl: repo.html_url,
         });
       }
@@ -1008,7 +1011,7 @@ async function fetchLeetCode(): Promise<RawArticle[]> {
             publishedAt: node.createdAt,
             score: likes,
             commentCount: 0,
-            readingTime: 4,
+            readingTime: estimateReadingTime(node.summary || node.title),
             discussionUrl: `https://leetcode.com/discuss/${tagSlug}/${node.topicId}`,
           });
         }
@@ -1133,7 +1136,7 @@ async function fetchMedium(): Promise<RawArticle[]> {
           publishedAt: pubDateMatch?.[1] ? new Date(pubDateMatch[1]).toISOString() : new Date().toISOString(),
           score: 0,
           commentCount: 0,
-          readingTime: 7,
+          readingTime: estimateReadingTime(title),
           discussionUrl: url,
         });
       }
@@ -1527,7 +1530,7 @@ async function fetchGlassdoor(): Promise<RawArticle[]> {
           publishedAt: interview.review_datetime ?? new Date().toISOString(),
           score: interview.difficulty === "Hard" ? 50 : interview.difficulty === "Medium" ? 30 : 10,
           commentCount: 0,
-          readingTime: 2,
+          readingTime: estimateReadingTime(excerpt),
           discussionUrl: null,
         });
       }
@@ -2027,7 +2030,7 @@ async function fetchGitHubTrending(): Promise<RawArticle[]> {
         publishedAt: pubDateMatch?.[1] ? new Date(pubDateMatch[1]).toISOString() : new Date().toISOString(),
         score: 50, // Trending repos get a baseline boost
         commentCount: 0,
-        readingTime: 5,
+        readingTime: estimateReadingTime(excerpt || title),
         discussionUrl: url,
         interviewQuestions: [],
         interviewFormats: [],
@@ -2189,7 +2192,7 @@ async function fetchStackOverflow(): Promise<RawArticle[]> {
           publishedAt: q.creation_date ? new Date(q.creation_date * 1000).toISOString() : new Date().toISOString(),
           score: q.score ?? 0,
           commentCount: q.answer_count ?? 0,
-          readingTime: 3,
+          readingTime: estimateReadingTime(excerpt || q.title),
           discussionUrl: q.link,
           interviewQuestions: [],
           interviewFormats: [],
