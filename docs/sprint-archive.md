@@ -144,3 +144,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 228 | #268 | 3 podcast RSS feeds (SE Radio, Changelog, SE Daily) |
 | 229 | #269 | Live hiring role counts on company badges |
 | 230 | #270 | Prep Me For Company — personalized study plan |
+| 231 | #271 | SimplifyJobs intern/new-grad tracker |
