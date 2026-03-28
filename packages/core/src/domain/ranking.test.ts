@@ -26,6 +26,10 @@ function makeArticle(overrides: Partial<FeedArticle> & { id: string }): FeedArti
     interviewQuestions: overrides.interviewQuestions ?? [],
     interviewFormats: overrides.interviewFormats ?? [],
     sourceCorroboration: overrides.sourceCorroboration ?? 0,
+    topics: overrides.topics ?? [],
+    difficulty: overrides.difficulty ?? "",
+    sentiment: overrides.sentiment ?? "",
+    actionability: overrides.actionability ?? 0,
   };
 }
 

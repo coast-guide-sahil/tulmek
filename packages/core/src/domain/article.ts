@@ -60,6 +60,14 @@ export interface FeedArticle {
   readonly interviewFormats: readonly string[];
   /** Number of distinct sources that mention the same company as this article */
   readonly sourceCorroboration: number;
+  /** 2-3 specific sub-topics extracted by AI (e.g., "distributed caching", "API design") */
+  readonly topics: readonly string[];
+  /** Estimated difficulty level of the content */
+  readonly difficulty: "beginner" | "intermediate" | "advanced" | "";
+  /** Sentiment of the article about the interview/career topic */
+  readonly sentiment: "positive" | "negative" | "neutral" | "";
+  /** How actionable the content is (0.0-1.0) */
+  readonly actionability: number;
 }
 
 /** A bookmark saved by the user */
