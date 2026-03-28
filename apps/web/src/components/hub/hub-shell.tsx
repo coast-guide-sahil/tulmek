@@ -146,6 +146,11 @@ export function HubShell({ children }: { children: ReactNode }) {
             <p className="text-center text-xs text-muted-foreground">
               Content refreshed every 3 hours from 8 sources. All bookmarks saved locally — no account required.
             </p>
+            <div className="flex gap-3 text-xs text-muted-foreground">
+              <Link href="/privacy" className="hover:text-foreground">Privacy</Link>
+              <span>·</span>
+              <Link href="/terms" className="hover:text-foreground">Terms</Link>
+            </div>
           </div>
         </div>
       </footer>
