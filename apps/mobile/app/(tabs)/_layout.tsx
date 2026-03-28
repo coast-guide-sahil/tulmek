@@ -32,6 +32,16 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="questions"
+        options={{
+          title: "Questions",
+          tabBarLabel: "Questions",
+          tabBarIcon: ({ color, size }) => (
+            <TabIcon name="questions" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="pulse"
         options={{
           title: "Pulse",
@@ -69,6 +79,7 @@ export default function TabLayout() {
 function TabIcon({ name, color, size }: { name: string; color: string; size: number }) {
   const icons: Record<string, string> = {
     home: "🏠",
+    questions: "?",
     pulse: "📊",
     saved: "★",
     compare: "⇌",
