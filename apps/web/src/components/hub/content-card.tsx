@@ -2,6 +2,7 @@
 
 import { memo } from "react";
 import type { FeedArticle } from "@tulmek/core/domain";
+import { getSourceTier } from "@tulmek/core/domain";
 import { TRENDING_SCORE_THRESHOLD, HOT_DISCUSSION_THRESHOLD } from "@tulmek/config/constants";
 import { formatRelativeTime, getCategoryConfig } from "./hub-utils";
 import { CardMenu } from "./card-menu";
@@ -33,6 +34,7 @@ export const ContentCard = memo(function ContentCard({
   const relativeTime = formatRelativeTime(article.publishedAt);
   const isTrending = article.score >= TRENDING_SCORE_THRESHOLD;
   const isHotDiscussion = article.commentCount >= HOT_DISCUSSION_THRESHOLD;
+  const sourceTier = getSourceTier(article.source);
   // Quality tier: engagement + discussion depth
   const qualityScore = article.score + article.commentCount * 3;
   const qualityTier = qualityScore >= 1000 ? "high" : qualityScore >= 200 ? "medium" : "low";
@@ -79,6 +81,7 @@ export const ContentCard = memo(function ContentCard({
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <SourceBadge sourceName={article.sourceName} domain={article.domain} />
+            {sourceTier && <SourceTierBadge tier={sourceTier.tier} label={sourceTier.label} />}
             <span>{relativeTime}</span>
             {isNew && <NewBadge />}
             {isTrending && <TrendingBadge />}
@@ -140,6 +143,7 @@ export const ContentCard = memo(function ContentCard({
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <QualityDot tier={qualityTier} />
           <SourceBadge sourceName={article.sourceName} domain={article.domain} />
+          {sourceTier && <SourceTierBadge tier={sourceTier.tier} label={sourceTier.label} />}
           <span>{relativeTime}</span>
         </div>
         <div className="flex items-center gap-0.5">
@@ -310,6 +314,21 @@ function CategoryPill({ config }: { config: { label: string; className: string }
   return (
     <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${config.className}`}>
       {config.label}
+    </span>
+  );
+}
+
+function SourceTierBadge({ tier, label }: { tier: number; label: string }) {
+  if (tier === 1) {
+    return (
+      <span className="rounded-full bg-yellow-500/10 px-1.5 py-0.5 text-[10px] font-medium text-yellow-700 dark:text-yellow-300">
+        ★ {label}
+      </span>
+    );
+  }
+  return (
+    <span className="rounded-full bg-zinc-500/10 px-1.5 py-0.5 text-[10px] font-medium text-zinc-600 dark:text-zinc-400">
+      ✓ {label}
     </span>
   );
 }

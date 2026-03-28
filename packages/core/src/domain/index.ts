@@ -28,6 +28,7 @@ export type { ArticleId, ItemSlug, ISOTimestamp } from "./branded";
 export {
   tulmekRank,
   getTrendingTopics,
+  getSourceTier,
 } from "./ranking";
 
 export {

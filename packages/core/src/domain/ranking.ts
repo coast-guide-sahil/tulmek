@@ -70,6 +70,15 @@ const SOURCE_CREDIBILITY = {
   glassdoor: 0.82,
 } as const satisfies Record<FeedSourceId, number>;
 
+// ── Source credibility tier classification ──
+
+export function getSourceTier(source: string): { tier: number; label: string } | null {
+  const credibility = SOURCE_CREDIBILITY[source as FeedSourceId] ?? 0.5;
+  if (credibility >= 0.9) return { tier: 1, label: "Top Source" };
+  if (credibility >= 0.7) return { tier: 2, label: "Trusted" };
+  return null;
+}
+
 // ── Helper functions ──
 
 function sigmoid(x: number): number {
