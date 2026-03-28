@@ -184,3 +184,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 268 | #307 | Hot badge for high-engagement articles (score >= 100) |
 | 269 | #308 | Mobile Hot + Fresh badges on article cards |
 | 270 | #309 | Category emojis in nav tabs |
+| 271 | #310 | Improved scroll-to-top (fade animation, lower threshold) |
