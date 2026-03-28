@@ -1,12 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
+import { FlashList, type ListRenderItemInfo } from "@shopify/flash-list";
 import {
   View,
   Text,
   StyleSheet,
-  FlatList,
   Pressable,
   Linking,
-  type ListRenderItemInfo,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { FeedArticle } from "@tulmek/core/domain";
@@ -78,7 +77,7 @@ export default function SavedPage() {
 
   return (
     <View style={styles.container}>
-      <FlatList
+      <FlashList
         data={savedArticles}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}

@@ -1,5 +1,6 @@
 import { useLocalSearchParams } from "expo-router";
-import { View, Text, StyleSheet, FlatList, Pressable, Linking } from "react-native";
+import { FlashList } from "@shopify/flash-list";
+import { View, Text, StyleSheet, Pressable, Linking } from "react-native";
 import type { FeedArticle } from "@tulmek/core/domain";
 import { tulmekRank, getCategoryMeta, getSourceLabel, formatRelativeTime, getCompanyName } from "@tulmek/core/domain";
 import { TRENDING_SCORE_THRESHOLD } from "@tulmek/config/constants";
@@ -42,7 +43,7 @@ export default function CompanyPage() {
 
   return (
     <View style={styles.container}>
-      <FlatList
+      <FlashList
         data={ranked}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
@@ -94,6 +95,8 @@ export default function CompanyPage() {
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#09090b" },
