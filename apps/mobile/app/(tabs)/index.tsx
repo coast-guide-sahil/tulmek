@@ -375,6 +375,7 @@ export default function HomeScreen() {
   const [activeCategory, setActiveCategory] = useState<HubCategory | null>(null);
   const [difficultyFilter, setDifficultyFilter] = useState<DifficultyLevel | null>(null);
   const [actionableOnly, setActionableOnly] = useState(false);
+  const [sentimentFilter, setSentimentFilter] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortMode, setSortMode] = useState<SortMode>("for-you");
   const listRef = useRef<FlashListRef<FeedArticle>>(null);
@@ -405,6 +406,10 @@ export default function HomeScreen() {
       result = result.filter((a) => a.actionability >= 0.7);
     }
 
+    if (sentimentFilter) {
+      result = result.filter((a) => a.sentiment === sentimentFilter);
+    }
+
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       result = result.filter(
@@ -433,7 +438,7 @@ export default function HomeScreen() {
         result.sort((a, b) => b.score - a.score);
         return result;
     }
-  }, [activeCategory, difficultyFilter, actionableOnly, searchQuery, sortMode, nowMs]);
+  }, [activeCategory, difficultyFilter, actionableOnly, sentimentFilter, searchQuery, sortMode, nowMs]);
 
   const renderItem = useCallback(
     ({ item }: ListRenderItemInfo<FeedArticle>) => (
@@ -551,7 +556,7 @@ export default function HomeScreen() {
               t={t}
             />
 
-            {/* Actionable filter */}
+            {/* Actionable + Sentiment filters */}
             <View style={styles.actionableRow}>
               <Pressable
                 onPress={() => {
@@ -571,6 +576,48 @@ export default function HomeScreen() {
                   { color: actionableOnly ? "#fff" : t.textMuted },
                 ]}>
                   ⚡ Actionable
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={() => {
+                  const next = sentimentFilter === "positive" ? null : "positive";
+                  setSentimentFilter(next);
+                  void Haptics.selectionAsync();
+                }}
+                style={[
+                  styles.sentimentChip,
+                  { backgroundColor: sentimentFilter === "positive" ? "#10b981" : t.chipBg },
+                ]}
+                accessibilityRole="button"
+                accessibilityState={{ selected: sentimentFilter === "positive" }}
+                accessibilityLabel="Filter to positive sentiment articles"
+              >
+                <Text style={[
+                  styles.sentimentChipText,
+                  { color: sentimentFilter === "positive" ? "#fff" : t.textMuted },
+                ]}>
+                  😊 Positive
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={() => {
+                  const next = sentimentFilter === "negative" ? null : "negative";
+                  setSentimentFilter(next);
+                  void Haptics.selectionAsync();
+                }}
+                style={[
+                  styles.sentimentChip,
+                  { backgroundColor: sentimentFilter === "negative" ? "#ef4444" : t.chipBg },
+                ]}
+                accessibilityRole="button"
+                accessibilityState={{ selected: sentimentFilter === "negative" }}
+                accessibilityLabel="Filter to negative sentiment articles"
+              >
+                <Text style={[
+                  styles.sentimentChipText,
+                  { color: sentimentFilter === "negative" ? "#fff" : t.textMuted },
+                ]}>
+                  😟 Negative
                 </Text>
               </Pressable>
             </View>
@@ -651,13 +698,15 @@ const styles = StyleSheet.create({
   },
   difficultyChipText: { fontSize: 13, fontWeight: "600" as const },
 
-  // Actionable filter
+  // Actionable + Sentiment filters
   actionableRow: {
+    flexDirection: "row" as const,
+    flexWrap: "wrap" as const,
+    gap: 8,
     paddingHorizontal: 16,
     paddingVertical: 6,
   },
   actionableChip: {
-    alignSelf: "flex-start" as const,
     minHeight: 44,
     paddingHorizontal: 14,
     paddingVertical: 10,
@@ -665,6 +714,14 @@ const styles = StyleSheet.create({
     justifyContent: "center" as const,
   },
   actionableChipText: { fontSize: 13, fontWeight: "600" as const },
+  sentimentChip: {
+    minHeight: 44,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: 20,
+    justifyContent: "center" as const,
+  },
+  sentimentChipText: { fontSize: 13, fontWeight: "600" as const },
 
   // Sort picker
   sortList: { paddingHorizontal: 12, paddingVertical: 4, gap: 6 },
