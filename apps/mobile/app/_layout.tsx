@@ -1,32 +1,25 @@
 import { Stack } from "expo-router";
 import { useColorScheme } from "react-native";
 
-const THEMES = {
-  dark: { bg: "#09090b", text: "#fafafa" },
-  light: { bg: "#ffffff", text: "#09090b" },
-};
-
 /**
- * Root layout — respects system dark/light mode.
- * Shares @tulmek/core domain types and ports with web + desktop.
+ * Root layout — Stack wrapping tab group + detail screens.
+ * Tab screens live in (tabs)/, detail screens are at root level.
  */
 export default function RootLayout() {
   const scheme = useColorScheme() ?? "dark";
-  const theme = THEMES[scheme];
+  const isDark = scheme === "dark";
 
   return (
     <Stack
       screenOptions={{
-        headerStyle: { backgroundColor: theme.bg },
-        headerTintColor: theme.text,
+        headerStyle: { backgroundColor: isDark ? "#09090b" : "#ffffff" },
+        headerTintColor: isDark ? "#fafafa" : "#09090b",
         headerTitleStyle: { fontWeight: "bold" },
-        contentStyle: { backgroundColor: theme.bg },
+        contentStyle: { backgroundColor: isDark ? "#09090b" : "#ffffff" },
       }}
     >
-      <Stack.Screen name="index" options={{ title: "TULMEK" }} />
-      <Stack.Screen name="saved" options={{ title: "Saved" }} />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="company/[slug]" options={{ title: "Company" }} />
-      <Stack.Screen name="pulse" options={{ title: "Market Pulse" }} />
       <Stack.Screen name="report" options={{ title: "Market Report" }} />
     </Stack>
   );
