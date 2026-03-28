@@ -54,4 +54,8 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 132 | #171 | Source and category muting |
 | 133 | #172 | Internal cross-linking between company pages |
 | 134 | #173 | Mobile company intelligence pages |
+| 135 | #174 | Content refresh + sprint archive update |
+| 136 | #175 | Branded error pages (not-found, global-error, root error) |
+| 137 | #176 | Privacy policy + terms of service |
+| 138 | #177 | Vercel Speed Insights + loading skeletons |
 | 111 | #150 | SimHash title dedup — cross-source near-duplicates |
