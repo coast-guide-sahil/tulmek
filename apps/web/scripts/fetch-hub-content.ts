@@ -1324,7 +1324,7 @@ async function fetchHNHiring(): Promise<RawArticle[]> {
 
       articles.push({
         id: `hackernews:hiring-${comment.id}`,
-        title: `${company} is hiring — HN Who's Hiring`,
+        title: `${company.slice(0, 100)} is hiring — HN Who's Hiring`,
         url: `https://news.ycombinator.com/item?id=${comment.id}`,
         source: "hackernews",
         sourceName: "HN Who's Hiring",
