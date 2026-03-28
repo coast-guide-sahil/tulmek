@@ -1720,6 +1720,103 @@ async function fetchLeverJobs(): Promise<RawArticle[]> {
   return articles;
 }
 
+// ── Interview Question Intelligence (IQI) — Gemini extraction ──
+
+interface ExtractedQuestion {
+  question: string;
+  format: string;
+  difficulty: string;
+  round: string;
+  company: string;
+  level: string;
+  role: string;
+  topics: string[];
+  hints: string[];
+  expectedTimeMinutes: number | null;
+}
+
+async function extractQuestionsWithGemini(
+  articles: Array<{ id: string; title: string; excerpt: string; category: string; source: string; publishedAt: string }>
+): Promise<Map<string, ExtractedQuestion[]>> {
+  if (!GEMINI_API_KEY) return new Map();
+
+  const { GoogleGenAI } = await import("@google/genai");
+  const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+
+  // Only process question-rich categories
+  const targetCategories = new Set(["interview-experience", "dsa", "system-design", "behavioral", "ai-ml", "compensation"]);
+  const eligible = articles.filter(a => targetCategories.has(a.category));
+
+  const results = new Map<string, ExtractedQuestion[]>();
+  const BATCH = 10; // Smaller batches for richer extraction
+
+  for (let i = 0; i < eligible.length; i += BATCH) {
+    const batch = eligible.slice(i, i + BATCH);
+    const prompt = batch.map((a, idx) =>
+      `[${idx}] Title: ${a.title}\nExcerpt: ${a.excerpt.slice(0, 400)}`
+    ).join("\n\n");
+
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash-lite",
+        contents: `Extract actual interview questions from these articles. Only extract questions that were actually asked in interviews, not article titles rephrased as questions.\n\nFor each article, return 0-5 questions with: question text, format (dsa/system-design/behavioral/ai-ml/unknown), difficulty (easy/medium/hard/unknown), round (onsite-coding/phone-screen/online-assessment/onsite-system-design/onsite-behavioral/ai-assisted-coding/unknown), company name, level, role, topics (2-3 tags), hints (if mentioned), expectedTimeMinutes.\n\nArticles:\n${prompt}`,
+        config: {
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: "object" as const,
+            properties: {
+              extractions: {
+                type: "array" as const,
+                items: {
+                  type: "object" as const,
+                  properties: {
+                    articleIndex: { type: "number" as const },
+                    questions: {
+                      type: "array" as const,
+                      items: {
+                        type: "object" as const,
+                        properties: {
+                          question: { type: "string" as const },
+                          format: { type: "string" as const },
+                          difficulty: { type: "string" as const },
+                          round: { type: "string" as const },
+                          company: { type: "string" as const },
+                          level: { type: "string" as const },
+                          role: { type: "string" as const },
+                          topics: { type: "array" as const, items: { type: "string" as const } },
+                          hints: { type: "array" as const, items: { type: "string" as const } },
+                          expectedTimeMinutes: { type: "number" as const },
+                        },
+                        required: ["question", "format", "difficulty"],
+                      },
+                    },
+                  },
+                  required: ["articleIndex", "questions"],
+                },
+              },
+            },
+            required: ["extractions"],
+          },
+        },
+      });
+
+      const text = response.text ?? "";
+      const parsed = JSON.parse(text) as { extractions: Array<{ articleIndex: number; questions: ExtractedQuestion[] }> };
+
+      for (const extraction of parsed.extractions) {
+        const article = batch[extraction.articleIndex];
+        if (article && extraction.questions.length > 0) {
+          results.set(article.id, extraction.questions.slice(0, 5));
+        }
+      }
+    } catch (err) {
+      console.warn(`  Question extraction batch ${i}-${i + BATCH} failed:`, (err as Error).message);
+    }
+  }
+
+  return results;
+}
+
 // ── Main ──
 
 async function main() {
@@ -2120,6 +2217,63 @@ async function main() {
       Buffer.byteLength(JSON.stringify(embeddingsPayload)) / 1024
     );
     console.log(`  Wrote embeddings to packages/content/src/hub/embeddings.json (${sizeKB}KB)`);
+  }
+
+  // ── Interview Question Intelligence (IQI) extraction ──
+  if (GEMINI_API_KEY) {
+    console.log(`\n🧠 Extracting interview questions from ${articles.length} articles...`);
+    const questionMap = await extractQuestionsWithGemini(articles);
+
+    // Build question bank
+    const questionBank: import("@tulmek/core/domain").InterviewQuestion[] = [];
+    const seen = new Set<string>();
+
+    for (const [articleId, questions] of questionMap) {
+      const article = articles.find(a => a.id === articleId);
+      if (!article) continue;
+
+      for (const q of questions) {
+        // Simple dedup by normalized question text
+        const normalized = q.question.toLowerCase().replace(/[^a-z0-9\s]/g, "").trim();
+        const key = normalized.slice(0, 100);
+        if (seen.has(key) || normalized.length < 10) continue;
+        seen.add(key);
+
+        questionBank.push({
+          id: `q:${Buffer.from(normalized).toString("base64").slice(0, 20)}`,
+          question: q.question,
+          title: q.question.slice(0, 80),
+          format: (q.format as import("@tulmek/core/domain").QuestionFormat) ?? "unknown",
+          difficulty: (q.difficulty as import("@tulmek/core/domain").QuestionDifficulty) ?? "unknown",
+          rounds: [(q.round as import("@tulmek/core/domain").InterviewRound) ?? "unknown"],
+          companies: q.company ? [{ slug: q.company.toLowerCase(), name: q.company, level: q.level ?? "", role: q.role ?? "" }] : [],
+          topics: q.topics ?? [],
+          sourceArticleIds: [articleId],
+          reportCount: 1,
+          lastReportedAt: article.publishedAt,
+          firstReportedAt: article.publishedAt,
+          hints: q.hints ?? [],
+          expectedTimeMinutes: q.expectedTimeMinutes ?? null,
+        });
+      }
+    }
+
+    console.log(`  Extracted ${questionBank.length} unique questions from ${questionMap.size} articles`);
+
+    // Write question bank
+    writeFileSync(join(outputDir, "questions.json"), JSON.stringify(questionBank, null, 2));
+    writeFileSync(join(outputDir, "questions-metadata.json"), JSON.stringify({
+      lastRefreshedAt: now,
+      totalQuestions: questionBank.length,
+      formatBreakdown: questionBank.reduce((acc, q) => { acc[q.format] = (acc[q.format] ?? 0) + 1; return acc; }, {} as Record<string, number>),
+      difficultyBreakdown: questionBank.reduce((acc, q) => { acc[q.difficulty] = (acc[q.difficulty] ?? 0) + 1; return acc; }, {} as Record<string, number>),
+      topCompanies: [...new Map(questionBank.flatMap(q => q.companies.map(c => [c.slug, c.name]))).entries()]
+        .map(([slug]) => ({ slug, count: questionBank.filter(q => q.companies.some(c => c.slug === slug)).length }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 20),
+    }, null, 2));
+  } else {
+    console.log("\n📝 Skipping question extraction (set GEMINI_API_KEY)");
   }
 
   writeFileSync(
