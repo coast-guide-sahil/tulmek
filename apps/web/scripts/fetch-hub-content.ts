@@ -1270,28 +1270,70 @@ async function fetchNewsletters(): Promise<RawArticle[]> {
                            item.match(/<title>(.*?)<\/title>/);
         const linkMatch = item.match(/<link>(.*?)<\/link>/);
         const pubDateMatch = item.match(/<pubDate>(.*?)<\/pubDate>/);
-        const descMatch = item.match(/<description><!\[CDATA\[(.*?)\]\]><\/description>/) ??
+        const descMatch = item.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/) ??
                           item.match(/<description>(.*?)<\/description>/);
 
-        if (!titleMatch?.[1] || !linkMatch?.[1]) continue;
+        // Podcast: richer description sources
+        const contentMatch = item.match(/<content:encoded><!\[CDATA\[([\s\S]*?)\]\]><\/content:encoded>/);
+        const itunesSummary = item.match(/<itunes:summary><!\[CDATA\[([\s\S]*?)\]\]><\/itunes:summary>/) ??
+                              item.match(/<itunes:summary>(.*?)<\/itunes:summary>/);
+
+        // Podcast: episode page URL may be in <enclosure> url attribute or guid
+        const enclosureUrlMatch = item.match(/<enclosure[^>]+url="([^"]+)"/);
+        const guidMatch = item.match(/<guid[^>]*isPermaLink="true"[^>]*>(.*?)<\/guid>/) ??
+                          item.match(/<guid[^>]*>(https?:\/\/[^<]+)<\/guid>/);
+
+        if (!titleMatch?.[1]) continue;
 
         const title = titleMatch[1].replace(/<[^>]+>/g, "").trim();
-        const url = linkMatch[1].split("?")[0] ?? linkMatch[1];
+
+        // Resolve the episode web page URL: prefer <link>, then guid permalink,
+        // then fall back to feed base URL with a title slug for podcast-only feeds.
+        const rawUrl: string | undefined =
+          linkMatch?.[1] ??
+          guidMatch?.[1] ??
+          (enclosureUrlMatch ? `${feedUrl.replace(/\/feed\/?$/, "")}/${title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}` : undefined);
+
+        if (!rawUrl) continue;
+
+        const url = rawUrl.split("?")[0] ?? rawUrl;
         const publishedAt = pubDateMatch?.[1]
           ? new Date(pubDateMatch[1]).toISOString()
           : new Date().toISOString();
 
-        // Extract plain text excerpt from description HTML
+        // Extract plain text excerpt — prefer richest non-empty source
+        const toPlainText = (html: string) =>
+          html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 200);
+
         let excerpt = title;
-        if (descMatch?.[1]) {
-          excerpt = descMatch[1]
-            .replace(/<[^>]+>/g, " ")
-            .replace(/\s+/g, " ")
-            .trim()
-            .slice(0, 200);
+        if (descMatch?.[1] && descMatch[1].trim().length > 10) {
+          excerpt = toPlainText(descMatch[1]);
+        } else if (contentMatch?.[1]) {
+          excerpt = toPlainText(contentMatch[1]);
+        } else if (itunesSummary?.[1]) {
+          excerpt = toPlainText(itunesSummary[1]);
         }
 
-        const domain = new URL(url).hostname;
+        // Podcast: use <itunes:duration> for reading time if available
+        const durationMatch = item.match(/<itunes:duration>(.*?)<\/itunes:duration>/);
+        let readingTime = estimateReadingTime(excerpt);
+        if (durationMatch?.[1]) {
+          const parts = durationMatch[1].split(":").map(Number);
+          if (parts.length === 3) {
+            readingTime = (parts[0] ?? 0) * 60 + (parts[1] ?? 0);
+          } else if (parts.length === 2) {
+            readingTime = parts[0] ?? readingTime;
+          } else {
+            readingTime = Math.ceil((parts[0] ?? 300) / 60);
+          }
+        }
+
+        let domain: string;
+        try {
+          domain = new URL(url).hostname;
+        } catch {
+          continue;
+        }
 
         articles.push({
           id: `newsletter:${Buffer.from(url).toString("base64url").slice(0, 40)}`,
@@ -1306,7 +1348,7 @@ async function fetchNewsletters(): Promise<RawArticle[]> {
           excerpt: excerpt || title,
           score: 0,
           commentCount: 0,
-          readingTime: estimateReadingTime(excerpt),
+          readingTime,
           publishedAt,
           discussionUrl: null,
         });
