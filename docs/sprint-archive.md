@@ -65,3 +65,8 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 143 | #182 | Content refresh + archive update |
 | 144 | #183 | 4 new newsletters + 2 YouTube channels |
 | 145 | #184 | Desktop auto-updater (tauri-plugin-updater) |
+| 146 | #185 | Sprint archive + backlog refresh |
+| 147 | #186 | CSP fix for favicons + Speed Insights |
+| 148 | #187 | Visual regression tests (3 baselines) |
+| 149 | #188 | Lighthouse CI for performance monitoring |
+| 150 | #189 | Muted sources settings page |
