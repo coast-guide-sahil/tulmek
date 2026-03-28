@@ -851,6 +851,7 @@ async function fetchNewsletters(): Promise<RawArticle[]> {
     "https://read.highgrowthengineer.com/feed": "High Growth Engineer",
     "https://newsletter.systemdesigncodex.com/feed": "System Design Codex",
     "https://newsletter.systemdesignclassroom.com/feed": "System Design Classroom",
+    "https://feed.infoq.com/presentations/": "InfoQ Presentations",
   };
 
   for (const [feedUrl, name] of Object.entries(feeds)) {

@@ -70,3 +70,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 148 | #187 | Visual regression tests (3 baselines) |
 | 149 | #188 | Lighthouse CI for performance monitoring |
 | 150 | #189 | Muted sources settings page |
+| 151 | #190 | Mobile bottom tab navigation |
