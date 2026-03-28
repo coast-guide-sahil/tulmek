@@ -157,3 +157,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 241 | #281 | Dynamic reading time estimates from content length |
 | 242 | #282 | Content refresh — 946 articles, all 3 platforms tested live |
 | 243 | #283 | Sentiment indicators (green/red dots) on article cards |
+| 244 | #284 | Topic pills on article cards (AI sub-topics) |
