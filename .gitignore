@@ -44,3 +44,6 @@ next-env.d.ts
 playwright-report/
 blob-report/
 test-results/
+
+# AI classification cache (local build artifact)
+**/.ai-cache.json

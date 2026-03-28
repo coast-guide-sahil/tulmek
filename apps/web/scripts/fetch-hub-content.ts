@@ -12,7 +12,7 @@
  * Scheduled: GitHub Actions daily cron
  */
 
-import { writeFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, mkdirSync, readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -1270,24 +1270,87 @@ async function main() {
     return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
   });
 
-  // AI classification step — reclassifies articles using Gemini if API key is set
-  if (GEMINI_API_KEY) {
-    console.log(`\n🤖 AI classification with Gemini Flash-Lite (${all.length} articles)...`);
-    const aiCategories = await classifyWithAI(
-      all.map((a) => ({ title: a.title, tags: a.tags, excerpt: a.excerpt }))
-    );
-    const aiCount = aiCategories.filter((c, i) => c !== categorize(all[i]!.title, all[i]!.tags)).length;
-    all = all.map((a, i) => ({ ...a, category: aiCategories[i]! }));
-    console.log(`  AI reclassified ${aiCount} articles vs keyword baseline`);
+  // Write output to shared @tulmek/content package (single source of truth)
+  const outputDir = join(__dirname, "..", "..", "..", "packages", "content", "src", "hub");
+  mkdirSync(outputDir, { recursive: true });
 
-    // AI summaries
-    console.log(`\n📝 Generating AI summaries (${all.length} articles)...`);
-    const aiSummaries = await summarizeWithAI(
-      all.map((a) => ({ title: a.title, excerpt: a.excerpt, source: a.source }))
-    );
-    const summaryCount = aiSummaries.filter((s, i) => s !== all[i]!.excerpt).length;
-    all = all.map((a, i) => ({ ...a, excerpt: aiSummaries[i]! }));
-    console.log(`  Generated ${summaryCount} AI summaries`);
+  // ── AI classification cache ──
+  // Avoid re-classifying articles whose titles haven't changed since last run.
+
+  type AICacheEntry = { titleHash: string; category: string; summary: string; cachedAt: string };
+  const CACHE_PATH = join(outputDir, ".ai-cache.json");
+  let aiCache: Record<string, AICacheEntry> = {};
+  try {
+    aiCache = JSON.parse(readFileSync(CACHE_PATH, "utf-8")) as Record<string, AICacheEntry>;
+  } catch { /* first run or corrupt cache — start fresh */ }
+
+  const titleHash = (s: string) => Buffer.from(s).toString("base64").slice(0, 20);
+
+  // Partition articles into cache hits and misses
+  let cacheHits = 0;
+  const uncachedIndices: number[] = [];
+
+  for (let i = 0; i < all.length; i++) {
+    const article = all[i]!;
+    const cached = aiCache[article.id];
+    if (cached && cached.titleHash === titleHash(article.title)) {
+      all[i] = { ...article, category: cached.category, excerpt: cached.summary || article.excerpt };
+      cacheHits++;
+    } else {
+      uncachedIndices.push(i);
+    }
+  }
+
+  const cacheMisses = uncachedIndices.length;
+  const cacheRate = all.length > 0 ? Math.round((cacheHits / all.length) * 100) : 0;
+
+  // AI classification step — reclassifies only uncached articles using Gemini
+  if (GEMINI_API_KEY) {
+    console.log(`\n🤖 AI classification with Gemini Flash-Lite...`);
+    console.log(`  Cache: ${cacheHits} hits, ${cacheMisses} misses (${cacheRate}% cache rate)`);
+
+    if (uncachedIndices.length > 0) {
+      const uncachedArticles = uncachedIndices.map((i) => all[i]!);
+
+      // Classify uncached articles
+      console.log(`  Classifying ${uncachedArticles.length} articles...`);
+      const aiCategories = await classifyWithAI(
+        uncachedArticles.map((a) => ({ title: a.title, tags: a.tags, excerpt: a.excerpt }))
+      );
+      const aiCount = aiCategories.filter((c, j) => c !== categorize(uncachedArticles[j]!.title, uncachedArticles[j]!.tags)).length;
+      console.log(`  AI reclassified ${aiCount} articles vs keyword baseline`);
+
+      for (let j = 0; j < uncachedIndices.length; j++) {
+        const idx = uncachedIndices[j]!;
+        all[idx] = { ...all[idx]!, category: aiCategories[j]! };
+      }
+
+      // Summarize uncached articles
+      console.log(`  Generating AI summaries for ${uncachedArticles.length} articles...`);
+      const aiSummaries = await summarizeWithAI(
+        uncachedArticles.map((a) => ({ title: a.title, excerpt: a.excerpt, source: a.source }))
+      );
+
+      for (let j = 0; j < uncachedIndices.length; j++) {
+        const idx = uncachedIndices[j]!;
+        const article = all[idx]!;
+        const summary = aiSummaries[j]!;
+        all[idx] = { ...article, excerpt: summary };
+
+        // Update cache with fresh AI results
+        aiCache[article.id] = {
+          titleHash: titleHash(article.title),
+          category: aiCategories[j]!,
+          summary,
+          cachedAt: new Date().toISOString(),
+        };
+      }
+    } else {
+      console.log(`  All articles served from cache — skipping Gemini API calls`);
+    }
+
+    // Persist updated cache
+    writeFileSync(CACHE_PATH, JSON.stringify(aiCache, null, 2));
   } else {
     console.log("\n📝 Using keyword classification (set GEMINI_API_KEY for AI)");
   }
@@ -1317,10 +1380,6 @@ async function main() {
     sourceBreakdown,
     categoryBreakdown,
   };
-
-  // Write output to shared @tulmek/content package (single source of truth)
-  const outputDir = join(__dirname, "..", "..", "..", "packages", "content", "src", "hub");
-  mkdirSync(outputDir, { recursive: true });
 
   writeFileSync(
     join(outputDir, "feed.json"),
