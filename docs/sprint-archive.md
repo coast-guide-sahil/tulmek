@@ -179,3 +179,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 263 | #302 | Filtered category counts — badges update with active filters |
 | 264 | #303 | Improved no-results empty state with context + clear CTA |
 | 265 | #304 | Reading progress bar (thin top bar, articles read/total) |
+| 266 | #305 | Mobile reading progress bar |
