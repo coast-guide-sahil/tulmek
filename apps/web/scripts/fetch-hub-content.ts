@@ -1210,6 +1210,10 @@ async function fetchNewsletters(): Promise<RawArticle[]> {
     "https://hellointerview.substack.com/feed": "Hello Interview Newsletter",
     "https://blog.tryexponent.com/rss/": "Exponent Blog",
     "https://www.techinterviewhandbook.org/blog/rss.xml": "Tech Interview Handbook",
+    "https://grokkingtechcareer.substack.com/feed": "Grokking Tech Career",
+    "https://fangprep.substack.com/feed": "FANG Prep",
+    "https://read.engineerscodex.com/feed": "Engineer's Codex",
+    "https://levelupwithethan.substack.com/feed": "Level Up",
   };
 
   for (const [feedUrl, name] of Object.entries(feeds)) {
@@ -1453,12 +1457,143 @@ async function fetchGlassdoor(): Promise<RawArticle[]> {
   return articles;
 }
 
+// ── Job board fetchers ──
+
+async function fetchRemoteOK(): Promise<RawArticle[]> {
+  console.log("  Fetching RemoteOK...");
+  const articles: RawArticle[] = [];
+  try {
+    const res = await fetch("https://remoteok.com/api", {
+      headers: { "User-Agent": "TULMEK Hub Content Aggregator" },
+    });
+    if (!res.ok) return articles;
+    const data = await res.json() as Array<{
+      id?: string; slug?: string; company?: string; position?: string;
+      tags?: string[]; description?: string; location?: string;
+      salary_min?: number; salary_max?: number; date?: string; url?: string;
+    }>;
+    // First element is metadata, skip it
+    for (const job of data.slice(1, 30)) {
+      if (!job.position || !job.company) continue;
+      const salary = job.salary_min && job.salary_max
+        ? ` ($${Math.round(job.salary_min/1000)}K-$${Math.round(job.salary_max/1000)}K)`
+        : "";
+      articles.push({
+        id: `remoteok:${job.id ?? job.slug ?? articles.length}`,
+        title: `${job.company} | ${job.position}${salary}`,
+        url: job.url ?? `https://remoteok.com/remote-jobs/${job.slug}`,
+        source: "newsletter", // reuse existing source type
+        sourceName: "RemoteOK",
+        sourceIcon: "https://remoteok.com/favicon.ico",
+        domain: "remoteok.com",
+        category: "career",
+        tags: [...(job.tags ?? []).slice(0, 5), "remote", "hiring"],
+        excerpt: (job.description ?? "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 300),
+        publishedAt: job.date ?? new Date().toISOString(),
+        score: 10,
+        commentCount: 0,
+        readingTime: 1,
+        discussionUrl: null,
+        interviewQuestions: [],
+        interviewFormats: [],
+      });
+    }
+  } catch (err) {
+    console.warn("  Warning: RemoteOK failed:", (err as Error).message);
+  }
+  return articles;
+}
+
+async function fetchJobicy(): Promise<RawArticle[]> {
+  console.log("  Fetching Jobicy...");
+  const articles: RawArticle[] = [];
+  try {
+    const res = await fetch("https://jobicy.com/api/v2/remote-jobs?count=30&tag=engineer");
+    if (!res.ok) return articles;
+    const data = await res.json() as { jobs?: Array<{
+      id?: number; url?: string; jobTitle?: string; companyName?: string;
+      jobExcerpt?: string; pubDate?: string; jobGeo?: string;
+      salaryMin?: number; salaryMax?: number; salaryCurrency?: string;
+    }> };
+    for (const job of data.jobs ?? []) {
+      if (!job.jobTitle || !job.companyName) continue;
+      const salary = job.salaryMin && job.salaryMax
+        ? ` (${job.salaryCurrency ?? "$"}${Math.round(job.salaryMin/1000)}K-${Math.round(job.salaryMax/1000)}K)`
+        : "";
+      articles.push({
+        id: `jobicy:${job.id ?? articles.length}`,
+        title: `${job.companyName} | ${job.jobTitle}${salary} | ${job.jobGeo ?? "Remote"}`,
+        url: job.url ?? "https://jobicy.com",
+        source: "newsletter",
+        sourceName: "Jobicy",
+        sourceIcon: "https://jobicy.com/favicon.ico",
+        domain: "jobicy.com",
+        category: "career",
+        tags: ["remote", "hiring", "job-posting"],
+        excerpt: (job.jobExcerpt ?? "").replace(/<[^>]+>/g, " ").trim().slice(0, 300),
+        publishedAt: job.pubDate ?? new Date().toISOString(),
+        score: 10,
+        commentCount: 0,
+        readingTime: 1,
+        discussionUrl: null,
+        interviewQuestions: [],
+        interviewFormats: [],
+      });
+    }
+  } catch (err) {
+    console.warn("  Warning: Jobicy failed:", (err as Error).message);
+  }
+  return articles;
+}
+
+async function fetchHimalayas(): Promise<RawArticle[]> {
+  console.log("  Fetching Himalayas...");
+  const articles: RawArticle[] = [];
+  try {
+    const res = await fetch("https://himalayas.app/jobs/api?limit=30");
+    if (!res.ok) return articles;
+    const data = await res.json() as { jobs?: Array<{
+      id?: string; title?: string; companyName?: string; excerpt?: string;
+      pubDate?: string; applicationLink?: string; seniority?: string;
+      minSalary?: number; maxSalary?: number; categories?: string[];
+    }> };
+    for (const job of data.jobs ?? []) {
+      if (!job.title || !job.companyName) continue;
+      const salary = job.minSalary && job.maxSalary
+        ? ` ($${Math.round(job.minSalary/1000)}K-$${Math.round(job.maxSalary/1000)}K)`
+        : "";
+      articles.push({
+        id: `himalayas:${job.id ?? articles.length}`,
+        title: `${job.companyName} | ${job.title}${salary}`,
+        url: job.applicationLink ?? "https://himalayas.app",
+        source: "newsletter",
+        sourceName: "Himalayas",
+        sourceIcon: "https://himalayas.app/favicon.ico",
+        domain: "himalayas.app",
+        category: "career",
+        tags: [...(job.categories ?? []).slice(0, 3), "remote", "hiring", job.seniority ?? ""].filter(Boolean),
+        excerpt: (job.excerpt ?? "").replace(/<[^>]+>/g, " ").trim().slice(0, 300),
+        publishedAt: job.pubDate ?? new Date().toISOString(),
+        score: 10,
+        commentCount: 0,
+        readingTime: 1,
+        discussionUrl: null,
+        interviewQuestions: [],
+        interviewFormats: [],
+      });
+    }
+  } catch (err) {
+    console.warn("  Warning: Himalayas failed:", (err as Error).message);
+  }
+  return articles;
+}
+
 // ── Main ──
 
 async function main() {
   console.log("🔄 Fetching hub content...\n");
 
-  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, youtube, newsletters, glassdoor, hnHiring] = await Promise.all([
+  const [hn, reddit, redditSearch, devto, medium, leetcode, leetcodeDaily, github, youtube, newsletters, glassdoor, hnHiring, remoteok, jobicy, himalayas] = await Promise.all([
     fetchHackerNews(),
     fetchReddit(),
     fetchRedditSearch(),
@@ -1471,6 +1606,9 @@ async function main() {
     fetchNewsletters(),
     fetchGlassdoor(),
     fetchHNHiring(),
+    fetchRemoteOK(),
+    fetchJobicy(),
+    fetchHimalayas(),
   ]);
 
   console.log(`\n  HackerNews: ${hn.length} articles`);
@@ -1485,8 +1623,11 @@ async function main() {
   console.log(`  Newsletters: ${newsletters.length} articles`);
   console.log(`  Glassdoor: ${glassdoor.length} articles`);
   console.log(`  HN Who's Hiring: ${hnHiring.length} articles`);
+  console.log(`  RemoteOK: ${remoteok.length} articles`);
+  console.log(`  Jobicy: ${jobicy.length} articles`);
+  console.log(`  Himalayas: ${himalayas.length} articles`);
 
-  const all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...youtube, ...newsletters, ...glassdoor, ...hnHiring];
+  const all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas];
 
   // ── Content staleness detection ──
   const sourceCounts: Record<string, number> = {};
