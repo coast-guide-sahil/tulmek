@@ -99,6 +99,11 @@ export const ContentCard = memo(function ContentCard({
             {article.sourceCorroboration >= 3 && <CorroborationBadge count={article.sourceCorroboration} />}
             {isDiscovery && <DiscoveryBadge />}
             {article.actionability >= 0.7 && <ActionableBadge />}
+            {article.score >= 100 && (
+              <span className="inline-flex items-center gap-0.5 rounded-full bg-orange-500/10 px-1.5 py-0.5 text-[10px] font-medium text-orange-700 dark:text-orange-300">
+                🔥 Hot
+              </span>
+            )}
           </div>
 
           <h3 className="mt-1 text-sm font-semibold leading-normal text-card-foreground group-hover:text-primary sm:text-base">
@@ -184,6 +189,11 @@ export const ContentCard = memo(function ContentCard({
           {article.sourceCorroboration >= 3 && <CorroborationBadge count={article.sourceCorroboration} />}
           {isDiscovery && <DiscoveryBadge />}
           {article.actionability >= 0.7 && <ActionableBadge />}
+          {article.score >= 100 && (
+            <span className="inline-flex items-center gap-0.5 rounded-full bg-orange-500/10 px-1.5 py-0.5 text-[10px] font-medium text-orange-700 dark:text-orange-300">
+              🔥 Hot
+            </span>
+          )}
           {outcome === "offer" && (
             <span className="rounded-full bg-success/15 px-1.5 py-0.5 text-xs font-medium text-success">OFFER</span>
           )}
