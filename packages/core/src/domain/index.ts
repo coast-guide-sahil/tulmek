@@ -46,3 +46,11 @@ export {
 
 export { cosineSimilarity } from "./embeddings";
 export type { EmbeddingIndex } from "./embeddings";
+
+export type {
+  QuestionFormat,
+  QuestionDifficulty,
+  InterviewRound,
+  InterviewQuestion,
+  QuestionBankMetadata,
+} from "./question";
