@@ -132,3 +132,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 216 | #256 | Fix desktop builds — remove api/subscribe static export conflict |
 | 217 | #257 | Daily Question widget — one interview question per day |
 | 218 | #258 | Enhanced hiring status badges from job API + WARN data |
+| 219 | #259 | Arbeitnow API — European tech jobs + visa sponsorship |
