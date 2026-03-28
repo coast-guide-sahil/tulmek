@@ -29,7 +29,7 @@ const defaultDeps: HubStoreDeps = {
   bookmarkStore: new LocalStorageBookmarkStore(),
   searchEngine: new OramaHubSearchEngine(),
   setStorage: new LocalStorageSetStorage(),
-  storageKeys: { readKey: STORAGE_KEYS.hubRead, dismissedKey: STORAGE_KEYS.hubDismissed },
+  storageKeys: { readKey: STORAGE_KEYS.hubRead, dismissedKey: STORAGE_KEYS.hubDismissed, signalsKey: STORAGE_KEYS.hubSignals },
 };
 
 interface HubProviderProps {
@@ -104,6 +104,7 @@ export function useHubActions() {
       markAsRead: s.markAsRead,
       isRead: s.isRead,
       dismiss: s.dismiss,
+      recordEngagement: s.recordEngagement,
     })),
   );
 }
