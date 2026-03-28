@@ -5,10 +5,9 @@
 
 ## Active
 
-(none — pick next from backlog)
+- [ ] Sprint 160: AI article summaries at fetch time (Gemini 2.5 Flash-Lite) `#data-quality` `#ux` `#high`
 
 ## Backlog (prioritized)
-2. [ ] AI article summaries at fetch time (Gemini) — 2-3 sentence excerpts `#data-quality` `#ux` `#high`
 3. [ ] Glassdoor interview reviews as 8th content source `#data-quality` `#high`
 4. [ ] Mobile: company comparison page `#mobile` `#medium`
 5. [ ] Shareable company prep cards — OG social cards for viral sharing `#growth` `#medium`
