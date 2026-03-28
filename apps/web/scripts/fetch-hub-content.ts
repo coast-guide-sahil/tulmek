@@ -169,193 +169,6 @@ const CATEGORIES_DESCRIPTION = `Categories for interview prep content:
 - career: Job search, resume, career advice, promotions, job market, networking
 - general: Content that doesn't clearly fit other categories`;
 
-interface ClassificationResult {
-  classifications: { index: number; category: string; confidence: number }[];
-}
-
-async function classifyBatchWithGemini(
-  articles: { title: string; tags: string[]; excerpt: string }[]
-): Promise<(string | null)[]> {
-  if (!GEMINI_API_KEY) return articles.map(() => null);
-
-  const { GoogleGenAI } = await import("@google/genai");
-  const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
-
-  const prompt = articles
-    .map((a, i) => `[${i}] Title: ${a.title}\nTags: ${a.tags.join(", ") || "none"}\nExcerpt: ${a.excerpt.slice(0, 150)}`)
-    .join("\n\n");
-
-  try {
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash-lite",
-      contents: `Classify each article into exactly one category.\n\n${CATEGORIES_DESCRIPTION}\n\nArticles:\n${prompt}`,
-      config: {
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: "object" as const,
-          properties: {
-            classifications: {
-              type: "array" as const,
-              items: {
-                type: "object" as const,
-                properties: {
-                  index: { type: "number" as const },
-                  category: {
-                    type: "string" as const,
-                    enum: ["dsa", "system-design", "ai-ml", "behavioral", "career", "interview-experience", "compensation", "general"],
-                  },
-                  confidence: { type: "number" as const },
-                },
-                required: ["index", "category", "confidence"],
-              },
-            },
-          },
-          required: ["classifications"],
-        },
-      },
-    });
-
-    const text = response.text ?? "";
-    const result: ClassificationResult = JSON.parse(text);
-
-    // Map results back to article indices
-    const categories: (string | null)[] = articles.map(() => null);
-    for (const c of result.classifications) {
-      if (c.index >= 0 && c.index < articles.length && c.confidence >= 0.7) {
-        categories[c.index] = c.category;
-      }
-    }
-    return categories;
-  } catch (err) {
-    console.warn("Gemini classification failed, falling back to keywords:", (err as Error).message);
-    return articles.map(() => null);
-  }
-}
-
-async function classifyWithAI(
-  articles: { title: string; tags: string[]; excerpt: string }[]
-): Promise<string[]> {
-  const BATCH_SIZE = 20;
-  const results: (string | null)[] = new Array(articles.length).fill(null);
-
-  // Process in batches of 20
-  const batches: number[][] = [];
-  for (let i = 0; i < articles.length; i += BATCH_SIZE) {
-    batches.push(Array.from({ length: Math.min(BATCH_SIZE, articles.length - i) }, (_, j) => i + j));
-  }
-
-  // Process batches with concurrency limit of 5
-  const CONCURRENCY = 5;
-  for (let i = 0; i < batches.length; i += CONCURRENCY) {
-    const chunk = batches.slice(i, i + CONCURRENCY);
-    const batchResults = await Promise.all(
-      chunk.map(async (indices) => {
-        const batchArticles = indices.map((idx) => articles[idx]!);
-        const classifications = await classifyBatchWithGemini(batchArticles);
-        return { indices, classifications };
-      })
-    );
-    for (const { indices, classifications } of batchResults) {
-      for (let j = 0; j < indices.length; j++) {
-        results[indices[j]!] = classifications[j] ?? null;
-      }
-    }
-  }
-
-  // Fill in nulls (failed/low-confidence) with keyword fallback
-  return results.map((category, i) => {
-    if (category) return category;
-    const a = articles[i]!;
-    return categorize(a.title, a.tags);
-  });
-}
-
-async function summarizeBatchWithGemini(
-  articles: { title: string; excerpt: string; source: string }[]
-): Promise<(string | null)[]> {
-  if (!GEMINI_API_KEY) return articles.map(() => null);
-
-  const { GoogleGenAI } = await import("@google/genai");
-  const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
-
-  const prompt = articles
-    .map((a, i) => `[${i}] Title: ${a.title}\nSource: ${a.source}\nContent: ${a.excerpt.slice(0, 300)}`)
-    .join("\n\n");
-
-  try {
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash-lite",
-      contents: `Generate a concise 2-3 sentence summary for each article. Focus on the key takeaway for someone preparing for tech interviews. Be specific, not generic.\n\nArticles:\n${prompt}`,
-      config: {
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: "object" as const,
-          properties: {
-            summaries: {
-              type: "array" as const,
-              items: {
-                type: "object" as const,
-                properties: {
-                  index: { type: "number" as const },
-                  summary: { type: "string" as const },
-                },
-                required: ["index", "summary"],
-              },
-            },
-          },
-          required: ["summaries"],
-        },
-      },
-    });
-
-    const text = response.text ?? "";
-    const result = JSON.parse(text) as { summaries: { index: number; summary: string }[] };
-
-    const summaries: (string | null)[] = articles.map(() => null);
-    for (const s of result.summaries) {
-      if (s.index >= 0 && s.index < articles.length && s.summary.length > 20) {
-        summaries[s.index] = s.summary;
-      }
-    }
-    return summaries;
-  } catch (err) {
-    console.warn("Gemini summarization failed, keeping original excerpts:", (err as Error).message);
-    return articles.map(() => null);
-  }
-}
-
-async function summarizeWithAI(
-  articles: { title: string; excerpt: string; source: string }[]
-): Promise<string[]> {
-  const BATCH_SIZE = 20;
-  const results: (string | null)[] = new Array(articles.length).fill(null);
-
-  const batches: number[][] = [];
-  for (let i = 0; i < articles.length; i += BATCH_SIZE) {
-    batches.push(Array.from({ length: Math.min(BATCH_SIZE, articles.length - i) }, (_, j) => i + j));
-  }
-
-  const CONCURRENCY = 5;
-  for (let i = 0; i < batches.length; i += CONCURRENCY) {
-    const chunk = batches.slice(i, i + CONCURRENCY);
-    const batchResults = await Promise.all(
-      chunk.map(async (indices) => {
-        const batchArticles = indices.map((idx) => articles[idx]!);
-        const summaries = await summarizeBatchWithGemini(batchArticles);
-        return { indices, summaries };
-      })
-    );
-    for (const { indices, summaries } of batchResults) {
-      for (let j = 0; j < indices.length; j++) {
-        results[indices[j]!] = summaries[j] ?? null;
-      }
-    }
-  }
-
-  // Keep original excerpt for failed/null summaries
-  return results.map((summary, i) => summary ?? articles[i]!.excerpt);
-}
-
 // ── Unified AI Enrichment (ADR-003 Sprint A) ──
 
 interface EnrichmentResult {
@@ -1950,7 +1763,7 @@ async function main() {
   console.log(`  Greenhouse: ${greenhouse.length} articles`);
   console.log(`  Lever: ${lever.length} articles`);
 
-  const all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas, ...greenhouse, ...lever];
+  let all = [...hn, ...reddit, ...redditSearch, ...devto, ...medium, ...leetcode, ...leetcodeDaily, ...github, ...youtube, ...newsletters, ...glassdoor, ...hnHiring, ...remoteok, ...jobicy, ...himalayas, ...greenhouse, ...lever];
 
   // ── Content staleness detection ──
   const sourceCounts: Record<string, number> = {};
@@ -1999,12 +1812,12 @@ async function main() {
     // No previous metadata — first run or missing file, skip guard
   }
 
-  let deduped = deduplicateByUrl(all);
+  all = deduplicateByUrl(all);
 
   // Layer 2: SimHash near-duplicate title detection
-  const beforeTitle = deduped.length;
-  deduped = deduplicateByTitle(deduped);
-  const titleDupes = beforeTitle - deduped.length;
+  const beforeTitle = all.length;
+  all = deduplicateByTitle(all);
+  const titleDupes = beforeTitle - all.length;
   if (titleDupes > 0) {
     console.log(`  SimHash dedup removed ${titleDupes} near-duplicate titles`);
   }
@@ -2017,7 +1830,7 @@ async function main() {
   ] as const;
 
   const companyMentions = new Map<string, Set<string>>(); // company → set of source IDs
-  for (const article of deduped) {
+  for (const article of all) {
     const lower = (article.title + " " + article.excerpt).toLowerCase();
     for (const company of CORROBORATION_COMPANIES) {
       if (lower.includes(company)) {
@@ -2028,7 +1841,7 @@ async function main() {
     }
   }
 
-  for (const article of deduped) {
+  for (const article of all) {
     const lower = (article.title + " " + article.excerpt).toLowerCase();
     let maxCorroboration = 0;
     for (const company of CORROBORATION_COMPANIES) {
@@ -2040,13 +1853,13 @@ async function main() {
     article.sourceCorroboration = maxCorroboration;
   }
 
-  const corroboratedCount = deduped.filter(a => (a.sourceCorroboration ?? 0) >= 3).length;
+  const corroboratedCount = all.filter(a => (a.sourceCorroboration ?? 0) >= 3).length;
   if (corroboratedCount > 0) {
     console.log(`\n🔗 Cross-source corroboration: ${corroboratedCount} articles verified by 3+ sources`);
   }
 
   // Sort by score (engagement) descending, then by date
-  deduped.sort((a, b) => {
+  all.sort((a, b) => {
     const scoreDiff = b.score - a.score;
     if (scoreDiff !== 0) return scoreDiff;
     return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
