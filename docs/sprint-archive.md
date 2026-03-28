@@ -143,3 +143,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 227 | #267 | Related articles — cross-company content recommendations |
 | 228 | #268 | 3 podcast RSS feeds (SE Radio, Changelog, SE Daily) |
 | 229 | #269 | Live hiring role counts on company badges |
+| 230 | #270 | Prep Me For Company — personalized study plan |
