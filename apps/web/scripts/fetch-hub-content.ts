@@ -238,6 +238,92 @@ async function classifyWithAI(
   });
 }
 
+async function summarizeBatchWithGemini(
+  articles: { title: string; excerpt: string; source: string }[]
+): Promise<(string | null)[]> {
+  if (!GEMINI_API_KEY) return articles.map(() => null);
+
+  const { GoogleGenAI } = await import("@google/genai");
+  const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+
+  const prompt = articles
+    .map((a, i) => `[${i}] Title: ${a.title}\nSource: ${a.source}\nContent: ${a.excerpt.slice(0, 300)}`)
+    .join("\n\n");
+
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash-lite",
+      contents: `Generate a concise 2-3 sentence summary for each article. Focus on the key takeaway for someone preparing for tech interviews. Be specific, not generic.\n\nArticles:\n${prompt}`,
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: "object" as const,
+          properties: {
+            summaries: {
+              type: "array" as const,
+              items: {
+                type: "object" as const,
+                properties: {
+                  index: { type: "number" as const },
+                  summary: { type: "string" as const },
+                },
+                required: ["index", "summary"],
+              },
+            },
+          },
+          required: ["summaries"],
+        },
+      },
+    });
+
+    const text = response.text ?? "";
+    const result = JSON.parse(text) as { summaries: { index: number; summary: string }[] };
+
+    const summaries: (string | null)[] = articles.map(() => null);
+    for (const s of result.summaries) {
+      if (s.index >= 0 && s.index < articles.length && s.summary.length > 20) {
+        summaries[s.index] = s.summary;
+      }
+    }
+    return summaries;
+  } catch (err) {
+    console.warn("Gemini summarization failed, keeping original excerpts:", (err as Error).message);
+    return articles.map(() => null);
+  }
+}
+
+async function summarizeWithAI(
+  articles: { title: string; excerpt: string; source: string }[]
+): Promise<string[]> {
+  const BATCH_SIZE = 20;
+  const results: (string | null)[] = new Array(articles.length).fill(null);
+
+  const batches: number[][] = [];
+  for (let i = 0; i < articles.length; i += BATCH_SIZE) {
+    batches.push(Array.from({ length: Math.min(BATCH_SIZE, articles.length - i) }, (_, j) => i + j));
+  }
+
+  const CONCURRENCY = 5;
+  for (let i = 0; i < batches.length; i += CONCURRENCY) {
+    const chunk = batches.slice(i, i + CONCURRENCY);
+    const batchResults = await Promise.all(
+      chunk.map(async (indices) => {
+        const batchArticles = indices.map((idx) => articles[idx]!);
+        const summaries = await summarizeBatchWithGemini(batchArticles);
+        return { indices, summaries };
+      })
+    );
+    for (const { indices, summaries } of batchResults) {
+      for (let j = 0; j < indices.length; j++) {
+        results[indices[j]!] = summaries[j] ?? null;
+      }
+    }
+  }
+
+  // Keep original excerpt for failed/null summaries
+  return results.map((summary, i) => summary ?? articles[i]!.excerpt);
+}
+
 // ── Utility functions ──
 
 function categorize(title: string, tags: string[] = []): string {
@@ -1086,6 +1172,15 @@ async function main() {
     const aiCount = aiCategories.filter((c, i) => c !== categorize(all[i]!.title, all[i]!.tags)).length;
     all = all.map((a, i) => ({ ...a, category: aiCategories[i]! }));
     console.log(`  AI reclassified ${aiCount} articles vs keyword baseline`);
+
+    // AI summaries
+    console.log(`\n📝 Generating AI summaries (${all.length} articles)...`);
+    const aiSummaries = await summarizeWithAI(
+      all.map((a) => ({ title: a.title, excerpt: a.excerpt, source: a.source }))
+    );
+    const summaryCount = aiSummaries.filter((s, i) => s !== all[i]!.excerpt).length;
+    all = all.map((a, i) => ({ ...a, excerpt: aiSummaries[i]! }));
+    console.log(`  Generated ${summaryCount} AI summaries`);
   } else {
     console.log("\n📝 Using keyword classification (set GEMINI_API_KEY for AI)");
   }
