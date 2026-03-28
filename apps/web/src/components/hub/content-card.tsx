@@ -4,6 +4,7 @@ import { memo } from "react";
 import type { FeedArticle } from "@tulmek/core/domain";
 import { TRENDING_SCORE_THRESHOLD, HOT_DISCUSSION_THRESHOLD } from "@tulmek/config/constants";
 import { formatRelativeTime, getCategoryConfig } from "./hub-utils";
+import { CardMenu } from "./card-menu";
 
 interface ContentCardProps {
   readonly article: FeedArticle;
@@ -150,18 +151,12 @@ export const ContentCard = memo(function ContentCard({
             isBookmarked={isBookmarked}
             onClick={() => onToggleBookmark(article.id)}
           />
-          {onDismiss && (
-            <button
-              onClick={() => onDismiss(article.id)}
-              className="flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-lg text-muted-foreground/40 transition-colors hover:text-muted-foreground"
-              aria-label="Not interested"
-              title="Hide"
-            >
-              <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          )}
+          <CardMenu
+            articleId={article.id}
+            source={article.source}
+            category={article.category}
+            onDismiss={onDismiss}
+          />
         </div>
       </div>
 

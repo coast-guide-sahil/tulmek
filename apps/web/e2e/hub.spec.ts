@@ -277,12 +277,11 @@ test.describe("Knowledge Hub", () => {
     });
 
 
-    test("dismiss button exists on cards", async ({ page }) => {
+    test("card menu (more options) exists on cards", async ({ page }) => {
       await page.goto("/hub");
       await expect(page.locator("article").first()).toBeVisible();
-      // Dismiss buttons should exist (may need hover to show on some layouts)
-      const dismissBtns = page.getByRole("button", { name: "Not interested" });
-      const count = await dismissBtns.count();
+      const menuBtns = page.getByRole("button", { name: "More options" });
+      const count = await menuBtns.count();
       expect(count).toBeGreaterThan(0);
     });
   });
