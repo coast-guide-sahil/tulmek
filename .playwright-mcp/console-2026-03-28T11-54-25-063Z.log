@@ -1,0 +1,105 @@
+[ 1640391ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/hub/compare?_rsc=q2zv9:0
+[ 1640559ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/hub/compare:0
+[ 1640697ms] [ERROR] Refused to execute script from 'http://localhost:3000/_next/static/development/_clientMiddlewareManifest.js' because its MIME type ('application/json') is not executable, and strict MIME type checking is enabled. @ http://localhost:3000/hub/compare:0
+[ 1640701ms] Error: ./apps/web/src/app/hub/compare/page.tsx:101:1
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+   99 |     </div>
+  100 |   );
+> 101 | }
+      | ^
+  102 |
+
+Parsing ecmascript source code failed
+
+
+    at <unknown> (Error: ./apps/web/src/app/hub/compare/page.tsx:101:1)
+    at Object.getCompilationErrors (file:///home/sahil/Projects/tulmek/node_modules/.pnpm/next@16.2.1_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_babel-p_0d1b5d63011c4a9b2ecc3dd70db22c62/node_modules/next/dist/server/dev/hot-reloader-turbopack.js:1189:59)
+    at DevBundlerService.getCompilationError (file:///home/sahil/Projects/tulmek/node_modules/.pnpm/next@16.2.1_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_babel-p_0d1b5d63011c4a9b2ecc3dd70db22c62/node_modules/next/dist/server/lib/dev-bundler-service.js:44:55)
+    at DevServer.getCompilationError (file:///home/sahil/Projects/tulmek/node_modules/.pnpm/next@16.2.1_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_babel-p_0d1b5d63011c4a9b2ecc3dd70db22c62/node_modules/next/dist/server/dev/next-dev-server.js:719:42)
+    at DevServer.findPageComponents (file:///home/sahil/Projects/tulmek/node_modules/.pnpm/next@16.2.1_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_babel-p_0d1b5d63011c4a9b2ecc3dd70db22c62/node_modules/next/dist/server/dev/next-dev-server.js:689:43)
+    at async DevServer.renderErrorToResponseImpl (file:///home/sahil/Projects/tulmek/node_modules/.pnpm/next@16.2.1_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_babel-p_0d1b5d63011c4a9b2ecc3dd70db22c62/node_modules/next/dist/server/base-server.js:1745:26)
+[ 1640702ms] Error: Module [next]/entry/page-loader.ts { PAGE => "[project]/node_modules/.pnpm/next@16.2.1_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_babel-p_0d1b5d63011c4a9b2ecc3dd70db22c62/node_modules/next/dist/pages/_error.js [client] (ecmascript)" } [client] (ecmascript) was instantiated because it was required from module [hmr-entry]/hmr-entry.js { ENTRY => "[project]/apps/web/pages/_error" }, but the module factory is not available.
+This is often caused by a stale browser cache, misconfigured Cache-Control headers, or a service worker serving outdated responses.
+To fix this, make sure your Cache-Control headers allow revalidation of chunks and review your service worker configuration. As an immediate workaround, try hard-reloading the page, clearing the browser cache, or unregistering any service workers.
+    at instantiateModuleShared (http://localhost:3000/_next/static/chunks/turbopack-apps_web_pages__app_0wkszpn._.js:1272:15)
+    at instantiateModule (http://localhost:3000/_next/static/chunks/turbopack-apps_web_pages__app_0wkszpn._.js:1621:12)
+    at getOrInstantiateModuleFromParent (http://localhost:3000/_next/static/chunks/turbopack-apps_web_pages__app_0wkszpn._.js:1604:12)
+    at DevContext.commonJsRequire [as r] (http://localhost:3000/_next/static/chunks/turbopack-apps_web_pages__app_0wkszpn._.js:299:12)
+    at module evaluation (http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0dlxqx9._.js:468:23)
+    at http://localhost:3000/_next/static/chunks/turbopack-apps_web_pages__app_0wkszpn._.js:1307:27
+    at runModuleExecutionHooks (http://localhost:3000/_next/static/chunks/turbopack-apps_web_pages__app_0wkszpn._.js:1636:13)
+    at instantiateModuleShared (http://localhost:3000/_next/static/chunks/turbopack-apps_web_pages__app_0wkszpn._.js:1305:9)
+    at instantiateModule (http://localhost:3000/_next/static/chunks/turbopack-apps_web_pages__app_0wkszpn._.js:1621:12)
+    at getOrInstantiateRuntimeModule (http://localhost:3000/_next/static/chunks/turbopack-apps_web_pages__app_0wkszpn._.js:1582:12)
+    at Object.registerChunk (http://localhost:3000/_next/static/chunks/turbopack-apps_web_pages__app_0wkszpn._.js:1985:21)
+[ 1640724ms] [ERROR] ./apps/web/src/app/hub/compare/page.tsx:101:1
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+   99 |     </div>
+  100 |   );
+> 101 | }
+      | ^
+  102 |
+
+Parsing ecmascript source code failed @ http://localhost:3000/_next/static/chunks/01if_next_dist_0c5rnb3._.js:1945
+[ 3111534ms] [WARNING] [HMR] Invalid message: {"isTrusted":true}
+TypeError: Cannot convert undefined or null to object
+    at Object.keys (<anonymous>)
+    at extractModulesFromTurbopackMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13631:39)
+    at TurbopackHmr.onTurbopackMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13578:32)
+    at processMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13936:30)
+    at WebSocket.handleMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13335:52) @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 4435090ms] [WARNING] [HMR] Invalid message: {"isTrusted":true}
+TypeError: Cannot convert undefined or null to object
+    at Object.keys (<anonymous>)
+    at extractModulesFromTurbopackMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13631:39)
+    at TurbopackHmr.onTurbopackMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13578:32)
+    at processMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13936:30)
+    at WebSocket.handleMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13335:52) @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 7232204ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 7489493ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 7493309ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 8988781ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 9326995ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 9330775ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431

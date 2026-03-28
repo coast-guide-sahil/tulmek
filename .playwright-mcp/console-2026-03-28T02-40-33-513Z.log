@@ -1,0 +1,295 @@
+[ 1820017ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 1845712ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 1862545ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 1875248ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 2234823ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 2238610ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 2733688ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 2749105ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 2761779ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 2777607ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 2788214ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 2810238ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 2820251ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 3460660ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 3463852ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2431
+[ 5764724ms] [ERROR] Failed to index hub articles: Error: A document with id "github:149001365" already exists.
+    at createError (http://localhost:3000/_next/static/chunks/node_modules__pnpm_056f_hl._.js:2175:19)
+    at innerInsertSync (http://localhost:3000/_next/static/chunks/node_modules__pnpm_056f_hl._.js:6317:257)
+    at insert (http://localhost:3000/_next/static/chunks/node_modules__pnpm_056f_hl._.js:6267:12)
+    at OramaHubSearchEngine.index (http://localhost:3000/_next/static/chunks/_0ajo6q-._.js:995:267)
+    at async Object.indexArticles (http://localhost:3000/_next/static/chunks/_0ajo6q-._.js:713:17) @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:3272
+[ 6971997ms] [ERROR] Failed to index hub articles: Error: A document with id "github:149001365" already exists.
+    at createError (http://localhost:3000/_next/static/chunks/node_modules__pnpm_056f_hl._.js:2175:19)
+    at innerInsertSync (http://localhost:3000/_next/static/chunks/node_modules__pnpm_056f_hl._.js:6317:257)
+    at insert (http://localhost:3000/_next/static/chunks/node_modules__pnpm_056f_hl._.js:6267:12)
+    at OramaHubSearchEngine.index (http://localhost:3000/_next/static/chunks/_0ajo6q-._.js:995:267)
+    at async Object.indexArticles (http://localhost:3000/_next/static/chunks/_0ajo6q-._.js:713:17) @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:3272
+[ 7581251ms] [ERROR] Loading the script 'https://va.vercel-scripts.com/v1/speed-insights/script.debug.js' violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval'". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked. @ http://localhost:3000/_next/static/chunks/node_modules__pnpm_0fw_h-v._.js:156
+[ 7974802ms] [ERROR] Failed to load resource: net::ERR_INCOMPLETE_CHUNKED_ENCODING @ http://localhost:3000/hub/pulse?_rsc=14buc:0
+[ 7974803ms] [ERROR] Failed to fetch RSC payload for http://localhost:3000/hub/pulse. Falling back to browser navigation. TypeError: network error @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:3272
+[ 7974805ms] [ERROR] Failed to load resource: net::ERR_INCOMPLETE_CHUNKED_ENCODING @ http://localhost:3000/hub/pulse?_rsc=14buc:0
+[ 7974805ms] [ERROR] Failed to fetch RSC payload for http://localhost:3000/hub/pulse. Falling back to browser navigation. TypeError: network error @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:3272
+[ 7974806ms] [ERROR] Failed to load resource: net::ERR_INCOMPLETE_CHUNKED_ENCODING @ http://localhost:3000/hub/pulse?_rsc=14buc:0
+[ 7974806ms] [ERROR] Failed to load resource: net::ERR_INCOMPLETE_CHUNKED_ENCODING @ http://localhost:3000/hub/pulse?_rsc=14buc:0
+[ 7974806ms] [ERROR] Failed to fetch RSC payload for http://localhost:3000/hub/pulse. Falling back to browser navigation. TypeError: network error @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:3272
+[ 7974807ms] [ERROR] Failed to load resource: net::ERR_INCOMPLETE_CHUNKED_ENCODING @ http://localhost:3000/hub/pulse?_rsc=14buc:0
+[ 7974807ms] [ERROR] Failed to load resource: net::ERR_INCOMPLETE_CHUNKED_ENCODING @ http://localhost:3000/hub/pulse?_rsc=14buc:0
+[ 7974807ms] [ERROR] Failed to load resource: net::ERR_SOCKET_NOT_CONNECTED @ http://localhost:3000/hub/pulse?_rsc=14buc:0
+[ 7974807ms] [ERROR] Failed to fetch RSC payload for http://localhost:3000/hub/pulse. Falling back to browser navigation. TypeError: Failed to fetch
+    at createFetch (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:8084:21)
+    at fetchServerResponse (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:7928:27)
+    at fetchMissingDynamicData (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:9341:75)
+    at spawnDynamicRequests (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:9149:35)
+    at navigateToKnownRoute (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:10033:54)
+    at refreshDynamicData (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:10653:49)
+    at hmrRefreshReducer (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:10802:51)
+    at clientReducer (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11398:65)
+    at Object.action (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11631:55)
+    at runAction (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11536:38)
+    at dispatchAction (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11599:9)
+    at Object.dispatch (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11629:40)
+    at http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:963:29
+    at startTransition (http://localhost:3000/_next/static/chunks/01if_next_dist_compiled_react-dom_0vt_~.7._.js:5469:31)
+    at nextDispatch (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:962:13)
+    at dispatchAppRouterAction (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:922:5)
+    at http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11800:61
+    at startTransition (http://localhost:3000/_next/static/chunks/01if_next_dist_compiled_12h3f52._.js:1279:31)
+    at Object.hmrRefresh (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11799:40)
+    at http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13967:64
+    at startTransition (http://localhost:3000/_next/static/chunks/01if_next_dist_compiled_12h3f52._.js:1279:31)
+    at processMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13966:44)
+    at WebSocket.handleMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13335:52) @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:3272
+[ 7974808ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/hub/pulse?_rsc=14buc:0
+[ 7974808ms] [ERROR] Failed to fetch RSC payload for http://localhost:3000/hub/pulse. Falling back to browser navigation. TypeError: Failed to fetch
+    at createFetch (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:8084:21)
+    at fetchServerResponse (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:7928:27)
+    at fetchMissingDynamicData (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:9341:75)
+    at spawnDynamicRequests (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:9149:35)
+    at navigateToKnownRoute (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:10033:54)
+    at refreshDynamicData (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:10653:49)
+    at hmrRefreshReducer (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:10802:51)
+    at clientReducer (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11398:65)
+    at Object.action (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11631:55)
+    at runAction (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11536:38)
+    at dispatchAction (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11599:9)
+    at Object.dispatch (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11629:40)
+    at http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:963:29
+    at startTransition (http://localhost:3000/_next/static/chunks/01if_next_dist_compiled_react-dom_0vt_~.7._.js:5469:31)
+    at nextDispatch (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:962:13)
+    at dispatchAppRouterAction (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:922:5)
+    at http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11800:61
+    at startTransition (http://localhost:3000/_next/static/chunks/01if_next_dist_compiled_12h3f52._.js:1279:31)
+    at Object.hmrRefresh (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11799:40)
+    at http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13967:64
+    at startTransition (http://localhost:3000/_next/static/chunks/01if_next_dist_compiled_12h3f52._.js:1279:31)
+    at processMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13966:44)
+    at WebSocket.handleMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13335:52) @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:3272
+[ 7974809ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/hub/pulse?_rsc=14buc:0
+[ 7974809ms] [ERROR] Failed to fetch RSC payload for http://localhost:3000/hub/pulse. Falling back to browser navigation. TypeError: Failed to fetch
+    at createFetch (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:8084:21)
+    at fetchServerResponse (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:7928:27)
+    at fetchMissingDynamicData (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:9341:75)
+    at spawnDynamicRequests (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:9149:35)
+    at navigateToKnownRoute (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:10033:54)
+    at refreshDynamicData (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:10653:49)
+    at hmrRefreshReducer (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:10802:51)
+    at clientReducer (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11398:65)
+    at Object.action (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11631:55)
+    at runAction (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11536:38)
+    at dispatchAction (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11599:9)
+    at Object.dispatch (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11629:40)
+    at http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:963:29
+    at startTransition (http://localhost:3000/_next/static/chunks/01if_next_dist_compiled_react-dom_0vt_~.7._.js:5469:31)
+    at nextDispatch (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:962:13)
+    at dispatchAppRouterAction (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:922:5)
+    at http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11800:61
+    at startTransition (http://localhost:3000/_next/static/chunks/01if_next_dist_compiled_12h3f52._.js:1279:31)
+    at Object.hmrRefresh (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11799:40)
+    at http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13967:64
+    at startTransition (http://localhost:3000/_next/static/chunks/01if_next_dist_compiled_12h3f52._.js:1279:31)
+    at processMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13966:44)
+    at WebSocket.handleMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13335:52) @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:3272
+[ 7974810ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/hub/pulse?_rsc=14buc:0
+[ 7974810ms] [ERROR] Failed to fetch RSC payload for http://localhost:3000/hub/pulse. Falling back to browser navigation. TypeError: Failed to fetch
+    at createFetch (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:8084:21)
+    at fetchServerResponse (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:7928:27)
+    at fetchMissingDynamicData (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:9341:75)
+    at spawnDynamicRequests (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:9149:35)
+    at navigateToKnownRoute (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:10033:54)
+    at refreshDynamicData (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:10653:49)
+    at hmrRefreshReducer (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:10802:51)
+    at clientReducer (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11398:65)
+    at Object.action (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11631:55)
+    at runAction (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11536:38)
+    at dispatchAction (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11599:9)
+    at Object.dispatch (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11629:40)
+    at http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:963:29
+    at startTransition (http://localhost:3000/_next/static/chunks/01if_next_dist_compiled_react-dom_0vt_~.7._.js:5469:31)
+    at nextDispatch (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:962:13)
+    at dispatchAppRouterAction (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:922:5)
+    at http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11800:61
+    at startTransition (http://localhost:3000/_next/static/chunks/01if_next_dist_compiled_12h3f52._.js:1279:31)
+    at Object.hmrRefresh (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11799:40)
+    at http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13967:64
+    at startTransition (http://localhost:3000/_next/static/chunks/01if_next_dist_compiled_12h3f52._.js:1279:31)
+    at processMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13966:44)
+    at WebSocket.handleMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13335:52) @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:3272
+[ 7974810ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/hub/pulse?_rsc=14buc:0
+[ 7974810ms] [ERROR] Failed to fetch RSC payload for http://localhost:3000/hub/pulse. Falling back to browser navigation. TypeError: Failed to fetch
+    at createFetch (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:8084:21)
+    at fetchServerResponse (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:7928:27)
+    at fetchMissingDynamicData (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:9341:75)
+    at spawnDynamicRequests (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:9149:35)
+    at navigateToKnownRoute (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:10033:54)
+    at refreshDynamicData (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:10653:49)
+    at hmrRefreshReducer (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:10802:51)
+    at clientReducer (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11398:65)
+    at Object.action (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11631:55)
+    at runAction (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11536:38)
+    at dispatchAction (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11599:9)
+    at Object.dispatch (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11629:40)
+    at http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:963:29
+    at startTransition (http://localhost:3000/_next/static/chunks/01if_next_dist_compiled_react-dom_0vt_~.7._.js:5469:31)
+    at nextDispatch (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:962:13)
+    at dispatchAppRouterAction (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:922:5)
+    at http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11800:61
+    at startTransition (http://localhost:3000/_next/static/chunks/01if_next_dist_compiled_12h3f52._.js:1279:31)
+    at Object.hmrRefresh (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11799:40)
+    at http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13967:64
+    at startTransition (http://localhost:3000/_next/static/chunks/01if_next_dist_compiled_12h3f52._.js:1279:31)
+    at processMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13966:44)
+    at WebSocket.handleMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13335:52) @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:3272
+[ 7974811ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/hub/pulse?_rsc=14buc:0
+[ 7974811ms] [ERROR] Failed to fetch RSC payload for http://localhost:3000/hub/pulse. Falling back to browser navigation. TypeError: Failed to fetch
+    at createFetch (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:8084:21)
+    at fetchServerResponse (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:7928:27)
+    at fetchMissingDynamicData (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:9341:75)
+    at spawnDynamicRequests (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:9149:35)
+    at navigateToKnownRoute (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:10033:54)
+    at refreshDynamicData (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:10653:49)
+    at hmrRefreshReducer (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:10802:51)
+    at clientReducer (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11398:65)
+    at Object.action (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11631:55)
+    at runAction (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11536:38)
+    at dispatchAction (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11599:9)
+    at Object.dispatch (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11629:40)
+    at http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:963:29
+    at startTransition (http://localhost:3000/_next/static/chunks/01if_next_dist_compiled_react-dom_0vt_~.7._.js:5469:31)
+    at nextDispatch (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:962:13)
+    at dispatchAppRouterAction (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:922:5)
+    at http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11800:61
+    at startTransition (http://localhost:3000/_next/static/chunks/01if_next_dist_compiled_12h3f52._.js:1279:31)
+    at Object.hmrRefresh (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:11799:40)
+    at http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13967:64
+    at startTransition (http://localhost:3000/_next/static/chunks/01if_next_dist_compiled_12h3f52._.js:1279:31)
+    at processMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13966:44)
+    at WebSocket.handleMessage (http://localhost:3000/_next/static/chunks/01if_next_dist_client_0-enpxy._.js:13335:52) @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:3272
+[ 7974814ms] [ERROR] WebSocket is already in CLOSING or CLOSED state. @ http://localhost:3000/_next/static/chunks/01if_next_dist_02cbdo7._.js:2790
+[ 7974816ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/__nextjs_original-stack-frames:0
+[ 7979050ms] [ERROR] Loading the script 'https://va.vercel-scripts.com/v1/speed-insights/script.debug.js' violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval'". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked. @ http://localhost:3000/_next/static/chunks/node_modules__pnpm_0fw_h-v._.js:156

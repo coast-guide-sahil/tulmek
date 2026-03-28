@@ -1,0 +1,3 @@
+[   43963ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/hub/company/google?_rsc=h6rnd:0
+[   49061ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/hub/company/google?_rsc=h6rnd:0
+[   49450ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/hub/company/google:0

@@ -1,0 +1,791 @@
+[     536ms] [ERROR] Loading the image 'https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://github.com&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[     536ms] [ERROR] Loading the image 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://arstechnica.com&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[     536ms] [ERROR] Loading the image 'https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://reddit.com&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[     536ms] [ERROR] Loading the image 'https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://dev.to&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[   41458ms] [ERROR] Loading the image 'https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://reddit.com&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[   41458ms] [ERROR] Loading the image 'https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://github.com&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[   41459ms] [ERROR] Loading the image 'https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://dev.to&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[   41459ms] [ERROR] Loading the image 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://arstechnica.com&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[   44659ms] [ERROR] Loading the image 'https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://reddit.com&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[   44659ms] [ERROR] Loading the image 'https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://github.com&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[   44659ms] [ERROR] Loading the image 'https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://dev.to&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[   44659ms] [ERROR] Loading the image 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://arstechnica.com&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[   44985ms] [ERROR] Loading the image 'https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://reddit.com&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[   44985ms] [ERROR] Loading the image 'https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://github.com&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[   44985ms] [ERROR] Loading the image 'https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://dev.to&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[   44985ms] [ERROR] Loading the image 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://arstechnica.com&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[  124804ms] [ERROR] Loading the image 'https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://reddit.com&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[  124804ms] [ERROR] Loading the image 'https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://github.com&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[  124804ms] [ERROR] Loading the image 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://arstechnica.com&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[  124804ms] [ERROR] Loading the image 'https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://dev.to&size=16' violates the following Content Security Policy directive: "img-src 'self' data: blob: https://www.google.com". The action has been blocked. @ http://localhost:3000/hub:0
+[ 1369814ms] [ERROR] ./apps/web/src/app/hub/layout.tsx:4:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+  3 | import { NuqsAdapter } from "nuqs/adapters/next/app";
+> 4 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { HubShell } from "@/components/hub/hub-shell";
+  6 | import { HubProvider } from "@/lib/hub/provider";
+  7 | import { ToastProvider } from "@/components/hub/toast";
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_0drf7ly._.js:3272
+[ 1369814ms] [ERROR] ./apps/web/src/app/hub/page.tsx:5:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  3 | import type { FeedArticle } from "@tulmek/core/domain";
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+> 5 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import metadataJson from "@/content/hub/metadata.json";
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_0drf7ly._.js:3272
+[ 1369814ms] [ERROR] ./apps/web/src/app/hub/page.tsx:6:1
+Module not found: Can't resolve '@/content/hub/metadata.json'
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+  5 | import feedData from "@/content/hub/feed.json";
+> 6 | import metadataJson from "@/content/hub/metadata.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+  9 | import { FeaturedPicks } from "@/components/hub/featured-picks";
+
+Import map: aliased to relative './src/content/hub/metadata.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_0drf7ly._.js:3272
+[ 1369814ms] [ERROR] ./apps/web/src/app/hub/saved/page.tsx:3:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  1 | import type { Metadata } from "next";
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+> 3 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { SavedFeed } from "@/components/hub/saved-feed";
+  5 | import { APP_NAME } from "@tulmek/config/constants";
+  6 |
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_0drf7ly._.js:3272
+[ 1370356ms] [ERROR] ./apps/web/src/app/hub/layout.tsx:4:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+  3 | import { NuqsAdapter } from "nuqs/adapters/next/app";
+> 4 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { HubShell } from "@/components/hub/hub-shell";
+  6 | import { HubProvider } from "@/lib/hub/provider";
+  7 | import { ToastProvider } from "@/components/hub/toast";
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_0drf7ly._.js:3272
+[ 1370356ms] [ERROR] ./apps/web/src/app/hub/page.tsx:5:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  3 | import type { FeedArticle } from "@tulmek/core/domain";
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+> 5 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import metadataJson from "@/content/hub/metadata.json";
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_0drf7ly._.js:3272
+[ 1370356ms] [ERROR] ./apps/web/src/app/hub/page.tsx:6:1
+Module not found: Can't resolve '@/content/hub/metadata.json'
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+  5 | import feedData from "@/content/hub/feed.json";
+> 6 | import metadataJson from "@/content/hub/metadata.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+  9 | import { FeaturedPicks } from "@/components/hub/featured-picks";
+
+Import map: aliased to relative './src/content/hub/metadata.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_0drf7ly._.js:3272
+[ 1370356ms] [ERROR] ./apps/web/src/app/hub/saved/page.tsx:3:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  1 | import type { Metadata } from "next";
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+> 3 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { SavedFeed } from "@/components/hub/saved-feed";
+  5 | import { APP_NAME } from "@tulmek/config/constants";
+  6 |
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_0drf7ly._.js:3272
+[ 1370359ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/hub?_rsc=vpe45:0
+[ 1370392ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/hub?_rsc=vpe45:0
+[ 1370430ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/hub:0
+[ 1370524ms] [ERROR] Refused to execute script from 'http://localhost:3000/_next/static/development/_clientMiddlewareManifest.js' because its MIME type ('application/json') is not executable, and strict MIME type checking is enabled. @ http://localhost:3000/hub:0
+[ 1370611ms] Error: ./apps/web/src/app/hub/layout.tsx:4:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+  3 | import { NuqsAdapter } from "nuqs/adapters/next/app";
+> 4 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { HubShell } from "@/components/hub/hub-shell";
+  6 | import { HubProvider } from "@/lib/hub/provider";
+  7 | import { ToastProvider } from "@/components/hub/toast";
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (Error: ./apps/web/src/app/hub/layout.tsx:4:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at Object.getCompilationErrors (file:///home/sahil/Projects/tulmek/node_modules/.pnpm/next@16.2.1_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_react-d_8f1be9cd4cb05bc7f586cf5a0e11bc11/node_modules/next/dist/server/dev/hot-reloader-turbopack.js:1189:59)
+    at DevBundlerService.getCompilationError (file:///home/sahil/Projects/tulmek/node_modules/.pnpm/next@16.2.1_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_react-d_8f1be9cd4cb05bc7f586cf5a0e11bc11/node_modules/next/dist/server/lib/dev-bundler-service.js:44:55)
+    at DevServer.getCompilationError (file:///home/sahil/Projects/tulmek/node_modules/.pnpm/next@16.2.1_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_react-d_8f1be9cd4cb05bc7f586cf5a0e11bc11/node_modules/next/dist/server/dev/next-dev-server.js:719:42)
+    at DevServer.findPageComponents (file:///home/sahil/Projects/tulmek/node_modules/.pnpm/next@16.2.1_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_react-d_8f1be9cd4cb05bc7f586cf5a0e11bc11/node_modules/next/dist/server/dev/next-dev-server.js:689:43)
+    at async DevServer.renderErrorToResponseImpl (file:///home/sahil/Projects/tulmek/node_modules/.pnpm/next@16.2.1_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_react-d_8f1be9cd4cb05bc7f586cf5a0e11bc11/node_modules/next/dist/server/base-server.js:1745:26)
+[ 1370644ms] [ERROR] ./apps/web/src/app/hub/layout.tsx:4:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+  3 | import { NuqsAdapter } from "nuqs/adapters/next/app";
+> 4 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { HubShell } from "@/components/hub/hub-shell";
+  6 | import { HubProvider } from "@/lib/hub/provider";
+  7 | import { ToastProvider } from "@/components/hub/toast";
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1370644ms] [ERROR] ./apps/web/src/app/hub/page.tsx:5:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  3 | import type { FeedArticle } from "@tulmek/core/domain";
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+> 5 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import metadataJson from "@/content/hub/metadata.json";
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1370644ms] [ERROR] ./apps/web/src/app/hub/page.tsx:6:1
+Module not found: Can't resolve '@/content/hub/metadata.json'
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+  5 | import feedData from "@/content/hub/feed.json";
+> 6 | import metadataJson from "@/content/hub/metadata.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+  9 | import { FeaturedPicks } from "@/components/hub/featured-picks";
+
+Import map: aliased to relative './src/content/hub/metadata.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1370644ms] [ERROR] ./apps/web/src/app/hub/layout.tsx:4:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+  3 | import { NuqsAdapter } from "nuqs/adapters/next/app";
+> 4 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { HubShell } from "@/components/hub/hub-shell";
+  6 | import { HubProvider } from "@/lib/hub/provider";
+  7 | import { ToastProvider } from "@/components/hub/toast";
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1370644ms] [ERROR] ./apps/web/src/app/hub/saved/page.tsx:3:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  1 | import type { Metadata } from "next";
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+> 3 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { SavedFeed } from "@/components/hub/saved-feed";
+  5 | import { APP_NAME } from "@tulmek/config/constants";
+  6 |
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1370695ms] [ERROR] ./apps/web/src/app/hub/layout.tsx:4:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+  3 | import { NuqsAdapter } from "nuqs/adapters/next/app";
+> 4 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { HubShell } from "@/components/hub/hub-shell";
+  6 | import { HubProvider } from "@/lib/hub/provider";
+  7 | import { ToastProvider } from "@/components/hub/toast";
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1370695ms] [ERROR] ./apps/web/src/app/hub/page.tsx:5:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  3 | import type { FeedArticle } from "@tulmek/core/domain";
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+> 5 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import metadataJson from "@/content/hub/metadata.json";
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1370695ms] [ERROR] ./apps/web/src/app/hub/page.tsx:6:1
+Module not found: Can't resolve '@/content/hub/metadata.json'
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+  5 | import feedData from "@/content/hub/feed.json";
+> 6 | import metadataJson from "@/content/hub/metadata.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+  9 | import { FeaturedPicks } from "@/components/hub/featured-picks";
+
+Import map: aliased to relative './src/content/hub/metadata.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1370695ms] [ERROR] ./apps/web/src/app/hub/saved/page.tsx:3:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  1 | import type { Metadata } from "next";
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+> 3 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { SavedFeed } from "@/components/hub/saved-feed";
+  5 | import { APP_NAME } from "@tulmek/config/constants";
+  6 |
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1386683ms] [ERROR] ./apps/web/src/app/hub/layout.tsx:4:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+  3 | import { NuqsAdapter } from "nuqs/adapters/next/app";
+> 4 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { HubShell } from "@/components/hub/hub-shell";
+  6 | import { HubProvider } from "@/lib/hub/provider";
+  7 | import { ToastProvider } from "@/components/hub/toast";
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1386683ms] [ERROR] ./apps/web/src/app/hub/page.tsx:6:1
+Module not found: Can't resolve '@/content/hub/metadata.json'
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+  5 | import feedData from "@tulmek/content/hub/feed";
+> 6 | import metadataJson from "@/content/hub/metadata.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+  9 | import { FeaturedPicks } from "@/components/hub/featured-picks";
+
+Import map: aliased to relative './src/content/hub/metadata.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1386683ms] [ERROR] ./apps/web/src/app/hub/page.tsx:5:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  3 | import type { FeedArticle } from "@tulmek/core/domain";
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+> 5 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import metadataJson from "@/content/hub/metadata.json";
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1386683ms] [ERROR] ./apps/web/src/app/hub/saved/page.tsx:3:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  1 | import type { Metadata } from "next";
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+> 3 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { SavedFeed } from "@/components/hub/saved-feed";
+  5 | import { APP_NAME } from "@tulmek/config/constants";
+  6 |
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1394946ms] [ERROR] ./apps/web/src/app/hub/layout.tsx:4:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+  3 | import { NuqsAdapter } from "nuqs/adapters/next/app";
+> 4 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { HubShell } from "@/components/hub/hub-shell";
+  6 | import { HubProvider } from "@/lib/hub/provider";
+  7 | import { ToastProvider } from "@/components/hub/toast";
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1394946ms] [ERROR] ./apps/web/src/app/hub/page.tsx:5:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  3 | import type { FeedArticle } from "@tulmek/core/domain";
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+> 5 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import metadataJson from "@tulmek/content/hub/metadata";
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1394946ms] [ERROR] ./apps/web/src/app/hub/page.tsx:6:1
+Module not found: Can't resolve '@tulmek/content/hub/metadata'
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+  5 | import feedData from "@tulmek/content/hub/feed";
+> 6 | import metadataJson from "@tulmek/content/hub/metadata";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+  9 | import { FeaturedPicks } from "@/components/hub/featured-picks";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1394946ms] [ERROR] ./apps/web/src/app/hub/saved/page.tsx:3:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  1 | import type { Metadata } from "next";
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+> 3 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { SavedFeed } from "@/components/hub/saved-feed";
+  5 | import { APP_NAME } from "@tulmek/config/constants";
+  6 |
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1419360ms] [ERROR] ./apps/web/src/app/hub/layout.tsx:4:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+  3 | import { NuqsAdapter } from "nuqs/adapters/next/app";
+> 4 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { HubShell } from "@/components/hub/hub-shell";
+  6 | import { HubProvider } from "@/lib/hub/provider";
+  7 | import { ToastProvider } from "@/components/hub/toast";
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1419360ms] [ERROR] ./apps/web/src/app/hub/page.tsx:5:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  3 | import type { FeedArticle } from "@tulmek/core/domain";
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+> 5 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import metadataJson from "@tulmek/content/hub/metadata";
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1419360ms] [ERROR] ./apps/web/src/app/hub/page.tsx:6:1
+Module not found: Can't resolve '@tulmek/content/hub/metadata'
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+  5 | import feedData from "@tulmek/content/hub/feed";
+> 6 | import metadataJson from "@tulmek/content/hub/metadata";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+  9 | import { FeaturedPicks } from "@/components/hub/featured-picks";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1419360ms] [ERROR] ./apps/web/src/app/hub/saved/page.tsx:3:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  1 | import type { Metadata } from "next";
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+> 3 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { SavedFeed } from "@/components/hub/saved-feed";
+  5 | import { APP_NAME } from "@tulmek/config/constants";
+  6 |
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1433823ms] [ERROR] ./apps/web/src/app/hub/layout.tsx:4:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+  3 | import { NuqsAdapter } from "nuqs/adapters/next/app";
+> 4 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { HubShell } from "@/components/hub/hub-shell";
+  6 | import { HubProvider } from "@/lib/hub/provider";
+  7 | import { ToastProvider } from "@/components/hub/toast";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1433823ms] [ERROR] ./apps/web/src/app/hub/page.tsx:5:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  3 | import type { FeedArticle } from "@tulmek/core/domain";
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+> 5 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import metadataJson from "@tulmek/content/hub/metadata";
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1433824ms] [ERROR] ./apps/web/src/app/hub/page.tsx:6:1
+Module not found: Can't resolve '@tulmek/content/hub/metadata'
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+  5 | import feedData from "@tulmek/content/hub/feed";
+> 6 | import metadataJson from "@tulmek/content/hub/metadata";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+  9 | import { FeaturedPicks } from "@/components/hub/featured-picks";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1433824ms] [ERROR] ./apps/web/src/app/hub/saved/page.tsx:3:1
+Module not found: Can't resolve '@/content/hub/feed.json'
+  1 | import type { Metadata } from "next";
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+> 3 | import feedData from "@/content/hub/feed.json";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { SavedFeed } from "@/components/hub/saved-feed";
+  5 | import { APP_NAME } from "@tulmek/config/constants";
+  6 |
+
+Import map: aliased to relative './src/content/hub/feed.json' inside of [project]/apps/web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1450577ms] [ERROR] ./apps/web/src/app/hub/layout.tsx:4:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+  3 | import { NuqsAdapter } from "nuqs/adapters/next/app";
+> 4 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { HubShell } from "@/components/hub/hub-shell";
+  6 | import { HubProvider } from "@/lib/hub/provider";
+  7 | import { ToastProvider } from "@/components/hub/toast";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1450577ms] [ERROR] ./apps/web/src/app/hub/page.tsx:5:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  3 | import type { FeedArticle } from "@tulmek/core/domain";
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+> 5 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import metadataJson from "@tulmek/content/hub/metadata";
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1450577ms] [ERROR] ./apps/web/src/app/hub/page.tsx:6:1
+Module not found: Can't resolve '@tulmek/content/hub/metadata'
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+  5 | import feedData from "@tulmek/content/hub/feed";
+> 6 | import metadataJson from "@tulmek/content/hub/metadata";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+  9 | import { FeaturedPicks } from "@/components/hub/featured-picks";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1450577ms] [ERROR] ./apps/web/src/app/hub/saved/page.tsx:3:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  1 | import type { Metadata } from "next";
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+> 3 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { SavedFeed } from "@/components/hub/saved-feed";
+  5 | import { APP_NAME } from "@tulmek/config/constants";
+  6 |
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1495033ms] [ERROR] ./apps/web/src/app/hub/layout.tsx:4:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+  3 | import { NuqsAdapter } from "nuqs/adapters/next/app";
+> 4 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { HubShell } from "@/components/hub/hub-shell";
+  6 | import { HubProvider } from "@/lib/hub/provider";
+  7 | import { ToastProvider } from "@/components/hub/toast";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1495033ms] [ERROR] ./apps/web/src/app/hub/page.tsx:5:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  3 | import type { FeedArticle } from "@tulmek/core/domain";
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+> 5 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import metadataJson from "@tulmek/content/hub/metadata";
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1495033ms] [ERROR] ./apps/web/src/app/hub/page.tsx:6:1
+Module not found: Can't resolve '@tulmek/content/hub/metadata'
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+  5 | import feedData from "@tulmek/content/hub/feed";
+> 6 | import metadataJson from "@tulmek/content/hub/metadata";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+  9 | import { FeaturedPicks } from "@/components/hub/featured-picks";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1495033ms] [ERROR] ./apps/web/src/app/hub/saved/page.tsx:3:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  1 | import type { Metadata } from "next";
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+> 3 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { SavedFeed } from "@/components/hub/saved-feed";
+  5 | import { APP_NAME } from "@tulmek/config/constants";
+  6 |
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1548942ms] [ERROR] ./apps/web/src/app/hub/layout.tsx:4:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+  3 | import { NuqsAdapter } from "nuqs/adapters/next/app";
+> 4 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { HubShell } from "@/components/hub/hub-shell";
+  6 | import { HubProvider } from "@/lib/hub/provider";
+  7 | import { ToastProvider } from "@/components/hub/toast";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1548942ms] [ERROR] ./apps/web/src/app/hub/page.tsx:5:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  3 | import type { FeedArticle } from "@tulmek/core/domain";
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+> 5 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import metadataJson from "@tulmek/content/hub/metadata";
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1548942ms] [ERROR] ./apps/web/src/app/hub/page.tsx:6:1
+Module not found: Can't resolve '@tulmek/content/hub/metadata'
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+  5 | import feedData from "@tulmek/content/hub/feed";
+> 6 | import metadataJson from "@tulmek/content/hub/metadata";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+  9 | import { FeaturedPicks } from "@/components/hub/featured-picks";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1548942ms] [ERROR] ./apps/web/src/app/hub/saved/page.tsx:3:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  1 | import type { Metadata } from "next";
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+> 3 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { SavedFeed } from "@/components/hub/saved-feed";
+  5 | import { APP_NAME } from "@tulmek/config/constants";
+  6 |
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1600243ms] [ERROR] ./apps/web/src/app/hub/layout.tsx:4:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+  3 | import { NuqsAdapter } from "nuqs/adapters/next/app";
+> 4 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { HubShell } from "@/components/hub/hub-shell";
+  6 | import { HubProvider } from "@/lib/hub/provider";
+  7 | import { ToastProvider } from "@/components/hub/toast";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1600243ms] [ERROR] ./apps/web/src/app/hub/page.tsx:5:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  3 | import type { FeedArticle } from "@tulmek/core/domain";
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+> 5 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import metadataJson from "@tulmek/content/hub/metadata";
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1600243ms] [ERROR] ./apps/web/src/app/hub/page.tsx:6:1
+Module not found: Can't resolve '@tulmek/content/hub/metadata'
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+  5 | import feedData from "@tulmek/content/hub/feed";
+> 6 | import metadataJson from "@tulmek/content/hub/metadata";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+  9 | import { FeaturedPicks } from "@/components/hub/featured-picks";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1600243ms] [ERROR] ./apps/web/src/app/hub/saved/page.tsx:3:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  1 | import type { Metadata } from "next";
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+> 3 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { SavedFeed } from "@/components/hub/saved-feed";
+  5 | import { APP_NAME } from "@tulmek/config/constants";
+  6 |
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1610205ms] [ERROR] ./apps/web/src/app/hub/layout.tsx:4:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+  3 | import { NuqsAdapter } from "nuqs/adapters/next/app";
+> 4 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { HubShell } from "@/components/hub/hub-shell";
+  6 | import { HubProvider } from "@/lib/hub/provider";
+  7 | import { ToastProvider } from "@/components/hub/toast";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1610205ms] [ERROR] ./apps/web/src/app/hub/page.tsx:5:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  3 | import type { FeedArticle } from "@tulmek/core/domain";
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+> 5 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import metadataJson from "@tulmek/content/hub/metadata";
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1610205ms] [ERROR] ./apps/web/src/app/hub/page.tsx:6:1
+Module not found: Can't resolve '@tulmek/content/hub/metadata'
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+  5 | import feedData from "@tulmek/content/hub/feed";
+> 6 | import metadataJson from "@tulmek/content/hub/metadata";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+  9 | import { FeaturedPicks } from "@/components/hub/featured-picks";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1610205ms] [ERROR] ./apps/web/src/app/hub/saved/page.tsx:3:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  1 | import type { Metadata } from "next";
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+> 3 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { SavedFeed } from "@/components/hub/saved-feed";
+  5 | import { APP_NAME } from "@tulmek/config/constants";
+  6 |
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1616949ms] [ERROR] ./apps/web/src/app/hub/layout.tsx:4:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+  3 | import { NuqsAdapter } from "nuqs/adapters/next/app";
+> 4 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { HubShell } from "@/components/hub/hub-shell";
+  6 | import { HubProvider } from "@/lib/hub/provider";
+  7 | import { ToastProvider } from "@/components/hub/toast";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1616949ms] [ERROR] ./apps/web/src/app/hub/page.tsx:5:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  3 | import type { FeedArticle } from "@tulmek/core/domain";
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+> 5 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import metadataJson from "@tulmek/content/hub/metadata";
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1616949ms] [ERROR] ./apps/web/src/app/hub/page.tsx:6:1
+Module not found: Can't resolve '@tulmek/content/hub/metadata'
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+  5 | import feedData from "@tulmek/content/hub/feed";
+> 6 | import metadataJson from "@tulmek/content/hub/metadata";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+  9 | import { FeaturedPicks } from "@/components/hub/featured-picks";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1616949ms] [ERROR] ./apps/web/src/app/hub/saved/page.tsx:3:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  1 | import type { Metadata } from "next";
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+> 3 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { SavedFeed } from "@/components/hub/saved-feed";
+  5 | import { APP_NAME } from "@tulmek/config/constants";
+  6 |
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1616998ms] [ERROR] ./apps/web/src/app/hub/layout.tsx:4:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+  3 | import { NuqsAdapter } from "nuqs/adapters/next/app";
+> 4 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { HubShell } from "@/components/hub/hub-shell";
+  6 | import { HubProvider } from "@/lib/hub/provider";
+  7 | import { ToastProvider } from "@/components/hub/toast";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1616998ms] [ERROR] ./apps/web/src/app/hub/page.tsx:5:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  3 | import type { FeedArticle } from "@tulmek/core/domain";
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+> 5 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import metadataJson from "@tulmek/content/hub/metadata";
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1616998ms] [ERROR] ./apps/web/src/app/hub/page.tsx:6:1
+Module not found: Can't resolve '@tulmek/content/hub/metadata'
+  4 | import type { FeedMetadata } from "@tulmek/core/domain";
+  5 | import feedData from "@tulmek/content/hub/feed";
+> 6 | import metadataJson from "@tulmek/content/hub/metadata";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { FeedLayout } from "@/components/hub/feed-layout";
+  8 | import { FeedSkeleton } from "@/components/hub/feed-skeleton";
+  9 | import { FeaturedPicks } from "@/components/hub/featured-picks";
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1616998ms] [ERROR] ./apps/web/src/app/hub/saved/page.tsx:3:1
+Module not found: Can't resolve '@tulmek/content/hub/feed'
+  1 | import type { Metadata } from "next";
+  2 | import type { FeedArticle } from "@tulmek/core/domain";
+> 3 | import feedData from "@tulmek/content/hub/feed";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { SavedFeed } from "@/components/hub/saved-feed";
+  5 | import { APP_NAME } from "@tulmek/config/constants";
+  6 |
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1945
+[ 1620723ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1226
+[ 1623013ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1226
+[ 1623809ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ http://localhost:3000/_next/static/chunks/0-51_next_dist_03pp7pz._.js:1226
+[ 1625224ms] Error: Module [project]/node_modules/.pnpm/next@16.2.1_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_babel-p_0d1b5d63011c4a9b2ecc3dd70db22c62/node_modules/next/dist/compiled/react-refresh/runtime.js [app-client] (ecmascript) was instantiated because it was required from module [project]/node_modules/.pnpm/next@16.2.1_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_react-d_8f1be9cd4cb05bc7f586cf5a0e11bc11/node_modules/next/dist/compiled/@next/react-refresh-utils/dist/runtime.js [app-client] (ecmascript), but the module factory is not available.
+This is often caused by a stale browser cache, misconfigured Cache-Control headers, or a service worker serving outdated responses.
+To fix this, make sure your Cache-Control headers allow revalidation of chunks and review your service worker configuration. As an immediate workaround, try hard-reloading the page, clearing the browser cache, or unregistering any service workers.
+    at instantiateModuleShared (http://localhost:3000/_next/static/chunks/turbopack-apps_web_0l7bn63._.js:1272:15)
+    at instantiateModule (http://localhost:3000/_next/static/chunks/turbopack-apps_web_0l7bn63._.js:1621:12)
+    at getOrInstantiateModuleFromParent (http://localhost:3000/_next/static/chunks/turbopack-apps_web_0l7bn63._.js:1604:12)
+    at DevContext.commonJsRequire [as r] (http://localhost:3000/_next/static/chunks/turbopack-apps_web_0l7bn63._.js:299:12)
+    at module evaluation (http://localhost:3000/_next/static/chunks/0-51_next_dist_compiled_0_eilv7._.js:919:57)
+    at http://localhost:3000/_next/static/chunks/turbopack-apps_web_0l7bn63._.js:1307:27
+    at runModuleExecutionHooks (http://localhost:3000/_next/static/chunks/turbopack-apps_web_0l7bn63._.js:1649:9)
+    at instantiateModuleShared (http://localhost:3000/_next/static/chunks/turbopack-apps_web_0l7bn63._.js:1305:9)
+    at instantiateModule (http://localhost:3000/_next/static/chunks/turbopack-apps_web_0l7bn63._.js:1621:12)
+    at getOrInstantiateRuntimeModule (http://localhost:3000/_next/static/chunks/turbopack-apps_web_0l7bn63._.js:1582:12)

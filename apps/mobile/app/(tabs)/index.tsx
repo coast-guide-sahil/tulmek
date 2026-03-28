@@ -1,14 +1,13 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import { FlashList, type FlashListRef, type ListRenderItemInfo } from "@shopify/flash-list";
 import {
   View,
   Text,
   StyleSheet,
-  FlatList,
   Pressable,
   Linking,
   TextInput,
   useColorScheme,
-  type ListRenderItemInfo,
 } from "react-native";
 import { themes, type ThemeColors } from "../../src/theme";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -160,7 +159,7 @@ function CategoryFilter({
   const total = Object.values(counts).reduce((a, b) => a + b, 0);
 
   return (
-    <FlatList
+    <FlashList
       horizontal
       showsHorizontalScrollIndicator={false}
       data={[{ id: null as HubCategory | null, label: "All", count: total }, ...ALL_CATEGORIES.map((id) => ({
@@ -211,7 +210,7 @@ const SORT_OPTIONS: { id: SortMode; label: string }[] = [
 
 function SortPicker({ value, onChange }: { value: SortMode; onChange: (v: SortMode) => void }) {
   return (
-    <FlatList
+    <FlashList
       horizontal
       showsHorizontalScrollIndicator={false}
       data={SORT_OPTIONS}
@@ -239,7 +238,7 @@ export default function HomeScreen() {
   const [activeCategory, setActiveCategory] = useState<HubCategory | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortMode, setSortMode] = useState<SortMode>("for-you");
-  const listRef = useRef<FlatList>(null);
+  const listRef = useRef<FlashListRef<FeedArticle>>(null);
   const { bookmarks, toggle: toggleBookmark } = useBookmarks();
   const rawScheme = useColorScheme();
   const scheme = rawScheme === "light" ? "light" : "dark";
@@ -306,7 +305,7 @@ export default function HomeScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: t.bg }]}>
-      <FlatList
+      <FlashList
         ref={listRef}
         data={filteredArticles}
         renderItem={renderItem}
@@ -369,9 +368,6 @@ export default function HomeScreen() {
             </Text>
           </>
         }
-        initialNumToRender={10}
-        maxToRenderPerBatch={10}
-        windowSize={5}
       />
     </View>
   );
