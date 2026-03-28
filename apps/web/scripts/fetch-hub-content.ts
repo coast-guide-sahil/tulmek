@@ -1250,6 +1250,10 @@ async function fetchNewsletters(): Promise<RawArticle[]> {
     "https://fangprep.substack.com/feed": "FANG Prep",
     "https://read.engineerscodex.com/feed": "Engineer's Codex",
     "https://levelupwithethan.substack.com/feed": "Level Up",
+    // Podcast feeds
+    "https://se-radio.net/feed/": "Software Engineering Radio",
+    "https://feeds.changelog.com/thechangelog": "The Changelog",
+    "https://feeds.simplecast.com/JGE3yC0V": "Software Engineering Daily",
   };
 
   for (const [feedUrl, name] of Object.entries(feeds)) {
