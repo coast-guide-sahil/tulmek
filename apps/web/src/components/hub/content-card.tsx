@@ -294,7 +294,7 @@ function SourceBadge({ sourceName, domain }: { sourceName: string; domain: strin
       />
       <span>{sourceName}</span>
       {!knownDomains.has(domain) && (
-        <span className="text-muted-foreground/60">({domain})</span>
+        <span className="text-muted-foreground">({domain})</span>
       )}
     </span>
   );

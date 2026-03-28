@@ -116,7 +116,7 @@ export function TodaysBrief({ articles, nowMs, onCategoryClick }: TodaysBriefPro
               <p className="line-clamp-2 text-xs leading-snug text-muted-foreground group-hover:text-card-foreground">
                 {item.topArticle.title}
               </p>
-              <span className="mt-auto text-xs text-muted-foreground/60">
+              <span className="mt-auto text-xs text-muted-foreground">
                 {item.total} article{item.total !== 1 ? "s" : ""}
               </span>
             </button>
@@ -140,7 +140,7 @@ export function TodaysBrief({ articles, nowMs, onCategoryClick }: TodaysBriefPro
           >
             Mark all today&apos;s as read
           </button>
-          <span className="text-xs text-muted-foreground/40">
+          <span className="text-xs text-muted-foreground">
             ({digest.totalUnread} articles)
           </span>
         </div>

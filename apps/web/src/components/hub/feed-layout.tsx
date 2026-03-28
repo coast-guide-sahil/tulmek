@@ -438,7 +438,7 @@ function SortTabs({ value, onChange }: { value: SortMode; onChange: (v: SortMode
         >
           <span className="text-xs font-medium sm:text-sm">{tab.label}</span>
           <span className={`text-[10px] leading-tight ${
-            value === tab.id ? "text-muted-foreground" : "text-muted-foreground/60"
+            value === tab.id ? "text-muted-foreground" : "text-muted-foreground"
           }`}>
             {tab.desc}
           </span>

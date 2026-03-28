@@ -94,7 +94,7 @@ export function CompanyFilter({ articles, activeCompany, onCompanyClick }: Compa
           href={`/hub/company/${name.toLowerCase()}`}
           className="min-h-[32px] inline-flex items-center rounded-md bg-muted px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary"
         >
-          {name} <span className="ml-1 text-muted-foreground/50">{count}</span>
+          {name} <span className="ml-1 text-muted-foreground">{count}</span>
         </Link>
       ))}
     </div>
