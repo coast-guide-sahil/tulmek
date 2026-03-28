@@ -177,3 +177,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 261 | #300 | Sentiment filter toggles (positive/negative) — PR #300! |
 | 262 | #301 | Mobile sentiment filter (positive/negative toggles) |
 | 263 | #302 | Filtered category counts — badges update with active filters |
+| 264 | #303 | Improved no-results empty state with context + clear CTA |
