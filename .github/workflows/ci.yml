@@ -74,46 +74,14 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @tulmek/web validate-content
 
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    needs: [lint-typecheck]
-    steps:
-      - uses: actions/checkout@v6
-      - uses: pnpm/action-setup@v5
-      - uses: actions/setup-node@v6
-        with:
-          node-version: "24"
-          cache: "pnpm"
-      - uses: rharkor/caching-for-turbo@v2.3.11
-      - run: pnpm install --frozen-lockfile
-      - uses: actions/cache@v5
-        with:
-          path: apps/web/.next/cache
-          key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('apps/web/src/**') }}
-          restore-keys: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
-      - run: pnpm turbo build --force
-      - name: Verify build output exists
-        run: |
-          if [ ! -d "apps/web/.next" ]; then
-            echo "::error::apps/web/.next not found after build"
-            exit 1
-          fi
-          echo "Build output verified: $(find apps/web/.next -name '*.js' | head -5 | wc -l) JS files found"
-      - name: Upload build output for downstream jobs
-        uses: actions/upload-artifact@v6
-        with:
-          name: web-build
-          path: |
-            apps/web/.next/
-          include-hidden-files: true
-          retention-days: 1
-
-  # ─── E2E TESTS (every PR) ───────────────────────
+  # ─── BUILD + E2E (every PR) ─────────────────────
+  # Each downstream job builds its own copy. Turbo's remote cache
+  # (via rharkor/caching-for-turbo) ensures the build is instant
+  # after the first run — no need for artifact sharing.
   e2e:
     name: E2E Tests
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: [lint-typecheck]
     steps:
       - uses: actions/checkout@v6
       - uses: pnpm/action-setup@v5
@@ -135,21 +103,12 @@ jobs:
       - name: Install Playwright system deps
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: pnpm --filter @tulmek/web exec playwright install-deps chromium
-      - name: Download build artifact
-        uses: actions/download-artifact@v7
-        with:
-          name: web-build
-          path: apps/web/.next/
-      - name: Start standalone server
+      - name: Build
+        run: pnpm turbo build
+      - name: Start server and run E2E tests
         run: |
-          # Copy static assets for standalone mode
-          cp -r apps/web/.next/static apps/web/.next/standalone/apps/web/.next/static 2>/dev/null || true
-          node apps/web/.next/standalone/apps/web/server.js &
+          pnpm --filter @tulmek/web start &
           npx wait-on http://localhost:3000 --timeout 30000
-        env:
-          PORT: 3000
-      - name: Run E2E tests (excluding a11y — runs in separate job)
-        run: |
           pnpm --filter @tulmek/web exec playwright test \
             health.spec.ts \
             navigation.spec.ts \
@@ -170,7 +129,7 @@ jobs:
   accessibility:
     name: Accessibility Tests
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: [lint-typecheck]
     steps:
       - uses: actions/checkout@v6
       - uses: pnpm/action-setup@v5
@@ -192,20 +151,13 @@ jobs:
       - name: Install Playwright system deps
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: pnpm --filter @tulmek/web exec playwright install-deps chromium
-      - name: Download build artifact
-        uses: actions/download-artifact@v7
-        with:
-          name: web-build
-          path: apps/web/.next/
-      - name: Start standalone server
+      - name: Build
+        run: pnpm turbo build
+      - name: Start server and run a11y tests
         run: |
-          cp -r apps/web/.next/static apps/web/.next/standalone/apps/web/.next/static 2>/dev/null || true
-          node apps/web/.next/standalone/apps/web/server.js &
+          pnpm --filter @tulmek/web start &
           npx wait-on http://localhost:3000 --timeout 30000
-        env:
-          PORT: 3000
-      - name: Run accessibility tests
-        run: pnpm --filter @tulmek/web exec playwright test accessibility.spec.ts
+          pnpm --filter @tulmek/web exec playwright test accessibility.spec.ts
         env:
           PLAYWRIGHT_BASE_URL: http://localhost:3000
       - name: Upload a11y report
@@ -220,7 +172,7 @@ jobs:
   lighthouse:
     name: Lighthouse CI
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: [lint-typecheck]
     steps:
       - uses: actions/checkout@v6
       - uses: pnpm/action-setup@v5
@@ -230,18 +182,10 @@ jobs:
           cache: "pnpm"
       - uses: rharkor/caching-for-turbo@v2.3.11
       - run: pnpm install --frozen-lockfile
-      - name: Download build artifact
-        uses: actions/download-artifact@v7
-        with:
-          name: web-build
-          path: apps/web/.next/
-      - name: Prepare standalone server for Lighthouse
-        run: |
-          cp -r apps/web/.next/static apps/web/.next/standalone/apps/web/.next/static 2>/dev/null || true
+      - name: Build
+        run: pnpm turbo build
       - uses: treosh/lighthouse-ci-action@v12
         with:
           configPath: ./lighthouserc.json
           uploadArtifacts: true
           temporaryPublicStorage: true
-        env:
-          LHCI_BUILD_CONTEXT__CURRENT_HASH: ${{ github.sha }}
