@@ -36,4 +36,12 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 114 | #153 | Production CI/CD for all 3 platforms |
 | 115 | #154 | Accessibility tests + improved CI pipeline |
 | 116 | #155 | Branded types — ArticleId, ItemSlug, ISOTimestamp |
+| 117 | #156 | Dynamic OG images for company pages |
+| 118 | #157 | Hiring signal badges on company pages |
+| 119 | #158 | Interview Market Pulse — weekly brief |
+| 120 | #159 | Implicit EMA engagement tracking |
+| 121 | #160 | Mobile saved articles page |
+| 122 | #161 | Share My Prep button on company pages |
+| 123 | #162 | Interview profile on company pages |
+| 124 | #163 | Mobile system theme support (dark/light) |
 | 111 | #150 | SimHash title dedup — cross-source near-duplicates |
