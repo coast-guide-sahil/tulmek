@@ -10,7 +10,8 @@ export type FeedSourceId =
   | "medium"
   | "github"
   | "leetcode"
-  | "newsletter";
+  | "newsletter"
+  | "glassdoor";
 
 /** Hub content categories */
 export type HubCategory =

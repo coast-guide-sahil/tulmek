@@ -45,6 +45,7 @@ const SOURCE_LABELS: Record<string, string> = {
   github: "GitHub",
   leetcode: "LeetCode",
   newsletter: "Newsletter",
+  glassdoor: "Glassdoor",
 };
 
 export function getSourceLabel(source: string): string {

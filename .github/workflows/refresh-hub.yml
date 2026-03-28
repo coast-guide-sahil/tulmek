@@ -38,6 +38,7 @@ jobs:
         run: pnpm --filter @tulmek/web fetch-hub-content
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
 
       - name: Validate fetched content
         run: pnpm --filter @tulmek/web validate-content
