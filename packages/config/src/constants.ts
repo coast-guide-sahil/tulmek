@@ -38,6 +38,8 @@ export const STORAGE_KEYS = {
   progress: "tulmek:progress",
   notes: "tulmek:notes",
   hubSignals: "tulmek:hub:signals",
+  hubMutedSources: "tulmek:hub:mutedSources",
+  hubMutedCategories: "tulmek:hub:mutedCategories",
 } as const satisfies Record<string, `tulmek:${string}`>;
 
 export type StorageKey = typeof STORAGE_KEYS[keyof typeof STORAGE_KEYS];
