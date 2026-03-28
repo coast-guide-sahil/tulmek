@@ -306,6 +306,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
           onChange={setSearchQuery}
           resultCount={hasActiveFilters ? filteredArticles.length : undefined}
           totalCount={articles.length}
+          articles={articles}
         />
         <div className="flex items-center gap-2">
           <CopyFeedLink />
