@@ -1,52 +1,67 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import type { FeedArticle } from "@tulmek/core/domain";
+import { getTrendingTopics } from "@tulmek/core/domain";
 
 interface TrendingTopicsProps {
   readonly articles: FeedArticle[];
-  readonly onTopicClick: (query: string) => void;
+  readonly onTopicClick?: (query: string) => void;
 }
 
 /**
- * Extracts trending topics from article tags and titles.
- * Shows the most frequently appearing interview-relevant keywords.
+ * Trending Topics — shows the hottest topics across sources in the last 48h.
+ * A topic qualifies when at least 2 distinct sources cover it.
+ * Chips are clickable when onTopicClick is provided (e.g. inside the feed).
+ *
+ * nowMs is captured via a lazy state initializer so Date.now() never runs
+ * directly in the render body, satisfying the React compiler's purity rules.
  */
 export function TrendingTopics({ articles, onTopicClick }: TrendingTopicsProps) {
-  // Count tag frequency across all articles, weighted by engagement
-  const tagScores = new Map<string, number>();
-  const SKIP_TAGS = new Set([
-    "story", "author", "show_hn", "ask_hn", "video",
-    "cscareerquestions", "leetcode", "programming",
-    "experienceddevs", "machinelearning", "artificial",
-    "datascience", "systemdesign",
-  ]);
+  const [nowMs] = useState(() => Date.now());
 
-  for (const article of articles) {
-    const weight = 1 + Math.log10(Math.max(1, article.score));
-    for (const tag of article.tags) {
-      const normalized = tag.toLowerCase().replace(/[_-]/g, " ");
-      if (SKIP_TAGS.has(normalized) || normalized.length < 3) continue;
-      tagScores.set(normalized, (tagScores.get(normalized) ?? 0) + weight);
-    }
-  }
+  const trending = useMemo(
+    () => getTrendingTopics(articles, nowMs, 8),
+    [articles, nowMs],
+  );
 
-  const topTopics = [...tagScores.entries()]
-    .sort(([, a], [, b]) => b - a)
-    .slice(0, 8)
-    .map(([tag, score]) => ({ tag, score }));
-
-  if (topTopics.length === 0) return null;
+  if (trending.length === 0) return null;
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
-      <span className="text-xs font-medium text-muted-foreground">Hot topics:</span>
-      {topTopics.map(({ tag }) => (
-        <button
-          key={tag}
-          onClick={() => onTopicClick(tag)}
-          className="min-h-[44px] rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-card-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
-        >
-          {tag}
-        </button>
-      ))}
+    <div className="rounded-xl border border-border bg-card p-4">
+      <div className="flex items-center gap-2 mb-3">
+        <span className="text-sm font-bold text-card-foreground">Trending Topics</span>
+        <span className="flex items-center gap-1 rounded-full bg-destructive/10 px-2 py-0.5 text-xs font-medium text-destructive">
+          <span className="h-1.5 w-1.5 rounded-full bg-destructive animate-pulse" />
+          Live
+        </span>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {trending.map(({ topic, sourceCount, articleCount }) =>
+          onTopicClick ? (
+            <button
+              key={topic}
+              onClick={() => onTopicClick(topic)}
+              className="flex min-h-[44px] items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm transition-colors hover:border-primary/30 hover:bg-primary/5"
+            >
+              <span className="font-medium text-card-foreground capitalize">{topic}</span>
+              <span className="text-xs text-muted-foreground">
+                {sourceCount}s · {articleCount}
+              </span>
+            </button>
+          ) : (
+            <div
+              key={topic}
+              className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm"
+            >
+              <span className="font-medium text-card-foreground capitalize">{topic}</span>
+              <span className="text-xs text-muted-foreground">
+                {sourceCount}s · {articleCount}
+              </span>
+            </div>
+          )
+        )}
+      </div>
     </div>
   );
 }
