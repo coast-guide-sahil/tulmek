@@ -545,6 +545,196 @@ describe("tulmekRank", () => {
     });
   });
 
+  // ── Semantic richness (TCRA v3) ───────────────────────────────────────────────
+
+  describe("semantic richness", () => {
+    it("fully enriched article ranks above a plain article when other signals are equal", () => {
+      // Enriched article has topics (3+), difficulty, sentiment, and high actionability.
+      const articles = [
+        makeArticle({
+          id: "plain",
+          score: 100,
+          topics: [],
+          difficulty: "",
+          sentiment: "",
+          actionability: 0,
+        }),
+        makeArticle({
+          id: "enriched",
+          score: 100,
+          topics: ["distributed systems", "consistent hashing", "load balancing"],
+          difficulty: "intermediate",
+          sentiment: "positive",
+          actionability: 0.8,
+        }),
+      ];
+      const result = tulmekRank(articles, now, new Set(), {});
+      expect(result[0]!.id).toBe("enriched");
+    });
+
+    it("partial enrichment (topics only) still boosts an article over a plain one", () => {
+      const articles = [
+        makeArticle({
+          id: "plain",
+          score: 100,
+          topics: [],
+          difficulty: "",
+          sentiment: "",
+          actionability: 0,
+        }),
+        makeArticle({
+          id: "partial",
+          score: 100,
+          topics: ["dynamic programming"],
+          difficulty: "",
+          sentiment: "",
+          actionability: 0,
+        }),
+      ];
+      const result = tulmekRank(articles, now, new Set(), {});
+      expect(result[0]!.id).toBe("partial");
+    });
+
+    it("no enrichment fields produce zero semantic boost — article is not penalised", () => {
+      // Empty enrichment should not hurt ranking; both articles equal → score tie
+      // resolved by other signals (source credibility here is the tie-breaker).
+      const articles = [
+        makeArticle({
+          id: "no-enrich",
+          source: "leetcode",
+          score: 100,
+          topics: [],
+          difficulty: "",
+          sentiment: "",
+          actionability: 0,
+        }),
+        makeArticle({
+          id: "reddit-enrich",
+          source: "reddit",
+          score: 100,
+          topics: ["binary search"],
+          difficulty: "beginner",
+          sentiment: "neutral",
+          actionability: 0.6,
+        }),
+      ];
+      const result = tulmekRank(articles, now, new Set(), {});
+      // Both articles must be present regardless of enrichment
+      const ids = result.map((a) => a.id);
+      expect(ids).toContain("no-enrich");
+      expect(ids).toContain("reddit-enrich");
+    });
+
+    it("high actionability (>0.5) contributes to semantic score", () => {
+      const articles = [
+        makeArticle({
+          id: "low-action",
+          score: 100,
+          topics: [],
+          difficulty: "",
+          sentiment: "",
+          actionability: 0.2,
+        }),
+        makeArticle({
+          id: "high-action",
+          score: 100,
+          topics: [],
+          difficulty: "",
+          sentiment: "",
+          actionability: 0.9,
+        }),
+      ];
+      const result = tulmekRank(articles, now, new Set(), {});
+      expect(result[0]!.id).toBe("high-action");
+    });
+  });
+
+  // ── MMR diversity reranking (TCRA v3) ─────────────────────────────────────────
+
+  describe("mmr diversity reranking", () => {
+    it("preserves all articles — no article is lost during MMR reranking", () => {
+      // 60 articles: MMR selects top 50, remainder appended — all must survive.
+      const articles = Array.from({ length: 60 }, (_, i) =>
+        makeArticle({
+          id: `mmr${i}`,
+          source: i % 3 === 0 ? "reddit" : i % 3 === 1 ? "hackernews" : "leetcode",
+          category: i % 4 === 0 ? "dsa" : i % 4 === 1 ? "system-design" : i % 4 === 2 ? "behavioral" : "career",
+          score: 200 - i,
+        }),
+      );
+      const result = tulmekRank(articles, now, new Set(), {});
+      expect(result).toHaveLength(60);
+      const ids = new Set(result.map((a) => a.id));
+      for (const a of articles) expect(ids.has(a.id)).toBe(true);
+    });
+
+    it("top-ranked article (highest TulmekScore) always occupies position 0", () => {
+      // The best article is selected first by MMR (pure relevance for slot 0).
+      const best = makeArticle({
+        id: "best",
+        source: "leetcode",
+        category: "dsa",
+        score: 9999,
+        commentCount: 500,
+        publishedAt: new Date(now - 1 * 3600000).toISOString() as ISOTimestamp,
+        topics: ["sliding window", "two pointers", "hash map"],
+        difficulty: "advanced",
+        sentiment: "positive",
+        actionability: 0.9,
+      });
+      const others = Array.from({ length: 20 }, (_, i) =>
+        makeArticle({
+          id: `other${i}`,
+          source: i % 2 === 0 ? "reddit" : "hackernews",
+          score: 100 + i,
+          category: "dsa",
+        }),
+      );
+      const result = tulmekRank([...others, best], now, new Set(), {});
+      expect(result[0]!.id).toBe("best");
+    });
+
+    it("MMR promotes source diversity — articles from minority source appear early", () => {
+      // 25 reddit + 5 leetcode. MMR similarity penalty for source overlap
+      // should interleave leetcode articles into the early positions.
+      const articles = Array.from({ length: 30 }, (_, i) =>
+        makeArticle({
+          id: `art${i}`,
+          source: i < 25 ? "reddit" : "leetcode",
+          score: 200 - i,
+          category: "dsa",
+        }),
+      );
+      const result = tulmekRank(articles, now, new Set(), {});
+      const first20 = result.slice(0, 20);
+      const leetcodeInFirst20 = first20.filter((a) => a.source === "leetcode").length;
+      expect(leetcodeInFirst20).toBeGreaterThan(0);
+    });
+
+    it("MMR promotes category diversity — same-category clustering is reduced", () => {
+      // 20 dsa + 5 system-design. MMR penalises same-category adjacency,
+      // so system-design articles should appear within the first 15.
+      const articles = Array.from({ length: 25 }, (_, i) =>
+        makeArticle({
+          id: `cat${i}`,
+          source: "hackernews",
+          category: i < 20 ? "dsa" : "system-design",
+          score: 300 - i,
+        }),
+      );
+      const result = tulmekRank(articles, now, new Set(), {});
+      const first15 = result.slice(0, 15);
+      const sdInFirst15 = first15.filter((a) => a.category === "system-design").length;
+      expect(sdInFirst15).toBeGreaterThan(0);
+    });
+
+    it("MMR degrades gracefully for small feeds (≤1 article)", () => {
+      const single = makeArticle({ id: "only" });
+      expect(tulmekRank([single], now, new Set(), {})).toHaveLength(1);
+      expect(tulmekRank([], now, new Set(), {})).toHaveLength(0);
+    });
+  });
+
   // ── Combined signals ──────────────────────────────────────────────────────────
 
   describe("combined signals", () => {

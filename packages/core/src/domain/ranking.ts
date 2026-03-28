@@ -122,6 +122,26 @@ function sourceCredibility(article: FeedArticle): number {
   return SOURCE_CREDIBILITY[article.source] ?? 0.5;
 }
 
+// ── Semantic richness from AI enrichment data ──
+
+/**
+ * Boosts articles that have been enriched with specific AI-extracted signals.
+ * Degrades gracefully to 0 when enrichment fields are empty.
+ */
+function semanticRichness(article: FeedArticle): number {
+  let score = 0;
+  // Topics specificity (from AI enrichment)
+  if (article.topics && article.topics.length > 0) score += 0.3;
+  if (article.topics && article.topics.length >= 3) score += 0.2;
+  // Difficulty signal (enriched articles have this)
+  if (article.difficulty) score += 0.15;
+  // Sentiment signal
+  if (article.sentiment) score += 0.1;
+  // Actionability
+  if (article.actionability > 0.5) score += 0.25;
+  return Math.min(1.0, score);
+}
+
 // ── Interview-prep content richness (replaces title relevance placeholder) ──
 
 const COMPANY_REGEX = /\b(google|amazon|meta|apple|microsoft|netflix|uber|airbnb|stripe|coinbase|lyft|nvidia|tesla|openai|anthropic|palantir|databricks|snowflake|linkedin|salesforce|oracle|adobe|bloomberg|jpmorgan|goldman|citadel|jane street|flipkart|swiggy|atlassian|shopify|spotify|dropbox|doordash|pinterest|samsung|ibm|paypal|cloudflare|datadog|mongodb|vercel|github)\b/i;
@@ -153,7 +173,8 @@ function computeCRS(
     0.20 * normalizedEngagement(article, sourcePercentiles) +
     0.15 * discussionDepth(article) +
     0.15 * sourceCredibility(article) +
-    0.25 * contentRichness(article)
+    0.10 * contentRichness(article) +
+    0.15 * semanticRichness(article)
   );
 }
 
@@ -337,6 +358,72 @@ function diverseRerank(articles: FeedArticle[], windowSize = DIVERSITY_WINDOW): 
   return result;
 }
 
+// ── 5b. MMR-Inspired Diversity Reranking ──
+
+/**
+ * Maximal Marginal Relevance reranking.
+ *
+ * For each output position, selects the article that maximises:
+ *   MMR(a) = lambda * score(a) - (1 - lambda) * max_similarity_to_selected(a)
+ *
+ * Similarity is category + source + domain overlap (proxy for embedding
+ * similarity when embeddings are not available at runtime).
+ *
+ * lambda = 0.7 → 70% relevance, 30% diversity push.
+ * topK limits how many positions use MMR selection; remaining articles are
+ * appended in their original score order.
+ */
+function mmrDiverseRerank(
+  articles: FeedArticle[],
+  scores: Map<string, number>,
+  lambda: number = 0.7,
+  topK: number = 50,
+): FeedArticle[] {
+  if (articles.length <= 1) return articles;
+
+  const remaining = new Set(articles.map((_, i) => i));
+  const selected: number[] = [];
+
+  // First slot: highest-scoring article (pure relevance)
+  let bestFirst = -1, bestScore = -Infinity;
+  for (const idx of remaining) {
+    const s = scores.get(articles[idx]!.id) ?? 0;
+    if (s > bestScore) { bestScore = s; bestFirst = idx; }
+  }
+  selected.push(bestFirst);
+  remaining.delete(bestFirst);
+
+  const selectCount = Math.min(topK, articles.length);
+  while (selected.length < selectCount && remaining.size > 0) {
+    let bestIdx = -1, bestMMR = -Infinity;
+    for (const idx of remaining) {
+      const a = articles[idx]!;
+      const relevance = scores.get(a.id) ?? 0;
+
+      // Structural similarity to the last 10 selected articles
+      let maxSim = 0;
+      for (const selIdx of selected.slice(-10)) {
+        const sel = articles[selIdx]!;
+        let sim = 0;
+        if (a.category === sel.category) sim += 0.5;
+        if (a.source === sel.source) sim += 0.3;
+        if (a.domain === sel.domain) sim += 0.2;
+        maxSim = Math.max(maxSim, sim);
+      }
+
+      const mmr = lambda * relevance - (1 - lambda) * maxSim;
+      if (mmr > bestMMR) { bestMMR = mmr; bestIdx = idx; }
+    }
+    if (bestIdx >= 0) { selected.push(bestIdx); remaining.delete(bestIdx); }
+    else break;
+  }
+
+  const result = selected.map(i => articles[i]!);
+  // Append remaining articles in their original (score-sorted) order
+  const remainingArticles = [...remaining].map(i => articles[i]!);
+  return [...result, ...remainingArticles];
+}
+
 // ── 6. Epsilon-Greedy Exploration ──
 
 /**
@@ -445,9 +532,12 @@ export function tulmekRank(
   // Sort by TulmekScore
   scored.sort((a, b) => b.score - a.score);
 
-  // Apply source + category diversity reranking
+  // Build score map for MMR reranking
+  const scoreMap = new Map<string, number>(scored.map((s) => [s.article.id, s.score]));
+
+  // Apply MMR diversity reranking (replaces legacy diverseRerank)
   const sorted = scored.map((s) => s.article);
-  const reranked = diverseRerank(sorted);
+  const reranked = mmrDiverseRerank(sorted, scoreMap);
 
   // Epsilon-greedy exploration: 10% of slots go to underexplored categories
   // Prevents filter bubbles and helps discover new content areas
