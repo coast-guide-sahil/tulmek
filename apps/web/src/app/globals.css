@@ -496,6 +496,18 @@ button[aria-pressed]:active {
   animation: shimmer 1.5s ease-in-out infinite;
 }
 
+/* Confetti particle animation (streak milestones) */
+@keyframes confetti-fall {
+  0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+.confetti-particle {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  animation: confetti-fall 3s ease-in-out forwards;
+}
+
 /* Category scroll fade edges */
 .category-scroll {
   mask-image: linear-gradient(
