@@ -185,3 +185,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 269 | #308 | Mobile Hot + Fresh badges on article cards |
 | 270 | #309 | Category emojis in nav tabs |
 | 271 | #310 | Improved scroll-to-top (fade animation, lower threshold) |
+| 272 | #311 | Content sources breakdown on market report |
