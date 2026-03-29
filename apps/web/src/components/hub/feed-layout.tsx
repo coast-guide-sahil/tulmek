@@ -42,6 +42,14 @@ const SORT_MODES: SortMode[] = ["for-you", "latest", "rising", "popular", "most-
 const TIME_RANGES: TimeRange[] = ["today", "week", "month", "all"];
 const VIEW_MODES: ("grid" | "list")[] = ["grid", "list"];
 
+const PRESETS = [
+  { label: "🎯 Senior Prep", category: "system-design" as const, difficulty: "advanced" as const },
+  { label: "🚀 Quick Wins", readingTime: "quick" as const, actionable: true },
+  { label: "💰 Comp Intel", category: "compensation" as const },
+  { label: "🧠 AI/ML Focus", category: "ai-ml" as const },
+  { label: "📝 Fresh DSA", category: "dsa" as const, sentiment: null },
+] as const;
+
 export function FeedLayout({ articles }: FeedLayoutProps) {
   const [nowMs] = useState(() => Date.now());
 
@@ -413,6 +421,25 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
 
       {/* Focus Suggestion */}
       <FocusSuggestion onCategoryClick={setActiveCategory} />
+
+      {/* Quick Filter Presets */}
+      <div className="flex gap-1.5 overflow-x-auto pb-1">
+        {PRESETS.map(preset => (
+          <button
+            key={preset.label}
+            onClick={() => {
+              handleClearFilters();
+              if ('category' in preset && preset.category) setActiveCategory(preset.category);
+              if ('difficulty' in preset && preset.difficulty) setDifficultyFilter(preset.difficulty);
+              if ('readingTime' in preset && preset.readingTime) setReadingTimeFilter(preset.readingTime);
+              if ('actionable' in preset && preset.actionable) setActionableOnly(true);
+            }}
+            className="shrink-0 min-h-[44px] rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:bg-primary/5 hover:text-foreground"
+          >
+            {preset.label}
+          </button>
+        ))}
+      </div>
 
       {/* Category Navigation */}
       <CategoryNav
