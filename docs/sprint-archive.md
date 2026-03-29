@@ -189,3 +189,5 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 273 | #312 | Difficulty distribution on market report |
 | 274 | #313 | Content refresh + all 3 platforms tested live |
 | 275 | #314 | Content quality score on company pages |
+| 276 | #315 | Sentiment distribution bar on company pages |
+| — | #316 | Fix cron push — PR fallback for branch protection |
