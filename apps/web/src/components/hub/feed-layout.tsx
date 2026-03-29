@@ -60,6 +60,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
   const [difficultyFilter, setDifficultyFilter] = useState<string | null>(null);
   const [actionableOnly, setActionableOnly] = useState(false);
   const [sentimentFilter, setSentimentFilter] = useState<string | null>(null);
+  const [readingTimeFilter, setReadingTimeFilter] = useState<"quick" | "deep" | null>(null);
   const searchQuery = params.q;
   const sourceFilter = params.source;
   const sortMode = params.sort;
@@ -187,6 +188,9 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
       base = base.filter((a) => a.sentiment === sentimentFilter);
     }
 
+    if (readingTimeFilter === "quick") base = base.filter((a) => a.readingTime <= 3);
+    if (readingTimeFilter === "deep") base = base.filter((a) => a.readingTime >= 10);
+
     if (timeRange !== "all") {
       const cutoff = nowMs - TIME_RANGE_MS[timeRange];
       base = base.filter((a) => new Date(a.publishedAt).getTime() >= cutoff);
@@ -213,7 +217,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
       counts[a.category] = (counts[a.category] ?? 0) + 1;
     }
     return counts;
-  }, [articles, dismissedIds, mutedSources, mutedCategories, sourceFilter, activeCompany, difficultyFilter, actionableOnly, sentimentFilter, timeRange, debouncedQuery, searchResults, nowMs]);
+  }, [articles, dismissedIds, mutedSources, mutedCategories, sourceFilter, activeCompany, difficultyFilter, actionableOnly, sentimentFilter, readingTimeFilter, timeRange, debouncedQuery, searchResults, nowMs]);
 
   // Per-category read counts (for progress indicators)
   const categoryReadCounts = useMemo(() => {
@@ -294,6 +298,10 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
       result = result.filter((a) => a.sentiment === sentimentFilter);
     }
 
+    // Reading time filter
+    if (readingTimeFilter === "quick") result = result.filter((a) => a.readingTime <= 3);
+    if (readingTimeFilter === "deep") result = result.filter((a) => a.readingTime >= 10);
+
     // Time range filter
     if (timeRange !== "all") {
       const cutoff = nowMs - TIME_RANGE_MS[timeRange];
@@ -348,7 +356,7 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     }
 
     return result;
-  }, [articles, dismissedIds, mutedSources, mutedCategories, activeCategory, activeCompany, difficultyFilter, actionableOnly, sentimentFilter, sourceFilter, timeRange, debouncedQuery, sortMode, searchResults, nowMs, readIds, bookmarks]);
+  }, [articles, dismissedIds, mutedSources, mutedCategories, activeCategory, activeCompany, difficultyFilter, actionableOnly, sentimentFilter, readingTimeFilter, sourceFilter, timeRange, debouncedQuery, sortMode, searchResults, nowMs, readIds, bookmarks]);
 
   const handleClearFilters = useCallback(() => {
     setParams({ category: null, source: null, q: null, time: null });
@@ -356,11 +364,12 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
     setDifficultyFilter(null);
     setActionableOnly(false);
     setSentimentFilter(null);
+    setReadingTimeFilter(null);
   }, [setParams]);
 
   const [visibleCount, setVisibleCount] = useState(24);
 
-  const hasActiveFilters = activeCategory !== null || activeCompany !== null || difficultyFilter !== null || actionableOnly || sentimentFilter !== null || sourceFilter !== null || timeRange !== "all" || searchQuery.trim() !== "";
+  const hasActiveFilters = activeCategory !== null || activeCompany !== null || difficultyFilter !== null || actionableOnly || sentimentFilter !== null || readingTimeFilter !== null || sourceFilter !== null || timeRange !== "all" || searchQuery.trim() !== "";
   const visibleArticles = filteredArticles.slice(0, visibleCount);
   const hasMore = visibleCount < filteredArticles.length;
 
@@ -473,6 +482,22 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
           }`}
         >
           😟 Negative
+        </button>
+        <button
+          onClick={() => setReadingTimeFilter(readingTimeFilter === "quick" ? null : "quick")}
+          className={`min-h-[44px] rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
+            readingTimeFilter === "quick" ? "bg-blue-500 text-white" : "bg-muted text-muted-foreground hover:bg-primary/10"
+          }`}
+        >
+          ⚡ Quick
+        </button>
+        <button
+          onClick={() => setReadingTimeFilter(readingTimeFilter === "deep" ? null : "deep")}
+          className={`min-h-[44px] rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
+            readingTimeFilter === "deep" ? "bg-violet-500 text-white" : "bg-muted text-muted-foreground hover:bg-primary/10"
+          }`}
+        >
+          📖 Deep Dive
         </button>
       </div>
 
