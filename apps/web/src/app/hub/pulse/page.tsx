@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import type { FeedArticle } from "@tulmek/core/domain";
-import { tulmekRank, getCategoryMeta, getSourceLabel, formatRelativeTime } from "@tulmek/core/domain";
+import { tulmekRank, getCategoryMeta, getSourceLabel, formatRelativeTime, getCompanyName } from "@tulmek/core/domain";
 import { APP_NAME } from "@tulmek/config/constants";
 import feedData from "@tulmek/content/hub/feed";
+import hiringRaw from "@tulmek/content/hub/hiring";
 import Link from "next/link";
 
 const articles = feedData as unknown as FeedArticle[];
@@ -101,26 +102,34 @@ export default function PulsePage() {
     .slice(0, 8)
     .map(([tag, count]) => ({ tag, count }));
 
-  // Company mentions with proper display names
-  const DISPLAY_NAMES: Record<string, string> = {
-    google: "Google", amazon: "Amazon", meta: "Meta", apple: "Apple",
-    microsoft: "Microsoft", netflix: "Netflix", uber: "Uber", stripe: "Stripe",
-    openai: "OpenAI", anthropic: "Anthropic", nvidia: "NVIDIA",
-  };
-  const companyRegex = /\b(google|amazon|meta|apple|microsoft|netflix|uber|stripe|openai|anthropic|nvidia)\b/gi;
-  const companyCounts: Record<string, number> = {};
-  for (const a of thisWeek) {
-    const matches = `${a.title} ${a.excerpt}`.match(companyRegex);
-    if (matches) {
-      for (const m of matches) {
-        const name = DISPLAY_NAMES[m.toLowerCase()] ?? m;
-        companyCounts[name] = (companyCounts[name] ?? 0) + 1;
+  // Top Companies leaderboard — extracted from pipe-separated titles, ranked by article count
+  const hiringData = hiringRaw as Record<string, number>;
+  const topCompanies = (() => {
+    const counts = new Map<string, number>();
+    for (const a of articles) {
+      if (a.title.includes("|")) {
+        const company = a.title.split("|")[0]!.trim().toLowerCase();
+        if (company.length >= 2 && company.length <= 30) {
+          counts.set(company, (counts.get(company) ?? 0) + 1);
+        }
       }
     }
+    return [...counts.entries()]
+      .map(([slug, count]) => ({
+        slug,
+        name: getCompanyName(slug),
+        articles: count,
+        openRoles: hiringData[slug] ?? 0,
+      }))
+      .sort((a, b) => b.articles - a.articles)
+      .slice(0, 10);
+  })();
+
+  // Company mention counts (for stats card)
+  const companyCounts: Record<string, number> = {};
+  for (const co of topCompanies) {
+    companyCounts[co.slug] = co.articles;
   }
-  const topCompanies = Object.entries(companyCounts)
-    .sort(([, a], [, b]) => b - a)
-    .slice(0, 6);
 
   return (
     <div className="space-y-8">
@@ -150,19 +159,29 @@ export default function PulsePage() {
         <StatCard label="Discussions" value={thisWeek.reduce((sum, a) => sum + a.commentCount, 0)} />
       </div>
 
-      {/* Top companies */}
+      {/* Top Companies leaderboard */}
       {topCompanies.length > 0 && (
         <section>
-          <h2 className="text-base font-bold text-foreground">Trending Companies</h2>
-          <div className="mt-2 flex flex-wrap gap-2">
-            {topCompanies.map(([name, count]) => (
+          <h2 className="text-lg font-bold text-foreground mb-3">Top Companies</h2>
+          <div className="rounded-xl border border-border bg-card divide-y divide-border">
+            {topCompanies.map((co, i) => (
               <Link
-                key={name}
-                href={`/hub/company/${name.toLowerCase()}`}
-                className="rounded-lg border border-border bg-card px-3 py-2 text-sm transition-colors hover:border-primary/30"
+                key={co.slug}
+                href={`/hub/company/${co.slug}`}
+                className="flex min-h-[44px] items-center justify-between px-4 py-3 hover:bg-muted/50 transition-colors"
               >
-                <span className="font-semibold text-card-foreground">{name}</span>
-                <span className="ml-1.5 text-muted-foreground">{count}</span>
+                <div className="flex items-center gap-3">
+                  <span className="text-sm font-bold text-muted-foreground w-6">{i + 1}</span>
+                  <span className="text-sm font-medium text-foreground">{co.name}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground">{co.articles} articles</span>
+                  {co.openRoles > 0 && (
+                    <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:text-emerald-300">
+                      {co.openRoles} roles
+                    </span>
+                  )}
+                </div>
               </Link>
             ))}
           </div>
