@@ -192,6 +192,28 @@ export default function ReportPage() {
         </div>
       </section>
 
+      {/* Difficulty Distribution */}
+      <section>
+        <h2 className="text-lg font-bold text-foreground mb-3">Difficulty Distribution</h2>
+        <div className="grid grid-cols-3 gap-3">
+          {[
+            { level: "beginner", color: "bg-emerald-500", label: "Beginner" },
+            { level: "intermediate", color: "bg-amber-500", label: "Intermediate" },
+            { level: "advanced", color: "bg-red-500", label: "Advanced" },
+          ].map(({ level, color, label }) => {
+            const count = articles.filter(a => a.difficulty === level).length;
+            const pct = articles.length > 0 ? Math.round((count / articles.length) * 100) : 0;
+            return (
+              <div key={level} className="rounded-xl border border-border bg-card p-4 text-center">
+                <div className={`mx-auto mb-2 h-3 w-3 rounded-full ${color}`} />
+                <div className="text-2xl font-bold text-foreground">{count}</div>
+                <div className="text-xs text-muted-foreground">{label} ({pct}%)</div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
       {/* Citation */}
       <section className="rounded-xl border border-dashed border-border p-5 text-center">
         <p className="text-sm text-muted-foreground">
