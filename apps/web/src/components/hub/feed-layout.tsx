@@ -393,6 +393,19 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
           articles={articles}
         />
         <div className="flex items-center gap-2">
+          <button
+            onClick={() => {
+              const unread = filteredArticles.filter(a => !readIds.has(a.id));
+              if (unread.length === 0) return;
+              const random = unread[Math.floor(Math.random() * unread.length)]!;
+              window.open(random.url, "_blank", "noopener,noreferrer");
+              markAsRead(random.id);
+            }}
+            className="min-h-[44px] inline-flex items-center gap-1 rounded-lg border border-border px-3 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
+            title="Open a random unread article"
+          >
+            🎲 Surprise Me
+          </button>
           <CopyFeedLink />
           <ViewToggle layout={layout} onChange={setLayout} />
         </div>
