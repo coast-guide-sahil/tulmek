@@ -667,6 +667,19 @@ export default async function CompanyPage({ params }: Props) {
         )}
       </div>
 
+      {/* Article stats footer */}
+      {companyArticles.length > 0 && (
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-4 rounded-lg border border-border bg-muted/30 px-4 py-3 text-xs text-muted-foreground">
+          <span>📊 {companyArticles.length} articles</span>
+          <span>·</span>
+          <span>⏱️ {Math.round(companyArticles.reduce((s, a) => s + a.readingTime, 0) / companyArticles.length)} min avg read</span>
+          <span>·</span>
+          <span>📅 {new Set(companyArticles.map(a => a.source)).size} sources</span>
+          <span>·</span>
+          <span>🏷️ {new Set(companyArticles.flatMap(a => a.topics)).size} topics covered</span>
+        </div>
+      )}
+
       {/* People Also Ask */}
       {faqItems.length > 0 && (
         <section className="mt-8">
