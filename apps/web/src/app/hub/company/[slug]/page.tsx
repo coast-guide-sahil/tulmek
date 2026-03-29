@@ -147,6 +147,16 @@ export default async function CompanyPage({ params }: Props) {
   const nowMs = new Date(feedData[0]?.aggregatedAt ?? new Date().toISOString()).getTime();
   const ranked = tulmekRank(companyArticles, nowMs, new Set(), {});
 
+  // Average actionability score (0–100)
+  const avgActionability =
+    companyArticles.length > 0
+      ? Math.round(
+          (companyArticles.reduce((sum, a) => sum + (a.actionability ?? 0), 0) /
+            companyArticles.length) *
+            100,
+        )
+      : 0;
+
   // Category breakdown
   const catCounts: Record<string, number> = {};
   for (const a of companyArticles) {
@@ -372,6 +382,13 @@ export default async function CompanyPage({ params }: Props) {
               </div>
             );
           })}
+        {avgActionability > 0 && (
+          <div className="rounded-lg border border-border bg-card p-3">
+            <p className="text-xs font-medium text-muted-foreground">Content Quality</p>
+            <p className="mt-1 text-xl font-bold text-card-foreground">{avgActionability}%</p>
+            <p className="text-xs text-muted-foreground">actionability</p>
+          </div>
+        )}
       </div>
 
       {/* Interview Profile */}
