@@ -3,7 +3,7 @@
 import { memo, useState } from "react";
 import type { FeedArticle } from "@tulmek/core/domain";
 import { getSourceTier } from "@tulmek/core/domain";
-import { TRENDING_SCORE_THRESHOLD, HOT_DISCUSSION_THRESHOLD, NEW_ARTICLE_WINDOW_MS } from "@tulmek/config/constants";
+import { TRENDING_SCORE_THRESHOLD, HOT_DISCUSSION_THRESHOLD, DISCUSSED_BADGE_THRESHOLD, NEW_ARTICLE_WINDOW_MS } from "@tulmek/config/constants";
 import { formatRelativeTime, getCategoryConfig } from "./hub-utils";
 import { CardMenu } from "./card-menu";
 
@@ -104,6 +104,11 @@ export const ContentCard = memo(function ContentCard({
                 🔥 Hot
               </span>
             )}
+            {article.commentCount >= DISCUSSED_BADGE_THRESHOLD && (
+              <span className="inline-flex items-center gap-0.5 rounded-full bg-indigo-500/10 px-1.5 py-0.5 text-[10px] font-medium text-indigo-700 dark:text-indigo-300">
+                💬 Discussed
+              </span>
+            )}
           </div>
 
           <h3 className="mt-1 text-sm font-semibold leading-normal text-card-foreground group-hover:text-primary sm:text-base">
@@ -192,6 +197,11 @@ export const ContentCard = memo(function ContentCard({
           {article.score >= 100 && (
             <span className="inline-flex items-center gap-0.5 rounded-full bg-orange-500/10 px-1.5 py-0.5 text-[10px] font-medium text-orange-700 dark:text-orange-300">
               🔥 Hot
+            </span>
+          )}
+          {article.commentCount >= DISCUSSED_BADGE_THRESHOLD && (
+            <span className="inline-flex items-center gap-0.5 rounded-full bg-indigo-500/10 px-1.5 py-0.5 text-[10px] font-medium text-indigo-700 dark:text-indigo-300">
+              💬 Discussed
             </span>
           )}
           {outcome === "offer" && (
