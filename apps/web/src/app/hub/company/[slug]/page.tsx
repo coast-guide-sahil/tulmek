@@ -391,6 +391,38 @@ export default async function CompanyPage({ params }: Props) {
         )}
       </div>
 
+      {/* Sentiment Distribution */}
+      {(() => {
+        const sentimentCounts = {
+          positive: companyArticles.filter(a => a.sentiment === "positive").length,
+          negative: companyArticles.filter(a => a.sentiment === "negative").length,
+          neutral: companyArticles.filter(a => a.sentiment === "neutral" || a.sentiment === "").length,
+        };
+        const totalSentiment = sentimentCounts.positive + sentimentCounts.negative + sentimentCounts.neutral;
+        if (totalSentiment === 0 || (sentimentCounts.positive === 0 && sentimentCounts.negative === 0)) return null;
+        return (
+          <div className="mt-4">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-xs font-medium text-muted-foreground">Interview Sentiment</span>
+              <span className="text-xs text-muted-foreground">
+                {sentimentCounts.positive} positive · {sentimentCounts.negative} negative
+              </span>
+            </div>
+            <div className="flex h-2 rounded-full overflow-hidden bg-muted">
+              {sentimentCounts.positive > 0 && (
+                <div className="bg-emerald-500 h-full" style={{ width: `${(sentimentCounts.positive / totalSentiment) * 100}%` }} />
+              )}
+              {sentimentCounts.neutral > 0 && (
+                <div className="bg-muted h-full" style={{ width: `${(sentimentCounts.neutral / totalSentiment) * 100}%` }} />
+              )}
+              {sentimentCounts.negative > 0 && (
+                <div className="bg-red-500 h-full" style={{ width: `${(sentimentCounts.negative / totalSentiment) * 100}%` }} />
+              )}
+            </div>
+          </div>
+        );
+      })()}
+
       {/* Interview Profile */}
       {(topRounds.length > 0 || topLevels.length > 0) && (
         <div className="rounded-xl border border-border bg-card p-4">
