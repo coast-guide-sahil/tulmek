@@ -84,7 +84,7 @@ export const ContentCard = memo(function ContentCard({
       <article data-category={article.category} className={`hub-card group flex items-start gap-3 rounded-xl border border-border bg-card p-3 sm:gap-4 sm:p-4 ${cardStateClass}`}>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <SourceBadge sourceName={article.sourceName} domain={article.domain} />
+            <SourceBadge sourceName={article.sourceName} domain={article.domain} source={article.source} />
             {sourceTier && <SourceTierBadge tier={sourceTier.tier} label={sourceTier.label} />}
             {article.sentiment === "positive" && (
               <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-500" title="Positive experience" />
@@ -93,6 +93,11 @@ export const ContentCard = memo(function ContentCard({
               <span className="h-2 w-2 shrink-0 rounded-full bg-red-500" title="Negative experience" />
             )}
             <span>{relativeTime}</span>
+            {article.source === "newsletter" && article.domain && (
+              <span className="truncate max-w-[120px] rounded bg-muted px-1 py-0.5 text-[9px] text-muted-foreground">
+                {article.domain}
+              </span>
+            )}
             {isFresh && <FreshBadge />}
             {isNew && <NewBadge />}
             {isTrending && <TrendingBadge />}
@@ -356,8 +361,10 @@ function formatCount(n: number): string {
 
 // ── Sub-components ──
 
-function SourceBadge({ sourceName, domain }: { sourceName: string; domain: string }) {
+function SourceBadge({ sourceName, domain, source }: { sourceName: string; domain: string; source?: string }) {
   const knownDomains = new Set(["reddit.com", "dev.to", "youtube.com", "leetcode.com", "medium.com", "github.com"]);
+  // Suppress parenthetical domain for newsletter: the list layout chip handles it; grid shows it inline only
+  const showDomainParens = !knownDomains.has(domain) && source !== "newsletter";
   return (
     <span className="flex items-center gap-1 font-medium">
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -370,7 +377,7 @@ function SourceBadge({ sourceName, domain }: { sourceName: string; domain: strin
         loading="lazy"
       />
       <span>{sourceName}</span>
-      {!knownDomains.has(domain) && (
+      {showDomainParens && (
         <span className="text-muted-foreground">({domain})</span>
       )}
     </span>
