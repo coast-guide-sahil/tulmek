@@ -188,3 +188,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 272 | #311 | Content sources breakdown on market report |
 | 273 | #312 | Difficulty distribution on market report |
 | 274 | #313 | Content refresh + all 3 platforms tested live |
+| 275 | #314 | Content quality score on company pages |
