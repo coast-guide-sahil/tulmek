@@ -192,3 +192,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 276 | #315 | Sentiment distribution bar on company pages |
 | — | #316 | Fix cron push — PR fallback for branch protection |
 | 277 | #317 | Discussed badge for articles with 20+ comments |
+| 278 | #318 | Mobile discussed badge for 20+ comments |
