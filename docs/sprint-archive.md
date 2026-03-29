@@ -199,3 +199,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 282 | #322 | Mobile reading time filter (quick + deep dive) |
 | 283 | #323 | Content refresh — 931 articles, all 3 platforms tested |
 | 284 | #324 | Surprise Me — random unread article discovery |
+| 285 | #325 | Top companies leaderboard on Market Pulse |
