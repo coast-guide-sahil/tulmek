@@ -8,6 +8,7 @@ import { ContentCard } from "./content-card";
 import { ExportReadingList } from "./export-reading-list";
 import { FeedSkeleton } from "./feed-skeleton";
 import { useToast } from "./toast";
+import { getCategoryConfig } from "./hub-utils";
 
 interface SavedFeedProps {
   readonly articles: FeedArticle[];
@@ -79,6 +80,28 @@ export function SavedFeed({ articles }: SavedFeedProps) {
           <ExportReadingList articles={articles} />
         </div>
       </div>
+
+      {/* Category breakdown of saved articles */}
+      {savedArticles.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {(() => {
+            const cats = new Map<string, number>();
+            for (const a of savedArticles) {
+              cats.set(a.category, (cats.get(a.category) ?? 0) + 1);
+            }
+            return [...cats.entries()]
+              .sort(([, a], [, b]) => b - a)
+              .map(([cat, count]) => {
+                const config = getCategoryConfig(cat);
+                return (
+                  <span key={cat} className={`rounded-full px-2 py-0.5 text-xs font-medium ${config.className}`}>
+                    {config.label} ({count})
+                  </span>
+                );
+              });
+          })()}
+        </div>
+      )}
 
       <div className="space-y-3">
         {savedArticles.map((article) => (
