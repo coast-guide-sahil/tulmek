@@ -4,6 +4,7 @@ export const APP_NAME = "TULMEK";
 /** Content thresholds — shared across all platforms */
 export const TRENDING_SCORE_THRESHOLD = 500;
 export const HOT_DISCUSSION_THRESHOLD = 100;
+export const DISCUSSED_BADGE_THRESHOLD = 20;
 export const NEW_ARTICLE_WINDOW_MS = 6 * 60 * 60 * 1000; // 6 hours
 
 /** Time constants (milliseconds) */
