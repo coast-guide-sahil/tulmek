@@ -63,3 +63,26 @@ jobs:
           git add packages/content/src/hub/
           git commit -m "chore: refresh hub content $(date -u +%Y-%m-%d)"
           git push
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Push via PR if direct push fails
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          # If direct push succeeded, skip PR creation
+          if git diff --quiet HEAD origin/main 2>/dev/null; then
+            echo "Direct push succeeded, skipping PR."
+            exit 0
+          fi
+          # Create a branch and PR for content refresh
+          BRANCH="chore/content-refresh-$(date -u +%Y%m%d-%H%M)"
+          git checkout -b "$BRANCH"
+          git push origin "$BRANCH"
+          gh pr create --title "chore: refresh hub content $(date -u +%Y-%m-%d)" \
+            --body "Automated content refresh from GitHub Actions cron." \
+            --base main --head "$BRANCH"
+          # Auto-merge if possible
+          gh pr merge "$BRANCH" --squash --auto 2>/dev/null || true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
