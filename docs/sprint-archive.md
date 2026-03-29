@@ -187,3 +187,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 271 | #310 | Improved scroll-to-top (fade animation, lower threshold) |
 | 272 | #311 | Content sources breakdown on market report |
 | 273 | #312 | Difficulty distribution on market report |
+| 274 | #313 | Content refresh + all 3 platforms tested live |
