@@ -194,3 +194,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 277 | #317 | Discussed badge for articles with 20+ comments |
 | 278 | #318 | Mobile discussed badge for 20+ comments |
 | 279 | #319 | Final content refresh — 936 articles, all platforms tested |
+| 280 | #320 | Domain chip on newsletter articles in list view |
