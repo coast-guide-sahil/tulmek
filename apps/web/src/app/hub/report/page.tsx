@@ -33,6 +33,23 @@ export default function ReportPage() {
     .sort(([, a], [, b]) => b - a)
     .map(([src, count]) => ({ label: getSourceLabel(src), count, pct: Math.round((count / feedMeta.totalArticles) * 100) }));
 
+  // Content sources (computed from live articles array)
+  const sourceCounts = (() => {
+    const counts = new Map<string, number>();
+    for (const a of articles) {
+      counts.set(a.source, (counts.get(a.source) ?? 0) + 1);
+    }
+    const total = articles.length;
+    return [...counts.entries()]
+      .map(([source, count]) => ({
+        source,
+        label: getSourceLabel(source),
+        count,
+        pct: Math.round((count / total) * 100),
+      }))
+      .sort((a, b) => b.count - a.count);
+  })();
+
   // Top companies
   const DISPLAY_NAMES: Record<string, string> = {
     google: "Google", amazon: "Amazon", meta: "Meta", apple: "Apple",
@@ -152,6 +169,24 @@ export default function ReportPage() {
                 <div className="h-full rounded-full bg-primary/60" style={{ width: `${(src.count / srcDist[0]!.count) * 100}%` }} />
               </div>
               <span className="w-16 text-right text-sm font-medium text-card-foreground">{src.count} ({src.pct}%)</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Content Sources */}
+      <section>
+        <h2 className="text-lg font-bold text-foreground mb-3">Content Sources</h2>
+        <div className="rounded-xl border border-border bg-card p-4 space-y-3">
+          {sourceCounts.map(s => (
+            <div key={s.source}>
+              <div className="flex justify-between mb-1">
+                <span className="text-sm text-foreground">{s.label}</span>
+                <span className="text-xs text-muted-foreground">{s.count} ({s.pct}%)</span>
+              </div>
+              <div className="h-2 rounded-full bg-muted overflow-hidden">
+                <div className="h-full rounded-full bg-primary" style={{ width: `${s.pct}%` }} />
+              </div>
             </div>
           ))}
         </div>
