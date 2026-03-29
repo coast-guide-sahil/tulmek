@@ -13,7 +13,7 @@ import { useThemeColors } from "../../src/hooks/useThemeColors";
 import type { ThemeColors } from "../../src/hooks/useThemeColors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Link } from "expo-router";
-import { APP_NAME, TRENDING_SCORE_THRESHOLD, NEW_ARTICLE_WINDOW_MS, STORAGE_KEYS } from "@tulmek/config/constants";
+import { APP_NAME, TRENDING_SCORE_THRESHOLD, NEW_ARTICLE_WINDOW_MS, STORAGE_KEYS, DISCUSSED_BADGE_THRESHOLD } from "@tulmek/config/constants";
 import type { FeedArticle, HubCategory } from "@tulmek/core/domain";
 import {
   tulmekRank,
@@ -159,6 +159,11 @@ function ArticleCard({ article, nowMs, isBookmarked, onToggleBookmark, t }: {
         {isNew && (
           <View style={styles.freshBadge}>
             <Text style={styles.freshBadgeText}>Fresh</Text>
+          </View>
+        )}
+        {article.commentCount >= DISCUSSED_BADGE_THRESHOLD && (
+          <View style={styles.discussedBadge}>
+            <Text style={styles.discussedBadgeText}>💬 Discussed</Text>
           </View>
         )}
       </View>
@@ -801,6 +806,8 @@ const styles = StyleSheet.create({
   hotBadgeText: { fontSize: 10, fontWeight: "600" as const, color: "#f97316" },
   freshBadge: { backgroundColor: "#10b98120", borderRadius: 8, paddingHorizontal: 6, paddingVertical: 2 },
   freshBadgeText: { fontSize: 10, fontWeight: "600" as const, color: "#10b981" },
+  discussedBadge: { backgroundColor: "#6366f120", borderRadius: 8, paddingHorizontal: 6, paddingVertical: 2 },
+  discussedBadgeText: { fontSize: 10, fontWeight: "600" as const, color: "#6366f1" },
   cardTitle: { fontSize: 15, fontWeight: "700", lineHeight: 22 },
   cardExcerpt: { fontSize: 13, marginTop: 6, lineHeight: 20 },
   cardFooter: { flexDirection: "row" as const, alignItems: "center" as const, justifyContent: "space-between" as const, marginTop: 10 },
