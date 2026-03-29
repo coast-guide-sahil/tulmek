@@ -196,3 +196,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 279 | #319 | Final content refresh — 936 articles, all platforms tested |
 | 280 | #320 | Domain chip on newsletter articles in list view |
 | 281 | #321 | Reading time filter (quick reads + deep dives) |
+| 282 | #322 | Mobile reading time filter (quick + deep dive) |
