@@ -204,3 +204,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 287 | #327 | Quick filter presets (Senior Prep, Quick Wins, Comp Intel...) |
 | 288 | #328 | Active filters summary bar with removable chips |
 | 289 | #329 | Article stats footer on company pages |
+| 290 | #330 | Content refresh 942 articles — all 3 platforms tested live |
