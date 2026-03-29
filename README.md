@@ -4,7 +4,7 @@
 
 ### AI-Powered Interview Prep Knowledge Hub
 
-**942 articles from 27+ sources, AI-ranked. Refreshed every 3 hours. Zero backend. 100+ PRs shipped.**
+**932 articles from 27+ sources, AI-ranked. Refreshed every 3 hours. Zero backend. 100+ PRs shipped.**
 
 <img src="docs/tulmek-demo.gif" alt="TULMEK Demo" width="700" />
 
