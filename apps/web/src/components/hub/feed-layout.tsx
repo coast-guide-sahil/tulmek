@@ -548,6 +548,85 @@ export function FeedLayout({ articles }: FeedLayoutProps) {
         onCompanyClick={setActiveCompany}
       />
 
+      {/* Active filters summary bar */}
+      {hasActiveFilters && (
+        <div className="flex flex-wrap items-center gap-1.5 rounded-lg bg-muted/50 px-3 py-2">
+          <span className="text-xs text-muted-foreground mr-1">Filters:</span>
+
+          {activeCategory && (
+            <button
+              onClick={() => setActiveCategory(null)}
+              className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary hover:bg-primary/20"
+            >
+              {getCategoryMeta(activeCategory).emoji} {getCategoryMeta(activeCategory).label} ×
+            </button>
+          )}
+          {difficultyFilter && (
+            <button
+              onClick={() => setDifficultyFilter(null)}
+              className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary hover:bg-primary/20"
+            >
+              {difficultyFilter} ×
+            </button>
+          )}
+          {actionableOnly && (
+            <button
+              onClick={() => setActionableOnly(false)}
+              className="inline-flex items-center gap-1 rounded-full bg-cyan-500/10 px-2 py-0.5 text-xs text-cyan-700 dark:text-cyan-300 hover:bg-cyan-500/20"
+            >
+              ⚡ Actionable ×
+            </button>
+          )}
+          {sentimentFilter && (
+            <button
+              onClick={() => setSentimentFilter(null)}
+              className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary hover:bg-primary/20"
+            >
+              {sentimentFilter === "positive" ? "😊" : "😟"} {sentimentFilter} ×
+            </button>
+          )}
+          {readingTimeFilter && (
+            <button
+              onClick={() => setReadingTimeFilter(null)}
+              className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary hover:bg-primary/20"
+            >
+              {readingTimeFilter === "quick" ? "⚡ Quick" : "📖 Deep"} ×
+            </button>
+          )}
+          {sourceFilter && (
+            <button
+              onClick={() => setSourceFilter(null)}
+              className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary hover:bg-primary/20"
+            >
+              {getSourceLabel(sourceFilter)} ×
+            </button>
+          )}
+          {timeRange !== "all" && (
+            <button
+              onClick={() => setTimeRange("all")}
+              className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary hover:bg-primary/20"
+            >
+              {timeRange === "today" ? "Today" : timeRange === "week" ? "This week" : "This month"} ×
+            </button>
+          )}
+          {searchQuery.trim() && (
+            <button
+              onClick={() => setSearchQuery("")}
+              className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary hover:bg-primary/20"
+            >
+              🔍 &ldquo;{searchQuery}&rdquo; ×
+            </button>
+          )}
+
+          <button
+            onClick={handleClearFilters}
+            className="ml-auto text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+          >
+            Clear all
+          </button>
+        </div>
+      )}
+
       {/* Screen reader announcement for filter results */}
       <div className="sr-only" aria-live="polite" role="status">
         {hasActiveFilters
