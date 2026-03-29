@@ -202,3 +202,4 @@ Completed sprints. Not auto-loaded by Claude — only read when needed for histo
 | 285 | #325 | Top companies leaderboard on Market Pulse |
 | 286 | — | Final all-platform live test + sprint board cleanup |
 | 287 | #327 | Quick filter presets (Senior Prep, Quick Wins, Comp Intel...) |
+| 288 | #328 | Active filters summary bar with removable chips |
