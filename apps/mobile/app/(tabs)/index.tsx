@@ -389,6 +389,7 @@ export default function HomeScreen() {
   const [difficultyFilter, setDifficultyFilter] = useState<DifficultyLevel | null>(null);
   const [actionableOnly, setActionableOnly] = useState(false);
   const [sentimentFilter, setSentimentFilter] = useState<string | null>(null);
+  const [readingTimeFilter, setReadingTimeFilter] = useState<"quick" | "deep" | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortMode, setSortMode] = useState<SortMode>("for-you");
   const listRef = useRef<FlashListRef<FeedArticle>>(null);
@@ -423,6 +424,9 @@ export default function HomeScreen() {
       result = result.filter((a) => a.sentiment === sentimentFilter);
     }
 
+    if (readingTimeFilter === "quick") result = result.filter((a) => a.readingTime <= 3);
+    if (readingTimeFilter === "deep") result = result.filter((a) => a.readingTime >= 10);
+
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       result = result.filter(
@@ -451,7 +455,7 @@ export default function HomeScreen() {
         result.sort((a, b) => b.score - a.score);
         return result;
     }
-  }, [activeCategory, difficultyFilter, actionableOnly, sentimentFilter, searchQuery, sortMode, nowMs]);
+  }, [activeCategory, difficultyFilter, actionableOnly, sentimentFilter, readingTimeFilter, searchQuery, sortMode, nowMs]);
 
   const renderItem = useCallback(
     ({ item }: ListRenderItemInfo<FeedArticle>) => (
@@ -645,6 +649,48 @@ export default function HomeScreen() {
                   😟 Negative
                 </Text>
               </Pressable>
+              <Pressable
+                onPress={() => {
+                  const next = readingTimeFilter === "quick" ? null : "quick";
+                  setReadingTimeFilter(next);
+                  void Haptics.selectionAsync();
+                }}
+                style={[
+                  styles.readingTimeChip,
+                  { backgroundColor: readingTimeFilter === "quick" ? "#3b82f6" : t.chipBg },
+                ]}
+                accessibilityRole="button"
+                accessibilityState={{ selected: readingTimeFilter === "quick" }}
+                accessibilityLabel="Filter to quick reads (3 minutes or less)"
+              >
+                <Text style={[
+                  styles.readingTimeChipText,
+                  { color: readingTimeFilter === "quick" ? "#fff" : t.textMuted },
+                ]}>
+                  ⚡ Quick
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={() => {
+                  const next = readingTimeFilter === "deep" ? null : "deep";
+                  setReadingTimeFilter(next);
+                  void Haptics.selectionAsync();
+                }}
+                style={[
+                  styles.readingTimeChip,
+                  { backgroundColor: readingTimeFilter === "deep" ? "#8b5cf6" : t.chipBg },
+                ]}
+                accessibilityRole="button"
+                accessibilityState={{ selected: readingTimeFilter === "deep" }}
+                accessibilityLabel="Filter to deep dive reads (10 minutes or more)"
+              >
+                <Text style={[
+                  styles.readingTimeChipText,
+                  { color: readingTimeFilter === "deep" ? "#fff" : t.textMuted },
+                ]}>
+                  📖 Deep
+                </Text>
+              </Pressable>
             </View>
 
             {/* Sort */}
@@ -747,6 +793,14 @@ const styles = StyleSheet.create({
     justifyContent: "center" as const,
   },
   sentimentChipText: { fontSize: 13, fontWeight: "600" as const },
+  readingTimeChip: {
+    minHeight: 44,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: 20,
+    justifyContent: "center" as const,
+  },
+  readingTimeChipText: { fontSize: 13, fontWeight: "600" as const },
 
   // Sort picker
   sortList: { paddingHorizontal: 12, paddingVertical: 4, gap: 6 },
