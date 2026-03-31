@@ -13,7 +13,7 @@
   "dependencies": {
     "@babel/runtime": "^7.29.2",
     "@expo/metro-runtime": "^55.0.7",
-    "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-native-async-storage/async-storage": "3.0.2",
     "@shopify/flash-list": "^2.0.2",
     "@tulmek/config": "workspace:*",
     "@tulmek/content": "workspace:*",
