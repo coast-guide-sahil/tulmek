@@ -46,7 +46,7 @@ jobs:
       - name: Run tests with coverage
         run: pnpm turbo test -- --coverage
       - name: Upload coverage artifacts
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: coverage-reports
@@ -118,7 +118,7 @@ jobs:
         env:
           PLAYWRIGHT_BASE_URL: http://localhost:3000
       - name: Upload Playwright report
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
@@ -161,7 +161,7 @@ jobs:
         env:
           PLAYWRIGHT_BASE_URL: http://localhost:3000
       - name: Upload a11y report
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: a11y-report
