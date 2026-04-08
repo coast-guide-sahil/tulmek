@@ -1,5 +1,82 @@
 # Changelog
 
+## [1.4.0](https://github.com/coast-guide-sahil/tulmek/compare/web-v1.3.0...web-v1.4.0) (2026-03-29)
+
+
+### Features
+
+* /hub/questions — searchable interview question bank ([#240](https://github.com/coast-guide-sahil/tulmek/issues/240)) ([dc87a46](https://github.com/coast-guide-sahil/tulmek/commit/dc87a462017049ef794a2c63e460a812d8b65612))
+* actionability badge on high-value articles ([#286](https://github.com/coast-guide-sahil/tulmek/issues/286)) ([ef52fab](https://github.com/coast-guide-sahil/tulmek/commit/ef52fab859980cda4e62d0a580eb152e8634f2e1))
+* actionable-only filter toggle ([#296](https://github.com/coast-guide-sahil/tulmek/issues/296)) ([e3343bd](https://github.com/coast-guide-sahil/tulmek/commit/e3343bda3d895a6235c651ad3f99670b9450607d))
+* add 3 job APIs + 4 newsletter feeds ([#227](https://github.com/coast-guide-sahil/tulmek/issues/227)) ([9002f9a](https://github.com/coast-guide-sahil/tulmek/commit/9002f9a2c6ac494d8323c1c3ea7abd75160aa1e9))
+* add 3 podcast rss feeds ([#268](https://github.com/coast-guide-sahil/tulmek/issues/268)) ([59c0848](https://github.com/coast-guide-sahil/tulmek/commit/59c0848564ad88d2f181655972c0e3502fb6f50b))
+* add arbeitnow — european tech jobs ([#259](https://github.com/coast-guide-sahil/tulmek/issues/259)) ([b060b34](https://github.com/coast-guide-sahil/tulmek/commit/b060b34b4de063b9754bae641acb2d3fa7672e4d))
+* add arxiv cs/ml research papers ([#262](https://github.com/coast-guide-sahil/tulmek/issues/262)) ([2dd7c1e](https://github.com/coast-guide-sahil/tulmek/commit/2dd7c1ee01e45f50a6c281ece5843c89a3e58bc3))
+* add github trending rss — skills demand ([#247](https://github.com/coast-guide-sahil/tulmek/issues/247)) ([6537855](https://github.com/coast-guide-sahil/tulmek/commit/6537855ff7eeea7b90e05f26c5e1a15d8d05cf0d))
+* add greenhouse + lever public job board apis ([#233](https://github.com/coast-guide-sahil/tulmek/issues/233)) ([6fadfcf](https://github.com/coast-guide-sahil/tulmek/commit/6fadfcf802ab675a80578cd5e172820fb07623ed))
+* add h1b visa sponsorship jobs ([#254](https://github.com/coast-guide-sahil/tulmek/issues/254)) ([6d89968](https://github.com/coast-guide-sahil/tulmek/commit/6d89968286747302c03975702cc4942bbc891749))
+* add simplifyjobs intern tracker ([#271](https://github.com/coast-guide-sahil/tulmek/issues/271)) ([634ee81](https://github.com/coast-guide-sahil/tulmek/commit/634ee81ac8fd9f003c0d5d9f419937192f583665))
+* add stack overflow tech questions ([#261](https://github.com/coast-guide-sahil/tulmek/issues/261)) ([f2b37a3](https://github.com/coast-guide-sahil/tulmek/commit/f2b37a32f65a93b68334880c4efab805532099d0))
+* add warn firehose — layoff signals ([#245](https://github.com/coast-guide-sahil/tulmek/issues/245)) ([5b1b508](https://github.com/coast-guide-sahil/tulmek/commit/5b1b508f7bae60a5babeaa48638113cc835a6c89))
+* category emojis in nav tabs ([#309](https://github.com/coast-guide-sahil/tulmek/issues/309)) ([8b19bab](https://github.com/coast-guide-sahil/tulmek/commit/8b19bab391ceda34600f17059a7fdc982990ea49))
+* category trends on pulse page ([#293](https://github.com/coast-guide-sahil/tulmek/issues/293)) ([50e4b3b](https://github.com/coast-guide-sahil/tulmek/commit/50e4b3bd16dd69060d1344833686d601aff940c5))
+* company page interview questions + json-ld ([#241](https://github.com/coast-guide-sahil/tulmek/issues/241)) ([c817a97](https://github.com/coast-guide-sahil/tulmek/commit/c817a9795efdc79567c49bdbade0373143a550bc))
+* company quick links bar ([#299](https://github.com/coast-guide-sahil/tulmek/issues/299)) ([3e3e8c3](https://github.com/coast-guide-sahil/tulmek/commit/3e3e8c3cfa4eb0f57bf516c8ddb49d591c492693))
+* content quality score on company pages ([#314](https://github.com/coast-guide-sahil/tulmek/issues/314)) ([9958081](https://github.com/coast-guide-sahil/tulmek/commit/9958081e131a2a89b99c6c0b2f5ebf3eaa94513d))
+* content refresh — 1292 articles from 15+ sources ([#229](https://github.com/coast-guide-sahil/tulmek/issues/229)) ([d750d7e](https://github.com/coast-guide-sahil/tulmek/commit/d750d7eee53c7dcdce613f8f2e8a77793d1172f2))
+* content refresh — 935 articles, all platforms tested ([#306](https://github.com/coast-guide-sahil/tulmek/issues/306)) ([d96f567](https://github.com/coast-guide-sahil/tulmek/commit/d96f567b03d9c6d5af22ae21397d6aa0d5eed098))
+* content sources on market report ([#311](https://github.com/coast-guide-sahil/tulmek/issues/311)) ([6a2cfc6](https://github.com/coast-guide-sahil/tulmek/commit/6a2cfc6c10fcb7cab611d07adf54b1e68a701b37))
+* daily question widget ([#257](https://github.com/coast-guide-sahil/tulmek/issues/257)) ([3b80cd6](https://github.com/coast-guide-sahil/tulmek/commit/3b80cd6fb13b9d7696c0394b6ff837a4e9a663be))
+* difficulty distribution on report ([#312](https://github.com/coast-guide-sahil/tulmek/issues/312)) ([90e2a24](https://github.com/coast-guide-sahil/tulmek/commit/90e2a2419c7df212f437daeb606622c1d5db5414))
+* difficulty filter — beginner/intermediate/advanced ([#277](https://github.com/coast-guide-sahil/tulmek/issues/277)) ([f9eb0d9](https://github.com/coast-guide-sahil/tulmek/commit/f9eb0d9b36723fedee165250bc65ae7df562dd03))
+* discovery badges for unexplored categories ([#232](https://github.com/coast-guide-sahil/tulmek/issues/232)) ([55203f0](https://github.com/coast-guide-sahil/tulmek/commit/55203f0896731e586f672b3123167c4e4e38d968))
+* discussed badge for popular discussions ([#317](https://github.com/coast-guide-sahil/tulmek/issues/317)) ([171704c](https://github.com/coast-guide-sahil/tulmek/commit/171704c3bbb9947e94ac6ca08aafc57579296c9e))
+* domain chip on newsletter articles ([#320](https://github.com/coast-guide-sahil/tulmek/issues/320)) ([e15d83d](https://github.com/coast-guide-sahil/tulmek/commit/e15d83d69d742295b8dc450c813f9a1ab788beb0))
+* dynamic reading time estimates ([#281](https://github.com/coast-guide-sahil/tulmek/issues/281)) ([8895aca](https://github.com/coast-guide-sahil/tulmek/commit/8895aca789a57a868db35ad3ccc2e33a9fe324ca))
+* enhanced hiring status badges ([#258](https://github.com/coast-guide-sahil/tulmek/issues/258)) ([d52ff9d](https://github.com/coast-guide-sahil/tulmek/commit/d52ff9dd30ceda73b1ac20f56e320f49e1b5e791))
+* filtered category counts on tabs ([#302](https://github.com/coast-guide-sahil/tulmek/issues/302)) ([7fed00a](https://github.com/coast-guide-sahil/tulmek/commit/7fed00a3912489d484ed8a4f7c95779a4c7bf9c2))
+* first-visit preference quiz — instant personalization ([#235](https://github.com/coast-guide-sahil/tulmek/issues/235)) ([7cd704b](https://github.com/coast-guide-sahil/tulmek/commit/7cd704be265a855869e840d1d2212ced39ea5372))
+* fresh badge for recent articles ([#291](https://github.com/coast-guide-sahil/tulmek/issues/291)) ([a9775a7](https://github.com/coast-guide-sahil/tulmek/commit/a9775a7c86354812c8b2b2c28cca8c6b67aa0b49))
+* gemini embeddings + story clustering — adr-003 sprint b ([#237](https://github.com/coast-guide-sahil/tulmek/issues/237)) ([a361058](https://github.com/coast-guide-sahil/tulmek/commit/a3610589837f0f6206be8749e633259eaca37e70))
+* hot badge for popular articles ([#307](https://github.com/coast-guide-sahil/tulmek/issues/307)) ([f0e7acc](https://github.com/coast-guide-sahil/tulmek/commit/f0e7acc623c9ac50d936f355fc1942a42ecb2f2a))
+* improved no-results empty state ([#303](https://github.com/coast-guide-sahil/tulmek/issues/303)) ([e0fb58d](https://github.com/coast-guide-sahil/tulmek/commit/e0fb58d0a323c14c86332f8043ec6234e0db62bb))
+* improved podcast rss parsing ([#275](https://github.com/coast-guide-sahil/tulmek/issues/275)) ([f3ebd02](https://github.com/coast-guide-sahil/tulmek/commit/f3ebd02afd0fc4945c35e9c8190aabaedbc6eed5))
+* improved scroll-to-top button ([#310](https://github.com/coast-guide-sahil/tulmek/issues/310)) ([71dbe1f](https://github.com/coast-guide-sahil/tulmek/commit/71dbe1f0f5f9bd60afb42bb7cafba8ade55c93a7))
+* interview countdown daily tips ([#289](https://github.com/coast-guide-sahil/tulmek/issues/289)) ([24e5d02](https://github.com/coast-guide-sahil/tulmek/commit/24e5d0259164ae6f6879450d24f0ad70db8e870f))
+* interview question intelligence — data model + extraction ([#239](https://github.com/coast-guide-sahil/tulmek/issues/239)) ([8e9bce5](https://github.com/coast-guide-sahil/tulmek/commit/8e9bce567aabe884ac62449d46fb1ad743d33495))
+* iqi question dedup — simhash + jaccard merging ([#246](https://github.com/coast-guide-sahil/tulmek/issues/246)) ([45b9fc3](https://github.com/coast-guide-sahil/tulmek/commit/45b9fc309f73b8c879c8db7a0101bd5206bc498a))
+* keyboard shortcut help overlay ([#260](https://github.com/coast-guide-sahil/tulmek/issues/260)) ([ccb2e1a](https://github.com/coast-guide-sahil/tulmek/commit/ccb2e1a0a08377137f2c578fc034a6524f8400be))
+* live hiring role counts on company badges ([#269](https://github.com/coast-guide-sahil/tulmek/issues/269)) ([b6fea3d](https://github.com/coast-guide-sahil/tulmek/commit/b6fea3d4fcef2796698e5772f17431d89d451d0f))
+* live platform stats in footer ([#298](https://github.com/coast-guide-sahil/tulmek/issues/298)) ([b867e85](https://github.com/coast-guide-sahil/tulmek/commit/b867e8561818c123a16a8217d6b1e0ea437719a7))
+* prep me for company — personalized study plan ([#270](https://github.com/coast-guide-sahil/tulmek/issues/270)) ([536f756](https://github.com/coast-guide-sahil/tulmek/commit/536f7568b054b176f809f129d747984816291c5f))
+* reading progress bar ([#304](https://github.com/coast-guide-sahil/tulmek/issues/304)) ([bdceebf](https://github.com/coast-guide-sahil/tulmek/commit/bdceebf344007b7ac3d0b508ae833d36b9f95a46))
+* reading time filter ([#321](https://github.com/coast-guide-sahil/tulmek/issues/321)) ([bd64f4b](https://github.com/coast-guide-sahil/tulmek/commit/bd64f4b8f1368b1763d80094a9c9b95d109b851b))
+* related articles — cross-company recommendations ([#267](https://github.com/coast-guide-sahil/tulmek/issues/267)) ([b08cc71](https://github.com/coast-guide-sahil/tulmek/commit/b08cc71412834e102bd7005b60b908228983a234))
+* search suggestions from trending topics ([#273](https://github.com/coast-guide-sahil/tulmek/issues/273)) ([a7b1158](https://github.com/coast-guide-sahil/tulmek/commit/a7b115850d4e7c0cf193c4303218d62506e2e69f))
+* sentiment distribution on company pages ([#315](https://github.com/coast-guide-sahil/tulmek/issues/315)) ([14d3628](https://github.com/coast-guide-sahil/tulmek/commit/14d362805d58f799d2d6c5baf1d3f3470c338ab0))
+* sentiment filter toggles ([#300](https://github.com/coast-guide-sahil/tulmek/issues/300)) ([31933d8](https://github.com/coast-guide-sahil/tulmek/commit/31933d8f33f6b82d11de38f36eb8e20f618cb834))
+* sentiment indicators on article cards ([#283](https://github.com/coast-guide-sahil/tulmek/issues/283)) ([609c9a4](https://github.com/coast-guide-sahil/tulmek/commit/609c9a48f98814ed79a48013eb88f9e826b11128))
+* source credibility badges ([#280](https://github.com/coast-guide-sahil/tulmek/issues/280)) ([a435442](https://github.com/coast-guide-sahil/tulmek/commit/a435442732b5891510c87f213306e30bbaa5cb85))
+* source distribution chart on pulse ([#292](https://github.com/coast-guide-sahil/tulmek/issues/292)) ([865154b](https://github.com/coast-guide-sahil/tulmek/commit/865154b8cf7ecdee056251e697e160cce16859fa))
+* streak milestone celebrations with confetti ([#231](https://github.com/coast-guide-sahil/tulmek/issues/231)) ([337a43d](https://github.com/coast-guide-sahil/tulmek/commit/337a43d27f6ad6d1ba8073d9f103f797ad5e2ecc))
+* surprise me — random article discovery ([#324](https://github.com/coast-guide-sahil/tulmek/issues/324)) ([f49e0d3](https://github.com/coast-guide-sahil/tulmek/commit/f49e0d3f80527b8105a4ee08acad058ac15746e4))
+* top companies leaderboard on pulse ([#325](https://github.com/coast-guide-sahil/tulmek/issues/325)) ([8a764e2](https://github.com/coast-guide-sahil/tulmek/commit/8a764e27e9482ed825f5aaf3e081da4d9e39097c))
+* topic pills on article cards ([#284](https://github.com/coast-guide-sahil/tulmek/issues/284)) ([8a2e9f9](https://github.com/coast-guide-sahil/tulmek/commit/8a2e9f93b2c35fe023576f80730c5ee820de868b))
+* trending topics ui bar ([#253](https://github.com/coast-guide-sahil/tulmek/issues/253)) ([273e7ed](https://github.com/coast-guide-sahil/tulmek/commit/273e7edf95ce6758e55c1164601583aa8dfeea78))
+* unified ai enrichment pipeline — adr-003 sprint a ([#230](https://github.com/coast-guide-sahil/tulmek/issues/230)) ([94816d4](https://github.com/coast-guide-sahil/tulmek/commit/94816d48508ec3459669a6a8c140cbf0b497970f))
+* weekly prep summary widget ([#279](https://github.com/coast-guide-sahil/tulmek/issues/279)) ([484fddc](https://github.com/coast-guide-sahil/tulmek/commit/484fddc2169be73a07fc3fd70e2ca5df5c2b7879))
+
+
+### Bug Fixes
+
+* critical duplicate article bug + dead code cleanup ([#238](https://github.com/coast-guide-sahil/tulmek/issues/238)) ([b6df3fa](https://github.com/coast-guide-sahil/tulmek/commit/b6df3faf9c7e6910750b79e033262f28e3e311cd))
+* remove api/subscribe breaking tauri static export ([#256](https://github.com/coast-guide-sahil/tulmek/issues/256)) ([c714b31](https://github.com/coast-guide-sahil/tulmek/commit/c714b3148d04e90f856f5278d17106a7bcbde1fd))
+
+
+### Performance Improvements
+
+* migrate mobile to flashlist + gitignore .expo ([#243](https://github.com/coast-guide-sahil/tulmek/issues/243)) ([b72339c](https://github.com/coast-guide-sahil/tulmek/commit/b72339c179e3922fa494988f0574036a43ff9101))
+
 ## [1.3.0](https://github.com/coast-guide-sahil/tulmek/compare/web-v1.2.0...web-v1.3.0) (2026-03-28)
 
 
