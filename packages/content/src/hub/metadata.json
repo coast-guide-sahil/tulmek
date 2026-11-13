@@ -1,24 +1,23 @@
 {
-  "lastRefreshedAt": "2026-03-29T09:51:49.668Z",
-  "totalArticles": 942,
+  "lastRefreshedAt": "2026-11-13T04:53:26.232Z",
+  "totalArticles": 607,
   "sourceBreakdown": {
-    "github": 26,
-    "reddit": 309,
-    "hackernews": 118,
-    "newsletter": 180,
-    "leetcode": 61,
-    "devto": 176,
-    "medium": 45,
-    "youtube": 27
+    "github": 28,
+    "hackernews": 132,
+    "newsletter": 188,
+    "leetcode": 106,
+    "devto": 99,
+    "medium": 48,
+    "youtube": 6
   },
   "categoryBreakdown": {
-    "general": 153,
-    "dsa": 86,
-    "compensation": 146,
-    "career": 299,
-    "ai-ml": 71,
-    "interview-experience": 43,
-    "system-design": 138,
-    "behavioral": 6
+    "career": 214,
+    "general": 78,
+    "ai-ml": 48,
+    "interview-experience": 52,
+    "dsa": 75,
+    "compensation": 100,
+    "system-design": 38,
+    "behavioral": 2
   }
 }
